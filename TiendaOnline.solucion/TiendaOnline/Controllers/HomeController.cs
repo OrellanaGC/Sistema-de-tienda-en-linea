@@ -12,7 +12,9 @@ namespace TiendaOnline.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var entities = new tiendaonlineDBContext();
+
+            return View(model: entities.Categoria.ToList());
         }
 
         public IActionResult About()
