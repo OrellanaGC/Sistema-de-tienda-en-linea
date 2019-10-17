@@ -1,0 +1,9 @@
+C:\Users\Usuario\Desktop\TOO\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\TiendaOnline.csprojAssemblyReference.cache
+C:\Users\Usuario\Desktop\TOO\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\TiendaOnline.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Desktop\TOO\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
+C:\Users\Usuario\Desktop\TOO\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\TiendaOnline.AssemblyInfoInputs.cache
+C:\Users\Usuario\Desktop\TOO\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\TiendaOnline.AssemblyInfo.cs
+C:\Users\Usuario\Desktop\TOO\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\TiendaOnline.dll
+C:\Users\Usuario\Desktop\TOO\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\TiendaOnline.pdb
+C:\Users\Usuario\Desktop\TOO\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\TiendaOnline.TagHelpers.input.cache
+C:\Users\Usuario\Desktop\TOO\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\TiendaOnline.TagHelpers.output.cache

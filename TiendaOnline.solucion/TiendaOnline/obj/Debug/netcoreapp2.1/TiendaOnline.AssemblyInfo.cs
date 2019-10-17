@@ -18,6 +18,9 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyProductAttribute("TiendaOnline")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TiendaOnline")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
+[assembly: Microsoft.AspNetCore.Razor.Hosting.RazorLanguageVersionAttribute("2.1")]
+[assembly: Microsoft.AspNetCore.Razor.Hosting.RazorConfigurationNameAttribute("MVC-2.1")]
+[assembly: Microsoft.AspNetCore.Razor.Hosting.RazorExtensionAssemblyNameAttribute("MVC-2.1", "Microsoft.AspNetCore.Mvc.Razor.Extensions")]
 
 // Generado por la clase WriteCodeFragment de MSBuild.
 
