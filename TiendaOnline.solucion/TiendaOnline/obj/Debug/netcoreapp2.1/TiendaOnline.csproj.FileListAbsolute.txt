@@ -33,4 +33,3 @@ C:\Users\Mich\Documents\tooVS\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj
 C:\Users\Mich\Documents\tooVS\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\TiendaOnline.pdb
 C:\Users\Mich\Documents\tooVS\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\TiendaOnline.csproj.CopyComplete
 C:\Users\Mich\Documents\tooVS\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
-C:\Users\Mich\Documents\tooVS\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index1.g.cshtml.cs

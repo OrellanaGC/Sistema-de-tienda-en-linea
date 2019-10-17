@@ -44,7 +44,7 @@ namespace TiendaOnline.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-97D2E6U\\SQLEXPRESS;Database=tiendaonlineDB;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.\\GRUPO08;Database=tiendaonlineDB;Trusted_Connection=True;");
             }
         }
 
