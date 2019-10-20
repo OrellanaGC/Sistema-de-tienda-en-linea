@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TiendaOnline.Models
 {
@@ -11,7 +12,7 @@ namespace TiendaOnline.Models
             DetalledevendedorTarIdTarjetaNavigation = new HashSet<Detalledevendedor>();
             Tipodepago = new HashSet<Tipodepago>();
         }
-
+        [Key]
         public int IdTarjeta { get; set; }
         public int? IdVendedor { get; set; }
         public int? CodigoTarjeta { get; set; }

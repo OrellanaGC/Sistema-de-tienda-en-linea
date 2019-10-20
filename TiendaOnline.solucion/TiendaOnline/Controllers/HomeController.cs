@@ -4,24 +4,43 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TiendaOnline.Data.Interfaces;
 using TiendaOnline.Models;
+using TiendaOnline.ViewModels;
 
 namespace TiendaOnline.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ICategoria _categoria;
+        private readonly IProducto _producto;
+
+        public HomeController(ICategoria categoria, IProducto producto)
+        {
+            _categoria = categoria;
+            _producto = producto;
+        }
+        
+        public ViewResult Index()
+        {
+            //ViewBag para pasar datos del controlador a la vista
+            ViewBag.Nombre = "Esto esta en el controlador ;)";
+            var productos = _producto.Productos;
+
+            ListaProductoVM vm = new ListaProductoVM();
+            vm.Productos = _producto.Productos;
+           // vm.CategoriaSeleccionada = "Categoria de productos";
+
+            return View(vm);
+        }
+
+
+
+        public IActionResult Categoria()
         {
             var entities = new tiendaonlineDBContext();
 
             return View(model: entities.Categoria.ToList());
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
         }
 
         public IActionResult Contact()

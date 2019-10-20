@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TiendaOnline.Models
 {
@@ -9,7 +10,7 @@ namespace TiendaOnline.Models
         {
             Orden = new HashSet<Orden>();
         }
-
+        [Key]
         public int IdMetododeenvio { get; set; }
         public int? IdEmpresa { get; set; }
         public string NombreMetododeenvio { get; set; }

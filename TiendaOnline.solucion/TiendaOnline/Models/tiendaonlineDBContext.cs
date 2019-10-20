@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -15,7 +16,7 @@ namespace TiendaOnline.Models
         {
         }
 
-        public virtual DbSet<Categoria> Categoria { get; set; }
+        public DbSet<Categoria> Categoria { get; set; }
         public virtual DbSet<Cupon> Cupon { get; set; }
         public virtual DbSet<Departamento> Departamento { get; set; }
         public virtual DbSet<Detalledeproducto> Detalledeproducto { get; set; }
@@ -28,7 +29,7 @@ namespace TiendaOnline.Models
         public virtual DbSet<Municipio> Municipio { get; set; }
         public virtual DbSet<Orden> Orden { get; set; }
         public virtual DbSet<Paypal> Paypal { get; set; }
-        public virtual DbSet<Producto> Producto { get; set; }
+        public DbSet<Producto> Producto { get; set; }
         public virtual DbSet<Registrodeproductos> Registrodeproductos { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<Subcategoria> Subcategoria { get; set; }

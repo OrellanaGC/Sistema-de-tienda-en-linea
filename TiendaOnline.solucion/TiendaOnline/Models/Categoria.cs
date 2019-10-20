@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TiendaOnline.Models
 {
@@ -10,6 +11,7 @@ namespace TiendaOnline.Models
             Subcategoria = new HashSet<Subcategoria>();
         }
 
+        [Key]
         public int IdCategoria { get; set; }
         public string NombreCategoria { get; set; }
 

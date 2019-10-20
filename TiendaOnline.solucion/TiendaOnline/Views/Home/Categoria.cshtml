@@ -1,0 +1,13 @@
+﻿@model IEnumerable<TiendaOnline.Models.Categoria>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+    <div class="list-group">
+        @foreach (var item in Model)
+        {
+        <a href="#" class="list-group-item list-group-item-action"> @Html.DisplayFor(modelItem => item.NombreCategoria)</a>
+            /**/
+        }
+    </div>
+

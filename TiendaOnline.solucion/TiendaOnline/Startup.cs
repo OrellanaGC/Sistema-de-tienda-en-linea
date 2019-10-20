@@ -12,6 +12,10 @@ using Microsoft.EntityFrameworkCore;
 using TiendaOnline.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TiendaOnline.Data.Interfaces;
+using TiendaOnline.Data.Mocks;
+using TiendaOnline.Data.Implementations;
+using TiendaOnline.Models;
 
 namespace TiendaOnline
 {
@@ -22,11 +26,23 @@ namespace TiendaOnline
             Configuration = configuration;
         }
 
+        private IConfigurationRoot _configurationRoot;
+        public Startup(IHostingEnvironment hostingEnvironment)
+        {
+            _configurationRoot = new ConfigurationBuilder().SetBasePath(hostingEnvironment.ContentRootPath)
+                .AddJsonFile("appsettings.json").Build();
+        }
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddTransient<IProducto, MockProducto>();
+            //services.AddTransient<ICategoria, MockCategoria>();
+            
+            //services.AddTransient<ICategoria, ImpCategoria>();
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -39,8 +55,16 @@ namespace TiendaOnline
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDbContext<tiendaonlineDBContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
+            
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddTransient<IProducto, ImpProducto>();
+            services.AddTransient<ICategoria, ImpCategoria>();
+
+            services.AddScoped<IProducto, ImpProducto>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

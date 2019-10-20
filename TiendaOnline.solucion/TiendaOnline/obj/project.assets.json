@@ -12535,11 +12535,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Mich\\Documents\\tooVS\\Sistema_TOO\\TiendaOnline.solucion\\TiendaOnline\\TiendaOnline.csproj",
+      "projectUniqueName": "C:\\Users\\Mich\\Documents\\tooVSCORE\\Sistema_TOO\\TiendaOnline.solucion\\TiendaOnline\\TiendaOnline.csproj",
       "projectName": "TiendaOnline",
-      "projectPath": "C:\\Users\\Mich\\Documents\\tooVS\\Sistema_TOO\\TiendaOnline.solucion\\TiendaOnline\\TiendaOnline.csproj",
+      "projectPath": "C:\\Users\\Mich\\Documents\\tooVSCORE\\Sistema_TOO\\TiendaOnline.solucion\\TiendaOnline\\TiendaOnline.csproj",
       "packagesPath": "C:\\Users\\Mich\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Mich\\Documents\\tooVS\\Sistema_TOO\\TiendaOnline.solucion\\TiendaOnline\\obj\\",
+      "outputPath": "C:\\Users\\Mich\\Documents\\tooVSCORE\\Sistema_TOO\\TiendaOnline.solucion\\TiendaOnline\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TiendaOnline.Models
 {
@@ -9,7 +10,7 @@ namespace TiendaOnline.Models
         {
             Lineadeorden = new HashSet<Lineadeorden>();
         }
-
+        [Key]
         public int IdOrden { get; set; }
         public int? IdEstadodeorden { get; set; }
         public int? IdUsuario { get; set; }

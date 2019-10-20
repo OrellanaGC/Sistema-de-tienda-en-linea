@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TiendaOnline.Models
 {
@@ -15,6 +16,7 @@ namespace TiendaOnline.Models
 
         public int? TelefonoAtencionalcliente { get; set; }
         public string CorreoAtencionalcliente { get; set; }
+        [Key]
         public int IdEmpresa { get; set; }
         public int? IdVendedor { get; set; }
 

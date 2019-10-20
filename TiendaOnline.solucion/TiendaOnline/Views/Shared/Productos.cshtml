@@ -1,0 +1,13 @@
+﻿@model Producto
+<div class="col-sm-4 col-lg-4 col-md-4">
+    <div class="thumbnail">
+        <img src="@Model.ImgProducto" alt=""/>
+    </div>
+    <div class="caption">
+        <h3 class="pull-right">@Model.Preciounitario</h3>
+        <h3>
+            <a> Nombre: @Model.NombreProducto</a>
+        </h3>
+        <p>Categoria: @Model.Codigodeproducto</p>
+    </div>
+</div>

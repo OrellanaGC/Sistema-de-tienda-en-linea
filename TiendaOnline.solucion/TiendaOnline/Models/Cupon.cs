@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TiendaOnline.Models
 {
+    [NotMapped]
     public partial class Cupon
     {
         public Cupon()
@@ -10,6 +13,7 @@ namespace TiendaOnline.Models
             Orden = new HashSet<Orden>();
         }
 
+        [Key]
         public int IdCupon { get; set; }
         public string CodigoCupon { get; set; }
         public decimal? MontoCupon { get; set; }

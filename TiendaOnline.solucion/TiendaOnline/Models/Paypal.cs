@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TiendaOnline.Models
 {
@@ -9,7 +10,7 @@ namespace TiendaOnline.Models
         {
             Tipodepago = new HashSet<Tipodepago>();
         }
-
+        [Key]
         public int IdPaypal { get; set; }
         public string CorreoPaypal { get; set; }
         public string PsswdPaypal { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TiendaOnline.Models
 {
@@ -9,7 +10,7 @@ namespace TiendaOnline.Models
         {
             Usuario = new HashSet<Usuario>();
         }
-
+        [Key]
         public int IdTipodevendedor { get; set; }
         public int? IdUsuario { get; set; }
         public int? IdVendedor { get; set; }
