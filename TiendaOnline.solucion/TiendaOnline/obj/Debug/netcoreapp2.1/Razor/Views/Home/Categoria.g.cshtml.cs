@@ -29,7 +29,7 @@ using TiendaOnline.ViewModels;
 #line default
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f4de3f0784fba84cd17a64aad3561f4d528681c8", @"/Views/Home/Categoria.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"0a867c0594f66a7d4e5f0d1b14e2269e1a30f9f2", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"6e93f7432df440ab1b28935e4dfa14ed4c983176", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Categoria : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<IEnumerable<TiendaOnline.Models.Categoria>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Create", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -59,7 +59,7 @@ using TiendaOnline.ViewModels;
             WriteLiteral("\r\n<p>\r\n    ");
             EndContext();
             BeginContext(62, 37, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f170e11ec292405c8b630bd820b65cd0", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b93f977f4bde449984add59fd331693f", async() => {
                 BeginContext(85, 10, true);
                 WriteLiteral("Create New");
                 EndContext();

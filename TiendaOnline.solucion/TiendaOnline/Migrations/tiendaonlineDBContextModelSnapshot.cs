@@ -19,6 +19,16 @@ namespace TiendaOnline.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("TiendaOnline.Models.Carrito", b =>
+                {
+                    b.Property<string>("CarritoId")
+                        .ValueGeneratedOnAdd();
+
+                    b.HasKey("CarritoId");
+
+                    b.ToTable("Carrito");
+                });
+
             modelBuilder.Entity("TiendaOnline.Models.Categoria", b =>
                 {
                     b.Property<int>("IdCategoria")
@@ -391,6 +401,27 @@ namespace TiendaOnline.Migrations
                         .HasAnnotation("SqlServer:Clustered", false);
 
                     b.ToTable("PAYPAL");
+                });
+
+            modelBuilder.Entity("TiendaOnline.Models.ProdCarrito", b =>
+                {
+                    b.Property<int>("ProdCarritoId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Cantidad");
+
+                    b.Property<string>("CarritoId");
+
+                    b.Property<int?>("ProductoIdProducto");
+
+                    b.HasKey("ProdCarritoId");
+
+                    b.HasIndex("CarritoId");
+
+                    b.HasIndex("ProductoIdProducto");
+
+                    b.ToTable("ProdCarrito");
                 });
 
             modelBuilder.Entity("TiendaOnline.Models.Producto", b =>
@@ -823,6 +854,17 @@ namespace TiendaOnline.Migrations
                         .WithMany("Orden")
                         .HasForeignKey("IdUsuario")
                         .HasConstraintName("FK_ORDEN_SOLICITA_USUARIO");
+                });
+
+            modelBuilder.Entity("TiendaOnline.Models.ProdCarrito", b =>
+                {
+                    b.HasOne("TiendaOnline.Models.Carrito")
+                        .WithMany("ProdCarrito")
+                        .HasForeignKey("CarritoId");
+
+                    b.HasOne("TiendaOnline.Models.Producto", "Producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoIdProducto");
                 });
 
             modelBuilder.Entity("TiendaOnline.Models.Producto", b =>

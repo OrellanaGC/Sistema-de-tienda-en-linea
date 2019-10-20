@@ -40,8 +40,14 @@ namespace TiendaOnline
         {
             //services.AddTransient<IProducto, MockProducto>();
             //services.AddTransient<ICategoria, MockCategoria>();
-            
-            //services.AddTransient<ICategoria, ImpCategoria>();
+            services.AddTransient<IProducto, ImpProducto>();
+            services.AddTransient<ICategoria, ImpCategoria>();
+            services.AddScoped<IProducto, ImpProducto>();
+
+            //instancia http
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //diferentes request al mismo tiempo, diferentes instancias
+            services.AddScoped(cr => Carrito.GetCarrito(cr));
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -61,10 +67,8 @@ namespace TiendaOnline
             
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddTransient<IProducto, ImpProducto>();
-            services.AddTransient<ICategoria, ImpCategoria>();
-
-            services.AddScoped<IProducto, ImpProducto>();
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,7 +88,7 @@ namespace TiendaOnline
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseSession();
             app.UseAuthentication();
 
             app.UseMvc(routes =>

@@ -1,0 +1,40 @@
+﻿@model CarritoVM
+
+<div class="row checkoutForm">
+    <h2>Carrito de compras</h2>
+    <h4>Aqui estan los productos que has agregado.</h4>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Cantidad seleccionada</th>
+                <th>Producto</th>
+                <th class="text-right">Precio</th>
+                <th class="text-right">Subtotal</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var linea in Model.Carrito.ProdCarrito)
+            {
+                <tr>
+                    <td class="text-center">@linea.Cantidad</td>
+                    <td class="text-left">@linea.Producto.NombreProducto</td>
+                    <td class="text-right">@linea.Producto.Preciounitario.ToString("c")</td>
+                    <td class="text-right">
+                        @((linea.Cantidad * linea.Producto.Preciounitario).ToString("c"))
+                    </td>
+                    <td class="text-center"><a class="glyphicon glyphicon-remove text-danger remove" asp-controller="Carrito" asp-action="EliminarDeCarrito" asp-route-drinkId="@linea.Producto.IdProducto"></a></td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-right">Total:</td>
+                <td class="text-right">
+                    @Model.TotalCarrito.ToString("c")
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+</div>
