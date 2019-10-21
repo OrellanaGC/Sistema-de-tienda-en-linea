@@ -74,3 +74,7 @@ C:\Users\Mich\Documents\tooVSCORE\Sistema_TOO\TiendaOnline.solucion\TiendaOnline
 C:\Users\Mich\Documents\tooVSCORE\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Components\CarritoComponent\Default.g.cshtml.cs
 C:\Users\Mich\Documents\tooVSCORE\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\Razor\Views\Contact\Index.g.cshtml.cs
 C:\Users\Mich\Documents\tooVSCORE\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Components\MenuCategorias\Default.g.cshtml.cs
+C:\Users\Mich\Documents\tooVSCORE\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\Razor\Views\Orden\Checkout.g.cshtml.cs
+C:\Users\Mich\Documents\tooVSCORE\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\Razor\Views\Cuenta\Login.g.cshtml.cs
+C:\Users\Mich\Documents\tooVSCORE\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\Razor\Views\Cuenta\Registrarse.g.cshtml.cs
+C:\Users\Mich\Documents\tooVSCORE\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\obj\Debug\netcoreapp2.1\Razor\Views\Cuenta\Logout.g.cshtml.cs

@@ -6,8 +6,19 @@
     <div class="caption">
         <h3 class="pull-right">@Model.Preciounitario</h3>
         <h3>
-            <a> Nombre: @Model.NombreProducto</a>
+            <a asp-controller="Producto" asp-action="Detalle"> Nombre: @Model.NombreProducto</a>
         </h3>
-        <p>Categoria: @Model.Codigodeproducto</p>
+        <p>Vendedor: @Model.IdVendedor</p>
+    </div>
+    <div class="agregarCarrito text-right">
+        <p class="button">
+            <a class="btn btn-success" id="cartButton"
+               asp-controller="Carrito" 
+               asp-action="AgregarCarrito"
+               asp-route-idProducto="@Model.IdProducto">
+                Añadir al carrito
+            </a>
+        </p>
+
     </div>
 </div>

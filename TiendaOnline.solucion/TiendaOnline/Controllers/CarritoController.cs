@@ -22,6 +22,7 @@ namespace TiendaOnline.Controllers
             _carrito = carrito;
             _producto = producto;
         }
+        [Authorize]
         public ViewResult IndexC()
         {
             var Prod = _carrito.GetProdCarrito();

@@ -42,12 +42,8 @@ namespace TiendaOnline
             //services.AddTransient<ICategoria, MockCategoria>();
             services.AddTransient<IProducto, ImpProducto>();
             services.AddTransient<ICategoria, ImpCategoria>();
-            services.AddScoped<IProducto, ImpProducto>();
 
-            //instancia http
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            //diferentes request al mismo tiempo, diferentes instancias
-            services.AddScoped(cr => Carrito.GetCarrito(cr));
+            
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -59,12 +55,16 @@ namespace TiendaOnline
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+           services.AddIdentity<IdentityUser, IdentityRole>().
+                AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddDbContext<tiendaonlineDBContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            
+
+            //instancia http
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //diferentes request al mismo tiempo, diferentes instancias
+            services.AddScoped(sp => Carrito.GetCarrito(sp));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMemoryCache();
@@ -85,10 +85,12 @@ namespace TiendaOnline
                 app.UseHsts();
             }
 
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseSession();
+            //app.UseIdentity();
             app.UseAuthentication();
 
             app.UseMvc(routes =>

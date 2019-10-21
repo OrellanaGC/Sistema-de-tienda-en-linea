@@ -68,7 +68,7 @@ using TiendaOnline.ViewModels;
             WriteLiteral("    <li>\r\n        ");
             EndContext();
             BeginContext(85, 222, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "63e417a02a3c4add91ff532897d09e5c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b673d3d26bc348f8830c88aab61e750c", async() => {
                 BeginContext(113, 127, true);
                 WriteLiteral("\r\n            <span class=\"glyphicon glyphicon-shopping-cart\"></span>\r\n            <span id=\"carrito-status\">\r\n                ");
                 EndContext();
