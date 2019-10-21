@@ -10,14 +10,14 @@ namespace TiendaOnline.Models
 {
     public class Carrito
     {
-        public string CarritoId { get; set; }
-        public List<ProdCarrito> ProdCarrito { get; set; }
-
+  
         private readonly tiendaonlineDBContext _tiendaonlineDBContext;
         private Carrito(tiendaonlineDBContext tiendaonlineDBContext)
         {
             _tiendaonlineDBContext = tiendaonlineDBContext;
         }
+        public string CarritoId { get; set; }
+        public List<ProdCarrito> ProdCarrito { get; set; }
 
         public static Carrito GetCarrito(IServiceProvider services)
         {
@@ -25,11 +25,11 @@ namespace TiendaOnline.Models
                 .HttpContext.Session;
 
             var context = services.GetService<tiendaonlineDBContext>();
-            string carritoId = session.GetString("CarritoId") ?? Guid.NewGuid().ToString();
-
-            session.SetString("CarritoId", carritoId);
-
-            return new Carrito(context) {CarritoId = carritoId };
+            string carritosId = session.GetString("CarritosId") ?? Guid.NewGuid().ToString();
+          
+            // var cart= new Carrito(context) {CarritosId = carritosId };
+            // _tiendaonlineDBContext.Carrito.Add(cart);
+            return new Carrito(context) { CarritoId = carritosId };
         }
 
         public void AgregarCarrito(Producto producto, int cantidad)
@@ -37,7 +37,6 @@ namespace TiendaOnline.Models
             var prodCarrito =
                     _tiendaonlineDBContext.ProdCarrito.SingleOrDefault(
                         s => s.Producto.IdProducto == producto.IdProducto && s.CarritoId == CarritoId);
-
             if (prodCarrito == null)
             {
                 prodCarrito = new ProdCarrito
@@ -46,8 +45,8 @@ namespace TiendaOnline.Models
                     Producto = producto,
                     Cantidad = 1
                 };
-
-                _tiendaonlineDBContext.ProdCarrito.Add(prodCarrito);
+                //Guarda los productos en el carrito
+                //_tiendaonlineDBContext.ProdCarrito.Add(prodCarrito);
             }
             else
             {

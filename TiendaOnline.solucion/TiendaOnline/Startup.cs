@@ -43,12 +43,11 @@ namespace TiendaOnline
             services.AddTransient<IProducto, ImpProducto>();
             services.AddTransient<ICategoria, ImpCategoria>();
 
-            
 
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
@@ -57,6 +56,8 @@ namespace TiendaOnline
                     Configuration.GetConnectionString("DefaultConnection")));
            services.AddIdentity<IdentityUser, IdentityRole>().
                 AddEntityFrameworkStores<ApplicationDbContext>();
+
+            
             services.AddDbContext<tiendaonlineDBContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -68,7 +69,10 @@ namespace TiendaOnline
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMemoryCache();
-            services.AddSession();
+            services.AddSession(opt =>
+            {
+                opt.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,11 +89,10 @@ namespace TiendaOnline
                 app.UseHsts();
             }
 
-            
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            app.UseSession();
             //app.UseIdentity();
             app.UseAuthentication();
 
