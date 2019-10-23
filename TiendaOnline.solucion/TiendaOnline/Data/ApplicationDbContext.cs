@@ -8,7 +8,7 @@ using TiendaOnline.Models;
 
 namespace TiendaOnline.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<UsuariosTienda, IdentityRole, string>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

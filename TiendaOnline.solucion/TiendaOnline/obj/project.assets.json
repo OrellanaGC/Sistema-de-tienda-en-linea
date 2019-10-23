@@ -3013,6 +3013,18 @@
           }
         }
       },
+      "Sendgrid/9.12.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/SendGrid.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SendGrid.dll": {}
+        }
+      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -7999,6 +8011,26 @@
         "version.txt"
       ]
     },
+    "Sendgrid/9.12.0": {
+      "sha512": "HrH336vKylh6Yy4bqKFNPf0Rk1C7CDd4WX7D2f7D/g0Dy584Wx2Qh7vdM+NgAkHTWQ7bKwl7K9DZ9BiFKbimdA==",
+      "type": "package",
+      "path": "sendgrid/9.12.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net452/SendGrid.dll",
+        "lib/net452/SendGrid.pdb",
+        "lib/net452/SendGrid.xml",
+        "lib/netstandard1.3/SendGrid.dll",
+        "lib/netstandard1.3/SendGrid.pdb",
+        "lib/netstandard1.3/SendGrid.xml",
+        "lib/netstandard2.0/SendGrid.dll",
+        "lib/netstandard2.0/SendGrid.pdb",
+        "lib/netstandard2.0/SendGrid.xml",
+        "sendgrid.9.12.0.nupkg.sha512",
+        "sendgrid.nuspec"
+      ]
+    },
     "System.AppContext/4.3.0": {
       "sha512": "fKC+rmaLfeIzUhagxY17Q9siv/sPrjjKcfNg1Ic8IlQkZLipo8ljcaZQu4VtI4Jqbzjc2VTjzGLF6WmsRXAEgA==",
       "type": "package",
@@ -12525,27 +12557,28 @@
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.AspNetCore.Razor.Design >= 2.1.2",
       "Microsoft.NETCore.App >= 2.1.0",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.1.9"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.1.9",
+      "Sendgrid >= 9.12.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Mich\\.nuget\\packages\\": {},
+    "C:\\Users\\aleja\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Mich\\Documents\\tooVSCORE\\Sistema_TOO\\TiendaOnline.solucion\\TiendaOnline\\TiendaOnline.csproj",
+      "projectUniqueName": "C:\\Users\\aleja\\Source\\Repos\\OrellanaGC\\Sistema_TOO\\TiendaOnline.solucion\\TiendaOnline\\TiendaOnline.csproj",
       "projectName": "TiendaOnline",
-      "projectPath": "C:\\Users\\Mich\\Documents\\tooVSCORE\\Sistema_TOO\\TiendaOnline.solucion\\TiendaOnline\\TiendaOnline.csproj",
-      "packagesPath": "C:\\Users\\Mich\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Mich\\Documents\\tooVSCORE\\Sistema_TOO\\TiendaOnline.solucion\\TiendaOnline\\obj\\",
+      "projectPath": "C:\\Users\\aleja\\Source\\Repos\\OrellanaGC\\Sistema_TOO\\TiendaOnline.solucion\\TiendaOnline\\TiendaOnline.csproj",
+      "packagesPath": "C:\\Users\\aleja\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\aleja\\Source\\Repos\\OrellanaGC\\Sistema_TOO\\TiendaOnline.solucion\\TiendaOnline\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Mich\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\aleja\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -12588,6 +12621,10 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[2.1.9, )"
+          },
+          "Sendgrid": {
+            "target": "Package",
+            "version": "[9.12.0, )"
           }
         },
         "imports": [

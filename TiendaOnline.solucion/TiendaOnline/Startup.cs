@@ -16,6 +16,10 @@ using TiendaOnline.Data.Interfaces;
 using TiendaOnline.Data.Mocks;
 using TiendaOnline.Data.Implementations;
 using TiendaOnline.Models;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using WebPWrecover.Services;
+using TiendaOnline.Services;
+
 
 namespace TiendaOnline
 {
@@ -54,10 +58,13 @@ namespace TiendaOnline
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-           services.AddIdentity<IdentityUser, IdentityRole>().
-                AddEntityFrameworkStores<ApplicationDbContext>();
 
-            
+            services.AddIdentity<UsuariosTienda, IdentityRole>(config => {
+                config.SignIn.RequireConfirmedEmail = false;
+            })
+                 .AddEntityFrameworkStores<ApplicationDbContext>()
+                 .AddDefaultTokenProviders();
+
             services.AddDbContext<tiendaonlineDBContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -67,7 +74,27 @@ namespace TiendaOnline
             //diferentes request al mismo tiempo, diferentes instancias
             services.AddScoped(sp => Carrito.GetCarrito(sp));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddRazorPagesOptions(options =>
+                {
+                    options.AllowAreas = true;
+                    options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
+                    options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
+                });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
+
+            // using Microsoft.AspNetCore.Identity.UI.Services;
+            
             services.AddMemoryCache();
             services.AddSession(opt =>
             {
@@ -76,7 +103,7 @@ namespace TiendaOnline
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -102,6 +129,24 @@ namespace TiendaOnline
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //await CreateRoles(serviceProvider);
+        }
+
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            var roleMagar = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userMagar = serviceProvider.GetRequiredService<UserManager<UsuariosTienda>>();
+            string[] rolesName = { "Admin", "User", "Seller" };
+            IdentityResult result;
+            foreach (var roleName in rolesName)
+            {
+                var roleExist = await roleMagar.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    result = await roleMagar.CreateAsync(new IdentityRole(roleName));
+                }
+            }
         }
     }
 }
