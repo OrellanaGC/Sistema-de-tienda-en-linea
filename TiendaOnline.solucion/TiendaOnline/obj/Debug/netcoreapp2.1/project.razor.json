@@ -1,0 +1,16 @@
+{
+  "FilePath": "c:\\Users\\oconc\\Documents\\OC\\UES\\ciclo 6\\TOO\\etapa1\\Sistema_TOO\\TiendaOnline.solucion\\TiendaOnline\\TiendaOnline.csproj",
+  "Configuration": {
+    "ConfigurationName": "MVC-2.1",
+    "LanguageVersion": "2.1",
+    "Extensions": [
+      {
+        "ExtensionName": "MVC-2.1"
+      }
+    ]
+  },
+  "ProjectWorkspaceState": null,
+  "RootNamespace": "TiendaOnline",
+  "Documents": [],
+  "SerializationFormat": "0.2"
+}
