@@ -10,20 +10,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using TiendaOnline.Models;
+using TiendaOnline.Areas.Identity.Data;
 
 namespace TiendaOnline.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<UsuariosTienda> _signInManager;
-        private readonly UserManager<UsuariosTienda> _userManager;
+        private readonly SignInManager<TiendaOnlineUser> _signInManager;
+        private readonly UserManager<TiendaOnlineUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
-            UserManager<UsuariosTienda> userManager,
-            SignInManager<UsuariosTienda> signInManager,
+            UserManager<TiendaOnlineUser> userManager,
+            SignInManager<TiendaOnlineUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -77,7 +78,7 @@ namespace TiendaOnline.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new UsuariosTienda { UserName = Input.Email, Email = Input.Email, Nombres=Input.Nombres, Apellidos= Input.Apellidos };
+                var user = new TiendaOnlineUser { UserName = Input.Email, Email = Input.Email, Nombres=Input.Nombres, Apellidos= Input.Apellidos };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

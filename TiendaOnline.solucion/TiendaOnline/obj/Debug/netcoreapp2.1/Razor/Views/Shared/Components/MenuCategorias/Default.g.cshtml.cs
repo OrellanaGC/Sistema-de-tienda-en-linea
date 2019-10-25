@@ -63,7 +63,7 @@ using TiendaOnline.ViewModels;
             WriteLiteral("<li class=\"dropdown\">\r\n    ");
             EndContext();
             BeginContext(27, 142, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6ee952e2b1014e9d9c587c6fb0b728fd", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "dc31dbcf919d420b903fea5e0714dc8d", async() => {
                 BeginContext(134, 31, true);
                 WriteLiteral("Categorias<b class=\"caret\"></b>");
                 EndContext();
@@ -98,7 +98,7 @@ using TiendaOnline.ViewModels;
             WriteLiteral("            <li>\r\n                ");
             EndContext();
             BeginContext(291, 141, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "014c23a5470d401896593ff383e0738c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3e578ea0d52e48d08eafb18d4a7457eb", async() => {
                 BeginContext(403, 25, false);
 #line 10 "C:\Users\aleja\Source\Repos\OrellanaGC\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\Views\Shared\Components\MenuCategorias\Default.cshtml"
                                                               Write(categoria.NombreCategoria);

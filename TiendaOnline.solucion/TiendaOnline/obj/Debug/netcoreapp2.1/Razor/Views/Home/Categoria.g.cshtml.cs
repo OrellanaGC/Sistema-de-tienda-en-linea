@@ -59,7 +59,7 @@ using TiendaOnline.ViewModels;
             WriteLiteral("\r\n<p>\r\n    ");
             EndContext();
             BeginContext(62, 37, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f337b52ff3614191aec512e1cb8aa635", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ea3e89a2a72a484883922b694976651e", async() => {
                 BeginContext(85, 10, true);
                 WriteLiteral("Create New");
                 EndContext();

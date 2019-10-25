@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TiendaOnline.Data.Interfaces;
-using TiendaOnline.Models;
 using TiendaOnline.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using TiendaOnline.Data.Implementations;
+using TiendaOnline.Data;
 
 namespace TiendaOnline.Controllers
 {

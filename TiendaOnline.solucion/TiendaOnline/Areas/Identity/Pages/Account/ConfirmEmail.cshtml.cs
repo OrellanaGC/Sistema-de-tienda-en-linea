@@ -6,16 +6,17 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using TiendaOnline.Models;
+using TiendaOnline.Areas.Identity.Data;
+
 
 namespace TiendaOnline.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class ConfirmEmailModel : PageModel
     {
-        private readonly UserManager<UsuariosTienda> _userManager;
+        private readonly UserManager<TiendaOnlineUser> _userManager;
 
-        public ConfirmEmailModel(UserManager<UsuariosTienda> userManager)
+        public ConfirmEmailModel(UserManager<TiendaOnlineUser> userManager)
         {
             _userManager = userManager;
         }

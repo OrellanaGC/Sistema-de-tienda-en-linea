@@ -10,9 +10,9 @@ namespace TiendaOnline.Data.Implementations
 {
     public class ImpProducto: IProducto
     {
-        private readonly tiendaonlineDBContext _tiendaDbContext;
+        private readonly ApplicationDbContext _tiendaDbContext;
 
-        public ImpProducto(tiendaonlineDBContext tiendaDbContext)
+        public ImpProducto(ApplicationDbContext tiendaDbContext)
         {
             _tiendaDbContext = tiendaDbContext;
              

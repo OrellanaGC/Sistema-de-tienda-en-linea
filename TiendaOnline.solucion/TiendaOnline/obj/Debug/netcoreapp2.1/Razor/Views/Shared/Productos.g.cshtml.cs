@@ -85,7 +85,7 @@ WriteAttributeValue("", 128, Model.ImgProducto, 128, 18, false);
             WriteLiteral("</h3>\r\n        <h3>\r\n            ");
             EndContext();
             BeginContext(282, 84, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6b04814cd6d8452e8e4cddb8b25dcb02", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2964fa518db24134a56a33ad048fd008", async() => {
                 BeginContext(332, 9, true);
                 WriteLiteral(" Nombre: ");
                 EndContext();
@@ -126,7 +126,7 @@ WriteAttributeValue("", 128, Model.ImgProducto, 128, 18, false);
             WriteLiteral("</p>\r\n    </div>\r\n    <div class=\"agregarCarrito text-right\">\r\n        <p class=\"button\">\r\n            ");
             EndContext();
             BeginContext(524, 239, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ae60fac7c8784fef88756c5fb6793584", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8872cf3b68c44d038e78337936951e40", async() => {
                 BeginContext(710, 49, true);
                 WriteLiteral("\r\n                Añadir al carrito\r\n            ");
                 EndContext();

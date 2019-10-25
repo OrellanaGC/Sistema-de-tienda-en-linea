@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TiendaOnline.Data;
 using TiendaOnline.Data.Interfaces;
 using TiendaOnline.Models;
 using TiendaOnline.ViewModels;
@@ -38,7 +39,7 @@ namespace TiendaOnline.Controllers
 
         public IActionResult Categoria()
         {
-            var entities = new tiendaonlineDBContext();
+            var entities = new ApplicationDbContext();
 
             return View(model: entities.Categoria.ToList());
         }

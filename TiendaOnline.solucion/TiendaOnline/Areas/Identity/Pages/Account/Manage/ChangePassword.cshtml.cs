@@ -7,19 +7,19 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using TiendaOnline.Models;
+using TiendaOnline.Areas.Identity.Data;
 
 namespace TiendaOnline.Areas.Identity.Pages.Account.Manage
 {
     public class ChangePasswordModel : PageModel
     {
-        private readonly UserManager<UsuariosTienda> _userManager;
-        private readonly SignInManager<UsuariosTienda> _signInManager;
+        private readonly UserManager<TiendaOnlineUser> _userManager;
+        private readonly SignInManager<TiendaOnlineUser> _signInManager;
         private readonly ILogger<ChangePasswordModel> _logger;
 
         public ChangePasswordModel(
-            UserManager<UsuariosTienda> userManager,
-            SignInManager<UsuariosTienda> signInManager,
+            UserManager<TiendaOnlineUser> userManager,
+            SignInManager<TiendaOnlineUser> signInManager,
             ILogger<ChangePasswordModel> logger)
         {
             _userManager = userManager;

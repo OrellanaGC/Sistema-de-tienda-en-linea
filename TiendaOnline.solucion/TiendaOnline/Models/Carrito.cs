@@ -5,16 +5,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TiendaOnline.Models;
 
-namespace TiendaOnline.Models
+namespace TiendaOnline.Data
 {
     public class Carrito
     {
   
-        private readonly tiendaonlineDBContext _tiendaonlineDBContext;
-        private Carrito(tiendaonlineDBContext tiendaonlineDBContext)
+        private readonly ApplicationDbContext _ApplicationDbContext;
+        private Carrito(ApplicationDbContext ApplicationDbContext)
         {
-            _tiendaonlineDBContext = tiendaonlineDBContext;
+            _ApplicationDbContext = ApplicationDbContext;
         }
         public string CarritoId { get; set; }
         public List<ProdCarrito> ProdCarrito { get; set; }
@@ -24,18 +25,18 @@ namespace TiendaOnline.Models
             ISession session = services.GetRequiredService<IHttpContextAccessor>()?
                 .HttpContext.Session;
 
-            var context = services.GetService<tiendaonlineDBContext>();
+            var context = services.GetService<ApplicationDbContext>();
             string carritosId = session.GetString("CarritosId") ?? Guid.NewGuid().ToString();
           
             // var cart= new Carrito(context) {CarritosId = carritosId };
-            // _tiendaonlineDBContext.Carrito.Add(cart);
+            // _ApplicationDbContext.Carrito.Add(cart);
             return new Carrito(context) { CarritoId = carritosId };
         }
 
         public void AgregarCarrito(Producto producto, int cantidad)
         {
             var prodCarrito =
-                    _tiendaonlineDBContext.ProdCarrito.SingleOrDefault(
+                    _ApplicationDbContext.ProdCarrito.SingleOrDefault(
                         s => s.Producto.IdProducto == producto.IdProducto && s.CarritoId == CarritoId);
             if (prodCarrito == null)
             {
@@ -46,19 +47,19 @@ namespace TiendaOnline.Models
                     Cantidad = 1
                 };
                 //Guarda los productos en el carrito
-                //_tiendaonlineDBContext.ProdCarrito.Add(prodCarrito);
+                //_ApplicationDbContext.ProdCarrito.Add(prodCarrito);
             }
             else
             {
                 prodCarrito.Cantidad++;
             }
-            _tiendaonlineDBContext.SaveChanges();
+            _ApplicationDbContext.SaveChanges();
         }
 
         public int EliminarDeCarrito(Producto producto)
         {
             var prodCarrito =
-                    _tiendaonlineDBContext.ProdCarrito.SingleOrDefault(
+                    _ApplicationDbContext.ProdCarrito.SingleOrDefault(
                         s => s.Producto.IdProducto == producto.IdProducto && s.CarritoId == CarritoId);
 
             var cantidadlocal = 0;
@@ -72,11 +73,11 @@ namespace TiendaOnline.Models
                 }
                 else
                 {
-                    _tiendaonlineDBContext.ProdCarrito.Remove(prodCarrito);
+                    _ApplicationDbContext.ProdCarrito.Remove(prodCarrito);
                 }
             }
 
-            _tiendaonlineDBContext.SaveChanges();
+            _ApplicationDbContext.SaveChanges();
 
             return cantidadlocal;
         }
@@ -85,25 +86,25 @@ namespace TiendaOnline.Models
         {
             return ProdCarrito ??
                    (ProdCarrito =
-                       _tiendaonlineDBContext.ProdCarrito.Where(c => c.CarritoId == CarritoId)
+                       _ApplicationDbContext.ProdCarrito.Where(c => c.CarritoId == CarritoId)
                            .Include(s => s.Producto)
                            .ToList());
         }
 
         public void VaciarCarrito()
         {
-            var ProdCarrito = _tiendaonlineDBContext
+            var ProdCarrito = _ApplicationDbContext
                 .ProdCarrito
                 .Where(carrito => carrito.CarritoId == CarritoId);
 
-            _tiendaonlineDBContext.ProdCarrito.RemoveRange(ProdCarrito);
+            _ApplicationDbContext.ProdCarrito.RemoveRange(ProdCarrito);
 
-            _tiendaonlineDBContext.SaveChanges();
+            _ApplicationDbContext.SaveChanges();
         }
 
         public decimal GetcarritoTotal()
         {
-            var total = _tiendaonlineDBContext.ProdCarrito.Where(c => c.CarritoId == CarritoId)
+            var total = _ApplicationDbContext.ProdCarrito.Where(c => c.CarritoId == CarritoId)
                 .Select(c => c.Producto.Preciounitario * c.Cantidad).Sum();
             return total;
         }

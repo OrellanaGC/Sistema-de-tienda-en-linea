@@ -1,7 +1,8 @@
 @using Microsoft.AspNetCore.Identity
+@using TiendaOnline.Areas.Identity.Data
 
-@inject SignInManager<UsuariosTienda> SignInManager
-@inject UserManager<UsuariosTienda> UserManager
+@inject SignInManager<TiendaOnlineUser> SignInManager
+@inject UserManager<TiendaOnlineUser> UserManager
 
 }
 @if (SignInManager.IsSignedIn(User))

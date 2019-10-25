@@ -9,19 +9,19 @@ namespace TiendaOnline.Data.Implementations
 {
     public class ImpOrden : IOrden
     {
-        private readonly tiendaonlineDBContext _tiendaonlineDBContext;
+        private readonly ApplicationDbContext _ApplicationDbContext;
         private readonly Carrito _carrito;
 
-        public ImpOrden(tiendaonlineDBContext tiendaonlineDBContext, Carrito carrito)
+        public ImpOrden(ApplicationDbContext ApplicationDbContext, Carrito carrito)
         {
-            _tiendaonlineDBContext = tiendaonlineDBContext;
+            _ApplicationDbContext = ApplicationDbContext;
             _carrito = carrito;
         }
 
         public void CrearOrden(Orden orden)
         {
             orden.Fechadecompra = DateTime.Now;
-            _tiendaonlineDBContext.Add(orden);
+            _ApplicationDbContext.Add(orden);
 
             var prodCarrito = _carrito.ProdCarrito;
 
@@ -34,9 +34,9 @@ namespace TiendaOnline.Data.Implementations
                     IdOrden = orden.IdOrden,
                     Subtotal = item.Producto.Preciounitario
                 };
-                _tiendaonlineDBContext.Lineadeorden.Add(linea);
+                _ApplicationDbContext.Lineadeorden.Add(linea);
             }
-            _tiendaonlineDBContext.SaveChanges();
+            _ApplicationDbContext.SaveChanges();
         }
     }
 }

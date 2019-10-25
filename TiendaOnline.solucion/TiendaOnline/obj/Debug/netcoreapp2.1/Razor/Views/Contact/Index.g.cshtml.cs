@@ -60,7 +60,7 @@ using TiendaOnline.ViewModels;
             WriteLiteral("<h1>Contáctanos</h1>\r\n<p>Para cualquier consulta puedes contactarnos a:</p>\r\n");
             EndContext();
             BeginContext(77, 66, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("email", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "080155538cd44e45a19207d66e3d7a94", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("email", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "028181941ee04eb18c8f00d13b60d26d", async() => {
             }
             );
             __TiendaOnline_TagHelpers_EmailTagHelper = CreateTagHelper<global::TiendaOnline.TagHelpers.EmailTagHelper>();

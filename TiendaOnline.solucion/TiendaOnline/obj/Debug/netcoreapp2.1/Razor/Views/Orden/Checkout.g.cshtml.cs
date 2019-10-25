@@ -60,12 +60,12 @@ using TiendaOnline.ViewModels;
             WriteLiteral("\r\n<div class=\"row\">\r\n    ");
             EndContext();
             BeginContext(39, 93, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a92bc1ddd46a4c698ea2749a5d7638a8", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "87d9dec841994904b41b918dc8ceaada", async() => {
                 BeginContext(45, 29, true);
                 WriteLiteral("\r\n        <div>\r\n            ");
                 EndContext();
                 BeginContext(74, 29, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "3b1ce63d6c6c405f8d5c6cc6cd4f0cbf", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "56bb9d2a053e48079760409acd9ce3f2", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.InputTagHelper>();

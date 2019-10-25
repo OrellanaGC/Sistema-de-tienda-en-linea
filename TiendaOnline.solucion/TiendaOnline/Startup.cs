@@ -19,7 +19,7 @@ using TiendaOnline.Models;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using WebPWrecover.Services;
 using TiendaOnline.Services;
-
+using TiendaOnline.Areas.Identity.Data;
 
 namespace TiendaOnline
 {
@@ -59,15 +59,15 @@ namespace TiendaOnline
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<UsuariosTienda, IdentityRole>(config => {
+            services.AddIdentity<TiendaOnlineUser, IdentityRole>(config => {
                 config.SignIn.RequireConfirmedEmail = false;
             })
                  .AddEntityFrameworkStores<ApplicationDbContext>()
                  .AddDefaultTokenProviders();
 
-            services.AddDbContext<tiendaonlineDBContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<tiendaonlineDBContext>(options =>
+              //  options.UseSqlServer(
+                //    Configuration.GetConnectionString("DefaultConnection")));
 
             //instancia http
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -103,7 +103,7 @@ namespace TiendaOnline
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -130,23 +130,9 @@ namespace TiendaOnline
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            //await CreateRoles(serviceProvider);
+            
         }
 
-        private async Task CreateRoles(IServiceProvider serviceProvider)
-        {
-            var roleMagar = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var userMagar = serviceProvider.GetRequiredService<UserManager<UsuariosTienda>>();
-            string[] rolesName = { "Admin", "User", "Seller" };
-            IdentityResult result;
-            foreach (var roleName in rolesName)
-            {
-                var roleExist = await roleMagar.RoleExistsAsync(roleName);
-                if (!roleExist)
-                {
-                    result = await roleMagar.CreateAsync(new IdentityRole(roleName));
-                }
-            }
-        }
+        
     }
 }
