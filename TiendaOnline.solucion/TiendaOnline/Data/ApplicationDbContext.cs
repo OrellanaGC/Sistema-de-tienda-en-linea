@@ -14,3 +14,4 @@ namespace TiendaOnline.Data
         }
     }
 }
+//C:\Users\Usuario\Desktop\TOO\Sistema_TOO\TiendaOnline.solucion\TiendaOnline\appsettings.Development.json
