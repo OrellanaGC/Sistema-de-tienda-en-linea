@@ -24,17 +24,14 @@
                             <a href="#" class="dropbtn">
                                 @Html.DisplayFor(modelItem => categoria.nombre_categoria)
                             </a>
-                            <ul class="dropdown-content">
+                            <div class="dropdown-content">
                                 @foreach (var subcategoria in _context.Subcategoria)
                                 {@if (categoria.CategoriaID == subcategoria.CategoriaID)
                                     {
-
-                                        <li>
                                             <a href="#">@Html.DisplayFor(subcategorias => subcategoria.nombreSubcategoria)</a>
-                                        </li>
                                     }
                             }
-                            </ul>
+                            </div>
 
                         </div>
 

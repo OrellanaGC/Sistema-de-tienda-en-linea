@@ -8,8 +8,8 @@ body {
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 /* Carousel */
@@ -120,7 +120,7 @@ a.linkFooter{
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #555;
+    background-color: #f1f1f1;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -136,7 +136,7 @@ a.linkFooter{
 
         /* Change color of dropdown links on hover */
         .dropdown-content a:hover {
-            background-color: #888;
+            background-color: rgba(242, 174, 67, 0.49);
         }
 
 /* Show the dropdown menu on hover */
@@ -146,5 +146,5 @@ a.linkFooter{
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
-    background-color: #808080;
+    background-color: #f1f1f1;
 } 
