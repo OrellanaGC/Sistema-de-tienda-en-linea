@@ -1,4 +1,9 @@
-﻿@model IEnumerable<tiendaOnline.Models.Subcategoria>
+﻿@using tiendaOnline.Data
+
+<!--Haciendo una inyeccion del context para traer cualquier modelo-->
+@inject ApplicationDbContext _context
+
+@model IEnumerable<tiendaOnline.Models.Subcategoria>
 
 @{
     ViewData["Title"] = "iBuy";
@@ -9,40 +14,40 @@
     <div class="col-md-3">
         <table class="table table-bordered table-hover">
             <thead><tr><th>Categorías</th></tr></thead>
-            <!-- Consultar como traer solo las categorias en el folder back-->
-            <tr>
-                <td id="cat1">
-                    <div class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown">Anvorguesa</a>
-                        <ul class="dropdown-menu">
-                            @foreach (var item in Model)
-                            {
-                                @if (item.CategoriaID == 2)
-                                {
-                                    <li><a href="#">@Html.DisplayFor(modelItem => item.nombreSubcategoria)</a></li>}
-                            }
-                        </ul>
-                    </div>
-                </td>
+            <!--Menu de categorias y subcategorias-->
 
-            </tr>
-            <tr>
-                <td id="cat1">
-                    <div class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown">Hogar</a>
-                        <ul class="dropdown-menu">
-                            @foreach (var item in Model)
-                            {
-                                @if (item.CategoriaID == 1)
-                                {
-                                    <li><a href="#">@Html.DisplayFor(modelItem => item.nombreSubcategoria)</a></li>}
+            @foreach (var categoria in _context.Categoria)
+            {
+                <tr>
+                    <td>
+                        <div class="dropdown">
+                            <a href="#" class="dropbtn">
+                                @Html.DisplayFor(modelItem => categoria.nombre_categoria)
+                            </a>
+                            <ul class="dropdown-content">
+                                @foreach (var subcategoria in _context.Subcategoria)
+                                {@if (categoria.CategoriaID == subcategoria.CategoriaID)
+                                    {
+
+                                        <li>
+                                            <a href="#">@Html.DisplayFor(subcategorias => subcategoria.nombreSubcategoria)</a>
+                                        </li>
+                                    }
                             }
-                        </ul>
-                    </div>
-                </td>
-            </tr>
+                            </ul>
+
+                        </div>
+
+
+                    </td>
+                </tr>
+            }
+
+
+
         </table>
     </div>
+    <!--Slideshows de banner-->
         <div class="col-md-9">
             <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
                 <ol class="carousel-indicators">
