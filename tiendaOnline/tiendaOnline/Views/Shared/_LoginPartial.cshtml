@@ -13,10 +13,13 @@
         <ul class="nav navbar-nav navbar-right">
             
             <li>
+                <a href="#">Vender</a>
+            </li>
+            <li>
                 <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hola @UserManager.GetUserName(User)!</a>
             </li>
             <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">Cerrar Sesión</button>
+                <button type="submit" class="btn btn-link navbar-btn navbar-link">Cerrar Sesi&oacute;n</button>
             </li>
             @if (!await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Seller"))
                 {
