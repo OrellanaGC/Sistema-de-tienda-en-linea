@@ -110,7 +110,7 @@ namespace tiendaOnline.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "su perfil ha sido actualizado";
             return RedirectToPage();
         }
 
@@ -138,10 +138,10 @@ namespace tiendaOnline.Areas.Identity.Pages.Account.Manage
                 protocol: Request.Scheme);
             await _emailSender.SendEmailAsync(
                 email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                "Confirme su correo electrónico",
+                $"Por favor confirma tu cuenta haciendo clic <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>aquí</a>.");
 
-            StatusMessage = "Verification email sent. Please check your email.";
+            StatusMessage = "Verificación del email enviado. Por favor revise la bandeja de su correo electrónico.";
             return RedirectToPage();
         }
     }
