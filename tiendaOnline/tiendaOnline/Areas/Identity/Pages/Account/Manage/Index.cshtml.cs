@@ -41,32 +41,38 @@ namespace tiendaOnline.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Required]
-            [EmailAddress]
+            [EmailAddress (ErrorMessage ="Escriba un correo electronico valido")]
             public string Email { get; set; }
-
-            [Phone]
-            [Display(Name = "Phone number")]
+            [Phone (ErrorMessage ="Escriba un numero valido")]
+            [Display(Name = "Numero de telefono")]
             public string PhoneNumber { get; set; }
+            [Display(Name ="Apellidos")]
+            public string Apellidos { get; set; }
+            
         }
 
+        //Muestra los datos del usuario por get
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"No se pudo cargar al usuarion con ID '{_userManager.GetUserId(User)}'.");
             }
 
             var userName = await _userManager.GetUserNameAsync(user);
             var email = await _userManager.GetEmailAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
+            var apellidos = user.apellidos;
+            
             Username = userName;
 
             Input = new InputModel
             {
                 Email = email,
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                Apellidos = apellidos,
+
             };
 
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
@@ -74,6 +80,7 @@ namespace tiendaOnline.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
+        //Actualiza los datos del usuario por post
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -81,10 +88,10 @@ namespace tiendaOnline.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.GetUserAsync(User);            
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"No se pudo cargar al usuario con ID '{_userManager.GetUserId(User)}'.");
             }
 
             var email = await _userManager.GetEmailAsync(user);
@@ -94,26 +101,36 @@ namespace tiendaOnline.Areas.Identity.Pages.Account.Manage
                 if (!setEmailResult.Succeeded)
                 {
                     var userId = await _userManager.GetUserIdAsync(user);
-                    throw new InvalidOperationException($"Unexpected error occurred setting email for user with ID '{userId}'.");
+                    throw new InvalidOperationException($"error inesperado ocurrio al establecer el correo electronico para el usuario con ID '{userId}'.");
                 }
             }
-
+            //Cambia el numero y valida si la informacion es correcta
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);                
                 if (!setPhoneResult.Succeeded)
                 {
                     var userId = await _userManager.GetUserIdAsync(user);
-                    throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
+                    throw new InvalidOperationException($"error inesperado ocurrio al establecer el numero para el usuario con ID '{userId}'.");
                 }
+            }
+            //Agregando/cambiando el apellido de usuario
+            var apellidos = user.apellidos;
+           
+
+            if(Input.Apellidos != apellidos)
+            {
+                user.Apellidos= Input.Apellidos;
+
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Su perfil ha sido actualizado";
             return RedirectToPage();
         }
 
+        //Mandar verificacion de email
         public async Task<IActionResult> OnPostSendVerificationEmailAsync()
         {
             if (!ModelState.IsValid)
@@ -124,7 +141,7 @@ namespace tiendaOnline.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"No su pudo cargar al usuarion con ID '{_userManager.GetUserId(User)}'.");
             }
 
 
@@ -138,10 +155,10 @@ namespace tiendaOnline.Areas.Identity.Pages.Account.Manage
                 protocol: Request.Scheme);
             await _emailSender.SendEmailAsync(
                 email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                "Confirmar su correo electronico",
+                $"Por favor confirmar su cuenta <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>presionando aca</a>.");
 
-            StatusMessage = "Verification email sent. Please check your email.";
+            StatusMessage = "Correo de verificacion enviado, por favor revisar su correo.";
             return RedirectToPage();
         }
     }

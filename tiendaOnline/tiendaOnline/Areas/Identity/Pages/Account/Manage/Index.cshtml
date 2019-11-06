@@ -26,7 +26,7 @@
                 else
                 {
                     <input asp-for="Input.Email" class="form-control" />
-                    <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
+                    <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Enviar correo de confirmacion</button>
                 }
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
@@ -35,6 +35,13 @@
                 <input asp-for="Input.PhoneNumber" class="form-control" />
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
+            <!-- Agregando campos para nuevos atributos de usuario-->
+            <div class="form-group">
+                <label asp-for="Input.Apellidos">Apellidos</label>
+                <input asp-for="Input.Apellidos" class="form-control" />
+                <span asp-validation-for="Input.Apellidos" class="text-danger"></span>
+            </div>
+
             <button type="submit" class="btn btn-default">Guardar</button>
         </form>
     </div>

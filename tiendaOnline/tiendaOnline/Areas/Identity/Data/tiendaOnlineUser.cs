@@ -11,11 +11,28 @@ namespace tiendaOnline.Areas.Identity.Data
     public class tiendaOnlineUser : IdentityUser
     {
         public string Nombres { get; set; }
-        public string Apellidos { get; set; }
+        public string Apellidos;
 
 
         //carrito One-to-One, el carrito se crea junto con el usuario
        public int CarritoID { get; set; } 
        public Carrito Carrito { get; set; }
+
+
+
+        //Metodos para el usuario
+        //get y set para atributos
+        public string apellidos
+        {
+            get => Apellidos;
+            set
+            {
+                Apellidos = value;
+            }
+        }
+
+
+    
+
     }
 }
