@@ -83,10 +83,12 @@ namespace tiendaOnline.Areas.Identity.Pages.Account
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirma tu correo electrónico",
                         $"Por favor confirma tu cuenta haciendo clic <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>aquí</a>.");
-                    await _userManager.AddToRoleAsync(user, "User");                    
+                    await _userManager.AddToRoleAsync(user, "User");
                     //await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
-                    
+                    //return LocalRedirect(returnUrl);
+                    //este return redirige luego del registro, hacia la pagina de CheckEmail para informarle de que
+                    //debe revisar su bandeja de entrada y validar su cuenta
+                    return RedirectToPage("./CheckEmail");
                 }
                 
                 foreach (var error in result.Errors)

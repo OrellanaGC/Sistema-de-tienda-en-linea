@@ -11,31 +11,28 @@
     
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
-            
-            <li>
-                <a href="#">Vender</a>
-            </li>
+            @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Seller"))
+            {
+                <li>
+                    <a href="#">Vendedor</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="#">Comprador</a>
+                </li>
+            }
             <li>
                 <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hola @UserManager.GetUserName(User)!</a>
             </li>
             <li>
                 <button type="submit" class="btn btn-link navbar-btn navbar-link">Cerrar Sesi&oacute;n</button>
             </li>
-            @if (!await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Seller"))
-                {
-                    <il>
-                        <a href="#">Vendedor</a>
-                    </il>
-            }
-            else
-            {
-                <il>
-                    <a href="#">Comprador</a>
-                </il>
-            }
 
 
-            </ul>
+
+        </ul>
      </form>
     
 
