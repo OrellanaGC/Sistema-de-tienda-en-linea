@@ -10,23 +10,23 @@ using tiendaOnline.Models;
 
 namespace tiendaOnline.Controllers
 {
-    public class TipoDePagosController : Controller
+    public class TipoDePagoesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public TipoDePagosController(ApplicationDbContext context)
+        public TipoDePagoesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: TipoDePagos
+        // GET: TipoDePagoes
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.TipoDePago.Include(t => t.Paypal).Include(t => t.Tarjeta);
+            var applicationDbContext = _context.TipoDePago.Include(t => t.Paypal).Include(t => t.Tarjeta).Include(t => t.tiendaOnlineUser);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: TipoDePagos/Details/5
+        // GET: TipoDePagoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,6 +37,7 @@ namespace tiendaOnline.Controllers
             var tipoDePago = await _context.TipoDePago
                 .Include(t => t.Paypal)
                 .Include(t => t.Tarjeta)
+                .Include(t => t.tiendaOnlineUser)
                 .FirstOrDefaultAsync(m => m.TipoDePagoID == id);
             if (tipoDePago == null)
             {
@@ -46,20 +47,21 @@ namespace tiendaOnline.Controllers
             return View(tipoDePago);
         }
 
-        // GET: TipoDePagos/Create
+        // GET: TipoDePagoes/Create
         public IActionResult Create()
         {
             ViewData["PaypalID"] = new SelectList(_context.Paypal, "PaypalID", "PaypalID");
             ViewData["TarjetaID"] = new SelectList(_context.Tarjeta, "TarjetaID", "TarjetaID");
+            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
-        // POST: TipoDePagos/Create
+        // POST: TipoDePagoes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TipoDePagoID,PaypalID,TarjetaID")] TipoDePago tipoDePago)
+        public async Task<IActionResult> Create([Bind("TipoDePagoID,PaypalID,TarjetaID,tiendaOnlineUserID")] TipoDePago tipoDePago)
         {
             if (ModelState.IsValid)
             {
@@ -69,10 +71,11 @@ namespace tiendaOnline.Controllers
             }
             ViewData["PaypalID"] = new SelectList(_context.Paypal, "PaypalID", "PaypalID", tipoDePago.PaypalID);
             ViewData["TarjetaID"] = new SelectList(_context.Tarjeta, "TarjetaID", "TarjetaID", tipoDePago.TarjetaID);
+            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", tipoDePago.tiendaOnlineUserID);
             return View(tipoDePago);
         }
 
-        // GET: TipoDePagos/Edit/5
+        // GET: TipoDePagoes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -87,15 +90,16 @@ namespace tiendaOnline.Controllers
             }
             ViewData["PaypalID"] = new SelectList(_context.Paypal, "PaypalID", "PaypalID", tipoDePago.PaypalID);
             ViewData["TarjetaID"] = new SelectList(_context.Tarjeta, "TarjetaID", "TarjetaID", tipoDePago.TarjetaID);
+            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", tipoDePago.tiendaOnlineUserID);
             return View(tipoDePago);
         }
 
-        // POST: TipoDePagos/Edit/5
+        // POST: TipoDePagoes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TipoDePagoID,PaypalID,TarjetaID")] TipoDePago tipoDePago)
+        public async Task<IActionResult> Edit(int id, [Bind("TipoDePagoID,PaypalID,TarjetaID,tiendaOnlineUserID")] TipoDePago tipoDePago)
         {
             if (id != tipoDePago.TipoDePagoID)
             {
@@ -124,10 +128,11 @@ namespace tiendaOnline.Controllers
             }
             ViewData["PaypalID"] = new SelectList(_context.Paypal, "PaypalID", "PaypalID", tipoDePago.PaypalID);
             ViewData["TarjetaID"] = new SelectList(_context.Tarjeta, "TarjetaID", "TarjetaID", tipoDePago.TarjetaID);
+            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", tipoDePago.tiendaOnlineUserID);
             return View(tipoDePago);
         }
 
-        // GET: TipoDePagos/Delete/5
+        // GET: TipoDePagoes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -138,6 +143,7 @@ namespace tiendaOnline.Controllers
             var tipoDePago = await _context.TipoDePago
                 .Include(t => t.Paypal)
                 .Include(t => t.Tarjeta)
+                .Include(t => t.tiendaOnlineUser)
                 .FirstOrDefaultAsync(m => m.TipoDePagoID == id);
             if (tipoDePago == null)
             {
@@ -147,7 +153,7 @@ namespace tiendaOnline.Controllers
             return View(tipoDePago);
         }
 
-        // POST: TipoDePagos/Delete/5
+        // POST: TipoDePagoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

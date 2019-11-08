@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tiendaOnline.Data;
 
 namespace tiendaOnline.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191108011957_ModificandoPago")]
+    partial class ModificandoPago
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -272,7 +274,9 @@ namespace tiendaOnline.Data.Migrations
 
                     b.Property<int>("TarjetaID");
 
-                    b.Property<string>("tiendaOnlineUserID");
+                    b.Property<string>("tiendaOnlineUserIDId");
+
+                    b.Property<string>("tiendaOnlineUserId");
 
                     b.HasKey("TipoDePagoID");
 
@@ -280,7 +284,9 @@ namespace tiendaOnline.Data.Migrations
 
                     b.HasIndex("TarjetaID");
 
-                    b.HasIndex("tiendaOnlineUserID");
+                    b.HasIndex("tiendaOnlineUserIDId");
+
+                    b.HasIndex("tiendaOnlineUserId");
 
                     b.ToTable("TipoDePago");
                 });
@@ -358,9 +364,13 @@ namespace tiendaOnline.Data.Migrations
                         .HasForeignKey("TarjetaID")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("tiendaOnline.Areas.Identity.Data.tiendaOnlineUser", "tiendaOnlineUserID")
+                        .WithMany()
+                        .HasForeignKey("tiendaOnlineUserIDId");
+
                     b.HasOne("tiendaOnline.Areas.Identity.Data.tiendaOnlineUser", "tiendaOnlineUser")
                         .WithMany()
-                        .HasForeignKey("tiendaOnlineUserID");
+                        .HasForeignKey("tiendaOnlineUserId");
                 });
 #pragma warning restore 612, 618
         }
