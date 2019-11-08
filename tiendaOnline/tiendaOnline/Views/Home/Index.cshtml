@@ -107,7 +107,21 @@
             {
             <div class="col-md-3">
                 <img height=260px width=260px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
-                <h4>@Html.DisplayFor(modelItem => producto.Precio)</h4><p>@Html.DisplayFor(modelItem => producto.NombreProducto)</p>
+                <h4>@Html.DisplayFor(modelItem => producto.Precio)</h4>
+                <a asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a>
+
+
+                <div class="agregarCarrito text-left">
+                    <p class="button">
+                        <a class="btn btn-success" id="cartButton"
+                           asp-controller="Carrito"
+                           asp-action="AgregarCarrito"
+                           asp-route-idProducto="@producto.ProductoID">
+                            Añadir al carrito
+                        </a>
+                    </p>
+
+                </div>
             </div>
             }
         </div>
