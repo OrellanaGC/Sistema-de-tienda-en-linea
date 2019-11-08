@@ -102,6 +102,15 @@
         <div class="col-md-12">
             <h3>OFERTAS</h3>
          </div>
+        <div>
+            @foreach (var producto in _context.Producto)
+            {
+            <div class="col-md-3">
+                <img height=260px width=260px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
+                <h4>@Html.DisplayFor(modelItem => producto.Precio)</h4><p>@Html.DisplayFor(modelItem => producto.NombreProducto)</p>
+            </div>
+            }
+        </div>
         <div class="customSizeBox">
             <div class="col-md-3"><img height=260px width=260px src="~/images/gris.jpg"/>
                 <h4>$1000.00</h4><p>Producto</p></div>            
