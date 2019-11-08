@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tiendaOnline.Data;
 
 namespace tiendaOnline.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191108040501_productos")]
+    partial class productos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -326,15 +328,11 @@ namespace tiendaOnline.Data.Migrations
 
                     b.Property<int>("TarjetaID");
 
-                    b.Property<string>("tiendaOnlineUserID");
-
                     b.HasKey("TipoDePagoID");
 
                     b.HasIndex("PaypalID");
 
                     b.HasIndex("TarjetaID");
-
-                    b.HasIndex("tiendaOnlineUserID");
 
                     b.ToTable("TipoDePago");
                 });
@@ -429,10 +427,6 @@ namespace tiendaOnline.Data.Migrations
                         .WithMany()
                         .HasForeignKey("TarjetaID")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("tiendaOnline.Areas.Identity.Data.tiendaOnlineUser", "tiendaOnlineUser")
-                        .WithMany()
-                        .HasForeignKey("tiendaOnlineUserID");
                 });
 #pragma warning restore 612, 618
         }
