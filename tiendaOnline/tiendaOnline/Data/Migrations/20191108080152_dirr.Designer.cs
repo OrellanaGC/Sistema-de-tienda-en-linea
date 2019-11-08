@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tiendaOnline.Data;
 
 namespace tiendaOnline.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191108080152_dirr")]
+    partial class dirr
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,15 +258,12 @@ namespace tiendaOnline.Data.Migrations
 
                     b.Property<int>("MunicipioID");
 
-                    b.Property<string>("nombre_direccion");
-
-                    b.Property<string>("tiendaOnlineUserID");
+                    b.Property<string>("direccion")
+                        .IsRequired();
 
                     b.HasKey("DireccionID");
 
                     b.HasIndex("MunicipioID");
-
-                    b.HasIndex("tiendaOnlineUserID");
 
                     b.ToTable("Direccion");
                 });
@@ -447,10 +446,6 @@ namespace tiendaOnline.Data.Migrations
                         .WithMany()
                         .HasForeignKey("MunicipioID")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("tiendaOnline.Areas.Identity.Data.tiendaOnlineUser", "tiendaOnlineUser")
-                        .WithMany()
-                        .HasForeignKey("tiendaOnlineUserID");
                 });
 
             modelBuilder.Entity("tiendaOnline.Models.Municipio", b =>

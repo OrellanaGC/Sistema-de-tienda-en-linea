@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tiendaOnline.Data;
 
 namespace tiendaOnline.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191108072908_Direccion111")]
+    partial class Direccion111
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,8 +221,7 @@ namespace tiendaOnline.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("nombreDepartamento")
-                        .IsRequired();
+                    b.Property<string>("nombreDepartamento");
 
                     b.HasKey("DepartamentoID");
 
@@ -256,15 +257,15 @@ namespace tiendaOnline.Data.Migrations
 
                     b.Property<int>("MunicipioID");
 
-                    b.Property<string>("nombre_direccion");
+                    b.Property<string>("direccion");
 
-                    b.Property<string>("tiendaOnlineUserID");
+                    b.Property<string>("userID");
 
                     b.HasKey("DireccionID");
 
                     b.HasIndex("MunicipioID");
 
-                    b.HasIndex("tiendaOnlineUserID");
+                    b.HasIndex("userID");
 
                     b.ToTable("Direccion");
                 });
@@ -277,8 +278,7 @@ namespace tiendaOnline.Data.Migrations
 
                     b.Property<int>("DepartamentoID");
 
-                    b.Property<string>("nombreMunicipio")
-                        .IsRequired();
+                    b.Property<string>("nombreMunicipio");
 
                     b.HasKey("MunicipioID");
 
@@ -448,9 +448,9 @@ namespace tiendaOnline.Data.Migrations
                         .HasForeignKey("MunicipioID")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("tiendaOnline.Areas.Identity.Data.tiendaOnlineUser", "tiendaOnlineUser")
+                    b.HasOne("tiendaOnline.Areas.Identity.Data.tiendaOnlineUser", "user")
                         .WithMany()
-                        .HasForeignKey("tiendaOnlineUserID");
+                        .HasForeignKey("userID");
                 });
 
             modelBuilder.Entity("tiendaOnline.Models.Municipio", b =>
