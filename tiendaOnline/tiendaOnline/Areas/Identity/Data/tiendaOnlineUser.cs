@@ -18,6 +18,10 @@ namespace tiendaOnline.Areas.Identity.Data
        public int CarritoID { get; set; } 
        public Carrito Carrito { get; set; }
 
+        //relacion tarjeta 
+        public int TipoDePagoID { get; set; }
+        public TipoDePago TipoDePago { get; set; }
+
 
 
         //Metodos para el usuario

@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using tiendaOnline.Areas.Identity.Data;
+using tiendaOnline.Models;
 
 namespace tiendaOnline.Data
 {
@@ -25,5 +26,11 @@ namespace tiendaOnline.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<tiendaOnline.Models.Paypal> Paypal { get; set; }
+
+        public DbSet<tiendaOnline.Models.Tarjeta> Tarjeta { get; set; }
+
+        public DbSet<tiendaOnline.Models.TipoDePago> TipoDePago { get; set; }
     }
 }

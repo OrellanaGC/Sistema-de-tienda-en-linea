@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tiendaOnline.Data;
 
 namespace tiendaOnline.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191108001404_TipoPago")]
+    partial class TipoPago
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -213,21 +215,6 @@ namespace tiendaOnline.Data.Migrations
                     b.ToTable("Categoria");
                 });
 
-            modelBuilder.Entity("tiendaOnline.Models.Paypal", b =>
-                {
-                    b.Property<int>("PaypalID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("correoPaypal");
-
-                    b.Property<string>("psswrdPaypal");
-
-                    b.HasKey("PaypalID");
-
-                    b.ToTable("Paypal");
-                });
-
             modelBuilder.Entity("tiendaOnline.Models.Subcategoria", b =>
                 {
                     b.Property<int>("SubcategoriaID")
@@ -243,42 +230,6 @@ namespace tiendaOnline.Data.Migrations
                     b.HasIndex("CategoriaID");
 
                     b.ToTable("Subcategoria");
-                });
-
-            modelBuilder.Entity("tiendaOnline.Models.Tarjeta", b =>
-                {
-                    b.Property<int>("TarjetaID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("codigoTarjeta");
-
-                    b.Property<DateTime>("fechaVencimiento");
-
-                    b.Property<string>("tipoTarjeta");
-
-                    b.HasKey("TarjetaID");
-
-                    b.ToTable("Tarjeta");
-                });
-
-            modelBuilder.Entity("tiendaOnline.Models.TipoDePago", b =>
-                {
-                    b.Property<int>("TipoDePagoID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("PaypalID");
-
-                    b.Property<int>("TarjetaID");
-
-                    b.HasKey("TipoDePagoID");
-
-                    b.HasIndex("PaypalID");
-
-                    b.HasIndex("TarjetaID");
-
-                    b.ToTable("TipoDePago");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -339,19 +290,6 @@ namespace tiendaOnline.Data.Migrations
                     b.HasOne("tiendaOnline.Models.Categoria", "Categoria")
                         .WithMany()
                         .HasForeignKey("CategoriaID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("tiendaOnline.Models.TipoDePago", b =>
-                {
-                    b.HasOne("tiendaOnline.Models.Paypal", "Paypal")
-                        .WithMany()
-                        .HasForeignKey("PaypalID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("tiendaOnline.Models.Tarjeta", "Tarjeta")
-                        .WithMany()
-                        .HasForeignKey("TarjetaID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

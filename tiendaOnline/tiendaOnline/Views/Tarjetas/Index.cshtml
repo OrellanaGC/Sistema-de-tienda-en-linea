@@ -1,0 +1,47 @@
+﻿@model IEnumerable<tiendaOnline.Models.Tarjeta>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Nueva</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.codigoTarjeta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tipoTarjeta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaVencimiento)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.codigoTarjeta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipoTarjeta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fechaVencimiento)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TarjetaID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TarjetaID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TarjetaID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

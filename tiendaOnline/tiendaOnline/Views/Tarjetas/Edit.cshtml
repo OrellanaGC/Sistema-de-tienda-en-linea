@@ -1,0 +1,44 @@
+﻿@model tiendaOnline.Models.Tarjeta
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Tarjeta</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TarjetaID" />
+            <div class="form-group">
+                <label asp-for="codigoTarjeta" class="control-label">Código de Tarjeta </label>
+                <input asp-for="codigoTarjeta" class="form-control" />
+                <span asp-validation-for="codigoTarjeta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tipoTarjeta" class="control-label">Tipo de Tarjeta </label>
+                <input asp-for="tipoTarjeta" class="form-control" />
+                <span asp-validation-for="tipoTarjeta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="fechaVencimiento" class="control-label">Fecha de vencimmiento</label>
+                <input asp-for="fechaVencimiento" class="form-control" />
+                <span asp-validation-for="fechaVencimiento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />Modificar
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
