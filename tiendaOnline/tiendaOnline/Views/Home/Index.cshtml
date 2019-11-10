@@ -20,17 +20,19 @@
                 <tr>
                     <td>
                         <div class="dropdown">
-                            <a href="#" class="dropbtn">
-                                @Html.DisplayFor(modelItem => categoria.nombre_categoria)
-                            </a>
-                            <div class="dropdown-content">
-                                @foreach (var subcategoria in _context.Subcategoria)
-                                {@if (categoria.CategoriaID == subcategoria.CategoriaID)
-                                    {
-                                            <a href="#">@Html.DisplayFor(subcategorias => subcategoria.nombreSubcategoria)</a>
-                                    }
-                            }
-                            </div>
+                            <form asp-area="" asp-controller="Productos" asp-action="Index" method="get">
+                                <button name="searchString" type="submit" class="dropbtn botonculero3">
+                                    @Html.DisplayFor(modelItem => categoria.nombre_categoria)
+                                </button>
+                                <div class="dropdown-content">
+                                    @foreach (var subcategoria in _context.Subcategoria)
+                                    {@if (categoria.CategoriaID == subcategoria.CategoriaID)
+                                        {
+                                            <button class="dropdown-content" name="searchString" type="submit">@Html.DisplayFor(subcategorias => subcategoria.nombreSubcategoria)</button>
+                                        }
+                                }
+                                </div>
+                            </form>
 
                         </div>
 
