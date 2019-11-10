@@ -25,10 +25,23 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Productos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
             var applicationDbContext = _context.Producto.Include(p => p.DetalleProducto).Include(p => p.Subcategoria);
-            return View(await applicationDbContext.ToListAsync());
+            //Cuadro de busqueda
+
+            ViewData["CurrentFilter"] = searchString;
+            var productos = from p in _context.Producto select p; //recorre todos los items en producto
+            
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                //agregar metadata si se modifican los atributos
+                productos = productos.Where(p => p.NombreProducto.Contains(searchString));//realiza busqueda por nombre
+            }
+
+
+            return View(await productos.AsNoTracking().ToListAsync());
+            //return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Productos/Details/5

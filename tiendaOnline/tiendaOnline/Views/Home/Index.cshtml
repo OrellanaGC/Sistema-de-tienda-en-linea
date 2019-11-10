@@ -3,7 +3,6 @@
 <!--Haciendo una inyeccion del context para traer cualquier modelo-->
 @inject ApplicationDbContext _context
 
-@model IEnumerable<tiendaOnline.Models.Subcategoria>
 
 @{
     ViewData["Title"] = "iBuy";
@@ -106,11 +105,9 @@
             @foreach (var producto in _context.Producto)
             {
             <div class="col-md-3">
-                <img height=260px width=260px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
+                <img class="zoom" height=260px width=260px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
                 <h4>@Html.DisplayFor(modelItem => producto.Precio)</h4>
                 <a asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a>
-
-
                 <div class="agregarCarrito text-left">
                     <p class="button">
                         <a class="btn btn-success" id="cartButton"
@@ -128,12 +125,6 @@
         <div class="customSizeBox">
             <div class="col-md-3"><img height=260px width=260px src="~/images/gris.jpg"/>
                 <h4>$1000.00</h4><p>Producto</p></div>            
-            <div class="col-md-3"><img height=260px width=260px src="~/images/gris.jpg"/>
-                <h4>$1000.00</h4><p>Producto</p></div>
-            <div class="col-md-3"><img height=260px width=260px src="~/images/gris.jpg"/>
-                <h4>$1000.00</h4><p>Producto</p></div>
-            <div class="col-md-3"><img height=260px width=260px src="~/images/gris.jpg"/>
-                <h4>$1000.00</h4><p>Producto</p></div>
         </div>         
     </div>
     <div class="row">

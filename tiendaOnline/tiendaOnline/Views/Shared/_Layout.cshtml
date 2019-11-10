@@ -7,7 +7,9 @@
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/fontawesome5.8.2/css/all.min.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -27,10 +29,19 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/logo.png"/></a>
+                
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-
+                    <li></li>
+                    <!--Cuadro de busqueda de la tienda-->
+                    <li id="searchBox2">
+                        <form class="navbar-form" asp-area="" asp-controller="Productos" asp-action="Index" method="get">
+                            <input id="searchBox" type="text" name="searchString" value="@ViewData["CurrentFilter"]" />
+                            <button id="botonculero2" type="submit"><i class="fas fa-search"></i></button>                            
+                        </form>
+                    </li>
+                
 
                     <!--li><a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">Acerca de nosotros</a></li>

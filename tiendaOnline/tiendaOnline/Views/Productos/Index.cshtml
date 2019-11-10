@@ -1,15 +1,15 @@
-﻿@model IEnumerable<tiendaOnline.Models.Producto>
-
+﻿@using tiendaOnline.Data
+@model IEnumerable<tiendaOnline.Models.Producto>
+@inject ApplicationDbContext _context
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Productos";
 }
 
 <h2>Index</h2>
-
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<!--table class="table">
     <thead>
         <tr>
             <th>
@@ -37,35 +37,59 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreProducto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Precio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Existencia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Imagen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DetalleProducto.DetalleProductoID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subcategoria.SubcategoriaID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductoID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductoID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductoID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreProducto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Precio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Existencia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Imagen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DetalleProducto.DetalleProductoID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subcategoria.SubcategoriaID)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProductoID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ProductoID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProductoID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
-</table>
+</table-->
+<div class="row">
+    <div>
+        @foreach (var producto in Model)
+        {
+            <div class="col-md-3">
+                <img class="zoom" height=260px width=260px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
+                <h4>@Html.DisplayFor(modelItem => producto.Precio)</h4>
+                <a asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a>
+                <div class="agregarCarrito text-left">
+                    <p class="button">
+                        <a class="btn btn-success" id="cartButton"
+                           asp-controller="Carrito"
+                           asp-action="AgregarCarrito"
+                           asp-route-idProducto="@producto.ProductoID">
+                            Añadir al carrito
+                        </a>
+                    </p>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
