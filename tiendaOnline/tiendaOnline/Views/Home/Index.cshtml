@@ -108,7 +108,9 @@
             @foreach (var producto in _context.Producto)
             {
             <div class="col-md-2">
-                <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
+                <a asp-controller="Productos" asp-action="Details" asp-route-id="@producto.ProductoID">
+                    <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
+                </a>
                 <h4>$ @Html.DisplayFor(modelItem => producto.Precio)</h4>
                 <!--a asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a-->
                 <div class="agregarCarrito text-left">
@@ -117,7 +119,7 @@
                            asp-controller="Carrito"
                            asp-action="AgregarCarrito"
                            asp-route-idProducto="@producto.ProductoID">
-                            Añadir al carrito
+                            <i class="fas fa-cart-plus"></i>
                         </a>
                     </p>
 
