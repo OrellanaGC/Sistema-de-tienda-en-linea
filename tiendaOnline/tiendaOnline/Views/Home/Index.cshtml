@@ -21,14 +21,15 @@
                     <td>
                         <div class="dropdown">
                             <form asp-area="" asp-controller="Productos" asp-action="Index" method="get">
-                                <button name="searchString" type="submit" class="dropbtn botonculero3">
+                                <button name="searchString" type="submit" class="dropbtn botonculero3" value="@ViewData["CurrentFilter"]@categoria.nombre_categoria">
                                     @Html.DisplayFor(modelItem => categoria.nombre_categoria)
                                 </button>
                                 <div class="dropdown-content">
                                     @foreach (var subcategoria in _context.Subcategoria)
                                     {@if (categoria.CategoriaID == subcategoria.CategoriaID)
                                         {
-                                            <button class="dropdown-content" name="searchString" type="submit">@Html.DisplayFor(subcategorias => subcategoria.nombreSubcategoria)</button>
+                                            
+                                            <button class="dropdown-content" name="searchString" type="submit" value="@ViewData["CurrentFilter"]@subcategoria.nombreSubcategoria" >@Html.DisplayFor(subcategorias => subcategoria.nombreSubcategoria)</button><br /><br />
                                         }
                                 }
                                 </div>
@@ -106,10 +107,10 @@
         <div>
             @foreach (var producto in _context.Producto)
             {
-            <div class="col-md-3">
-                <img class="zoom" height=260px width=260px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
-                <h4>@Html.DisplayFor(modelItem => producto.Precio)</h4>
-                <a asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a>
+            <div class="col-md-2">
+                <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
+                <h4>$ @Html.DisplayFor(modelItem => producto.Precio)</h4>
+                <!--a asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a-->
                 <div class="agregarCarrito text-left">
                     <p class="button">
                         <a class="btn btn-success" id="cartButton"
@@ -125,7 +126,7 @@
             }
         </div>
         <div class="customSizeBox">
-            <div class="col-md-3"><img height=260px width=260px src="~/images/gris.jpg"/>
+            <div class="col-md-3"><img height=180px width=180px src="~/images/gris.jpg"/>
                 <h4>$1000.00</h4><p>Producto</p></div>            
         </div>         
     </div>
