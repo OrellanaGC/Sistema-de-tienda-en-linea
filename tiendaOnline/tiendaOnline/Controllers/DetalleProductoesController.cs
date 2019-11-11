@@ -10,22 +10,22 @@ using tiendaOnline.Models;
 
 namespace tiendaOnline.Controllers
 {
-    public class DetalleProductosController : Controller
+    public class DetalleProductoesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public DetalleProductosController(ApplicationDbContext context)
+        public DetalleProductoesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: DetalleProductos
+        // GET: DetalleProductoes
         public async Task<IActionResult> Index()
         {
             return View(await _context.DetalleProducto.ToListAsync());
         }
 
-        // GET: DetalleProductos/Details/5
+        // GET: DetalleProductoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,7 +34,7 @@ namespace tiendaOnline.Controllers
             }
 
             var detalleProducto = await _context.DetalleProducto
-                .FirstOrDefaultAsync(m => m.DetalleProductoID == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (detalleProducto == null)
             {
                 return NotFound();
@@ -43,29 +43,30 @@ namespace tiendaOnline.Controllers
             return View(detalleProducto);
         }
 
-        // GET: DetalleProductos/Create
+        // GET: DetalleProductoes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: DetalleProductos/Create
+        // POST: DetalleProductoes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DetalleProductoID,Descripcion,Talla,Color,PesoKg,Modelo")] DetalleProducto detalleProducto)
+        public async Task<IActionResult> Create([Bind("Id,Descripcion,Talla,Color,PesoKg,Modelo,ProductoId")] DetalleProducto detalleProducto)
         {
             if (ModelState.IsValid)
             {
+                detalleProducto.ProductoId = _context.Producto.Last().Id;
                 _context.Add(detalleProducto);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Productoes");
             }
             return View(detalleProducto);
         }
 
-        // GET: DetalleProductos/Edit/5
+        // GET: DetalleProductoes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,14 +82,14 @@ namespace tiendaOnline.Controllers
             return View(detalleProducto);
         }
 
-        // POST: DetalleProductos/Edit/5
+        // POST: DetalleProductoes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DetalleProductoID,Descripcion,Talla,Color,PesoKg,Modelo")] DetalleProducto detalleProducto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,Talla,Color,PesoKg,Modelo,ProductoId")] DetalleProducto detalleProducto)
         {
-            if (id != detalleProducto.DetalleProductoID)
+            if (id != detalleProducto.Id)
             {
                 return NotFound();
             }
@@ -102,7 +103,7 @@ namespace tiendaOnline.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DetalleProductoExists(detalleProducto.DetalleProductoID))
+                    if (!DetalleProductoExists(detalleProducto.Id))
                     {
                         return NotFound();
                     }
@@ -116,7 +117,7 @@ namespace tiendaOnline.Controllers
             return View(detalleProducto);
         }
 
-        // GET: DetalleProductos/Delete/5
+        // GET: DetalleProductoes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,7 +126,7 @@ namespace tiendaOnline.Controllers
             }
 
             var detalleProducto = await _context.DetalleProducto
-                .FirstOrDefaultAsync(m => m.DetalleProductoID == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (detalleProducto == null)
             {
                 return NotFound();
@@ -134,7 +135,7 @@ namespace tiendaOnline.Controllers
             return View(detalleProducto);
         }
 
-        // POST: DetalleProductos/Delete/5
+        // POST: DetalleProductoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -147,7 +148,7 @@ namespace tiendaOnline.Controllers
 
         private bool DetalleProductoExists(int id)
         {
-            return _context.DetalleProducto.Any(e => e.DetalleProductoID == id);
+            return _context.DetalleProducto.Any(e => e.Id == id);
         }
     }
 }

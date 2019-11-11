@@ -33,13 +33,13 @@ namespace tiendaOnline.Data
 
         public DbSet<tiendaOnline.Models.TipoDePago> TipoDePago { get; set; }
 
-        public DbSet<tiendaOnline.Models.DetalleProducto> DetalleProducto { get; set; }
-
-        public DbSet<tiendaOnline.Models.Producto> Producto { get; set; }
+      
 
         public DbSet<tiendaOnline.Models.Departamento> Departamento { get; set; }
         public DbSet<tiendaOnline.Models.Municipio> Municipio { get; set; }
         public DbSet<tiendaOnline.Models.Direccion> Direccion { get; set; }
+        public DbSet<tiendaOnline.Models.Producto> Producto { get; set; }
+        public DbSet<tiendaOnline.Models.DetalleProducto> DetalleProducto { get; set; }
 
     }
 }

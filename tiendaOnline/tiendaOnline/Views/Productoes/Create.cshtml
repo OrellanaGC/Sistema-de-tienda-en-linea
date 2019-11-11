@@ -1,18 +1,17 @@
 ﻿@model tiendaOnline.Models.Producto
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create";
 }
 
-<h2>Edit</h2>
+<h2>Create</h2>
 
 <h4>Producto</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ProductoID" />
             <div class="form-group">
                 <label asp-for="NombreProducto" class="control-label"></label>
                 <input asp-for="NombreProducto" class="form-control" />
@@ -35,21 +34,15 @@
             </div>
             <div class="form-group">
                 <label asp-for="Imagen" class="control-label"></label>
-                <input asp-for="Imagen" class="form-control" />
+                <input type="file" name="Imagen"  accept="images/*"/><br />
                 <span asp-validation-for="Imagen" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DetalleProductoID" class="control-label"></label>
-                <select asp-for="DetalleProductoID" class="form-control" asp-items="ViewBag.DetalleProductoID"></select>
-                <span asp-validation-for="DetalleProductoID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SubcategoriaID" class="control-label"></label>
                 <select asp-for="SubcategoriaID" class="form-control" asp-items="ViewBag.SubcategoriaID"></select>
-                <span asp-validation-for="SubcategoriaID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
     </div>

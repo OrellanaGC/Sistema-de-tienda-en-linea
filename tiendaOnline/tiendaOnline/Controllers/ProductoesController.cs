@@ -13,60 +13,17 @@ using tiendaOnline.Models;
 
 namespace tiendaOnline.Controllers
 {
-    public class ProductosController : Controller
+    public class ProductoesController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly IHostingEnvironment he;
 
-        public ProductosController(IHostingEnvironment e, ApplicationDbContext context)
+
+        public ProductoesController(IHostingEnvironment e, ApplicationDbContext context)
         {
             _context = context;
-            he = e;
+             he = e;
         }
-
-        // GET: Productos
-        public async Task<IActionResult> Index(string searchString)
-        {
-            var applicationDbContext = _context.Producto.Include(p => p.DetalleProducto).Include(p => p.Subcategoria);
-            //Cuadro de busqueda
-
-            ViewData["CurrentFilter"] = searchString;
-            var productos = from p in _context.Producto select p; //recorre todos los items en producto
-            
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                //agregar metadata si se modifican los atributos
-                productos = productos.Where(p => p.NombreProducto.Contains(searchString) || 
-                p.Subcategoria.nombreSubcategoria.Contains(searchString) ||
-                p.Subcategoria.Categoria.nombre_categoria.Contains(searchString)                
-                );//realiza busqueda por nombre
-            }
-
-
-            return View(await productos.AsNoTracking().ToListAsync());
-            //return View(await applicationDbContext.ToListAsync());
-        }
-
-        // GET: Productos/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var producto = await _context.Producto
-                .Include(p => p.DetalleProducto)
-                .Include(p => p.Subcategoria)
-                .FirstOrDefaultAsync(m => m.ProductoID == id);
-            if (producto == null)
-            {
-                return NotFound();
-            }
-
-            return View(producto);
-        }
-
         //Guarda la imagen
         public IActionResult Agrega(IFormFile Imagen)
         {
@@ -79,21 +36,45 @@ namespace tiendaOnline.Controllers
             }
             return View();
         }
+        // GET: Productoes
+        public async Task<IActionResult> Index()
+        {
+            var applicationDbContext = _context.Producto.Include(p => p.Subcategoria);
+            return View(await applicationDbContext.ToListAsync());
+        }
 
-        // GET: Productos/Create
+        // GET: Productoes/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var producto = await _context.Producto
+                .Include(p => p.Subcategoria)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (producto == null)
+            {
+                return NotFound();
+            }
+
+            return View(producto);
+        }
+
+        // GET: Productoes/Create
         public IActionResult Create()
         {
-            ViewData["DetalleProductoID"] = new SelectList(_context.DetalleProducto, "DetalleProductoID", "DetalleProductoID");
             ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "SubcategoriaID");
             return View();
         }
 
-        // POST: Productos/Create
+        // POST: Productoes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductoID,NombreProducto,Precio,Existencia,Codigo,Imagen,DetalleProductoID,SubcategoriaID")] Producto producto, IFormFile Imagen)
+        public async Task<IActionResult> Create([Bind("Id,NombreProducto,Precio,Existencia,Codigo,Imagen,SubcategoriaID")] Producto producto, IFormFile Imagen)
         {
             if (ModelState.IsValid)
             {
@@ -101,14 +82,13 @@ namespace tiendaOnline.Controllers
                 producto.Imagen = Imagen.FileName;
                 _context.Add(producto);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Create","DetalleProductoes");
             }
-            ViewData["DetalleProductoID"] = new SelectList(_context.DetalleProducto, "DetalleProductoID", "DetalleProductoID", producto.DetalleProductoID);
             ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "SubcategoriaID", producto.SubcategoriaID);
             return View(producto);
         }
 
-        // GET: Productos/Edit/5
+        // GET: Productoes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -121,19 +101,18 @@ namespace tiendaOnline.Controllers
             {
                 return NotFound();
             }
-            ViewData["DetalleProductoID"] = new SelectList(_context.DetalleProducto, "DetalleProductoID", "DetalleProductoID", producto.DetalleProductoID);
             ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "SubcategoriaID", producto.SubcategoriaID);
             return View(producto);
         }
 
-        // POST: Productos/Edit/5
+        // POST: Productoes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductoID,NombreProducto,Precio,Existencia,Codigo,Imagen,DetalleProductoID,SubcategoriaID")] Producto producto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,NombreProducto,Precio,Existencia,Codigo,Imagen,SubcategoriaID")] Producto producto)
         {
-            if (id != producto.ProductoID)
+            if (id != producto.Id)
             {
                 return NotFound();
             }
@@ -147,7 +126,7 @@ namespace tiendaOnline.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductoExists(producto.ProductoID))
+                    if (!ProductoExists(producto.Id))
                     {
                         return NotFound();
                     }
@@ -158,13 +137,11 @@ namespace tiendaOnline.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["FileLocation"] = "/images/productos/" + Path.GetFileName(Imagen.FileName);
-            ViewData["DetalleProductoID"] = new SelectList(_context.DetalleProducto, "DetalleProductoID", "DetalleProductoID", producto.DetalleProductoID);
             ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "SubcategoriaID", producto.SubcategoriaID);
             return View(producto);
         }
 
-        // GET: Productos/Delete/5
+        // GET: Productoes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -173,9 +150,8 @@ namespace tiendaOnline.Controllers
             }
 
             var producto = await _context.Producto
-                .Include(p => p.DetalleProducto)
                 .Include(p => p.Subcategoria)
-                .FirstOrDefaultAsync(m => m.ProductoID == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (producto == null)
             {
                 return NotFound();
@@ -184,7 +160,7 @@ namespace tiendaOnline.Controllers
             return View(producto);
         }
 
-        // POST: Productos/Delete/5
+        // POST: Productoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -197,7 +173,7 @@ namespace tiendaOnline.Controllers
 
         private bool ProductoExists(int id)
         {
-            return _context.Producto.Any(e => e.ProductoID == id);
+            return _context.Producto.Any(e => e.Id == id);
         }
     }
 }
