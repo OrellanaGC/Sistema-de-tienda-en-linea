@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<tiendaOnline.Models.Producto>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Productos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<!--h2>Index</h2-->
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<!--table class="table">
     <thead>
         <tr>
             <th>
@@ -69,4 +69,29 @@
         </tr>
 }
     </tbody>
-</table>
+</table-->
+<div class="row">
+    <div>
+        @foreach (var producto in Model)
+        {
+            <div class="col-md-2">
+                <a asp-action="Details" asp-route-id="@producto.ProductoID">
+                    <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
+                </a>
+                <h4>$ @Html.DisplayFor(modelItem => producto.PrecioUnitario)</h4>
+                <a asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a>
+                <div class="agregarCarrito text-left">
+                    <p class="button">
+                        <a class="btn btn-success" id="cartButton"
+                           asp-controller="Carrito"
+                           asp-action="AgregarCarrito"
+                           asp-route-idProducto="@producto.ProductoID">
+                            <i class="fas fa-cart-plus"></i>
+                        </a>
+                    </p>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>

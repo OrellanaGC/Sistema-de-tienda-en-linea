@@ -33,6 +33,7 @@ namespace tiendaOnline.Models
         //Relacion con DetalleProducto
         public DetalleProducto DetalleProducto { get; set; }
         //Relacion con Subcategoria
+        [Required(ErrorMessage ="Debe seleccionar una subcategoria para su producto")]
         public int SubcategoriaID { get; set; }
         public Subcategoria Subcategoria { get; set; }
         //Relacion con Vendedor

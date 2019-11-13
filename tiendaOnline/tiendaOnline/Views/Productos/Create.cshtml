@@ -1,49 +1,49 @@
 ﻿@model tiendaOnline.Models.Producto
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Nuevo Producto";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2>Nuevo Producto</h2>
 
-<h4>Producto</h4>
+<!--h4>Producto</h4-->
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="NombreProducto" class="control-label"></label>
+                <label asp-for="NombreProducto" class="control-label">Nombre</label>
                 <input asp-for="NombreProducto" class="form-control" />
                 <span asp-validation-for="NombreProducto" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PrecioUnitario" class="control-label"></label>
+                <label asp-for="PrecioUnitario" class="control-label">Precio unitario</label>
                 <input asp-for="PrecioUnitario" class="form-control" />
                 <span asp-validation-for="PrecioUnitario" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Existencia" class="control-label"></label>
+                <label asp-for="Existencia" class="control-label">Cantidad disponible</label>
                 <input asp-for="Existencia" class="form-control" />
                 <span asp-validation-for="Existencia" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Codigo" class="control-label"></label>
+                <label asp-for="Codigo" class="control-label">Código</label>
                 <input asp-for="Codigo" class="form-control" />
                 <span asp-validation-for="Codigo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Imagen" class="control-label"></label>
-                <input asp-for="Imagen" class="form-control" />
+                <label asp-for="Imagen" class="control-label">Imagen</label>
+                <input type="file" asp-for="Imagen" class="form-control" />
                 <span asp-validation-for="Imagen" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SubcategoriaID" class="control-label"></label>
+                <label asp-for="SubcategoriaID" class="control-label">Subcategoria</label>
                 <select asp-for="SubcategoriaID" class ="form-control" asp-items="ViewBag.SubcategoriaID"></select>
             </div>
             <div class="form-group">
-                <label asp-for="detalleVendedorID" class="control-label"></label>
+                <label asp-for="detalleVendedorID" class="control-label">Correo de contacto</label>
                 <select asp-for="detalleVendedorID" class ="form-control" asp-items="ViewBag.detalleVendedorID"></select>
             </div>
             <div class="form-group">
@@ -54,7 +54,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Mis productos</a>
 </div>
 
 @section Scripts {
