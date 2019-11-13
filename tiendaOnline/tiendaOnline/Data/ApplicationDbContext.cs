@@ -28,10 +28,7 @@ namespace tiendaOnline.Data
         }
 
         public DbSet<tiendaOnline.Models.Paypal> Paypal { get; set; }
-
-        public DbSet<tiendaOnline.Models.Tarjeta> Tarjeta { get; set; }         
-
-        public DbSet<tiendaOnline.Models.Departamento> Departamento { get; set; }
+        public DbSet<tiendaOnline.Models.Tarjeta> Tarjeta { get; set; }                 
         public DbSet<tiendaOnline.Models.Municipio> Municipio { get; set; }
         public DbSet<tiendaOnline.Models.Direccion> Direccion { get; set; }
         public DbSet<tiendaOnline.Models.Producto> Producto { get; set; }

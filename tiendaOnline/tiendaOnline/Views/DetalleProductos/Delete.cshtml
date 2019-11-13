@@ -1,0 +1,64 @@
+﻿@model tiendaOnline.Models.DetalleProducto
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>DetalleProducto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Talla)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Talla)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PesoKg)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PesoKg)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Marca)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Marca)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Modelo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Modelo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.producto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.producto.Codigo)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="DetalleProductoID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

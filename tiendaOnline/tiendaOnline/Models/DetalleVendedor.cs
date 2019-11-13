@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 using tiendaOnline.Areas.Identity.Data;
 
 namespace tiendaOnline.Models
-{
-    public enum TipoVendedor
-    {
-        Particular,
-        Privado
-    }
+{    
     public class DetalleVendedor
     {
         public int DetalleVendedorID { get; set; }
@@ -34,5 +29,12 @@ namespace tiendaOnline.Models
         public string tiendaOnlineUserID { get; set; }
         public tiendaOnlineUser tiendaOnlineUser { get; set; }
 
+    }
+
+    //Tipos de Vendedor
+    public enum TipoVendedor
+    {
+        [Display(Name = "Particular")] Particular,
+        [Display(Name = "Privado")]    Privado
     }
 }

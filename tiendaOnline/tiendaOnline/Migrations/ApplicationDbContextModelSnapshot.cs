@@ -223,20 +223,6 @@ namespace tiendaOnline.Migrations
                     b.ToTable("Categoria");
                 });
 
-            modelBuilder.Entity("tiendaOnline.Models.Departamento", b =>
-                {
-                    b.Property<int>("DepartamentoID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("nombreDepartamento")
-                        .IsRequired();
-
-                    b.HasKey("DepartamentoID");
-
-                    b.ToTable("Departamento");
-                });
-
             modelBuilder.Entity("tiendaOnline.Models.DetalleProducto", b =>
                 {
                     b.Property<int>("DetalleProductoID")
@@ -244,11 +230,14 @@ namespace tiendaOnline.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Color")
-                        .HasMaxLength(10);
+                        .HasMaxLength(20);
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(300);
+
+                    b.Property<string>("Marca")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Modelo")
                         .HasMaxLength(20);
@@ -329,14 +318,12 @@ namespace tiendaOnline.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DepartamentoID");
+                    b.Property<int>("Departamento");
 
                     b.Property<string>("nombreMunicipio")
                         .IsRequired();
 
                     b.HasKey("MunicipioID");
-
-                    b.HasIndex("DepartamentoID");
 
                     b.ToTable("Municipio");
                 });
@@ -402,7 +389,7 @@ namespace tiendaOnline.Migrations
 
                     b.Property<int>("SubcategoriaID");
 
-                    b.Property<int>("detalleVendedorID");
+                    b.Property<int?>("detalleVendedorID");
 
                     b.HasKey("ProductoID");
 
@@ -421,7 +408,8 @@ namespace tiendaOnline.Migrations
 
                     b.Property<int>("CategoriaID");
 
-                    b.Property<string>("nombreSubcategoria");
+                    b.Property<string>("nombreSubcategoria")
+                        .IsRequired();
 
                     b.HasKey("SubcategoriaID");
 
@@ -544,14 +532,6 @@ namespace tiendaOnline.Migrations
                         .HasForeignKey("tiendaOnlineUserID");
                 });
 
-            modelBuilder.Entity("tiendaOnline.Models.Municipio", b =>
-                {
-                    b.HasOne("tiendaOnline.Models.Departamento", "Departamento")
-                        .WithMany()
-                        .HasForeignKey("DepartamentoID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("tiendaOnline.Models.Paypal", b =>
                 {
                     b.HasOne("tiendaOnline.Areas.Identity.Data.tiendaOnlineUser", "tiendaOnlineUser")
@@ -575,8 +555,7 @@ namespace tiendaOnline.Migrations
 
                     b.HasOne("tiendaOnline.Models.DetalleVendedor", "detalleVendedor")
                         .WithMany()
-                        .HasForeignKey("detalleVendedorID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("detalleVendedorID");
                 });
 
             modelBuilder.Entity("tiendaOnline.Models.Subcategoria", b =>

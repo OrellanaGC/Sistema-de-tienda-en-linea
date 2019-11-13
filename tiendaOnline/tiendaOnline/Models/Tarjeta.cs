@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 using tiendaOnline.Areas.Identity.Data;
 
 namespace tiendaOnline.Models
-{
-    public enum TipoTarjeta
-    {
-        Debito,
-        Credito
-    }
+{    
     public class Tarjeta
     {
         public int TarjetaID { get; set; }
@@ -41,5 +36,12 @@ namespace tiendaOnline.Models
         //relacion para user
         public string tiendaOnlineUserID { get; set; }
         public tiendaOnlineUser tiendaOnlineUser { get; set; }
+    }
+
+    //Tipos de Tarjeta
+    public enum TipoTarjeta
+    {
+        [Display(Name = "Debito")] Debito,
+        [Display(Name = "Credito")] Credito
     }
 }

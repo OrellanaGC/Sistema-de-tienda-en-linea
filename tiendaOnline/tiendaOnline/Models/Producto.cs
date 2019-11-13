@@ -18,7 +18,7 @@ namespace tiendaOnline.Models
         [Required(ErrorMessage ="Ingresar el Precio del producto"), Range(0.01, 1000.00, ErrorMessage ="El producto no puede valer más de $1000.00")]
         public double PrecioUnitario { get; set; }
 
-        [Display(Name = "Existncias")]
+        [Display(Name = "Cantidad de Productos")]
         [Required(ErrorMessage ="Ingresar Existencia"), Range(1,100,ErrorMessage ="Debe ingresar menos de 100 productos a la venta")]
         public int Existencia { get; set; }
 
@@ -36,7 +36,7 @@ namespace tiendaOnline.Models
         public int SubcategoriaID { get; set; }
         public Subcategoria Subcategoria { get; set; }
         //Relacion con Vendedor
-        public int detalleVendedorID { get; set; }
+        public int? detalleVendedorID { get; set; }
         public DetalleVendedor detalleVendedor { get; set; }
     }
 }
