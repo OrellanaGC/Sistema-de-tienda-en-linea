@@ -5,6 +5,7 @@
 <ul class="nav nav-pills nav-stacked">
     <li class="@ManageNavPages.IndexNavClass(ViewContext)"><a asp-page="./Index">Perfil</a></li>
     <li class="@ManageNavPages.ChangePasswordNavClass(ViewContext)"><a id="change-password" asp-page="./ChangePassword">Contraseña</a></li>
+    <!--Cambiar el @ ManagePages cuando se tenga el controlador para la vista de tarjeta-->
     <li class="@ManageNavPages.ChangePasswordNavClass(ViewContext)"><a id="change-password" asp-page="./Tarjeta">Tarjeta</a></li>
     @if (hasExternalLogins)
     {
