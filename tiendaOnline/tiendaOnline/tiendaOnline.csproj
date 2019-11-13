@@ -17,6 +17,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Carrito\Create.cshtml" />
+    <Content Remove="Views\Carrito\Delete.cshtml" />
+    <Content Remove="Views\Carrito\Details.cshtml" />
+    <Content Remove="Views\Carrito\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />

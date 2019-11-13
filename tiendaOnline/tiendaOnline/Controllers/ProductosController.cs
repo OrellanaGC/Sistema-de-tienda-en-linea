@@ -82,6 +82,10 @@ namespace tiendaOnline.Controllers
             if (ModelState.IsValid)
             {
                 Agrega(Imagen);
+                System.Diagnostics.Debug.WriteLine("... i guess");
+                System.Diagnostics.Debug.WriteLine(Imagen);
+                System.Diagnostics.Debug.WriteLine(Imagen.FileName);
+                System.Diagnostics.Debug.WriteLine("... i guess");
                 producto.Imagen = Imagen.FileName;
                 _context.Add(producto);
                 await _context.SaveChangesAsync();
