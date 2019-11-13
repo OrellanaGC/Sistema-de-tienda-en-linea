@@ -22,7 +22,7 @@ namespace tiendaOnline.Controllers
         // GET: Direccions
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Direccion.Include(d => d.Municipio).Include(d => d.tiendaOnlineUser);
+            var applicationDbContext = _context.Direccion.Include(d => d.Municipio).Include(d => d.detalleVendedor).Include(d => d.tiendaOnlineUser);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -36,6 +36,7 @@ namespace tiendaOnline.Controllers
 
             var direccion = await _context.Direccion
                 .Include(d => d.Municipio)
+                .Include(d => d.detalleVendedor)
                 .Include(d => d.tiendaOnlineUser)
                 .FirstOrDefaultAsync(m => m.DireccionID == id);
             if (direccion == null)
@@ -50,6 +51,7 @@ namespace tiendaOnline.Controllers
         public IActionResult Create()
         {
             ViewData["MunicipioID"] = new SelectList(_context.Municipio, "MunicipioID", "nombreMunicipio");
+            ViewData["detalleVendedorID"] = new SelectList(_context.Set<DetalleVendedor>(), "DetalleVendedorID", "correoComercial");
             ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
@@ -59,7 +61,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DireccionID,nombre_direccion,MunicipioID,tiendaOnlineUserID")] Direccion direccion)
+        public async Task<IActionResult> Create([Bind("DireccionID,direccionDetallada,codigoPostal,MunicipioID,tiendaOnlineUserID,detalleVendedorID")] Direccion direccion)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +70,7 @@ namespace tiendaOnline.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["MunicipioID"] = new SelectList(_context.Municipio, "MunicipioID", "nombreMunicipio", direccion.MunicipioID);
+            ViewData["detalleVendedorID"] = new SelectList(_context.Set<DetalleVendedor>(), "DetalleVendedorID", "correoComercial", direccion.detalleVendedorID);
             ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", direccion.tiendaOnlineUserID);
             return View(direccion);
         }
@@ -86,6 +89,7 @@ namespace tiendaOnline.Controllers
                 return NotFound();
             }
             ViewData["MunicipioID"] = new SelectList(_context.Municipio, "MunicipioID", "nombreMunicipio", direccion.MunicipioID);
+            ViewData["detalleVendedorID"] = new SelectList(_context.Set<DetalleVendedor>(), "DetalleVendedorID", "correoComercial", direccion.detalleVendedorID);
             ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", direccion.tiendaOnlineUserID);
             return View(direccion);
         }
@@ -95,7 +99,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DireccionID,nombre_direccion,MunicipioID,tiendaOnlineUserID")] Direccion direccion)
+        public async Task<IActionResult> Edit(int id, [Bind("DireccionID,direccionDetallada,codigoPostal,MunicipioID,tiendaOnlineUserID,detalleVendedorID")] Direccion direccion)
         {
             if (id != direccion.DireccionID)
             {
@@ -123,6 +127,7 @@ namespace tiendaOnline.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["MunicipioID"] = new SelectList(_context.Municipio, "MunicipioID", "nombreMunicipio", direccion.MunicipioID);
+            ViewData["detalleVendedorID"] = new SelectList(_context.Set<DetalleVendedor>(), "DetalleVendedorID", "correoComercial", direccion.detalleVendedorID);
             ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", direccion.tiendaOnlineUserID);
             return View(direccion);
         }
@@ -137,6 +142,7 @@ namespace tiendaOnline.Controllers
 
             var direccion = await _context.Direccion
                 .Include(d => d.Municipio)
+                .Include(d => d.detalleVendedor)
                 .Include(d => d.tiendaOnlineUser)
                 .FirstOrDefaultAsync(m => m.DireccionID == id);
             if (direccion == null)

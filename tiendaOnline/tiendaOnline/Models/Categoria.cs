@@ -12,6 +12,6 @@ namespace tiendaOnline.Models
         [Required]
         public string nombre_categoria { get; set; }
 
-        //public ICollection<Subcategoria> Subcategoria { get; set; }
+        
     }
 }

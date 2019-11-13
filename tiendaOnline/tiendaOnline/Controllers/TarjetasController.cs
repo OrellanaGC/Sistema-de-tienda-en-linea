@@ -22,7 +22,8 @@ namespace tiendaOnline.Controllers
         // GET: Tarjetas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Tarjeta.ToListAsync());
+            var applicationDbContext = _context.Tarjeta.Include(t => t.tiendaOnlineUser);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Tarjetas/Details/5
@@ -34,6 +35,7 @@ namespace tiendaOnline.Controllers
             }
 
             var tarjeta = await _context.Tarjeta
+                .Include(t => t.tiendaOnlineUser)
                 .FirstOrDefaultAsync(m => m.TarjetaID == id);
             if (tarjeta == null)
             {
@@ -46,6 +48,7 @@ namespace tiendaOnline.Controllers
         // GET: Tarjetas/Create
         public IActionResult Create()
         {
+            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TarjetaID,codigoTarjeta,tipoTarjeta,fechaVencimiento")] Tarjeta tarjeta)
+        public async Task<IActionResult> Create([Bind("TarjetaID,numeroTarjeta,codigoSeguridad,tipoTarjeta,titularTarjeta,fechaVencimiento,tiendaOnlineUserID")] Tarjeta tarjeta)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace tiendaOnline.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", tarjeta.tiendaOnlineUserID);
             return View(tarjeta);
         }
 
@@ -78,6 +82,7 @@ namespace tiendaOnline.Controllers
             {
                 return NotFound();
             }
+            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", tarjeta.tiendaOnlineUserID);
             return View(tarjeta);
         }
 
@@ -86,7 +91,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TarjetaID,codigoTarjeta,tipoTarjeta,fechaVencimiento")] Tarjeta tarjeta)
+        public async Task<IActionResult> Edit(int id, [Bind("TarjetaID,numeroTarjeta,codigoSeguridad,tipoTarjeta,titularTarjeta,fechaVencimiento,tiendaOnlineUserID")] Tarjeta tarjeta)
         {
             if (id != tarjeta.TarjetaID)
             {
@@ -113,6 +118,7 @@ namespace tiendaOnline.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", tarjeta.tiendaOnlineUserID);
             return View(tarjeta);
         }
 
@@ -125,6 +131,7 @@ namespace tiendaOnline.Controllers
             }
 
             var tarjeta = await _context.Tarjeta
+                .Include(t => t.tiendaOnlineUser)
                 .FirstOrDefaultAsync(m => m.TarjetaID == id);
             if (tarjeta == null)
             {

@@ -19,8 +19,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="psswrdPaypal" class="control-label"></label>
-                <input asp-for="psswrdPaypal" type="password" class="form-control" />
+                <input asp-for="psswrdPaypal" class="form-control" />
                 <span asp-validation-for="psswrdPaypal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tiendaOnlineUserID" class="control-label"></label>
+                <select asp-for="tiendaOnlineUserID" class ="form-control" asp-items="ViewBag.tiendaOnlineUserID"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

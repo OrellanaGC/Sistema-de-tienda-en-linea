@@ -10,6 +10,12 @@ namespace tiendaOnline.Models
     {
         public int CarritoID { get; set; }
 
-       
+        //Relacion con ProdCarrito
+        public int prodCarritoID { get; set; }
+        public ProdCarrito prodCarrito { get; set; }
+
+        //Relacion con usuario
+        public String tiendaOnlineUserID { get; set; }
+        public tiendaOnlineUser tiendaOnlineUser { get; set; }
     }
 }

@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.NombreProducto)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Precio)
+                @Html.DisplayNameFor(model => model.PrecioUnitario)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Existencia)
@@ -30,6 +30,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Subcategoria)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.detalleVendedor)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -40,7 +43,7 @@
                 @Html.DisplayFor(modelItem => item.NombreProducto)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Precio)
+                @Html.DisplayFor(modelItem => item.PrecioUnitario)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Existencia)
@@ -55,9 +58,12 @@
                 @Html.DisplayFor(modelItem => item.Subcategoria.SubcategoriaID)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.DisplayFor(modelItem => item.detalleVendedor.correoComercial)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProductoID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ProductoID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ProductoID">Delete</a>
             </td>
         </tr>
 }

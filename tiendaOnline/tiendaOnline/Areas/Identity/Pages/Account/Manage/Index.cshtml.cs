@@ -46,8 +46,7 @@ namespace tiendaOnline.Areas.Identity.Pages.Account.Manage
             [Phone (ErrorMessage ="Escriba un numero valido")]
             [Display(Name = "Numero de telefono")]
             public string PhoneNumber { get; set; }
-            [Display(Name ="Apellidos")]
-            public string Apellidos { get; set; }
+            
             
         }
 
@@ -63,7 +62,7 @@ namespace tiendaOnline.Areas.Identity.Pages.Account.Manage
             var userName = await _userManager.GetUserNameAsync(user);
             var email = await _userManager.GetEmailAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            var apellidos = user.apellidos;
+            
             
             Username = userName;
 
@@ -71,7 +70,7 @@ namespace tiendaOnline.Areas.Identity.Pages.Account.Manage
             {
                 Email = email,
                 PhoneNumber = phoneNumber,
-                Apellidos = apellidos,
+                
 
             };
 
@@ -116,14 +115,14 @@ namespace tiendaOnline.Areas.Identity.Pages.Account.Manage
                 }
             }
             //Agregando/cambiando el apellido de usuario
-            var apellidos = user.apellidos;
+            //var apellidos = user.apellidos;
            
 
-            if(Input.Apellidos != apellidos)
-            {
-                user.Apellidos= Input.Apellidos;
+            //if(Input.Apellidos != apellidos)
+            //{
+            //    user.A= Input.Apellidos;
 
-            }
+            //}
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Su perfil ha sido actualizado";

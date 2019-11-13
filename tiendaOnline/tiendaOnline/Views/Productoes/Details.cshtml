@@ -17,10 +17,10 @@
             @Html.DisplayFor(model => model.NombreProducto)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Precio)
+            @Html.DisplayNameFor(model => model.PrecioUnitario)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Precio)
+            @Html.DisplayFor(model => model.PrecioUnitario)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Existencia)
@@ -46,9 +46,15 @@
         <dd>
             @Html.DisplayFor(model => model.Subcategoria.SubcategoriaID)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.detalleVendedor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.detalleVendedor.correoComercial)
+        </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.ProductoID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

@@ -10,7 +10,7 @@ namespace tiendaOnline.Models
         public int SubcategoriaID { get; set; }
         public string nombreSubcategoria { get; set; }
 
-        //one-to-many
+        //Relacion con Categoria
         public int CategoriaID { get; set; }
         public Categoria Categoria { get; set; }
     }

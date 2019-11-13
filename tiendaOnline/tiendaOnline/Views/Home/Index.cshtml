@@ -108,17 +108,17 @@
             @foreach (var producto in _context.Producto)
             {
             <div class="col-md-2">
-                <a asp-controller="Productos" asp-action="Details" asp-route-id="@producto.Id">
+                <a asp-controller="Productos" asp-action="Details" asp-route-id="@producto.ProductoID">
                     <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
                 </a>
-                <h4>$ @Html.DisplayFor(modelItem => producto.Precio)</h4>
-                <!--a asp-action="Details" asp-route-id="@producto.Id">@Html.DisplayFor(modelItem => producto.NombreProducto)</a-->
+                <h4>$ @Html.DisplayFor(modelItem => producto.PrecioUnitario)</h4>
+                <!--a asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a-->
                 <div class="agregarCarrito text-left">
                     <p class="button">
                         <a class="btn btn-success" id="cartButton"
                            asp-controller="Carrito"
                            asp-action="AgregarCarrito"
-                           asp-route-idProducto="@producto.Id">
+                           asp-route-idProducto="@producto.ProductoID">
                             <i class="fas fa-cart-plus"></i>
                         </a>
                     </p>

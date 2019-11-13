@@ -1,0 +1,53 @@
+﻿@model IEnumerable<tiendaOnline.Models.DetalleVendedor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombreComercial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.correoComercial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tipoVendedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tiendaOnlineUser)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombreComercial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.correoComercial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipoVendedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tiendaOnlineUser.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.DetalleVendedorID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.DetalleVendedorID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.DetalleVendedorID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

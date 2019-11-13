@@ -22,7 +22,8 @@ namespace tiendaOnline.Controllers
         // GET: DetalleProductoes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.DetalleProducto.ToListAsync());
+            var applicationDbContext = _context.DetalleProducto.Include(d => d.producto);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: DetalleProductoes/Details/5
@@ -34,7 +35,8 @@ namespace tiendaOnline.Controllers
             }
 
             var detalleProducto = await _context.DetalleProducto
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(d => d.producto)
+                .FirstOrDefaultAsync(m => m.DetalleProductoID == id);
             if (detalleProducto == null)
             {
                 return NotFound();
@@ -46,6 +48,8 @@ namespace tiendaOnline.Controllers
         // GET: DetalleProductoes/Create
         public IActionResult Create()
         {
+            ViewData["productoID"] = new SelectList(_context.Producto, "ProductoID", "Codigo");
+            
             return View();
         }
 
@@ -54,15 +58,15 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Descripcion,Talla,Color,PesoKg,Modelo,ProductoId")] DetalleProducto detalleProducto)
+        public async Task<IActionResult> Create([Bind("DetalleProductoID,Descripcion,Talla,Color,PesoKg,Modelo,productoID")] DetalleProducto detalleProducto)
         {
             if (ModelState.IsValid)
             {
-                detalleProducto.ProductoId = _context.Producto.Last().Id;
                 _context.Add(detalleProducto);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index","Productoes");
+                return RedirectToAction(nameof(Index));
             }
+            ViewData["productoID"] = new SelectList(_context.Producto, "ProductoID", "Codigo", detalleProducto.productoID);
             return View(detalleProducto);
         }
 
@@ -79,6 +83,7 @@ namespace tiendaOnline.Controllers
             {
                 return NotFound();
             }
+            ViewData["productoID"] = new SelectList(_context.Producto, "ProductoID", "Codigo", detalleProducto.productoID);
             return View(detalleProducto);
         }
 
@@ -87,9 +92,9 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,Talla,Color,PesoKg,Modelo,ProductoId")] DetalleProducto detalleProducto)
+        public async Task<IActionResult> Edit(int id, [Bind("DetalleProductoID,Descripcion,Talla,Color,PesoKg,Modelo,productoID")] DetalleProducto detalleProducto)
         {
-            if (id != detalleProducto.Id)
+            if (id != detalleProducto.DetalleProductoID)
             {
                 return NotFound();
             }
@@ -103,7 +108,7 @@ namespace tiendaOnline.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DetalleProductoExists(detalleProducto.Id))
+                    if (!DetalleProductoExists(detalleProducto.DetalleProductoID))
                     {
                         return NotFound();
                     }
@@ -114,6 +119,7 @@ namespace tiendaOnline.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["productoID"] = new SelectList(_context.Producto, "ProductoID", "Codigo", detalleProducto.productoID);
             return View(detalleProducto);
         }
 
@@ -126,7 +132,8 @@ namespace tiendaOnline.Controllers
             }
 
             var detalleProducto = await _context.DetalleProducto
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(d => d.producto)
+                .FirstOrDefaultAsync(m => m.DetalleProductoID == id);
             if (detalleProducto == null)
             {
                 return NotFound();
@@ -148,7 +155,7 @@ namespace tiendaOnline.Controllers
 
         private bool DetalleProductoExists(int id)
         {
-            return _context.DetalleProducto.Any(e => e.Id == id);
+            return _context.DetalleProducto.Any(e => e.DetalleProductoID == id);
         }
     }
 }

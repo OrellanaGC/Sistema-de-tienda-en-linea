@@ -13,19 +13,33 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="codigoTarjeta" class="control-label"></label>
-                <input asp-for="codigoTarjeta" class="form-control" />
-                <span asp-validation-for="codigoTarjeta" class="text-danger"></span>
+                <label asp-for="numeroTarjeta" class="control-label"></label>
+                <input asp-for="numeroTarjeta" class="form-control" />
+                <span asp-validation-for="numeroTarjeta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="codigoSeguridad" class="control-label"></label>
+                <input asp-for="codigoSeguridad" class="form-control" />
+                <span asp-validation-for="codigoSeguridad" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="tipoTarjeta" class="control-label"></label>
-                <input asp-for="tipoTarjeta" class="form-control" />
+                <select asp-for="tipoTarjeta" class="form-control"></select>
                 <span asp-validation-for="tipoTarjeta" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="titularTarjeta" class="control-label"></label>
+                <input asp-for="titularTarjeta" class="form-control" />
+                <span asp-validation-for="titularTarjeta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="fechaVencimiento" class="control-label"></label>
-                <input asp-for="fechaVencimiento" type="date" class="form-control" />
+                <input asp-for="fechaVencimiento" class="form-control" />
                 <span asp-validation-for="fechaVencimiento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tiendaOnlineUserID" class="control-label"></label>
+                <select asp-for="tiendaOnlineUserID" class ="form-control" asp-items="ViewBag.tiendaOnlineUserID"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

@@ -11,10 +11,16 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.codigoTarjeta)
+            @Html.DisplayNameFor(model => model.numeroTarjeta)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.codigoTarjeta)
+            @Html.DisplayFor(model => model.numeroTarjeta)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.codigoSeguridad)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.codigoSeguridad)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.tipoTarjeta)
@@ -23,10 +29,22 @@
             @Html.DisplayFor(model => model.tipoTarjeta)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.titularTarjeta)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.titularTarjeta)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.fechaVencimiento)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.fechaVencimiento)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.tiendaOnlineUser)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.tiendaOnlineUser.Id)
         </dd>
     </dl>
 </div>

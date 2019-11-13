@@ -22,7 +22,8 @@ namespace tiendaOnline.Controllers
         // GET: Paypals
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Paypal.ToListAsync());
+            var applicationDbContext = _context.Paypal.Include(p => p.tiendaOnlineUser);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Paypals/Details/5
@@ -34,6 +35,7 @@ namespace tiendaOnline.Controllers
             }
 
             var paypal = await _context.Paypal
+                .Include(p => p.tiendaOnlineUser)
                 .FirstOrDefaultAsync(m => m.PaypalID == id);
             if (paypal == null)
             {
@@ -46,6 +48,7 @@ namespace tiendaOnline.Controllers
         // GET: Paypals/Create
         public IActionResult Create()
         {
+            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PaypalID,correoPaypal,psswrdPaypal")] Paypal paypal)
+        public async Task<IActionResult> Create([Bind("PaypalID,correoPaypal,psswrdPaypal,tiendaOnlineUserID")] Paypal paypal)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace tiendaOnline.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", paypal.tiendaOnlineUserID);
             return View(paypal);
         }
 
@@ -78,6 +82,7 @@ namespace tiendaOnline.Controllers
             {
                 return NotFound();
             }
+            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", paypal.tiendaOnlineUserID);
             return View(paypal);
         }
 
@@ -86,7 +91,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PaypalID,correoPaypal,psswrdPaypal")] Paypal paypal)
+        public async Task<IActionResult> Edit(int id, [Bind("PaypalID,correoPaypal,psswrdPaypal,tiendaOnlineUserID")] Paypal paypal)
         {
             if (id != paypal.PaypalID)
             {
@@ -113,6 +118,7 @@ namespace tiendaOnline.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", paypal.tiendaOnlineUserID);
             return View(paypal);
         }
 
@@ -125,6 +131,7 @@ namespace tiendaOnline.Controllers
             }
 
             var paypal = await _context.Paypal
+                .Include(p => p.tiendaOnlineUser)
                 .FirstOrDefaultAsync(m => m.PaypalID == id);
             if (paypal == null)
             {

@@ -7,19 +7,28 @@
 <h2>Index</h2>
 
 <p>
-    <a asp-action="Create">Nueva</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.codigoTarjeta)
+                @Html.DisplayNameFor(model => model.numeroTarjeta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.codigoSeguridad)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.tipoTarjeta)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.titularTarjeta)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.fechaVencimiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tiendaOnlineUser)
             </th>
             <th></th>
         </tr>
@@ -28,13 +37,22 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.codigoTarjeta)
+                @Html.DisplayFor(modelItem => item.numeroTarjeta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.codigoSeguridad)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.tipoTarjeta)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.titularTarjeta)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.fechaVencimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tiendaOnlineUser.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.TarjetaID">Edit</a> |

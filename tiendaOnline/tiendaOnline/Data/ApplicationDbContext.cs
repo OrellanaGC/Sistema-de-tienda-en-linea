@@ -29,17 +29,15 @@ namespace tiendaOnline.Data
 
         public DbSet<tiendaOnline.Models.Paypal> Paypal { get; set; }
 
-        public DbSet<tiendaOnline.Models.Tarjeta> Tarjeta { get; set; }
-
-        public DbSet<tiendaOnline.Models.TipoDePago> TipoDePago { get; set; }
-
-      
+        public DbSet<tiendaOnline.Models.Tarjeta> Tarjeta { get; set; }         
 
         public DbSet<tiendaOnline.Models.Departamento> Departamento { get; set; }
         public DbSet<tiendaOnline.Models.Municipio> Municipio { get; set; }
         public DbSet<tiendaOnline.Models.Direccion> Direccion { get; set; }
         public DbSet<tiendaOnline.Models.Producto> Producto { get; set; }
         public DbSet<tiendaOnline.Models.DetalleProducto> DetalleProducto { get; set; }
+        public DbSet<tiendaOnline.Models.DetalleVendedor> DetalleVendedor { get; set; }
+        public DbSet<tiendaOnline.Models.ProdCarrito> ProdCarrito { get; set; }
 
     }
 }

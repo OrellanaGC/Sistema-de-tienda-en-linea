@@ -68,7 +68,7 @@ namespace tiendaOnline.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new tiendaOnlineUser { UserName = Input.Email, Email = Input.Email, Carrito= new Models.Carrito() };
+                var user = new tiendaOnlineUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

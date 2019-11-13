@@ -14,22 +14,37 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="TarjetaID" />
             <div class="form-group">
-                <label asp-for="codigoTarjeta" class="control-label">Código de Tarjeta </label>
-                <input asp-for="codigoTarjeta" class="form-control" />
-                <span asp-validation-for="codigoTarjeta" class="text-danger"></span>
+                <label asp-for="numeroTarjeta" class="control-label"></label>
+                <input asp-for="numeroTarjeta" class="form-control" />
+                <span asp-validation-for="numeroTarjeta" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="tipoTarjeta" class="control-label">Tipo de Tarjeta </label>
-                <input asp-for="tipoTarjeta" class="form-control" />
+                <label asp-for="codigoSeguridad" class="control-label"></label>
+                <input asp-for="codigoSeguridad" class="form-control" />
+                <span asp-validation-for="codigoSeguridad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tipoTarjeta" class="control-label"></label>
+                <select asp-for="tipoTarjeta" class="form-control"></select>
                 <span asp-validation-for="tipoTarjeta" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="fechaVencimiento" class="control-label">Fecha de vencimmiento</label>
+                <label asp-for="titularTarjeta" class="control-label"></label>
+                <input asp-for="titularTarjeta" class="form-control" />
+                <span asp-validation-for="titularTarjeta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="fechaVencimiento" class="control-label"></label>
                 <input asp-for="fechaVencimiento" class="form-control" />
                 <span asp-validation-for="fechaVencimiento" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />Modificar
+                <label asp-for="tiendaOnlineUserID" class="control-label"></label>
+                <select asp-for="tiendaOnlineUserID" class="form-control" asp-items="ViewBag.tiendaOnlineUserID"></select>
+                <span asp-validation-for="tiendaOnlineUserID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>
     </div>

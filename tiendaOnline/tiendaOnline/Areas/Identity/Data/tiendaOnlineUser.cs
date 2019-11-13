@@ -7,32 +7,30 @@ using tiendaOnline.Models; //importar models para traer a carrito
 
 namespace tiendaOnline.Areas.Identity.Data
 {
+    //lista para sexo
+    public enum Sexo
+    {
+        Masculino,
+        Femenino
+
+    }
     // Add profile data for application users by adding properties to the tiendaOnlineUser class
     public class tiendaOnlineUser : IdentityUser
     {
-        public string Nombres { get; set; }
-        public string Apellidos;
+        public string nombres { get; set; }
+        public string apellidos { get; set; }
+        public DateTime fecheDeNacimiento { get; set; }
+        public Sexo sexo { get; set; }
 
 
-        //carrito One-to-One, el carrito se crea junto con el usuario
-       public int CarritoID { get; set; } 
-       public Carrito Carrito { get; set; }
+        //carrito One-to-One con Carrito        
+        public Carrito Carrito { get; set; }
+
+        //Relacion oneToOne con DetalleVendedor
+        public DetalleVendedor detalleVendedor { get; set; }
 
 
 
-        //Metodos para el usuario
-        //get y set para atributos
-        public string apellidos
-        {
-            get => Apellidos;
-            set
-            {
-                Apellidos = value;
-            }
-        }
-
-
-    
 
     }
 }

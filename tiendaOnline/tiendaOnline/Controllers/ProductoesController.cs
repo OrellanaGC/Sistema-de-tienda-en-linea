@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -16,30 +13,16 @@ namespace tiendaOnline.Controllers
     public class ProductoesController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IHostingEnvironment he;
 
-
-        public ProductoesController(IHostingEnvironment e, ApplicationDbContext context)
+        public ProductoesController(ApplicationDbContext context)
         {
             _context = context;
-             he = e;
         }
-        //Guarda la imagen
-        public IActionResult Agrega(IFormFile Imagen)
-        {
-            if (Imagen != null)
-            {
-                var fileName = Path.Combine(he.WebRootPath, "images/productos", Path.GetFileName(Imagen.FileName));
 
-                Imagen.CopyTo(new FileStream(fileName, FileMode.Create));
-                ViewData["FileLocation"] = "/images/productos/" + Path.GetFileName(Imagen.FileName);
-            }
-            return View();
-        }
         // GET: Productoes
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Producto.Include(p => p.Subcategoria);
+            var applicationDbContext = _context.Producto.Include(p => p.Subcategoria).Include(p => p.detalleVendedor);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -53,7 +36,8 @@ namespace tiendaOnline.Controllers
 
             var producto = await _context.Producto
                 .Include(p => p.Subcategoria)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(p => p.detalleVendedor)
+                .FirstOrDefaultAsync(m => m.ProductoID == id);
             if (producto == null)
             {
                 return NotFound();
@@ -66,6 +50,7 @@ namespace tiendaOnline.Controllers
         public IActionResult Create()
         {
             ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "SubcategoriaID");
+            ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial");
             return View();
         }
 
@@ -74,17 +59,16 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NombreProducto,Precio,Existencia,Codigo,Imagen,SubcategoriaID")] Producto producto, IFormFile Imagen)
+        public async Task<IActionResult> Create([Bind("ProductoID,NombreProducto,PrecioUnitario,Existencia,Codigo,Imagen,SubcategoriaID,detalleVendedorID")] Producto producto)
         {
             if (ModelState.IsValid)
             {
-                Agrega(Imagen);
-                producto.Imagen = Imagen.FileName;
                 _context.Add(producto);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Create","DetalleProductoes");
+                return RedirectToAction(nameof(Index));
             }
             ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "SubcategoriaID", producto.SubcategoriaID);
+            ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", producto.detalleVendedorID);
             return View(producto);
         }
 
@@ -102,6 +86,7 @@ namespace tiendaOnline.Controllers
                 return NotFound();
             }
             ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "SubcategoriaID", producto.SubcategoriaID);
+            ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", producto.detalleVendedorID);
             return View(producto);
         }
 
@@ -110,9 +95,9 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NombreProducto,Precio,Existencia,Codigo,Imagen,SubcategoriaID")] Producto producto)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductoID,NombreProducto,PrecioUnitario,Existencia,Codigo,Imagen,SubcategoriaID,detalleVendedorID")] Producto producto)
         {
-            if (id != producto.Id)
+            if (id != producto.ProductoID)
             {
                 return NotFound();
             }
@@ -126,7 +111,7 @@ namespace tiendaOnline.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductoExists(producto.Id))
+                    if (!ProductoExists(producto.ProductoID))
                     {
                         return NotFound();
                     }
@@ -138,6 +123,7 @@ namespace tiendaOnline.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "SubcategoriaID", producto.SubcategoriaID);
+            ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", producto.detalleVendedorID);
             return View(producto);
         }
 
@@ -151,7 +137,8 @@ namespace tiendaOnline.Controllers
 
             var producto = await _context.Producto
                 .Include(p => p.Subcategoria)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(p => p.detalleVendedor)
+                .FirstOrDefaultAsync(m => m.ProductoID == id);
             if (producto == null)
             {
                 return NotFound();
@@ -173,7 +160,7 @@ namespace tiendaOnline.Controllers
 
         private bool ProductoExists(int id)
         {
-            return _context.Producto.Any(e => e.Id == id);
+            return _context.Producto.Any(e => e.ProductoID == id);
         }
     }
 }
