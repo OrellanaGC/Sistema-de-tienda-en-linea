@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +16,14 @@ namespace tiendaOnline.Controllers
     public class ProductosController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHostingEnvironment he;
 
-        public ProductosController(ApplicationDbContext context)
+
+        public ProductosController(IHostingEnvironment e, ApplicationDbContext context)
         {
             _context = context;
+
+            he = e;
         }
 
         // GET: Productos
@@ -53,19 +60,32 @@ namespace tiendaOnline.Controllers
             ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial");
             return View();
         }
+        //Guarda la imagen
+        public IActionResult Agrega(IFormFile Imagen)
+        {
+            if (Imagen != null)
+            {
+                var fileName = Path.Combine(he.WebRootPath, "images/productos", Path.GetFileName(Imagen.FileName));
 
+                Imagen.CopyTo(new FileStream(fileName, FileMode.Create));
+                ViewData["FileLocation"] = "/images/productos/" + Path.GetFileName(Imagen.FileName);
+            }
+            return View();
+        }
         // POST: Productos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductoID,NombreProducto,PrecioUnitario,Existencia,Codigo,Imagen,SubcategoriaID,detalleVendedorID")] Producto producto)
+        public async Task<IActionResult> Create([Bind("ProductoID,NombreProducto,PrecioUnitario,Existencia,Codigo,Imagen,SubcategoriaID,detalleVendedorID")] Producto producto, IFormFile Imagen)
         {
             if (ModelState.IsValid)
             {
+                Agrega(Imagen);
+                producto.Imagen = Imagen.FileName;
                 _context.Add(producto);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Create","DetalleProductos");
             }
             ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "SubcategoriaID", producto.SubcategoriaID);
             ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", producto.detalleVendedorID);
