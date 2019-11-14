@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using tiendaOnline.Areas.Identity.Data;
+using tiendaOnline.Data;
 using tiendaOnline.Models;
 
 namespace tiendaOnline.Areas.Identity.Pages.Account
@@ -21,17 +22,20 @@ namespace tiendaOnline.Areas.Identity.Pages.Account
         private readonly UserManager<tiendaOnlineUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _context; 
 
         public RegisterModel(
             UserManager<tiendaOnlineUser> userManager,
             SignInManager<tiendaOnlineUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [BindProperty]
@@ -84,6 +88,9 @@ namespace tiendaOnline.Areas.Identity.Pages.Account
                     await _emailSender.SendEmailAsync(Input.Email, "Confirma tu correo electrónico",
                         $"Por favor confirma tu cuenta haciendo clic <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>aquí</a>.");
                     await _userManager.AddToRoleAsync(user, "User");
+                    var carrito = new Carrito(user.Id);
+                    _context.Add(carrito);
+                    await _context.SaveChangesAsync();
                     //await _signInManager.SignInAsync(user, isPersistent: false);
                     //return LocalRedirect(returnUrl);
                     //este return redirige luego del registro, hacia la pagina de CheckEmail para informarle de que

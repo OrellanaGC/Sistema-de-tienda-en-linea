@@ -18,8 +18,9 @@ namespace tiendaOnline.Models
         {
             _ApplicationDbContext = ApplicationDbContext;
         }
-        public Carrito()
+        public Carrito(string userid)
         {
+            tiendaOnlineUserID = userid;
         }
 
         public int CarritoID { get; set; }
