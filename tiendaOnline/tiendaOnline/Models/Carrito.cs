@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using tiendaOnline.Areas.Identity.Data;
 using tiendaOnline.Data;
@@ -35,16 +36,26 @@ namespace tiendaOnline.Models
         public static Carrito GetCarrito(IServiceProvider services)
         {
 
-            var session = services.GetRequiredService<IHttpContextAccessor>()?
-                  .HttpContext.User.Identity.Name;
-            System.Diagnostics.Debug.WriteLine("aqui el user1... i guess");
-            System.Diagnostics.Debug.WriteLine(session);
-            System.Diagnostics.Debug.WriteLine("aqui el user1... i guess");
-
             var context = services.GetService<ApplicationDbContext>();
-            //string carritosId = session.GetString("CarritosId") ?? Guid.NewGuid().ToString();
-            // var cart= new Carrito(context) {CarritosId = carritosId };
-            return new Carrito(context) { CarritoID = 1 };
+            //obtiene el id del usuario
+            var session = services.GetRequiredService<IHttpContextAccessor>()?
+                  .HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            //con este comando se imprime en consola al hacer debug
+            System.Diagnostics.Debug.WriteLine("esto en consola xD");
+
+            //aqui se busca el carrito que corresponde a ese usuario
+            var carritos = context.Carrito;
+            var carritoID =0;
+            foreach(Carrito c in carritos)
+            {   
+                if(c.tiendaOnlineUserID == session)
+                {
+                    carritoID = c.CarritoID;
+                }
+            }
+
+            return new Carrito(context) { CarritoID = carritoID };
         }
 
         public void AgregarCarrito(Producto producto, int cantidad)
