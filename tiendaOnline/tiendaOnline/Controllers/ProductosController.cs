@@ -56,7 +56,7 @@ namespace tiendaOnline.Controllers
         // GET: Productos/Create
         public IActionResult Create()
         {
-            ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "nombreSubcategoria");
+            ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "SubcategoriaID");
             ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial");
             return View();
         }
@@ -85,7 +85,7 @@ namespace tiendaOnline.Controllers
                 producto.Imagen = Imagen.FileName;
                 _context.Add(producto);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Create","DetalleProductos");
+                return RedirectToAction("Create", "DetalleProductos");
             }
             ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "SubcategoriaID", producto.SubcategoriaID);
             ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", producto.detalleVendedorID);
@@ -105,7 +105,7 @@ namespace tiendaOnline.Controllers
             {
                 return NotFound();
             }
-            ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "nombreSubcategoria", producto.SubcategoriaID);
+            ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "SubcategoriaID", producto.SubcategoriaID);
             ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", producto.detalleVendedorID);
             return View(producto);
         }

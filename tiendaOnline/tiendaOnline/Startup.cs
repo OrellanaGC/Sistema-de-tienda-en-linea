@@ -16,6 +16,9 @@ using tiendaOnline.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using tiendaOnline.Areas.Identity.Services;
 using WebPWrecover.Services;
+using tiendaOnline.Data.Interfaces;
+using tiendaOnline.Data.Implementations;
+using tiendaOnline.Models;
 
 namespace tiendaOnline
 {
@@ -70,6 +73,8 @@ namespace tiendaOnline
             //Servicios para mandar correos de confirmacion...
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
+            services.AddTransient<IProducto, ImpProducto>();
+            services.AddScoped(sp => Carrito.GetCarrito(sp));
 
             //Configuracion del usuario
             services.Configure<IdentityOptions>(options =>
