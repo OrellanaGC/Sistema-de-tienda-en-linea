@@ -54,7 +54,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoriaID,nombre_categoria")] Categoria categoria)
+        public async Task<IActionResult> Create([Bind("CategoriaID,nombre_categoria,stockMax,stockMin")] Categoria categoria)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoriaID,nombre_categoria")] Categoria categoria)
+        public async Task<IActionResult> Edit(int id, [Bind("CategoriaID,nombre_categoria,stockMax,stockMin")] Categoria categoria)
         {
             if (id != categoria.CategoriaID)
             {

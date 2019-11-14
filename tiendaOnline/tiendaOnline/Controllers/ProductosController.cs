@@ -27,10 +27,27 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Productos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
             var applicationDbContext = _context.Producto.Include(p => p.Subcategoria).Include(p => p.detalleVendedor);
-            return View(await applicationDbContext.ToListAsync());
+            //Cuadro de busqueda
+
+            ViewData["CurrentFilter"] = searchString;
+            var productos = from p in _context.Producto select p; //recorre todos los items en producto
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                //agregar metadata si se modifican los atributos
+                //agregar metadata si se modifican los atributos
+                productos = productos.Where(p => p.NombreProducto.Contains(searchString) ||
+                p.Subcategoria.nombreSubcategoria.Contains(searchString) ||
+                p.Subcategoria.Categoria.nombre_categoria.Contains(searchString)
+                );//realiza busqueda por nombre
+            }
+
+
+            return View(await productos.AsNoTracking().ToListAsync());
+            //return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Productos/Details/5
@@ -56,7 +73,7 @@ namespace tiendaOnline.Controllers
         // GET: Productos/Create
         public IActionResult Create()
         {
-            ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "SubcategoriaID");
+            ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "nombreSubcategoria");
             ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial");
             return View();
         }
@@ -87,7 +104,7 @@ namespace tiendaOnline.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Create", "DetalleProductos");
             }
-            ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "SubcategoriaID", producto.SubcategoriaID);
+            ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "nombreSubcategoria", producto.SubcategoriaID);
             ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", producto.detalleVendedorID);
             return View(producto);
         }
@@ -105,7 +122,7 @@ namespace tiendaOnline.Controllers
             {
                 return NotFound();
             }
-            ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "SubcategoriaID", producto.SubcategoriaID);
+            ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "nombreSubcategoria", producto.SubcategoriaID);
             ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", producto.detalleVendedorID);
             return View(producto);
         }
@@ -142,7 +159,7 @@ namespace tiendaOnline.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "SubcategoriaID", producto.SubcategoriaID);
+            ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "nombreSubcategoria", producto.SubcategoriaID);
             ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", producto.detalleVendedorID);
             return View(producto);
         }

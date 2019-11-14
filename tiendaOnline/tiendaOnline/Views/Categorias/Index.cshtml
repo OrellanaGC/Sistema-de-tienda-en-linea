@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
@@ -16,6 +15,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.nombre_categoria)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.stockMax)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.stockMin)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -24,6 +29,12 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.nombre_categoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stockMax)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stockMin)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.CategoriaID">Edit</a> |

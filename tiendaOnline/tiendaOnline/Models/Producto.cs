@@ -10,7 +10,7 @@ namespace tiendaOnline.Models
     {
        public int ProductoID { get; set; }
         //it may be nombre
-        [Display(Name = "Nombre del Prodcto")]
+        [Display(Name = "Nombre del Producto")]
         [Required(ErrorMessage ="Ingresar el nombre del Producto"), MinLength(5, ErrorMessage ="Ingresar minimo 5 caracteres"), StringLength(50, ErrorMessage ="El nombre del producto solo admite como máximo 50 caracteres")]
         public string NombreProducto { get; set; }
 

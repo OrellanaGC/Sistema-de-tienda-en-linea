@@ -108,7 +108,7 @@
             @foreach (var producto in _context.Producto)
             {
             <div class="col-md-2">
-                <a asp-controller="Productos" asp-action="Details" asp-route-id="@producto.ProductoID">
+                <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">
                     <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
                 </a>
                 <h4>$ @Html.DisplayFor(modelItem => producto.PrecioUnitario)</h4>

@@ -4,7 +4,7 @@
     ViewData["Title"] = Model.NombreProducto;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<!--Esta vista queda inhabilitado, para ver los detalles de los productos se usa la vista de DetalleProducto-->
 <!--h2>Details</!--h2>
 
 <div>
@@ -12,46 +12,46 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.NombreProducto)
+            Html.DisplayNameFor(model => model.NombreProducto)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.NombreProducto)
+            Html.DisplayFor(model => model.NombreProducto)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.PrecioUnitario)
+            Html.DisplayNameFor(model => model.PrecioUnitario)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.PrecioUnitario)
+            Html.DisplayFor(model => model.PrecioUnitario)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Existencia)
+            Html.DisplayNameFor(model => model.Existencia)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Existencia)
+            Html.DisplayFor(model => model.Existencia)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Codigo)
+            Html.DisplayNameFor(model => model.Codigo)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Codigo)
+            Html.DisplayFor(model => model.Codigo)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Imagen)
+            Html.DisplayNameFor(model => model.Imagen)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Imagen)
+            Html.DisplayFor(model => model.Imagen)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Subcategoria)
+            Html.DisplayNameFor(model => model.Subcategoria)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Subcategoria.SubcategoriaID)
+            Html.DisplayFor(model => model.Subcategoria.SubcategoriaID)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.detalleVendedor)
+            Html.DisplayNameFor(model => model.detalleVendedor)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.detalleVendedor.correoComercial)
+            Html.DisplayFor(model => model.detalleVendedor.correoComercial)
         </dd>
     </dl>
 </div>
@@ -67,53 +67,33 @@
         <h5>Categoria: @Html.DisplayFor(model => model.Subcategoria.nombreSubcategoria)</h5>
 
         <dl>
-            @if (!(Model.Existencia == null))
-            {
-                <dt>
-                    @Html.DisplayNameFor(model => model.Existencia)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Existencia)
-                </dd>
-                <br />
-            }
-
-            @if (!(Model.Codigo == null))
-            {
-                <dt>
-                    @Html.DisplayNameFor(model => model.Codigo)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Codigo)
-                </dd>
-                <br />
-            }
-
-            @if (!(Model.DetalleProducto == null))
-            {
-                <dt>
-                    @Html.DisplayNameFor(model => model.DetalleProducto.Descripcion)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.DetalleProducto.Descripcion)
-                </dd>
-                <br />
-            }
-                <dt>
-                    @Html.DisplayNameFor(model => model.detalleVendedor)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.detalleVendedor.correoComercial)
-                </dd>
-            <!--Falta llamar a detalla del producto :c-->
+            <dt>
+                @Html.DisplayNameFor(model => model.Existencia)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Existencia)
+            </dd>
+            <br />
+            <dt>
+                @Html.DisplayNameFor(model => model.Codigo)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Codigo)
+            </dd>
+            <br />
+            <dt>@Html.DisplayNameFor(model => model.DetalleProducto.Descripcion)</dt>
+            <dd>@Html.DisplayFor(model => model.DetalleProducto.Descripcion)</dd>
+            <dt>@Html.DisplayNameFor(model => model.DetalleProducto.Talla)</dt>
+            <dd>@Html.DisplayFor(model => model.DetalleProducto.Talla)</dd>
+            <dt>@Html.DisplayNameFor(model => model.DetalleProducto.Color)</dt>
+            <dd>@Html.DisplayFor(model => model.DetalleProducto.Color)</dd>
         </dl>
 
     </div>
-
-
-
-    <hr />
 </div>
+
+   
+<div>
     <a asp-action="Edit" asp-route-id="@Model.ProductoID">Editar</a> |
     <a asp-action="Index">Mis productos</a>
 </div>

@@ -5,9 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!--Aqui se muestran los detalles de los productos-->
+
 <h2>Details</h2>
 
-<div>
+<!--div>
     <h4>DetalleProducto</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -54,6 +56,41 @@
             @Html.DisplayFor(model => model.producto.Codigo)
         </dd>
     </dl>
+</div-->
+<div class="row">
+    <br /><br />
+    <div class="col-md-4">
+        <img height=380px width=380px src="~/images/productos/@Html.DisplayFor(model => model.producto.Imagen)" />
+    </div>
+    <div class="col-md-6">
+        <h4>@Html.DisplayFor(model => model.producto.NombreProducto)</h4>
+        <h3><b>$ @Html.DisplayFor(model => model.producto.PrecioUnitario) </b></h3>
+        <h5>Categoria: @Html.DisplayFor(model => model.producto.Subcategoria.nombreSubcategoria)</h5>
+
+        <dl>
+            <dt>
+            @Html.DisplayNameFor(model => model.producto.Existencia)
+            </dt>
+            <dd>
+            @Html.DisplayFor(model => model.producto.Existencia)
+            </dd>
+            <br />
+            <dt>
+            @Html.DisplayNameFor(model => model.producto.Codigo)
+            </dt>
+            <dd>
+            @Html.DisplayFor(model => model.producto.Codigo)
+            </dd>
+            <br />
+            <dt>@Html.DisplayNameFor(model => model.Descripcion)</dt>
+            <dd>@Html.DisplayFor(model => model.Descripcion)</dd><br />
+            <dt>@Html.DisplayNameFor(model => model.Talla)</dt>
+            <dd>@Html.DisplayFor(model => model.Talla)</dd><br />
+            <dt>@Html.DisplayNameFor(model => model.Color)</dt>
+            <dd>@Html.DisplayFor(model => model.Color)</dd><br />
+        </dl>
+
+    </div>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.DetalleProductoID">Editar</a> |

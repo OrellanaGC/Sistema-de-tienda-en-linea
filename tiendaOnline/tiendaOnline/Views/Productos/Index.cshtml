@@ -8,7 +8,8 @@
 <!--h2>Index</h2-->
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <br />
+    <a class="btn btn-info" asp-action="Create"><i class="fas fa-plus"></i></i></a>
 </p>
 <!--table class="table">
     <thead>
@@ -75,7 +76,7 @@
         @foreach (var producto in Model)
         {
             <div class="col-md-2">
-                <a asp-action="Details" asp-route-id="@producto.ProductoID">
+                <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">
                     <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
                 </a>
                 <h4>$ @Html.DisplayFor(modelItem => producto.PrecioUnitario)</h4>
@@ -88,6 +89,7 @@
                            asp-route-idProducto="@producto.ProductoID">
                             <i class="fas fa-cart-plus"></i>
                         </a>
+                        <a class="btn btn-danger" asp-controller="Productos" asp-action="Delete" asp-route-id="@producto.ProductoID"><i class="far fa-trash-alt"></i></a>
                     </p>
 
                 </div>

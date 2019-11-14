@@ -23,7 +23,7 @@ namespace tiendaOnline.Models
         public string Color { get; set; }
 
         [Range(0,100, ErrorMessage = "El peso solo puede ser máximo 100kg")]
-        [Display(Name = "Peso")]
+        [Display(Name = "Peso (kg)")]
         public double PesoKg { get; set; }
 
         [StringLength(20, ErrorMessage = "La marca solo admite como máximo 20 caracteres"), MinLength(3)]

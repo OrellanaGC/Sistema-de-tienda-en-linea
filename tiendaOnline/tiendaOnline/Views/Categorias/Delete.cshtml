@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Delete";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Delete</h2>
@@ -17,6 +16,18 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.nombre_categoria)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.stockMax)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.stockMax)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.stockMin)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.stockMin)
         </dd>
     </dl>
     

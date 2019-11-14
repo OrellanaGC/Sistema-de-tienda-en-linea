@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Edit</h2>
@@ -18,6 +17,16 @@
                 <label asp-for="nombre_categoria" class="control-label"></label>
                 <input asp-for="nombre_categoria" class="form-control" />
                 <span asp-validation-for="nombre_categoria" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="stockMax" class="control-label"></label>
+                <input asp-for="stockMax" class="form-control" />
+                <span asp-validation-for="stockMax" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="stockMin" class="control-label"></label>
+                <input asp-for="stockMin" class="form-control" />
+                <span asp-validation-for="stockMin" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
