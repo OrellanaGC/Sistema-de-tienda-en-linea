@@ -1,11 +1,13 @@
 ﻿@model tiendaOnline.Models.DetalleProducto
 
 @{
-    ViewData["Title"] = "Detalles de producto";
+    ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Especificaciones del producto</h2>
+<h2>Create</h2>
+
+<h4>DetalleProducto</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -27,7 +29,7 @@
                 <span asp-validation-for="Color" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PesoKg" class="control-label">Peso (kg)</label>
+                <label asp-for="PesoKg" class="control-label"></label>
                 <input asp-for="PesoKg" class="form-control" />
                 <span asp-validation-for="PesoKg" class="text-danger"></span>
             </div>
@@ -41,16 +43,16 @@
                 <input asp-for="Modelo" class="form-control" />
                 <span asp-validation-for="Modelo" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Mis productos</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
