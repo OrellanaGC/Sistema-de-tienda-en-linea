@@ -26,8 +26,15 @@ namespace tiendaOnline.Controllers
         // GET: Direcciones
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Direccion.Include(d => d.Municipio).Include(d => d.detalleVendedor).Include(d => d.tiendaOnlineUser);
-            return View(await applicationDbContext.ToListAsync());
+            //var applicationDbContext = _context.Direccion.Include(d => d.Municipio).Include(d => d.detalleVendedor).Include(d => d.tiendaOnlineUser);
+
+            //Filtro de direcciones, filtro por id de usuario
+            var direcciones = from dir in (_context.Direccion.Include(d => d.Municipio).Include(d => d.detalleVendedor).Include(d => d.tiendaOnlineUser)) select dir;
+            var user = await _userManager.GetUserAsync(User);
+            direcciones = direcciones.Where(d => d.tiendaOnlineUserID.Contains(user.Id));
+
+            return View(await direcciones.AsNoTracking().ToListAsync());
+            //return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Direcciones/Details/5
