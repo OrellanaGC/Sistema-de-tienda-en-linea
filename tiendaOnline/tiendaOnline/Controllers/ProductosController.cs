@@ -5,9 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using tiendaOnline.Areas.Identity.Data;
 using tiendaOnline.Data;
 using tiendaOnline.Models;
 
@@ -17,12 +19,13 @@ namespace tiendaOnline.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IHostingEnvironment he;
+        private readonly UserManager<tiendaOnlineUser> _userManager;
 
 
-        public ProductosController(IHostingEnvironment e, ApplicationDbContext context)
+        public ProductosController(IHostingEnvironment e, ApplicationDbContext context, UserManager<tiendaOnlineUser> userManager)
         {
             _context = context;
-
+            _userManager = userManager;
             he = e;
         }
 
@@ -72,9 +75,8 @@ namespace tiendaOnline.Controllers
 
         // GET: Productos/Create
         public IActionResult Create()
-        {
-            ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "nombreSubcategoria");
-            ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial");
+        {                        
+            ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "nombreSubcategoria");                        
             return View();
         }
         //Guarda la imagen
@@ -100,9 +102,14 @@ namespace tiendaOnline.Controllers
             {
                 Agrega(Imagen);
                 producto.Imagen = Imagen.FileName;
+                //Asignando el producto al vendedor que ha iniciado sesion
+                var user = await _userManager.GetUserAsync(User);
+                var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
+                producto.detalleVendedorID = vendedor.DetalleVendedorID;
                 _context.Add(producto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Create", "DetalleProductos");
+
             }
             ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "nombreSubcategoria", producto.SubcategoriaID);
             ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", producto.detalleVendedorID);

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tiendaOnline.Data;
 
 namespace tiendaOnline.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191115055341_pruebaProductos")]
+    partial class pruebaProductos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -430,8 +432,6 @@ namespace tiendaOnline.Migrations
 
                     b.Property<int>("codigoSeguridad");
 
-                    b.Property<int?>("detalleVendedorID");
-
                     b.Property<DateTime>("fechaVencimiento");
 
                     b.Property<int>("numeroTarjeta");
@@ -444,8 +444,6 @@ namespace tiendaOnline.Migrations
                         .IsRequired();
 
                     b.HasKey("TarjetaID");
-
-                    b.HasIndex("detalleVendedorID");
 
                     b.HasIndex("tiendaOnlineUserID");
 
@@ -576,10 +574,6 @@ namespace tiendaOnline.Migrations
 
             modelBuilder.Entity("tiendaOnline.Models.Tarjeta", b =>
                 {
-                    b.HasOne("tiendaOnline.Models.DetalleVendedor", "detalleVendedor")
-                        .WithMany()
-                        .HasForeignKey("detalleVendedorID");
-
                     b.HasOne("tiendaOnline.Areas.Identity.Data.tiendaOnlineUser", "tiendaOnlineUser")
                         .WithMany()
                         .HasForeignKey("tiendaOnlineUserID");

@@ -36,6 +36,10 @@ namespace tiendaOnline.Models
         //relacion para user
         public string tiendaOnlineUserID { get; set; }
         public tiendaOnlineUser tiendaOnlineUser { get; set; }
+        //Relacion para vendedor
+        public int? detalleVendedorID { get; set; }
+        public DetalleVendedor detalleVendedor { get; set; }
+    
     }
 
     //Tipos de Tarjeta

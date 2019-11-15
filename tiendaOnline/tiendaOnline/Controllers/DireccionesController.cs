@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using tiendaOnline.Areas.Identity.Data;
 using tiendaOnline.Data;
 using tiendaOnline.Models;
 
@@ -13,10 +15,12 @@ namespace tiendaOnline.Controllers
     public class DireccionesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        public readonly UserManager<tiendaOnlineUser> _userManager;
 
-        public DireccionesController(ApplicationDbContext context)
+        public DireccionesController(ApplicationDbContext context, UserManager<tiendaOnlineUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Direcciones
@@ -51,8 +55,7 @@ namespace tiendaOnline.Controllers
         public IActionResult Create()
         {
             ViewData["MunicipioID"] = new SelectList(_context.Municipio, "MunicipioID", "nombreMunicipio");
-            ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial");
-            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id");
+                        
             return View();
         }
 
@@ -65,6 +68,10 @@ namespace tiendaOnline.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = await _userManager.GetUserAsync(User);
+                var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
+                direccion.tiendaOnlineUserID = user.Id;
+                direccion.detalleVendedorID = vendedor.DetalleVendedorID;
                 _context.Add(direccion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using tiendaOnline.Areas.Identity.Data;
 using tiendaOnline.Data;
 using tiendaOnline.Models;
 
@@ -13,10 +15,13 @@ namespace tiendaOnline.Controllers
     public class TarjetasController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<tiendaOnlineUser> _userManager;
 
-        public TarjetasController(ApplicationDbContext context)
+        public TarjetasController(ApplicationDbContext context,
+            UserManager<tiendaOnlineUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Tarjetas
@@ -61,6 +66,10 @@ namespace tiendaOnline.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = await _userManager.GetUserAsync(User);
+                var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
+                tarjeta.tiendaOnlineUserID = user.Id;
+                tarjeta.detalleVendedorID = vendedor.DetalleVendedorID;
                 _context.Add(tarjeta);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

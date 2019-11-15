@@ -28,6 +28,9 @@ namespace tiendaOnline.Models
         ////relacion para user OneToOne
         public string tiendaOnlineUserID { get; set; }
         public tiendaOnlineUser tiendaOnlineUser { get; set; }
+        
+        //relacion con productos
+        public List<Producto> productos { get; set; }
 
     }
 

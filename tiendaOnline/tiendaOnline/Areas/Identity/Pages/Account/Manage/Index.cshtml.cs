@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using tiendaOnline.Areas.Identity.Data;
+using tiendaOnline.Data;
 
 namespace tiendaOnline.Areas.Identity.Pages.Account.Manage
 {
@@ -17,15 +18,18 @@ namespace tiendaOnline.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<tiendaOnlineUser> _userManager;
         private readonly SignInManager<tiendaOnlineUser> _signInManager;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _context;
 
         public IndexModel(
             UserManager<tiendaOnlineUser> userManager,
             SignInManager<tiendaOnlineUser> signInManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _context = context;
         }
 
         public string Username { get; set; }
@@ -46,8 +50,16 @@ namespace tiendaOnline.Areas.Identity.Pages.Account.Manage
             [Phone (ErrorMessage ="Escriba un numero valido")]
             [Display(Name = "Numero de telefono")]
             public string PhoneNumber { get; set; }
-            
-            
+            [Display(Name = "Nombres")]
+            public string Nombres { get; set; }
+            [Display(Name = "Apellidos")]
+            public string Apellidos { get; set; }
+            [Display(Name = "Fecha de Nacimiento")]
+            public DateTime FecheDeNacimiento { get; set; }
+            [Display(Name = "Sexo")]
+            public Sexo Sexo { get; set; }
+
+
         }
 
         //Muestra los datos del usuario por get
@@ -62,6 +74,10 @@ namespace tiendaOnline.Areas.Identity.Pages.Account.Manage
             var userName = await _userManager.GetUserNameAsync(user);
             var email = await _userManager.GetEmailAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var nombres = user.nombres;
+            var apellidos = user.apellidos;
+            var fecheDeNacimiento = user.fecheDeNacimiento;
+            var sexo = user.sexo;
             
             
             Username = userName;
@@ -70,6 +86,10 @@ namespace tiendaOnline.Areas.Identity.Pages.Account.Manage
             {
                 Email = email,
                 PhoneNumber = phoneNumber,
+                Nombres = nombres,
+                Apellidos = apellidos,
+                FecheDeNacimiento = fecheDeNacimiento,
+                Sexo = sexo
                 
 
             };
@@ -114,16 +134,33 @@ namespace tiendaOnline.Areas.Identity.Pages.Account.Manage
                     throw new InvalidOperationException($"error inesperado ocurrio al establecer el numero para el usuario con ID '{userId}'.");
                 }
             }
-            //Agregando/cambiando el apellido de usuario
-            //var apellidos = user.apellidos;
-           
+            //Agregando/cambiando al usuario
+            var nombres = user.nombres;
+            if (Input.Nombres != nombres)
+            {
+                user.nombres = Input.Nombres;
+            }
+            //Agregando/Cambiando apellidos
+            var apellidos = user.apellidos;            
+            if (Input.Apellidos != apellidos)
+            {
+                user.apellidos = Input.Apellidos;
+            }
+            //Agregando/Cambiando fechaNacimiento
+            var fechaNacimiento = user.fecheDeNacimiento;
+            if (Input.FecheDeNacimiento != fechaNacimiento)
+            {
+                user.fecheDeNacimiento = Input.FecheDeNacimiento;
+            }
+            //Agregado/Cambiando Sexo
+            var sexo = user.sexo;
+            if (Input.Sexo != sexo)
+            {
+                user.sexo = Input.Sexo;
+            }
 
-            //if(Input.Apellidos != apellidos)
-            //{
-            //    user.A= Input.Apellidos;
-
-            //}
-
+            await _userManager.UpdateAsync(user);
+            await _context.SaveChangesAsync();
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Su perfil ha sido actualizado";
             return RedirectToPage();

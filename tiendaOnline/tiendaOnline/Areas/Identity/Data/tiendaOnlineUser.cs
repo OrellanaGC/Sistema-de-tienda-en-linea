@@ -11,8 +11,8 @@ namespace tiendaOnline.Areas.Identity.Data
     //lista para sexo
     public enum Sexo
     {
-        [Display(Name = "Masculinos")] Masculino,
-        [Display(Name = "Femeninos")] Femenino
+        [Display(Name = "Masculino")] Masculino,
+        [Display(Name = "Femenino")] Femenino
 
     }
     // Add profile data for application users by adding properties to the tiendaOnlineUser class

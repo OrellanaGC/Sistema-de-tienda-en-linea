@@ -35,13 +35,26 @@
                 <input asp-for="Input.PhoneNumber" class="form-control" />
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
-            <!-- Agregando campos para nuevos atributos de usuario-->
-            @*<div class="form-group">
+            <div class="form-group">
+                <label asp-for="Input.Nombres">Nombres</label>
+                <input asp-for="Input.Nombres" class="form-control" />
+                <span asp-validation-for="Input.Nombres" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Input.Apellidos">Apellidos</label>
                 <input asp-for="Input.Apellidos" class="form-control" />
                 <span asp-validation-for="Input.Apellidos" class="text-danger"></span>
-            </div>*@
-
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.FecheDeNacimiento">Fecha de Nacimiento </label>
+                <input asp-for="Input.FecheDeNacimiento" class="form-control" />
+                <span asp-validation-for="Input.FecheDeNacimiento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Sexo" class="control-label"></label>
+                <select asp-for="Input.Sexo" class="form-control" asp-items="Html.GetEnumSelectList<Sexo>()"></select>
+                <span asp-validation-for="Input.Sexo" class="text-danger"></span>
+            </div>
             <button type="submit" class="btn btn-default">Guardar</button>
         </form>
     </div>
