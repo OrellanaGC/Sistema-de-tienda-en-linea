@@ -23,9 +23,9 @@
                 <td class="text-center"><a class="glyphicon glyphicon-check" asp-controller="Carritos" asp-action="SeleccionarDeCarrito" asp-route-productoID="@linea.producto.ProductoID"></a></td>
                 
                 <td class="text-center"><div class="col-md-2">  <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@linea.ProdCarritoID"> <img class="zoom" height=120px width=130px src="~/images/productos/@Html.DisplayFor(modelItem => linea.producto.Imagen)" /> </a></td>
-                <td class="text-center"><b>$ @Html.DisplayFor(modelItem => linea.producto.NombreProducto)</b></td>
-                <td class="text-center">o</td>
-                <td class="text-right"><i>$ @Html.DisplayFor(modelItem => linea.producto.PrecioUnitario)</i></td>
+                <td class="text-center"><b>@Html.DisplayFor(modelItem => linea.producto.NombreProducto)</b></td>
+                <td class="text-center">@Html.DisplayFor(modelItem => linea.cantidadProducto)</td>
+                <td class="text-right"><i>$@Html.DisplayFor(modelItem => linea.producto.PrecioUnitario)</i></td>
                 <td class="text-right">
                     @((linea.cantidadProducto * linea.producto.PrecioUnitario).ToString("c"))
                 </td>
@@ -35,7 +35,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="3" class="text-right">Total:</td>
+                <td colspan="5" class="text-right"><b><i>Total</i></b></td>
                 <td class="text-right">
                     @Model.TotalCarrito.ToString("c")
                 </td>
