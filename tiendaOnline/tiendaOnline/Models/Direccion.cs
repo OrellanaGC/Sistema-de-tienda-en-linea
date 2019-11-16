@@ -11,7 +11,7 @@ namespace tiendaOnline.Models
     {
         public int DireccionID { get; set; }
 
-        [Display(Name = "Dirección")]
+        [Display(Name = "Dirección detallada")]
         [Required(ErrorMessage ="Ingresar la dirección"), MinLength(5), StringLength(50, ErrorMessage = "La descripción del producto solo admite como mínimo 10 y máximo 50 caracteres")]
         public string direccionDetallada { get; set; }
 
