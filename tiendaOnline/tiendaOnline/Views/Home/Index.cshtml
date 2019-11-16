@@ -5,7 +5,7 @@
 
 
 @{
-    ViewData["Title"] = "iBuy";
+    ViewData["Title"] = "iBuy"; 
 }
 
 
@@ -113,7 +113,8 @@
                 </a>
                 <h4>$ @Html.DisplayFor(modelItem => producto.PrecioUnitario)</h4>
                 <!--a asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a-->
-                <div class="agregarCarrito text-left">
+
+                <div class="agregarCarrito text-left"  title="Agrega el producto a tu carrito!">
                     <p class="button">
                         <a class="btn btn-success" id="cartButton"
                            asp-controller="Carritos"
