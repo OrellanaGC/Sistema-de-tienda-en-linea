@@ -6,12 +6,12 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>Selección</th>
-                <th>Producto</th>
-                <th>Nombre del producto</th>
-                <th>Cantidad <br />seleccionada</th>
-                <th class="text-right">Precio</th>
-                <th class="text-right">Subtotal</th>
+                <th style="width:15px">Selección</th>
+                <th style="width:55px">Producto</th>
+                <th style="width:255px">Nombre del producto</th>
+                <th style="width:55px">Cantidad <br />seleccionada</th>
+                <th class="text-center">Precio</th>
+                <th class="text-center">Subtotal</th>
                 <th></th>
             </tr>
         </thead>
@@ -22,11 +22,11 @@
                 <!--Con esta linea selecciona los que desea comprar ahorita es una prueba-->
                 <td class="text-center"><a class="glyphicon glyphicon-check" asp-controller="Carritos" asp-action="SeleccionarDeCarrito" asp-route-productoID="@linea.producto.ProductoID"></a></td>
                 
-                <td class="text-center"><div class="col-md-2">  <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@linea.ProdCarritoID"> <img class="zoom" height=120px width=130px src="~/images/productos/@Html.DisplayFor(modelItem => linea.producto.Imagen)" /> </a></td>
-                <td class="text-center"><b>@Html.DisplayFor(modelItem => linea.producto.NombreProducto)</b></td>
+                <td style="width:55px;"><div class="col-md-2">  <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@linea.ProdCarritoID"> <img class="zoom" height=120px width=130px src="~/images/productos/@Html.DisplayFor(modelItem => linea.producto.Imagen)" /> </a></td>
+                <td class="text-left"><b>@Html.DisplayFor(modelItem => linea.producto.NombreProducto)</b></td>
                 <td class="text-center">@Html.DisplayFor(modelItem => linea.cantidadProducto)</td>
-                <td class="text-right"><i>$@Html.DisplayFor(modelItem => linea.producto.PrecioUnitario)</i></td>
-                <td class="text-right">
+                <td class="text-center"><i>$@Html.DisplayFor(modelItem => linea.producto.PrecioUnitario)</i></td>
+                <td class="text-center">
                     @((linea.cantidadProducto * linea.producto.PrecioUnitario).ToString("c"))
                 </td>
                 <td class="text-center"><a class="glyphicon glyphicon-remove text-danger remove" asp-controller="Carritos" asp-action="EliminarDeCarrito" asp-route-productoID="@linea.producto.ProductoID"></a></td>
