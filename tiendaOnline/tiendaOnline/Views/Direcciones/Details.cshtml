@@ -12,6 +12,18 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.Municipio.Departamento)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Municipio.Departamento)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Municipio)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Municipio.nombreMunicipio)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.direccionDetallada)
         </dt>
         <dd>
@@ -23,24 +35,20 @@
         <dd>
             @Html.DisplayFor(model => model.codigoPostal)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Municipio)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Municipio.nombreMunicipio)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.tiendaOnlineUser)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.tiendaOnlineUser.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.detalleVendedor)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.detalleVendedor.correoComercial)
-        </dd>
+        <!--
+    <dt>
+        @Html.DisplayNameFor(model => model.tiendaOnlineUser)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.tiendaOnlineUser.Id)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.detalleVendedor)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.detalleVendedor.correoComercial)
+    </dd>
+        -->
     </dl>
 </div>
 <div>
