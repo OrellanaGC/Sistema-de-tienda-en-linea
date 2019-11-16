@@ -42,7 +42,7 @@ namespace tiendaOnline.Models
                   .HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             //con este comando se imprime en consola al hacer debug
-            System.Diagnostics.Debug.WriteLine("esto en consola xD");
+            //System.Diagnostics.Debug.WriteLine("esto en consola xD");
 
             //aqui se busca el carrito que corresponde a ese usuario
             var carritos = context.Carrito;

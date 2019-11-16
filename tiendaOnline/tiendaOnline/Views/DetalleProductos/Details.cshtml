@@ -37,6 +37,7 @@
                                         }
                                 }
                                 </div>
+
                             </form>
 
                         </div>
@@ -130,8 +131,20 @@
                 <dt>@Html.DisplayNameFor(model => model.Color)</dt>
                 <dd>@Html.DisplayFor(model => model.Color)</dd>
                 <br />
+                <div class="agregarCarrito text-left">
+                    <p class="button">
+                        <a class="btn btn-success" id="cartButton"
+                           asp-controller="Carritos"
+                           asp-action="AgregarCarrito"
+                           asp-route-idProducto="@Model.producto.ProductoID">
+                            <i class="fas fa-cart-plus"></i>
+                        </a>
+                    </p>
+
+                </div>
             </dl>
 
         </div>
     </div>
 </div>
+
