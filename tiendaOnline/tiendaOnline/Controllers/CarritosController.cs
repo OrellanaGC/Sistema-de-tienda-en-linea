@@ -59,7 +59,7 @@ namespace tiendaOnline.Controllers
         {
             var prodSeleccionado = _producto.Productos.FirstOrDefault(p => p.ProductoID == idProducto);
             if (prodSeleccionado != null)
-            {
+            {    
                 _carrito.EliminarDeCarrito(prodSeleccionado);
             }
             return RedirectToAction("Index");
