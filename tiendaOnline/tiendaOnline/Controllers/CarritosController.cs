@@ -57,6 +57,7 @@ namespace tiendaOnline.Controllers
 
         public RedirectToActionResult EliminarDeCarrito(int idProducto)
         {
+            
             var prodSeleccionado = _producto.Productos.FirstOrDefault(p => p.ProductoID == idProducto);
             if (prodSeleccionado != null)
             {    
