@@ -17,12 +17,12 @@ namespace tiendaOnline.Controllers
 {
     public class ProductosController : Controller
     {
+        private readonly UserManager<tiendaOnlineUser> _userManager;
         private readonly ApplicationDbContext _context;
         private readonly IHostingEnvironment he;
-        private readonly UserManager<tiendaOnlineUser> _userManager;
 
 
-        public ProductosController(IHostingEnvironment e, ApplicationDbContext context, UserManager<tiendaOnlineUser> userManager)
+        public ProductosController(IHostingEnvironment he, ApplicationDbContext context, UserManager<tiendaOnlineUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -152,6 +152,7 @@ namespace tiendaOnline.Controllers
                 {
                     _context.Update(producto);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction("Edit", "DetalleProductos");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -164,7 +165,7 @@ namespace tiendaOnline.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                
             }
             ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "nombreSubcategoria", producto.SubcategoriaID);
             ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", producto.detalleVendedorID);
