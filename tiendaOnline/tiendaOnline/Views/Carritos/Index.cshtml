@@ -1,5 +1,19 @@
 ﻿@model tiendaOnline.ViewModels.CarritoVM
 
+<style>
+    /*scroll shido para carrito*/
+    .my-custom-scrollbar {        
+        height:500px;
+        overflow: auto;
+    }
+
+    .table-wrapper-scroll-y {
+        display: block;
+    }
+    .seccion aside{        
+        display: flex;
+    }
+</style>
 <h2>Tu carrito de compras</h2>
 <h4>Aqui estan los productos que has agregado que esperas a comprarlos!</h4><br />
 <!--Lado izquierdo-->
@@ -7,16 +21,18 @@
     <table class="table table-bordered table-hover">
         <thead style="background-color: gainsboro" class="row">
             <tr>
-                <th class="col-md-1 text-center" style="width:15px">Selección</th>
-                <th class="col-md-1 text-center" style="width:55px">Producto</th>
-                <th class="col-md-2 text-center" style="width:255px">Nombre del producto</th>
-                <th class="col-md-1 text-center" style="width:55px">Cantidad <br />seleccionada</th>
+                <th class="col-md-1 text-center">Selección</th>
+                <th class="col-md-1 text-center">Producto</th>
+                <th class="col-md-2 text-center">Nombre del producto</th>
+                <th class="col-md-1 text-center">Cantidad <br />seleccionada</th>
                 <th class="col-md-1"></th>
                 <th class="col-md-1 text-center">Precio</th>
                 <th class="col-md-1 text-center">Subtotal</th>
                 <th class="col-md-1"></th>
             </tr>
         </thead>
+    </table>
+    <table class="table table-bordered table-hover table-wrapper-scroll-y my-custom-scrollbar">
         <tbody>
             @foreach (var linea in Model.Carrito.prodCarrito)
             {
@@ -54,38 +70,41 @@
         </tbody>
     </table>
 </aside>
-<!--Lado derecho-->
-<aside class="col-md-3">
-    <table class="table table-bordered table-hover">
-        <thead style="background-color: gainsboro">
-            <tr>
-                <th colspan="2" class="col-md-3 text-center">Detalle de tu compra</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th class="col-sm-2 text-right"><b><i>SubTotal</i></b></th>
-                <th class="col-sm-1 text-center">
-                    @Model.TotalCarrito.ToString("c")
-                </th>
-            </tr>
-            <tr>
-                <th class="col-sm-2 text-right">
-                    <!--Este boton debe validar el ingreso del cupón e imprimirlo en pantalla y qu quede almacenado para la compra-->
-                    <a class="btn btn-warning text-warning" asp-controller="" asp-action="Index" asp-route-id="">
-                        <i class="fas fa-pen"></i> Cupón
-                    </a>
-                </th>
-                <th class="col-sm-1 text-center">
-                    $0.00 <!--Debe traer el cupón de los producto-->
-                </th>
-            </tr>
-            <tr>
-                <th class="col-sm-2 text-right"><b><i>Total</i></b></th>
-                <th class="col-sm-1 text-center">
-                    @Model.TotalCarrito.ToString("c") <!--Debe quitarle el descuento y cupón al subtotal y mostrar el verdadero total-->
-                </th>
-            </tr>
-        </tbody>
-    </table>
-</aside>
+<div class="container">
+    <!--Lado derecho-->
+    <aside id="seccion" class="col-md-3">
+        <table class="table table-bordered table-hover">
+            <thead style="background-color: gainsboro">
+                <tr>
+                    <th colspan="2" class="col-md-3 text-center">Detalle de tu compra</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th class="col-sm-2 text-right"><b><i>SubTotal</i></b></th>
+                    <th class="col-sm-1 text-center">
+                        @Model.TotalCarrito.ToString("c")
+                    </th>
+                </tr>
+                <tr>
+                    <th class="col-sm-2 text-right">
+                        <!--Este boton debe validar el ingreso del cupón e imprimirlo en pantalla y qu quede almacenado para la compra-->
+                        <a class="btn btn-warning text-warning" asp-controller="" asp-action="Index" asp-route-id="">
+                            <i class="fas fa-pen"></i> Cupón
+                        </a>
+                    </th>
+                    <th class="col-sm-1 text-center">
+                        $0.00 <!--Debe traer el cupón de los producto-->
+                    </th>
+                </tr>
+                <tr>
+                    <th class="col-sm-2 text-right"><b><i>Total</i></b></th>
+                    <th class="col-sm-1 text-center">
+                        @Model.TotalCarrito.ToString("c") <!--Debe quitarle el descuento y cupón al subtotal y mostrar el verdadero total-->
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+
+    </aside>
+</div>
