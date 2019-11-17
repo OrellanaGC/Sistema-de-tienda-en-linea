@@ -32,6 +32,8 @@ namespace tiendaOnline.Controllers
         // GET: Productos
         public async Task<IActionResult> Index(string searchString)
         {
+            var user = await _userManager.GetUserAsync(User);
+            var vendedor= _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
             var applicationDbContext = _context.Producto.Include(p => p.Subcategoria).Include(p => p.detalleVendedor);
             //Cuadro de busqueda
 
@@ -44,7 +46,8 @@ namespace tiendaOnline.Controllers
                 //agregar metadata si se modifican los atributos
                 productos = productos.Where(p => p.NombreProducto.Contains(searchString) ||
                 p.Subcategoria.nombreSubcategoria.Contains(searchString) ||
-                p.Subcategoria.Categoria.nombre_categoria.Contains(searchString)
+                p.Subcategoria.Categoria.nombre_categoria.Contains(searchString) && 
+                p.detalleVendedorID==vendedor.DetalleVendedorID
                 );//realiza busqueda por nombre
             }
 
