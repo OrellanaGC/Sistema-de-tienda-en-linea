@@ -1,0 +1,74 @@
+﻿@model IEnumerable<tiendaOnline.Models.Direccion>
+
+@{
+    ViewData["Title"] = "Mis direcciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Mis direcciones</h2>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create"><i class="fas fa-plus"></i> Agregar</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Municipio.Departamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Municipio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.codigoPostal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.direccionDetallada)
+            </th>
+
+            <!--
+    <th>
+        @Html.DisplayNameFor(model => model.tiendaOnlineUser)
+    </th>
+
+    <th>
+        @Html.DisplayNameFor(model => model.detalleVendedor)
+    </th>
+    -->
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Municipio.Departamento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Municipio.nombreMunicipio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.codigoPostal)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.direccionDetallada)
+            </td>
+
+            <!--
+    <td>
+        @Html.DisplayFor(modelItem => item.tiendaOnlineUser.Id)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.detalleVendedor.correoComercial)
+    </td>
+     -->
+            <td>
+                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.DireccionID"><i class="fas fa-pen"></i></a>
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.DireccionID"><i class="fas fa-info"></i></a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.DireccionID"><i class="far fa-trash-alt"></i></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

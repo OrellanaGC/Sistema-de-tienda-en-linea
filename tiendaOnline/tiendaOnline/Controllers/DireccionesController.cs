@@ -31,7 +31,20 @@ namespace tiendaOnline.Controllers
             //Filtro de direcciones, filtro por id de usuario
             var direcciones = from dir in (_context.Direccion.Include(d => d.Municipio).Include(d => d.detalleVendedor).Include(d => d.tiendaOnlineUser)) select dir;
             var user = await _userManager.GetUserAsync(User);
-            direcciones = direcciones.Where(d => d.tiendaOnlineUserID.Contains(user.Id));
+            direcciones = direcciones.Where(d => d.tiendaOnlineUserID.Contains(user.Id) && d.detalleVendedor== null);
+
+            return View(await direcciones.AsNoTracking().ToListAsync());
+            //return View(await applicationDbContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> IndexVendedor()
+        {
+            
+            //Filtro de direcciones, filtro por id de usuario
+            var direcciones = from dir in (_context.Direccion.Include(d => d.Municipio).Include(d => d.detalleVendedor).Include(d => d.tiendaOnlineUser)) select dir;
+            var user = await _userManager.GetUserAsync(User);
+            var vendedor = _context.DetalleVendedor.Single(vndr=> vndr.tiendaOnlineUserID== user.Id);
+            direcciones = direcciones.Where(d => d.tiendaOnlineUserID.Contains(user.Id) && d.detalleVendedorID==vendedor.DetalleVendedorID);
 
             return View(await direcciones.AsNoTracking().ToListAsync());
             //return View(await applicationDbContext.ToListAsync());
@@ -61,6 +74,7 @@ namespace tiendaOnline.Controllers
         // GET: Direcciones/Create
         public IActionResult Create()
         {
+            
             ViewData["MunicipioID"] = new SelectList(_context.Municipio, "MunicipioID", "nombreMunicipio");
                         
             return View();
@@ -75,6 +89,29 @@ namespace tiendaOnline.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = await _userManager.GetUserAsync(User);               
+                direccion.tiendaOnlineUserID = user.Id;                
+                _context.Add(direccion);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["MunicipioID"] = new SelectList(_context.Municipio, "MunicipioID", "nombreMunicipio", direccion.MunicipioID);            
+            
+            return View(direccion);
+        }
+
+        //Direccion para Vendedor
+        public IActionResult CreateParaVendedor()
+        {
+
+            ViewData["MunicipioID"] = new SelectList(_context.Municipio, "MunicipioID", "nombreMunicipio");
+
+            return View();
+        }
+        public async Task<IActionResult> CreateParaVendedor([Bind("DireccionID,direccionDetallada,codigoPostal,MunicipioID,tiendaOnlineUserID,detalleVendedorID")] Direccion direccion)
+        {
+            if (ModelState.IsValid)
+            {
                 var user = await _userManager.GetUserAsync(User);
                 var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
                 direccion.tiendaOnlineUserID = user.Id;
@@ -84,11 +121,9 @@ namespace tiendaOnline.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["MunicipioID"] = new SelectList(_context.Municipio, "MunicipioID", "nombreMunicipio", direccion.MunicipioID);
-            ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", direccion.detalleVendedorID);
-            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", direccion.tiendaOnlineUserID);
+            
             return View(direccion);
         }
-
         // GET: Direcciones/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

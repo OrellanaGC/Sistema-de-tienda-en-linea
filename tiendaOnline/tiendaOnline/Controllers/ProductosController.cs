@@ -29,11 +29,9 @@ namespace tiendaOnline.Controllers
             he = e;
         }
 
-        // GET: Productos
-        public async Task<IActionResult> Index(string searchString)
+        // GET: Productos       
+         public async Task<IActionResult> Index(string searchString)
         {
-            var user = await _userManager.GetUserAsync(User);
-            var vendedor= _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
             var applicationDbContext = _context.Producto.Include(p => p.Subcategoria).Include(p => p.detalleVendedor);
             //Cuadro de busqueda
 
@@ -46,8 +44,33 @@ namespace tiendaOnline.Controllers
                 //agregar metadata si se modifican los atributos
                 productos = productos.Where(p => p.NombreProducto.Contains(searchString) ||
                 p.Subcategoria.nombreSubcategoria.Contains(searchString) ||
-                p.Subcategoria.Categoria.nombre_categoria.Contains(searchString) && 
-                p.detalleVendedorID==vendedor.DetalleVendedorID
+                p.Subcategoria.Categoria.nombre_categoria.Contains(searchString)
+                );//realiza busqueda por nombre
+            }
+
+
+            return View(await productos.AsNoTracking().ToListAsync());
+            //return View(await applicationDbContext.ToListAsync());
+        }
+
+        //Visualizar productos propios de cada vendedor
+        public async Task<IActionResult> IndexVendedor(string searchString)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
+            var applicationDbContext = _context.Producto.Include(p => p.Subcategoria).Include(p => p.detalleVendedor);
+            //Cuadro de busqueda
+
+            ViewData["CurrentFilter"] = searchString;
+            var productos = from p in _context.Producto.Where(p => p.detalleVendedorID == vendedor.DetalleVendedorID) select p; //recorre todos los items en producto
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                //agregar metadata si se modifican los atributos
+                //agregar metadata si se modifican los atributos
+                productos = productos.Where(p => p.NombreProducto.Contains(searchString) ||
+                p.Subcategoria.nombreSubcategoria.Contains(searchString) ||
+                p.Subcategoria.Categoria.nombre_categoria.Contains(searchString)
                 );//realiza busqueda por nombre
             }
 
