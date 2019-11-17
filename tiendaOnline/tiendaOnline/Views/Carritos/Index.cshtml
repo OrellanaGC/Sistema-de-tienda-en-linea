@@ -1,16 +1,33 @@
 ﻿@model tiendaOnline.ViewModels.CarritoVM
 
-<div class="row checkoutForm">
+<div class="row checkoutForm" width:100px;>
     <h2>Tu carrito de compras</h2>
     <h4>Aqui estan los productos que has agregado<br />que esperas a comprarlos!</br></h4>
-    
-        <table class="table table-bordered table-striped">
-            <thead>
+    <div class="row">
+        <div class="col-md-3">
+            <table class="table table-bordered table-hover">
+                <thead style="background-color: gainsboro"><tr><th colspan="2" class="text-center">Detalle de tu compra</th></tr></thead>
+                <tbody>
+
+                    <tr>
+                        <th class="text-right"><b><i>Total</i></b></th>
+                        <th class="text-center">
+                            @Model.TotalCarrito.ToString("c")
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+
+            </div>
+
+        <table class="table table-bordered table-hover">
+            <thead style="background-color: gainsboro">
                 <tr>
                     <th style="width:15px">Selección</th>
                     <th style="width:55px">Producto</th>
                     <th style="width:255px">Nombre del producto</th>
                     <th style="width:55px">Cantidad <br />seleccionada</th>
+                    <th></th>
                     <th class="text-center">Precio</th>
                     <th class="text-center">Subtotal</th>
                     <th></th>
@@ -23,31 +40,38 @@
                 {
                     <tr>
                         <!--Con esta linea selecciona los que desea comprar ahorita es una prueba-->
-                        <td class="text-center"><br /><label class="checkbox-inline"><input type="checkbox" value="" asp-controller="Carritos" asp-action="SeleccionarDeCarrito" asp-route-productoID="@linea.producto.ProductoID"></label></td>
+                        <td  style="width:20px;" class="text-center"><br /><label class="checkbox-inline"><input type="checkbox" value="" asp-controller="Carritos" asp-action="SeleccionarDeCarrito" asp-route-productoID="@linea.producto.ProductoID"></label></td>
 
-                        <td class="text-center" style="width:55px;"><div class="col-md-2"> 
-                            <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@linea.producto.ProductoID"> 
-                            <img class="zoom" height=90px width=100px src="~/images/productos/@Html.DisplayFor(modelItem => linea.producto.Imagen)" /> </a></td>
+                        <td class="text-center" style="width:25px;">
+                            
+                                <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@linea.producto.ProductoID">
+                                    <img class="zoom" height=90px width=100px src="~/images/productos/@Html.DisplayFor(modelItem => linea.producto.Imagen)" />
+                                </a>
+                        </td>
                         <td class="text-center"><br /><b>@Html.DisplayFor(modelItem => linea.producto.NombreProducto)</b></td>
                         <td class="text-center"><br />@Html.DisplayFor(modelItem => linea.cantidadProducto)</td>
-                        <td class="text-center"><i><br />$@Html.DisplayFor(modelItem => linea.producto.PrecioUnitario)</i></td>
-                        <td class="text-center">
+                        <td class="text-center" style="width:5px;">
+                            <br /><a class="glyphicon glyphicon-chevron-up" asp-controller="Carritos" asp-action="EliminarDeCarrito" asp-route-productoID="@linea.ProdCarritoID"></a>
+                            <br /><a class="glyphicon glyphicon-chevron-down" asp-controller="Carritos" asp-action="EliminarDeCarrito" asp-route-productoID="@linea.ProdCarritoID"></a>
+                        </td>
+                        <td style="width:35px;" class="text-center"><i><br />$@Html.DisplayFor(modelItem => linea.producto.PrecioUnitario)</i></td>
+                        <td style="width:35px;" class="text-center">
                             <br />
                             @((linea.cantidadProducto * linea.producto.PrecioUnitario).ToString("c"))
                         </td>
-                        <td class="text-center"><br /><a class="glyphicon glyphicon-remove text-danger remove" asp-controller="Carritos" asp-action="EliminarDeCarrito" asp-route-productoID="@linea.ProdCarritoID"></a></td>
+                        <td style="width:5px;" class="text-center"><br /><a class="glyphicon glyphicon-remove text-danger remove" asp-controller="Carritos" asp-action="EliminarDeCarrito" asp-route-productoID="@linea.ProdCarritoID"></a></td>
                     </tr>
                 }
             </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="5" class="text-right"><b><i>Total</i></b></td>
-                    <td class="text-right">
-                        @Model.TotalCarrito.ToString("c")
-                    </td>
-                </tr>
-            </tfoot>
+            <!--<tfoot>
+        <tr>
+            <td colspan="6" class="text-right"><b><i>Total</i></b></td>
+            <td class="text-right">
+                @Model.TotalCarrito.ToString("c")
+            </td>
+        </tr>
+    </tfoot>-->
         </table>
 
-    </div>
+        </div>
 
