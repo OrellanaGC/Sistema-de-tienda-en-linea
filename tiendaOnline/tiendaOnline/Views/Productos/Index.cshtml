@@ -88,6 +88,7 @@
             <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">
                 <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
             </a>
+
             <!--
                 <div class="agregarCarrito text-left">
                     <p class="button">
@@ -102,10 +103,21 @@
             </p>
 
         </div>-->
-            <p></p>
+            <br /><br />
 
             <a class="btn btn-warning" asp-controller="Productos" asp-action="Edit" asp-route-id="@producto.ProductoID"><i class="fas fa-pen"></i></a>
             <!--<a class="btn btn-success" asp-controller="DetalleProductos" asp-action="Edit" asp-route-id="@producto"><i class="fas fa-pen"></i>Detalles</a>-->
+            <div class="agregarCarrito text-left" title="Agrega el producto a tu carrito!">
+                
+                    <a class="btn btn-success" id="cartButton"
+                       asp-controller="Carritos"
+                       asp-action="AgregarCarrito"
+                       asp-route-idProducto="@producto.ProductoID">
+                        <i class="fas fa-cart-plus"></i>
+                    </a>
+                
+
+            </div>
         </div>
         }
     </div>
