@@ -1,48 +1,26 @@
-﻿@model IEnumerable<tiendaOnline.Models.Producto>
- 
+﻿@using Microsoft.AspNetCore.Identity
+@using tiendaOnline.Areas.Identity.Data
+
+
+@inject SignInManager<tiendaOnlineUser> SignInManager
+@inject UserManager<tiendaOnlineUser> UserManager
+
+@model IEnumerable<tiendaOnline.Models.Producto>
+
 @using tiendaOnline.Data
 
 <!--Haciendo una inyeccion del context para traer cualquier modelo-->
 @inject ApplicationDbContext _context
 
 @{
-    ViewData["Title"] = "Producto";
+    ViewData["Title"] = "Productos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<!--h2>Index</h2-->
-
 <p>
     <br />
     <a class="btn btn-info" asp-action="Create"><i class="fas fa-plus"></i> Nuevo </a>
 </p>
 <!--table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NombreProducto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PrecioUnitario)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Existencia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Codigo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Imagen)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Subcategoria)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.detalleVendedor)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
@@ -84,40 +62,44 @@
             <h4 class="productBox"><a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a></h4>
             <h5>$@Html.DisplayFor(modelItem => producto.PrecioUnitario)</h5>
 
-            
+
             <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">
                 <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
             </a>
 
             <!--
-                <div class="agregarCarrito text-left">
-                    <p class="button">
-                        <a class="btn btn-success" id="cartButton"
-                           asp-controller="Carritos"
-                           asp-action="AgregarCarrito"
-                           asp-route-idProducto="@producto.ProductoID">
-                            <i class="fas fa-cart-plus"></i>
-                        </a>
+        <div class="agregarCarrito text-left"><p class="button">
+                <a class="btn btn-success" id="cartButton"
+                   asp-controller="Carritos"
+                   asp-action="AgregarCarrito"
+                   asp-route-idProducto="@producto.ProductoID">
+                    <i class="fas fa-cart-plus"></i>
+                </a>
+                <a class="btn btn-danger" asp-controller="Productos" asp-action="Delete" asp-route-id="@producto.ProductoID">
+                    <i class="far fa-trash-alt"></i></a></p>
 
-    <a class="btn btn-danger" asp-controller="Productos" asp-action="Delete" asp-route-id="@producto.ProductoID"><i class="far fa-trash-alt"></i></a>
-            </p>
-
-        </div>-->
+    </div-->
             <br /><br />
+                  <div class="container dl-horizontal">
+                      @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Seller"))
+                      {
+                          <a class="btn btn-warning" asp-controller="Productos" asp-action="Edit" asp-route-id="@producto.ProductoID"><i class="fas fa-pen"></i></a>
+                          <!--a class="btn btn-success" asp-controller="DetalleProductos" asp-action="Edit" asp-route-id="@producto"><i class="fas fa-pen"></i>Detalles</a-->
+                      }
 
-            <a class="btn btn-warning" asp-controller="Productos" asp-action="Edit" asp-route-id="@producto.ProductoID"><i class="fas fa-pen"></i></a>
-            <!--<a class="btn btn-success" asp-controller="DetalleProductos" asp-action="Edit" asp-route-id="@producto"><i class="fas fa-pen"></i>Detalles</a>-->
-            <div class="agregarCarrito text-left" title="Agrega el producto a tu carrito!">
-                
-                    <a class="btn btn-success" id="cartButton"
-                       asp-controller="Carritos"
-                       asp-action="AgregarCarrito"
-                       asp-route-idProducto="@producto.ProductoID">
-                        <i class="fas fa-cart-plus"></i>
-                    </a>
-                
+                      
 
-            </div>
+                          <a class="btn btn-success" id="cartButton" title="Agrega el producto a tu carrito!"
+                             asp-controller="Carritos"
+                             asp-action="AgregarCarrito"
+                             asp-route-idProducto="@producto.ProductoID">
+                              <i class="fas fa-cart-plus"></i>
+                          </a>
+
+
+                      
+                  </div>
+            
         </div>
         }
     </div>

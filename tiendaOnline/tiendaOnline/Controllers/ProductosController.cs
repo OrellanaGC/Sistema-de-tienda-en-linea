@@ -47,7 +47,7 @@ namespace tiendaOnline.Controllers
                 p.Subcategoria.Categoria.nombre_categoria.Contains(searchString)
                 );//realiza busqueda por nombre
             }
-
+            
 
             return View(await productos.AsNoTracking().ToListAsync());
             //return View(await applicationDbContext.ToListAsync());
@@ -152,7 +152,7 @@ namespace tiendaOnline.Controllers
                 {
                     _context.Update(producto);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("Edit", "DetalleProductos");
+                    return RedirectToAction("Index", "Productos");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
