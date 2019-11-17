@@ -53,7 +53,7 @@ namespace tiendaOnline.Controllers
         // GET: DetalleVendedores/Create
         public IActionResult Create()
         {
-            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Email");
             return View();
         }
 
@@ -73,7 +73,7 @@ namespace tiendaOnline.Controllers
                 await _userManager.AddToRoleAsync(user, "Seller");
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", detalleVendedor.tiendaOnlineUserID);
+            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Email", detalleVendedor.tiendaOnlineUserID);
             return View(detalleVendedor);
         }
 
