@@ -22,7 +22,7 @@ namespace tiendaOnline.Controllers
         private readonly IHostingEnvironment he;
 
 
-        public ProductosController(IHostingEnvironment he, ApplicationDbContext context, UserManager<tiendaOnlineUser> userManager)
+        public ProductosController(IHostingEnvironment e, ApplicationDbContext context, UserManager<tiendaOnlineUser> userManager)
         {
             _context = context;
             _userManager = userManager;

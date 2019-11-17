@@ -25,7 +25,9 @@
                         <!--Con esta linea selecciona los que desea comprar ahorita es una prueba-->
                         <td class="text-center"><br /><label class="checkbox-inline"><input type="checkbox" value="" asp-controller="Carritos" asp-action="SeleccionarDeCarrito" asp-route-productoID="@linea.producto.ProductoID"></label></td>
 
-                        <td class="text-center" style="width:55px;"><div class="col-md-2">  <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@linea.ProdCarritoID"> <img class="zoom" height=90px width=100px src="~/images/productos/@Html.DisplayFor(modelItem => linea.producto.Imagen)" /> </a></td>
+                        <td class="text-center" style="width:55px;"><div class="col-md-2"> 
+                            <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@linea.producto.ProductoID"> 
+                            <img class="zoom" height=90px width=100px src="~/images/productos/@Html.DisplayFor(modelItem => linea.producto.Imagen)" /> </a></td>
                         <td class="text-center"><br /><b>@Html.DisplayFor(modelItem => linea.producto.NombreProducto)</b></td>
                         <td class="text-center"><br />@Html.DisplayFor(modelItem => linea.cantidadProducto)</td>
                         <td class="text-center"><i><br />$@Html.DisplayFor(modelItem => linea.producto.PrecioUnitario)</i></td>
