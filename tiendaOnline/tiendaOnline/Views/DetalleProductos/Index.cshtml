@@ -62,9 +62,11 @@
                 @Html.DisplayFor(modelItem => item.producto.Codigo)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.DetalleProductoID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.DetalleProductoID">Details</a> 
-               <!-- <a asp-action="Delete" asp-route-id="@item.DetalleProductoID">Delete</a>-->
+                <a asp-action="Details" asp-route-id="@item.DetalleProductoID">Detalles</a> |
+
+                <a asp-action="Edit" asp-route-id="@item.DetalleProductoID">Editas</a>
+                <!--
+    <a asp-action="Delete" asp-route-id="@item.DetalleProductoID">Delete</a>-->
             </td>
         </tr>
 }

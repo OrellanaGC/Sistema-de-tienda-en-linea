@@ -78,7 +78,7 @@ namespace tiendaOnline.Controllers
             return View(detalleProducto);
         }
 
-        // GET: DetalleProductos/Edit/5
+        /* GET: DetalleProductos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -94,7 +94,7 @@ namespace tiendaOnline.Controllers
             ViewData["productoID"] = new SelectList(_context.Producto, "ProductoID", "Codigo", detalleProducto.productoID);
             return View(detalleProducto);
         }
-
+        */
         // POST: DetalleProductos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.

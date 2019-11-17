@@ -1,9 +1,12 @@
 ﻿@model IEnumerable<tiendaOnline.Models.Producto>
+ 
+@using tiendaOnline.Data
 
-
+<!--Haciendo una inyeccion del context para traer cualquier modelo-->
+@inject ApplicationDbContext _context
 
 @{
-    ViewData["Title"] = "Productos";
+    ViewData["Title"] = "Producto";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -77,12 +80,13 @@
     <div>
         @foreach (var producto in Model)
         {
-            <div class="col-md-2">
-                <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">
-                    <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
-                </a>
-                <h4>$ @Html.DisplayFor(modelItem => producto.PrecioUnitario)</h4>
-                <a asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a>
+        <div class="col-md-2">
+            <h3><a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a></h3>
+            <h4>$@Html.DisplayFor(modelItem => producto.PrecioUnitario)</h4>
+            <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">
+                <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
+            </a>
+            <!--
                 <div class="agregarCarrito text-left">
                     <p class="button">
                         <a class="btn btn-success" id="cartButton"
@@ -91,11 +95,16 @@
                            asp-route-idProducto="@producto.ProductoID">
                             <i class="fas fa-cart-plus"></i>
                         </a>
-                        <a class="btn btn-danger" asp-controller="Productos" asp-action="Delete" asp-route-id="@producto.ProductoID"><i class="far fa-trash-alt"></i></a>
-                    </p>
 
-                </div>
-            </div>
+    <a class="btn btn-danger" asp-controller="Productos" asp-action="Delete" asp-route-id="@producto.ProductoID"><i class="far fa-trash-alt"></i></a>
+            </p>
+
+        </div>-->
+            <p></p>
+
+            <a class="btn btn-warning" asp-controller="Productos" asp-action="Edit" asp-route-id="@producto.ProductoID"><i class="fas fa-pen"></i></a>
+            <!--<a class="btn btn-success" asp-controller="DetalleProductos" asp-action="Edit" asp-route-id="@producto"><i class="fas fa-pen"></i>Detalles</a>-->
+        </div>
         }
     </div>
 </div>
