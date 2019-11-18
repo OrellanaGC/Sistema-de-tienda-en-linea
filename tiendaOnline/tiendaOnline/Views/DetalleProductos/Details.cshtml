@@ -37,83 +37,24 @@
                                         }
                                 }
                                 </div>
-
                             </form>
-
                         </div>
-
-
                     </td>
                 </tr>
             }
-
-
-
         </table>
-        </br>
- 
+        </br> 
     </div>
-    <!--div>
-        <h4>DetalleProducto</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Descripcion)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Talla)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Talla)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Color)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Color)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.PesoKg)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.PesoKg)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Marca)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Marca)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Modelo)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Modelo)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.producto)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.producto.Codigo)
-            </dd>
-        </dl>
-    </div-->
-    <div class="row">
+      <div class="row">
         <br /><br />
         <div class="col-md-4">
             <img height=380px width=380px src="~/images/productos/@Html.DisplayFor(model => model.producto.Imagen)" />
-
         </div>
         <div class="col-md-3">
             <h4>@Html.DisplayFor(model => model.producto.NombreProducto)</h4>
             <h3><b>$ @Html.DisplayFor(model => model.producto.PrecioUnitario) </b></h3>
             <h5>Categoria: @Html.DisplayFor(model => model.producto.Subcategoria.nombreSubcategoria)</h5>
-
             <dl>
-
                 <dt>
                     @Html.DisplayNameFor(model => model.producto.Existencia)
                 </dt>
@@ -130,28 +71,17 @@
                 <dt>@Html.DisplayNameFor(model => model.Color)</dt>
                 <dd>@Html.DisplayFor(model => model.Color)</dd>
                 <br />
-                <div class="agregarCarrito text-left" title="Agrega el producto a tu carrito!">
+                <div class="agregarCarrito text-left" >
                     <p class="button">
-                        <a class="btn btn-success" id="cartButton"
+                        <a class="btn btn-success" id="cartButton" title="Agrega el producto a tu carrito!"
                            asp-controller="Carritos"
                            asp-action="AgregarCarrito"
                            asp-route-idProducto="@Model.producto.ProductoID">
                             <i class="fas fa-cart-plus"></i>
                         </a>
-                        <a class="btn btn-warning" asp-controller="Productos" asp-action="Edit" asp-route-id="@Model.producto.ProductoID"><i class="fas fa-pen"></i> Producto</a>
-
                     </p>
-                </div>
-
-                <!--<a class="btn btn-success" asp-controller="DetalleProductos" asp-action="Edit" asp-route-id="@Model.producto.ProductoID"><i class="fas fa-pen"></i> Detalles</a>-->
-
-
-
-
-            </dl>
-            <dt>
-              
-            </dt>
+                </div>                           
+            </dl>           
         </div>
     </div>
 </div>
