@@ -1,0 +1,72 @@
+﻿@model IEnumerable<tiendaOnline.Models.Cupon>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.codigoCupon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.montoCupon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.estadoCupon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaCreacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaVencimiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcionCupon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tiendaOnlineUser)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.codigoCupon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.montoCupon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estadoCupon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fechaCreacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fechaVencimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descripcionCupon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tiendaOnlineUser.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CuponID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CuponID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CuponID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
