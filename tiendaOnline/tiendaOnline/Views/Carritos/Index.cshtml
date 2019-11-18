@@ -80,7 +80,7 @@
                 </tr>
             </thead>
             <tbody>
-                
+
                 <tr>
                     <th class="col-sm-2 text-center"><b>SubTotal</b></th>
                     <th class="col-sm-1 text-center">
@@ -89,10 +89,11 @@
                 </tr>
                 <tr>
                     <th class="col-sm-2 text-center">
-                        <!--Este boton debe validar el ingreso del cupón e imprimirlo en pantalla y qu quede almacenado para la compra-->
-                        <a class="btn btn-warning  text-center" title="Añadir mi cupón! " asp-controller="Cupones" asp-action="Index" asp-route-id="">
-                            <i class="fas fa-plus"></i> <b>Cupón</b>
-                        </a>
+                        Cupón
+                        <!--Este boton debe validar el ingreso del cupón e imprimirlo en pantalla y qu quede almacenado para la compra
+                    <a class="btn btn-warning  text-center" title="Añadir mi cupón! " asp-controller="Cupones" asp-action="Index" asp-route-id="">
+                        <i class="fas fa-plus"></i> <b>Cupón</b>
+                    </a>-->
                     </th>
                     <th class="col-sm-1 text-center">
                         $0.00 <!--Debe traer el cupón de los producto-->
@@ -104,9 +105,11 @@
                         @Model.TotalCarrito.ToString("c") <!--Debe quitarle el descuento y cupón al subtotal y mostrar el verdadero total-->
                     </th>
                 </tr>
-                
+
             </tbody>
         </table>
-
+        <a class="btn btn-success  text-right" title="Realizar ya mi compra! " asp-controller="Orden" asp-action="Index" asp-route-id="">
+            <i class="fas fa-credit-card"></i> <b>Realizar compra</b>
+        </a>
     </aside>
 </div>
