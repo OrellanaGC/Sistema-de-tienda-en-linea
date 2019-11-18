@@ -138,10 +138,11 @@
                            asp-route-idProducto="@Model.producto.ProductoID">
                             <i class="fas fa-cart-plus"></i>
                         </a>
+                        <a class="btn btn-warning" asp-controller="Productos" asp-action="Edit" asp-route-id="@Model.producto.ProductoID"><i class="fas fa-pen"></i> Producto</a>
+
                     </p>
                 </div>
 
-                <a class="btn btn-warning" asp-controller="Productos" asp-action="Edit" asp-route-id="@Model.producto.ProductoID"><i class="fas fa-pen"></i> Producto</a>
                 <!--<a class="btn btn-success" asp-controller="DetalleProductos" asp-action="Edit" asp-route-id="@Model.producto.ProductoID"><i class="fas fa-pen"></i> Detalles</a>-->
 
 
