@@ -27,8 +27,16 @@ namespace tiendaOnline.Controllers
         // GET: Tarjetas
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Tarjeta.Include(t => t.tiendaOnlineUser);
-            return View(await applicationDbContext.ToListAsync());
+            //var applicationDbContext = _context.Tarjeta.Include(t => t.tiendaOnlineUser);
+            //filtro de las direcciones del usuario
+            var tarjetas = from t in _context.Tarjeta select t;
+            var user = await _userManager.GetUserAsync(User);
+            tarjetas = tarjetas.Where(t => t.tiendaOnlineUserID.Contains(user.Id));
+
+            return View(await tarjetas.AsNoTracking().ToListAsync());
+
+
+            //return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Tarjetas/Details/5
