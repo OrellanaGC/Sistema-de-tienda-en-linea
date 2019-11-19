@@ -21,7 +21,7 @@
         @foreach (var producto in Model)
         {
         <div class="col-md-2">
-            <h4><a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a></h4>
+            <h4 class="productBox"><a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a></h4>
             <h5>$@Html.DisplayFor(modelItem => producto.PrecioUnitario)</h5>
 
             
