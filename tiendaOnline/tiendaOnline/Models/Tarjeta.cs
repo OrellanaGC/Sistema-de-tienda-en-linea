@@ -11,8 +11,9 @@ namespace tiendaOnline.Models
     {
         public int TarjetaID { get; set; }
 
-        [CreditCard(ErrorMessage ="Introduzca un formato valido")]
+        //[CreditCard(ErrorMessage ="Introduzca un formato valido")]
         [Display(Name = "Codigo de Tarjeta")]
+        
         [Required(ErrorMessage = "Ingresar el codigo de la tarjeta")]
         public int numeroTarjeta { get; set; }
 

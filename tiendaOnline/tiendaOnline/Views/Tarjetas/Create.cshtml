@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="fechaVencimiento" class="control-label"></label>
-                <input asp-for="fechaVencimiento" class="form-control" />
+                <input type="date" asp-for="fechaVencimiento" class="form-control" />
                 <span asp-validation-for="fechaVencimiento" class="text-danger"></span>
             </div>            
             <div class="form-group">
@@ -46,7 +46,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a href='javascript:history.go(-1)'>Regresar a la lista</a>
 </div>
 
 @section Scripts {
