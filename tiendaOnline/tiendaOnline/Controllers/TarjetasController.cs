@@ -27,10 +27,22 @@ namespace tiendaOnline.Controllers
         // GET: Tarjetas
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Tarjeta.Include(t => t.tiendaOnlineUser);
-            return View(await applicationDbContext.ToListAsync());
+            var user = await _userManager.GetUserAsync(User);
+            var applicationDbContext = from dir in (_context.Tarjeta.Include(t => t.tiendaOnlineUser).Include(t=>t.detalleVendedor)) select dir;
+            applicationDbContext = applicationDbContext.Where(t => t.tiendaOnlineUserID == user.Id && t.detalleVendedorID == null);
+            return View(await applicationDbContext.AsNoTracking().ToListAsync());
         }
 
+       
+        // GET: Tarjetas de Vendedor
+        public async Task<IActionResult> IndexVendedor()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var vendedor = _context.DetalleVendedor.Single(v => v.tiendaOnlineUserID == user.Id);
+            var applicationDbContext = from dir in (_context.Tarjeta.Include(t => t.tiendaOnlineUser).Include(t => t.detalleVendedor)) select dir;
+            applicationDbContext = applicationDbContext.Where(t => t.tiendaOnlineUserID == user.Id && t.detalleVendedorID == vendedor.DetalleVendedorID);
+            return View(await applicationDbContext.AsNoTracking().ToListAsync());
+        }
         // GET: Tarjetas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -52,8 +64,7 @@ namespace tiendaOnline.Controllers
 
         // GET: Tarjetas/Create
         public IActionResult Create()
-        {
-            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id");
+        {            
             return View();
         }
 
@@ -66,10 +77,8 @@ namespace tiendaOnline.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.GetUserAsync(User);
-                var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
-                tarjeta.tiendaOnlineUserID = user.Id;
-                tarjeta.detalleVendedorID = vendedor.DetalleVendedorID;
+                var user = await _userManager.GetUserAsync(User);                
+                tarjeta.tiendaOnlineUserID = user.Id;                
                 _context.Add(tarjeta);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -77,6 +86,34 @@ namespace tiendaOnline.Controllers
             ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", tarjeta.tiendaOnlineUserID);
             return View(tarjeta);
         }
+        //Creacion de Tarjetas para vendedor
+        // GET: Tarjetas/Create
+        public IActionResult CreateVendedor()
+        {            
+            return View();
+        }
+
+        // POST: Tarjetas/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateVendedor([Bind("TarjetaID,numeroTarjeta,codigoSeguridad,tipoTarjeta,titularTarjeta,fechaVencimiento,tiendaOnlineUserID")] Tarjeta tarjeta)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
+                tarjeta.tiendaOnlineUserID = user.Id;
+                tarjeta.detalleVendedorID = vendedor.DetalleVendedorID;
+                _context.Add(tarjeta);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(IndexVendedor));
+            }
+            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", tarjeta.tiendaOnlineUserID);
+            return View(tarjeta);
+        }
+
 
         // GET: Tarjetas/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -125,7 +162,12 @@ namespace tiendaOnline.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                if (tarjeta.detalleVendedorID == null)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else return RedirectToAction(nameof(IndexVendedor));
+                
             }
             ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", tarjeta.tiendaOnlineUserID);
             return View(tarjeta);
@@ -146,8 +188,8 @@ namespace tiendaOnline.Controllers
             {
                 return NotFound();
             }
-
             return View(tarjeta);
+            
         }
 
         // POST: Tarjetas/Delete/5

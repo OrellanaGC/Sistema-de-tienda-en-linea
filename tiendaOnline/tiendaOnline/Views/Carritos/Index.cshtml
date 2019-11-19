@@ -54,7 +54,7 @@
                     <td class="col-md-1 text-center"><br />@Html.DisplayFor(modelItem => linea.cantidadProducto)</td>
                     <td class="col-sm-1 text-center">
                         <!--Boton para incrementar la cantidad de productos-->
-                        <br /><a class="glyphicon glyphicon-chevron-up" asp-controller="Carritos" asp-action="EliminarDeCarrito" asp-route-productoID="@linea.ProdCarritoID"></a>
+                        <br /><a class="glyphicon glyphicon-chevron-up" asp-controller="Carritos" asp-action="AgregarCarrito" asp-route-productoID="@linea.ProdCarritoID"></a>
                         <!--Boton para decrementar la cantidad de productos-->
                         <br /><a class="glyphicon glyphicon-chevron-down" asp-controller="Carritos" asp-action="EliminarDeCarrito" asp-route-productoID="@linea.ProdCarritoID"></a>
                     </td>

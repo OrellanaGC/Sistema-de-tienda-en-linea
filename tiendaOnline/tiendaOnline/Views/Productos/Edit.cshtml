@@ -14,6 +14,8 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProductoID" />
+            <input type="hidden" asp-for="detalleVendedorID" />
+            
             <div class="form-group">
                 <label asp-for="NombreProducto" class="control-label">Nombre</label>
                 <input asp-for="NombreProducto" class="form-control" />
@@ -43,12 +45,7 @@
                 <label asp-for="SubcategoriaID" class="control-label">Subcategoria</label>
                 <select asp-for="SubcategoriaID" class="form-control" asp-items="ViewBag.SubcategoriaID"></select>
                 <span asp-validation-for="SubcategoriaID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="detalleVendedorID" class="control-label"></label>
-                <select asp-for="detalleVendedorID" class="form-control" asp-items="ViewBag.detalleVendedorID"></select>
-                <span asp-validation-for="detalleVendedorID" class="text-danger"></span>
-            </div>
+            </div>            
             <div class="form-group">
                 <input type="submit" value="Guardar cambios" class="btn btn-default" />
             </div>

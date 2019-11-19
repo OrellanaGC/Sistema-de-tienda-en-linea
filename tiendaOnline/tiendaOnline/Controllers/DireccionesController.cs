@@ -108,17 +108,20 @@ namespace tiendaOnline.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateParaVendedor([Bind("DireccionID,direccionDetallada,codigoPostal,MunicipioID,tiendaOnlineUserID,detalleVendedorID")] Direccion direccion)
         {
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
-                var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
+                var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUserID == user.Id);
                 direccion.tiendaOnlineUserID = user.Id;
                 direccion.detalleVendedorID = vendedor.DetalleVendedorID;
                 _context.Add(direccion);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexVendedor));
             }
             ViewData["MunicipioID"] = new SelectList(_context.Municipio, "MunicipioID", "nombreMunicipio", direccion.MunicipioID);
             
@@ -137,9 +140,7 @@ namespace tiendaOnline.Controllers
             {
                 return NotFound();
             }
-            ViewData["MunicipioID"] = new SelectList(_context.Municipio, "MunicipioID", "nombreMunicipio", direccion.MunicipioID);
-            ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", direccion.detalleVendedorID);
-            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", direccion.tiendaOnlineUserID);
+            ViewData["MunicipioID"] = new SelectList(_context.Municipio, "MunicipioID", "nombreMunicipio", direccion.MunicipioID);            
             return View(direccion);
         }
 
@@ -173,11 +174,13 @@ namespace tiendaOnline.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                if (direccion.detalleVendedorID == null)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else return RedirectToAction(nameof(IndexVendedor));
             }
-            ViewData["MunicipioID"] = new SelectList(_context.Municipio, "MunicipioID", "nombreMunicipio", direccion.MunicipioID);
-            ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", direccion.detalleVendedorID);
-            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", direccion.tiendaOnlineUserID);
+            ViewData["MunicipioID"] = new SelectList(_context.Municipio, "MunicipioID", "nombreMunicipio", direccion.MunicipioID);            
             return View(direccion);
         }
 
