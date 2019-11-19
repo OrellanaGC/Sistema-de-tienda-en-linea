@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<tiendaOnline.Models.Tarjeta>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Tarjetas del vendedor";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Tarjetas del vendedor</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-primary" asp-action="CreateVendedor"><i class="fas fa-plus"></i> Agregar</a>
 </p>
 <table class="table">
     <thead>
@@ -50,11 +50,12 @@
                 @Html.DisplayFor(modelItem => item.fechaVencimiento)
             </td>           
             <td>
-                <a asp-action="Edit" asp-route-id="@item.TarjetaID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TarjetaID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TarjetaID">Delete</a>
+                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.TarjetaID"><i class="fas fa-pen"></i></a>
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.TarjetaID"><i class="fas fa-info"></i></a>
+                <a class="btn btn-danger" asp-action="Delete" asp-controller="Tarjetas" asp-route-id="@item.TarjetaID"><i class="fas fa-trash-alt"></i></a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<a class="btn btn-default" asp-area="Identity" asp-page="/Account/Manage/Vendedor" title="Manage"> <i class="fa fa-home"> </i></a>

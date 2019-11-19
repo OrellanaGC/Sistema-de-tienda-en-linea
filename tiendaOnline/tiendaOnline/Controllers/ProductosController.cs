@@ -126,6 +126,7 @@ namespace tiendaOnline.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 Agrega(Imagen);
                 producto.Imagen = Imagen.FileName;
                 //Asignando el producto al vendedor que ha iniciado sesion

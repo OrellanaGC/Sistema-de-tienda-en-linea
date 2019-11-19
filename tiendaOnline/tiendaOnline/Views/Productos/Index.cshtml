@@ -20,40 +20,7 @@
     <br />
     <a class="btn btn-info" asp-action="Create"><i class="fas fa-plus"></i> Nuevo </a>
 </p>
-<!--table class="table">
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreProducto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrecioUnitario)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Existencia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Imagen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subcategoria.SubcategoriaID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.detalleVendedor.correoComercial)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductoID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductoID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductoID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table-->
+
 <div class="row">
     <div>
         @foreach (var producto in Model)
@@ -66,19 +33,7 @@
             <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">
                 <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
             </a>
-
-            <!--
-        <div class="agregarCarrito text-left"><p class="button">
-                <a class="btn btn-success" id="cartButton"
-                   asp-controller="Carritos"
-                   asp-action="AgregarCarrito"
-                   asp-route-idProducto="@producto.ProductoID">
-                    <i class="fas fa-cart-plus"></i>
-                </a>
-                <a class="btn btn-danger" asp-controller="Productos" asp-action="Delete" asp-route-id="@producto.ProductoID">
-                    <i class="far fa-trash-alt"></i></a></p>
-
-    </div-->
+          
             <br /><br />
                   <div class="container dl-horizontal">
                       @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Seller"))

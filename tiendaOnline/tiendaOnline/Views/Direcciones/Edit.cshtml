@@ -14,13 +14,15 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="DireccionID" />
+            <input type="hidden" asp-for="tiendaOnlineUserID" />
+            <input type="hidden" asp-for="detalleVendedorID" />
             <!-- Muestra los departamentos cuando ya estén agregados
-            <div class="form-group">
-                <label asp-for="Municipio.Departamento" class="control-label"></label>
-                <select asp-for="Municipio.Departamento" class="form-control" asp-items="ViewBag.Departamento"></select>
-                <span asp-validation-for="Municipio.Departamento" class="text-danger"></span>
-            </div>
-              -->
+    <div class="form-group">
+        <label asp-for="Municipio.Departamento" class="control-label"></label>
+        <select asp-for="Municipio.Departamento" class="form-control" asp-items="ViewBag.Departamento"></select>
+        <span asp-validation-for="Municipio.Departamento" class="text-danger"></span>
+    </div>
+      -->
             <div class="form-group">
                 <label asp-for="MunicipioID" class="control-label"></label>
                 <select asp-for="MunicipioID" class="form-control" asp-items="ViewBag.MunicipioID"></select>
@@ -36,18 +38,6 @@
                 <input asp-for="direccionDetallada" class="form-control" />
                 <span asp-validation-for="direccionDetallada" class="text-danger"></span>
             </div>
-            <!--
-    <div class="form-group">
-        <label asp-for="tiendaOnlineUserID" class="control-label"></label>
-        <select asp-for="tiendaOnlineUserID" class="form-control" asp-items="ViewBag.tiendaOnlineUserID"></select>
-        <span asp-validation-for="tiendaOnlineUserID" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="detalleVendedorID" class="control-label"></label>
-        <select asp-for="detalleVendedorID" class="form-control" asp-items="ViewBag.detalleVendedorID"></select>
-        <span asp-validation-for="detalleVendedorID" class="text-danger"></span>
-    </div>
-     -->
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
@@ -56,7 +46,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a href='javascript:history.go(-1)'>Regresar a la lista</a>
 </div>
 
 @section Scripts {

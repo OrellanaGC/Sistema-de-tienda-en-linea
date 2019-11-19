@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="CreateParaVendedor">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <!-- Muestra los departamentos cuando ya estén agregados
             <div class="form-group">
@@ -42,7 +42,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a href='javascript:history.go(-1)'>Regresar a la lista</a>
 </div>
 
 @section Scripts {
