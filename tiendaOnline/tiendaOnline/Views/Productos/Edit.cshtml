@@ -30,7 +30,7 @@
                 <span asp-validation-for="PrecioUnitario" class="text-danger"></span>
             </div>
             <div>
-                <a class="btn btn-warning" asp-controller="Descuentos" asp-action="Edit" asp-route-id=" @{ @Model.ProductoID; }"><i class="fas fa-pen"></i> Editar detalles del producto</a>
+                <a class="btn btn-warning" asp-controller="TipoDeDescuentos" asp-action="Edit" asp-route-id=" @{ @Model.ProductoID; }"><i class="fas fa-pen"></i> Descuento de producto</a>
             </div>
             <div class="form-group">
                 <label asp-for="Existencia" class="control-label">Cantidad disponible</label>
