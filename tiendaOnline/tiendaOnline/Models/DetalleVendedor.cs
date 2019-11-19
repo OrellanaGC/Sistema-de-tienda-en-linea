@@ -32,6 +32,8 @@ namespace tiendaOnline.Models
         //relacion con productos
         public List<Producto> productos { get; set; }
 
+        
+
     }
 
     //Tipos de Vendedor

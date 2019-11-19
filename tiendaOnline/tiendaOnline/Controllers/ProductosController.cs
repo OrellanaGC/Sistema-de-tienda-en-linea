@@ -179,6 +179,7 @@ namespace tiendaOnline.Controllers
                     _context.Update(producto);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Index", "Productos");
+                   
                 }
                 catch (DbUpdateConcurrencyException)
                 {

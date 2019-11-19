@@ -1,0 +1,66 @@
+﻿@model IEnumerable<tiendaOnline.Models.Orden>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaOrden)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.estadoDeOrden)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tiendaOnlineUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.metodoEnvio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cupon)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.fechaOrden)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estadoDeOrden)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tiendaOnlineUser.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.metodoEnvio.nombreMetodoEnvio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cupon.CuponID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OrdenID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.OrdenID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.OrdenID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

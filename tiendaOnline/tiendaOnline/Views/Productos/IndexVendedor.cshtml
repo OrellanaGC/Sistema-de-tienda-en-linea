@@ -10,13 +10,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!--h2>Index</h2-->
 
 <p>
     <br />
     <a class="btn btn-info" asp-action="Create"><i class="fas fa-plus"></i> Nuevo </a>
 </p>
-        
+
 <div class="row">
     <div>
         @foreach (var producto in Model)
@@ -28,11 +27,11 @@
             
             <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">
                 <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
-            </a>            
+            </a>
             <p></p>
 
-            <a class="btn btn-warning" asp-controller="Productos" asp-action="Edit" asp-route-id="@producto.ProductoID"><i class="fas fa-pen"></i></a>
-            <!--<a class="btn btn-success" asp-controller="DetalleProductos" asp-action="Edit" asp-route-id="@producto"><i class="fas fa-pen"></i>Detalles</a>-->
+            <a class="btn btn-warning" title="Edita detalles importantes del producto!" asp-controller="Productos" asp-action="Edit" asp-route-id="@producto.ProductoID"><i class="fas fa-pen"> Editar Producto</i></a>
+           
         </div>
         }
     </div>

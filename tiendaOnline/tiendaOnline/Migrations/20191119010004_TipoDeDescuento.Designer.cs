@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tiendaOnline.Data;
 
 namespace tiendaOnline.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191119010004_TipoDeDescuento")]
+    partial class TipoDeDescuento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -556,7 +558,9 @@ namespace tiendaOnline.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ProductoID");
+                    b.Property<int?>("ProductoID");
+
+                    b.Property<int?>("detalleVendedorID");
 
                     b.Property<int>("montoDeDescuento");
 
@@ -568,8 +572,9 @@ namespace tiendaOnline.Migrations
 
                     b.HasKey("TipoDeDescuentoID");
 
-                    b.HasIndex("ProductoID")
-                        .IsUnique();
+                    b.HasIndex("ProductoID");
+
+                    b.HasIndex("detalleVendedorID");
 
                     b.ToTable("TipoDeDescuento");
                 });
@@ -745,10 +750,13 @@ namespace tiendaOnline.Migrations
 
             modelBuilder.Entity("tiendaOnline.Models.TipoDeDescuento", b =>
                 {
-                    b.HasOne("tiendaOnline.Models.Producto", "producto")
-                        .WithOne("TipoDeDescuento")
-                        .HasForeignKey("tiendaOnline.Models.TipoDeDescuento", "ProductoID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("tiendaOnline.Models.Producto", "Producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoID");
+
+                    b.HasOne("tiendaOnline.Models.DetalleVendedor", "detalleVendedor")
+                        .WithMany()
+                        .HasForeignKey("detalleVendedorID");
                 });
 #pragma warning restore 612, 618
         }

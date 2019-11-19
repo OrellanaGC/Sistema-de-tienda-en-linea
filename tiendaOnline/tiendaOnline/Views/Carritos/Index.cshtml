@@ -41,7 +41,7 @@
                     <td class="col-md-1 text-center">
                         <br /><!--en lugar de usar la etiqueta style, con bootrap se le agrega el tmaaño de la columna col-md-1-->
                         <label class="checkbox-inline">
-                            <input type="checkbox" value="" asp-controller="Carritos" asp-action="SeleccionarDeCarrito" asp-route-productoID="@linea.producto.ProductoID">
+                            <input type="checkbox" value="" title="Quiero comprarlo!" asp-controller="Carritos" asp-action="SeleccionarDeCarrito" asp-route-productoID="@linea.producto.ProductoID">
                         </label>
                     </td>
                     <td class="col-md-1 text-center">
@@ -54,16 +54,16 @@
                     <td class="col-md-1 text-center"><br />@Html.DisplayFor(modelItem => linea.cantidadProducto)</td>
                     <td class="col-sm-1 text-center">
                         <!--Boton para incrementar la cantidad de productos-->
-                        <br /><a class="glyphicon glyphicon-chevron-up" asp-controller="Carritos" asp-action="AgregarCarrito" asp-route-productoID="@linea.ProdCarritoID"></a>
+                        <br /><a class="glyphicon glyphicon-chevron-up" title="Añadir más de este producto" asp-controller="Carritos" asp-action="AgregarCarrito" asp-route-idProducto="@linea.producto.ProductoID"></a>
                         <!--Boton para decrementar la cantidad de productos-->
-                        <br /><a class="glyphicon glyphicon-chevron-down" asp-controller="Carritos" asp-action="EliminarDeCarrito" asp-route-productoID="@linea.ProdCarritoID"></a>
+                        <br /><a class="glyphicon glyphicon-chevron-down" title="Disminuir de este producto" asp-controller="Carritos" asp-action="EliminarDeCarrito" asp-route-idProducto="@linea.producto.ProductoID"></a>
                     </td>
                     <td class="col-md-1 text-center"><i><br />$@Html.DisplayFor(modelItem => linea.producto.PrecioUnitario)</i></td>
                     <td class="col-md-1 text-center">
                         <br />
                         @((linea.cantidadProducto * linea.producto.PrecioUnitario).ToString("c"))
                     </td>
-                    <td class="col-sm-1 text-center"><br /><a class="glyphicon glyphicon-remove text-danger remove" asp-controller="Carritos" asp-action="EliminarDeCarrito" asp-route-productoID="@linea.ProdCarritoID"></a></td>
+                    <td class="col-sm-1 text-center"><br /><a class="glyphicon glyphicon-remove text-danger remove" title="Eliminar de mi carrito!" asp-controller="Carritos" asp-action="EliminarProdDeCarrito" asp-route-idProducto="@linea.producto.ProductoID"></a></td>
                 </tr>
             }
 
@@ -80,31 +80,30 @@
                 </tr>
             </thead>
             <tbody>
+
                 <tr>
-                    <th class="col-sm-2 text-right"><b><i>SubTotal</i></b></th>
+                    <th class="col-sm-2 text-center"><b>SubTotal</b></th>
                     <th class="col-sm-1 text-center">
                         @Model.TotalCarrito.ToString("c")
                     </th>
                 </tr>
                 <tr>
-                    <th class="col-sm-2 text-right">
-                        <!--Este boton debe validar el ingreso del cupón e imprimirlo en pantalla y qu quede almacenado para la compra-->
-                        <a class="btn btn-warning text-warning" asp-controller="" asp-action="Index" asp-route-id="">
-                            <i class="fas fa-plus"></i> Cupón
-                        </a>
-                    </th>
+                    <th class="col-sm-2 text-center">Cupón</th>
                     <th class="col-sm-1 text-center">
                         $0.00 <!--Debe traer el cupón de los producto-->
                     </th>
                 </tr>
                 <tr>
-                    <th class="col-sm-2 text-right"><b><i>Total</i></b></th>
+                    <th class="col-sm-2 text-center"><h4><b>Total</b></h4></th>
                     <th class="col-sm-1 text-center">
                         @Model.TotalCarrito.ToString("c") <!--Debe quitarle el descuento y cupón al subtotal y mostrar el verdadero total-->
                     </th>
                 </tr>
+
             </tbody>
         </table>
-
+        <a class="btn btn-success  text-right" title="Realizar ya mi compra! " asp-controller="Orden" asp-action="Index" asp-route-id="">
+            <i class="fas fa-credit-card"></i> <b>Realizar compra</b>
+        </a>
     </aside>
 </div>

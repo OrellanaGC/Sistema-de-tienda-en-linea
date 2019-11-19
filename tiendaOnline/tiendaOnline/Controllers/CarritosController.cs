@@ -44,10 +44,10 @@ namespace tiendaOnline.Controllers
         [Authorize]
         public async Task<RedirectToActionResult> AgregarCarrito(int idProducto)
         {
-            var user = await _userManager.GetUserAsync(User);
-
+            var user = await _userManager.GetUserAsync(User);;
 
             var prodSeleccionado = _producto.Productos.FirstOrDefault(p => p.ProductoID == idProducto);
+           
             if (prodSeleccionado != null)
             {
                 _carrito.AgregarCarrito(prodSeleccionado, 1);
@@ -55,13 +55,28 @@ namespace tiendaOnline.Controllers
             return RedirectToAction("Index","Home");
         }
 
-        public RedirectToActionResult EliminarDeCarrito(int idProducto)
+        public async Task<RedirectToActionResult> EliminarDeCarrito(int idProducto)
         {
-            
+            var user = await _userManager.GetUserAsync(User);
+            System.Diagnostics.Debug.WriteLine(idProducto);
             var prodSeleccionado = _producto.Productos.FirstOrDefault(p => p.ProductoID == idProducto);
+            System.Diagnostics.Debug.WriteLine(prodSeleccionado);
             if (prodSeleccionado != null)
-            {    
+            {
                 _carrito.EliminarDeCarrito(prodSeleccionado);
+            }
+            return RedirectToAction("Index");
+        }
+
+        public async Task<RedirectToActionResult> EliminarProdDeCarrito(int idProducto)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            System.Diagnostics.Debug.WriteLine(idProducto);
+            var prodSeleccionado = _producto.Productos.FirstOrDefault(p => p.ProductoID == idProducto);
+            System.Diagnostics.Debug.WriteLine(prodSeleccionado);
+            if (prodSeleccionado != null)
+            {
+                _carrito.EliminarProdDeCarrito(prodSeleccionado);
             }
             return RedirectToAction("Index");
         }

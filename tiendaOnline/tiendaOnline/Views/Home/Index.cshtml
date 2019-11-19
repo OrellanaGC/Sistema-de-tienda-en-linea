@@ -34,16 +34,10 @@
                                 }
                                 </div>
                             </form>
-
                         </div>
-
-
                     </td>
                 </tr>
             }
-
-
-
         </table>
     </div>
     <!--Slideshows de banner-->
@@ -111,7 +105,7 @@
                 <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">
                     <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
                 </a>
-                <h4>$ @Html.DisplayFor(modelItem => producto.PrecioUnitario)</h4>
+                <h4>$ @Html.DisplayFor(modelItem => producto.PrecioUnitario)</h4><br />
                 <!--a asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a-->
 
                 <div class="agregarCarrito text-left"  title="Agrega el producto a tu carrito!">
@@ -123,7 +117,6 @@
                             <i class="fas fa-cart-plus"></i>
                         </a>
                     </p>
-
                 </div>
             </div>
             }

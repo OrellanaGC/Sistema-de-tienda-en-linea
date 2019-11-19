@@ -86,7 +86,8 @@ namespace tiendaOnline.Areas.Identity.Pages.Account
                         protocol: Request.Scheme);
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirma tu correo electrónico",
-                        $"Por favor confirma tu cuenta haciendo clic <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>aquí</a>.");
+
+                        $"<font face=',Times New Roman, verdana' size=6 color='FF3300'> <b>Enhorabuena, ¡ya estás en iBuy! </b><br/></font> <font face=',Times New Roman, verdana' size=4>¡Ya eres parte de la familia iBuy! Por seguridad, confirma tu dirección email.<br/>Confirmando tu dirección de email tu cuenta estará más segura. Podrás seguir tus pedidos más fácilmente, <br/>recibir emails con promociones y recuperar los detalles de tu cuenta. </br> Simplemente tienes que confirmar tu cuenta haciendo clic</font> <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'><font size=6>aquí!</font></a>.");
                     await _userManager.AddToRoleAsync(user, "User");
                     var carrito = new Carrito(user.Id);
                     _context.Add(carrito);
