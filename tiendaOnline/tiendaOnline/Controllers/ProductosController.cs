@@ -99,12 +99,9 @@ namespace tiendaOnline.Controllers
             return View(producto);
         }
 
-
         // GET: Productos/Create
         public IActionResult Create()
-        {
-            ViewData["CategoriaID"] = new SelectList(_context.Categoria, "CategoriaID", "nombre_categoria");
-
+        {                        
             ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "nombreSubcategoria");                        
             return View();
         }
@@ -238,6 +235,5 @@ namespace tiendaOnline.Controllers
         {
             return _context.Producto.Any(e => e.ProductoID == id);
         }
-
     }
 }

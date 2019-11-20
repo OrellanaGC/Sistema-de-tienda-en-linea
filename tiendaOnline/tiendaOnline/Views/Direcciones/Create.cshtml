@@ -1,10 +1,5 @@
 ﻿@model tiendaOnline.Models.Direccion
 
-@using tiendaOnline.Data
-
-<!--Haciendo una inyeccion del context para traer cualquier modelo-->
-@inject ApplicationDbContext _context
-
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -18,12 +13,12 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <!-- Muestra los departamentos cuando ya estén agregados-->
+            <!-- Muestra los departamentos cuando ya estén agregados
             <div class="form-group">
                 <label asp-for="Municipio.Departamento" class="control-label"></label>
                 <select asp-for="Municipio.Departamento" class="form-control" asp-items="ViewBag.Departamento"></select>
             </div>
-
+                -->
             <div class="form-group">
                 <label asp-for="MunicipioID" class="control-label"></label>
                 <select asp-for="MunicipioID" class="form-control" asp-items="ViewBag.MunicipioID"></select>
