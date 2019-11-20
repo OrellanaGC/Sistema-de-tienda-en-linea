@@ -1,5 +1,10 @@
 ﻿@model tiendaOnline.Models.Producto
 
+@using tiendaOnline.Data
+
+<!--Haciendo una inyeccion del context para traer cualquier modelo-->
+@inject ApplicationDbContext _context
+
 @{
     ViewData["Title"] = "Nuevo producto";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -33,18 +38,26 @@
                 <input asp-for="Codigo" class="form-control" />
                 <span asp-validation-for="Codigo" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <div class="form-group">
-                    <label asp-for="Imagen" class="control-label"></label>
-                    <input type="file" name="Imagen" accept="images/*" /><br />
-                    <span asp-validation-for="Imagen" class="text-danger"></span>
-                </div>
 
+            <div class="form-group">
+                <label asp-for="Imagen" class="control-label"></label>
+                <input type="file" name="Imagen" accept="images/*" /><br />
+                <span asp-validation-for="Imagen" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SubcategoriaID" class="control-label"></label>
-                <select asp-for="SubcategoriaID" class="form-control" asp-items="ViewBag.SubcategoriaID"></select>
-            </div>           
+                <label asp-for="Subcategoria.Categoria" class="control-label"></label>
+                <select asp-for="Subcategoria.CategoriaID" class="form-control" asp-items="ViewBag.CategoriaID" name="categoria" id="categoria">
+                    <option value="0">Seleccione una categoria</option>
+</select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Subcategoria" class="control-label"></label>
+                <select asp-for="Subcategoria" class="form-control" asp-items="ViewBag.SubcategoriaID">
+                    <option value="0">Seleccione una subcategoria</option>
+                </select>
+
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
