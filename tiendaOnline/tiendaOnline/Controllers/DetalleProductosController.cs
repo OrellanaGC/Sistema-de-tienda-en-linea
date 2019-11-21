@@ -72,7 +72,7 @@ namespace tiendaOnline.Controllers
                 detalleProducto.producto = _context.Producto.Last(p=> p.detalleVendedorID== vendedor.DetalleVendedorID);
                 _context.Add(detalleProducto);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Productos");
+                return RedirectToAction("Create", "TipoDeDescuento");
             }
             ViewData["productoID"] = new SelectList(_context.Producto, "ProductoID", "Codigo", detalleProducto.productoID);
             return View(detalleProducto);
