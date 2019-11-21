@@ -3,9 +3,11 @@ for details on configuring this project to bundle and minify static web assets. 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-    /*background-image: url(/images/bg.png);
+    background-image: url(/images/bg4.jpg);
     background-attachment: fixed;
-    background-repeat: no-repeat;*/
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+
 }
 
 /* Wrapping element */
@@ -118,7 +120,7 @@ a.linkFooter{
 /*sexy hover dropdown*/
 /* Dropdown Button */
 .dropbtn {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.09);
     color: black;
     padding: 0px;
     font-size: 16px;
@@ -143,7 +145,7 @@ a.linkFooter{
 
     /* Links inside the dropdown */
     .dropdown-content button {
-        background-color: none;
+        background-color: #f1f1f1;
         text-align: left;
         border: none;
         color: black;
@@ -163,7 +165,7 @@ a.linkFooter{
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
-    background-color: #f1f1f1;
+    background-color: none;
 } 
 
 /*sexy zoom*/
