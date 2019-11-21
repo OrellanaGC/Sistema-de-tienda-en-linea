@@ -48,7 +48,7 @@ namespace tiendaOnline
             //Servicio para usar nuestra clase de usuario y configurarlo
             services.AddIdentity<tiendaOnlineUser, IdentityRole>(config =>
             {
-                config.SignIn.RequireConfirmedEmail = true;
+                config.SignIn.RequireConfirmedEmail = false;
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders()
