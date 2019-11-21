@@ -1,4 +1,6 @@
-﻿@{ 
+﻿@inject SignInManager<tiendaOnlineUser> SignInManager
+@inject UserManager<tiendaOnlineUser> UserManager
+@{
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
@@ -6,7 +8,14 @@
 <h2>Mi cuenta</h2>
 
 <div>
-    <h4>Cambia la configuración de tu cuenta.</h4>
+    @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin"))
+    {
+        <h4>Gestion de tienda Online.</h4>
+    }
+    else {
+        <h4>Cambia la configuración de tu cuenta.</h4>
+    }
+    
     <hr />
     <div class="row">
         <div class="col-md-3">

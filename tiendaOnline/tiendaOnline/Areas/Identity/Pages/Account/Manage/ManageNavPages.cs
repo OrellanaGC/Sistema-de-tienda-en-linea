@@ -24,6 +24,10 @@ namespace tiendaOnline.Areas.Identity.Pages.Account.Manage
 
         public static string Vendedor => "Vendedor";
 
+        public static string Administrar => "Administrar";
+
+        public static string AdministrarNavClass(ViewContext viewContext) => PageNavClass(viewContext, Administrar);
+
         public static string VendedorNavClass(ViewContext viewContext) => PageNavClass(viewContext, Vendedor);
 
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
