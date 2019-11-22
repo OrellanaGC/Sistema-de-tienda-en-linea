@@ -99,10 +99,19 @@ namespace tiendaOnline.Controllers
             return View(producto);
         }
 
+        //Metodo Json para llenar el select de subcategorias en la vista
+        public async Task<JsonResult> SubCate(int idcat)
+        {
+            List<Subcategoria> subcats = await this._context.Subcategoria.Where(c => c.CategoriaID == idcat).ToListAsync();
+            ViewData["SUB"] = new SelectList(subcats, "SubcategoriaID", "nombreSubcategoria");
+            return new JsonResult(subcats);
+        }
+
         // GET: Productos/Create
         public IActionResult Create()
-        {                        
-            ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "nombreSubcategoria");                        
+        {
+            ViewData["CategoriaID"] = new SelectList(_context.Categoria, "CategoriaID", "nombre_categoria");
+                                
             return View();
         }
         //Guarda la imagen
@@ -138,7 +147,7 @@ namespace tiendaOnline.Controllers
                 return RedirectToAction("Create", "DetalleProductos");
 
             }
-            ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "nombreSubcategoria", producto.SubcategoriaID);
+            ViewData["CategoriaID"] = new SelectList(_context.Categoria, "CategoriaID", "nombre_categoria");
             ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", producto.detalleVendedorID);
             return View(producto);
         }

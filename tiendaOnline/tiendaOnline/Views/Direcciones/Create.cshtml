@@ -13,17 +13,16 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <!-- Muestra los departamentos cuando ya estén agregados
-            <div class="form-group">
-                <label asp-for="Municipio.Departamento" class="control-label"></label>
-                <select asp-for="Municipio.Departamento" class="form-control" asp-items="ViewBag.Departamento"></select>
+           <div class="form-group">
+                <label class="control-label">Departamentos</label>
+                <select class="form-control" id="seledepa" asp-items="ViewBag.DepartamentoID" ></select>
             </div>
-                -->
-            <div class="form-group">
-                <label asp-for="MunicipioID" class="control-label"></label>
-                <select asp-for="MunicipioID" class="form-control" asp-items="ViewBag.MunicipioID"></select>
+
+            <div class="form-group" id="sudcat" hidden="">
+                <label asp-for="MunicipioID" class="control-label">Sub Categorias  </label>
+                <select asp-for="MunicipioID" class="form-control"></select>
             </div>
-            <div class="form-group">
+             <div class="form-group">
                 <label asp-for="direccionDetallada" class="control-label"></label>
                 <input asp-for="direccionDetallada" class="form-control" />
                 <span asp-validation-for="direccionDetallada" class="text-danger"></span>
@@ -47,4 +46,34 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+    var select=document.querySelector("#seledepa");
+    select.addEventListener("change", (e) => {
+        var idcat = e.target.value;
+        var xhttp = new XMLHttpRequest();
+        var token = document.querySelector("#__RequestVerificationToken");
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var selsubcat = document.querySelector("#sudcat").children[1];
+                selsubcat.innerHTML = "";
+                console.log(selsubcat);
+                var subcats = JSON.parse(this.responseText);
+                var len = subcats.length;
+                var option;
+                for (var i = 0; i < len; i++) {
+                    option = document.createElement("option");
+                    option.setAttribute("value", subcats[i].municipioID);
+                    option.innerHTML = subcats[i].nombreMunicipio;
+                    selsubcat.appendChild(option);
+                }
+                document.querySelector("#sudcat").removeAttribute("hidden");
+            }
+        };
+        xhttp.open("POST", "/Direcciones/SubCate", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.setRequestHeader("RequestVerificationToken", token);
+        xhttp.send("idcat="+idcat);
+    });
+    </script>
 }

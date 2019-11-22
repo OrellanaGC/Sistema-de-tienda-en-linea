@@ -39,6 +39,7 @@ namespace tiendaOnline.Data
         public DbSet<tiendaOnline.Models.MetodoEnvio> MetodoEnvio { get; set; }
         public DbSet<tiendaOnline.Models.Orden> Orden { get; set; }
         public DbSet<tiendaOnline.Models.TipoDeDescuento> TipoDeDescuento { get; set; }
+        public DbSet<tiendaOnline.Models.Departamento> Departamento { get; set; }
 
     }
 }

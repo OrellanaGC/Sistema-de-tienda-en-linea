@@ -10,23 +10,22 @@ using tiendaOnline.Models;
 
 namespace tiendaOnline.Controllers
 {
-    public class MunicipiosController : Controller
+    public class DepartamentosController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public MunicipiosController(ApplicationDbContext context)
+        public DepartamentosController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Municipios
+        // GET: Departamentos
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Municipio.Include(m => m.Departamento);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.Departamento.ToListAsync());
         }
 
-        // GET: Municipios/Details/5
+        // GET: Departamentos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,42 +33,39 @@ namespace tiendaOnline.Controllers
                 return NotFound();
             }
 
-            var municipio = await _context.Municipio
-                .Include(m => m.Departamento)
-                .FirstOrDefaultAsync(m => m.MunicipioID == id);
-            if (municipio == null)
+            var departamento = await _context.Departamento
+                .FirstOrDefaultAsync(m => m.DepartamentoID == id);
+            if (departamento == null)
             {
                 return NotFound();
             }
 
-            return View(municipio);
+            return View(departamento);
         }
 
-        // GET: Municipios/Create
+        // GET: Departamentos/Create
         public IActionResult Create()
         {
-            ViewData["DepartamentoID"] = new SelectList(_context.Departamento, "DepartamentoID", "nombreDepartamento");
             return View();
         }
 
-        // POST: Municipios/Create
+        // POST: Departamentos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MunicipioID,nombreMunicipio,DepartamentoID")] Municipio municipio)
+        public async Task<IActionResult> Create([Bind("DepartamentoID,nombreDepartamento")] Departamento departamento)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(municipio);
+                _context.Add(departamento);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DepartamentoID"] = new SelectList(_context.Departamento, "DepartamentoID", "nombreDepartamento", municipio.DepartamentoID);
-            return View(municipio);
+            return View(departamento);
         }
 
-        // GET: Municipios/Edit/5
+        // GET: Departamentos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,23 +73,22 @@ namespace tiendaOnline.Controllers
                 return NotFound();
             }
 
-            var municipio = await _context.Municipio.FindAsync(id);
-            if (municipio == null)
+            var departamento = await _context.Departamento.FindAsync(id);
+            if (departamento == null)
             {
                 return NotFound();
             }
-            ViewData["DepartamentoID"] = new SelectList(_context.Departamento, "DepartamentoID", "nombreDepartamento", municipio.DepartamentoID);
-            return View(municipio);
+            return View(departamento);
         }
 
-        // POST: Municipios/Edit/5
+        // POST: Departamentos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MunicipioID,nombreMunicipio,DepartamentoID")] Municipio municipio)
+        public async Task<IActionResult> Edit(int id, [Bind("DepartamentoID,nombreDepartamento")] Departamento departamento)
         {
-            if (id != municipio.MunicipioID)
+            if (id != departamento.DepartamentoID)
             {
                 return NotFound();
             }
@@ -102,12 +97,12 @@ namespace tiendaOnline.Controllers
             {
                 try
                 {
-                    _context.Update(municipio);
+                    _context.Update(departamento);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MunicipioExists(municipio.MunicipioID))
+                    if (!DepartamentoExists(departamento.DepartamentoID))
                     {
                         return NotFound();
                     }
@@ -118,11 +113,10 @@ namespace tiendaOnline.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DepartamentoID"] = new SelectList(_context.Departamento, "DepartamentoID", "nombreDepartamento", municipio.DepartamentoID);
-            return View(municipio);
+            return View(departamento);
         }
 
-        // GET: Municipios/Delete/5
+        // GET: Departamentos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,31 +124,30 @@ namespace tiendaOnline.Controllers
                 return NotFound();
             }
 
-            var municipio = await _context.Municipio
-                .Include(m => m.Departamento)
-                .FirstOrDefaultAsync(m => m.MunicipioID == id);
-            if (municipio == null)
+            var departamento = await _context.Departamento
+                .FirstOrDefaultAsync(m => m.DepartamentoID == id);
+            if (departamento == null)
             {
                 return NotFound();
             }
 
-            return View(municipio);
+            return View(departamento);
         }
 
-        // POST: Municipios/Delete/5
+        // POST: Departamentos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var municipio = await _context.Municipio.FindAsync(id);
-            _context.Municipio.Remove(municipio);
+            var departamento = await _context.Departamento.FindAsync(id);
+            _context.Departamento.Remove(departamento);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MunicipioExists(int id)
+        private bool DepartamentoExists(int id)
         {
-            return _context.Municipio.Any(e => e.MunicipioID == id);
+            return _context.Departamento.Any(e => e.DepartamentoID == id);
         }
     }
 }

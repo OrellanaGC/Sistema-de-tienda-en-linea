@@ -71,12 +71,21 @@ namespace tiendaOnline.Controllers
             return View(direccion);
         }
 
+        //Metodo Json para llenar el select de municipios en la vista
+       public async Task<JsonResult> SubCate(int idcat)
+        {
+            List<Municipio> subcats =await this._context.Municipio.Where(c => c.DepartamentoID == idcat).ToListAsync();
+        //    subcats.Insert(0, new Municipio { MunicipioID = 0, nombreMunicipio = "Seleccione un municipio" });
+ 
+            return new JsonResult(subcats);
+        }
+
         // GET: Direcciones/Create
         public IActionResult Create()
         {
-            
-            ViewData["MunicipioID"] = new SelectList(_context.Municipio, "MunicipioID", "nombreMunicipio");
-                        
+           
+          ViewData["DepartamentoID"] = new SelectList(_context.Departamento, "DepartamentoID", "nombreDepartamento");
+             
             return View();
         }
 
@@ -95,7 +104,7 @@ namespace tiendaOnline.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MunicipioID"] = new SelectList(_context.Municipio, "MunicipioID", "nombreMunicipio", direccion.MunicipioID);            
+            ViewData["DepartamentoID"] = new SelectList(_context.Departamento, "DepartamentoID", "nombreDepartamento");           
             
             return View(direccion);
         }
