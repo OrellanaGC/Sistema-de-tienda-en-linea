@@ -39,13 +39,12 @@
             <tr>
                 <!--Con esta linea selecciona los que desea comprar ahorita es una PRUEBA-->
                 <td class="col-md-1 text-center">
-
                     <br /><!--en lugar de usar la etiqueta style, con bootrap se le agrega el tmaaño de la columna col-md-1-->
                     <label class="checkbox-inline">
                         <input type="checkbox" value="" title="Quiero comprarlo!" asp-controller="Carritos" asp-action="SeleccionarDeCarrito" asp-route-productoID="@linea.producto.ProductoID">
                     </label>
-                    </td>
-                    <td class="col-md-1 text-center">
+                </td>
+                <td class="col-md-1 text-center">
 
                     <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@linea.producto.ProductoID">
                         <img class="zoom" height=90px width=100px src="~/images/productos/@Html.DisplayFor(modelItem => linea.producto.Imagen)" />

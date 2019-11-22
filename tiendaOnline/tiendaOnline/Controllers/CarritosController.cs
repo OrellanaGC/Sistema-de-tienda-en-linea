@@ -54,7 +54,7 @@ namespace tiendaOnline.Controllers
             }
             return RedirectToAction("Index");
         }
-            
+
         public async Task<RedirectToActionResult> EliminarDeCarrito(int idProducto)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -67,7 +67,7 @@ namespace tiendaOnline.Controllers
             }
             return RedirectToAction("Index");
         }
-               
+
         public async Task<RedirectToActionResult> EliminarProdDeCarrito(int idProducto)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -80,7 +80,5 @@ namespace tiendaOnline.Controllers
             }
             return RedirectToAction("Index");
         }
-
-      
     }
 }
