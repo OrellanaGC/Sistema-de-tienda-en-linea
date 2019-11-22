@@ -11,18 +11,11 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Detalles de tu compra!">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
 
-                <!--Hay que mostrar acá a los productos del usuario, foto, nombre, cantidad, precio unitario, subtotal de c/u-->
-
-                <!--la fecha solo hay que hacerla internamente y q la obtenga el sistema-->
-                
-                <label asp-for="fechaOrden" class="control-label"></label>
-                <input asp-for="fechaOrden" class="form-control" />
-                <span asp-validation-for="fechaOrden" class="text-danger"></span>
-            </div>
+            <!--Hay que mostrar acá a los productos del usuario, foto, nombre, cantidad, precio unitario, subtotal de c/u-->
+            <!--la fecha solo hay que hacerla internamente y q la obtenga el sistema-->
             <!--muestra el total-->
             <div class="form-group">
                 <label asp-for="total" class="control-label"></label>
@@ -30,26 +23,26 @@
                 <span asp-validation-for="total" class="text-danger"></span>
             </div>
 
-
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="estadoDeOrden" /> @Html.DisplayNameFor(model => model.estadoDeOrden)
-                    </label>
-                </div>
+            <!--
+        <div class="form-group">
+            <div class="checkbox">
+                <label>
+                    <input asp-for="estadoDeOrden" /> Html.DisplayNameFor(model => model.estadoDeOrden)
+                </label>
             </div>
-
+        </div>
+        -->
             <div class="form-group">
                 <label asp-for="tiendaOnlineUserID" class="control-label"></label>
-                <select asp-for="tiendaOnlineUserID" class ="form-control" asp-items="ViewBag.tiendaOnlineUserID"></select>
+                <select asp-for="tiendaOnlineUserID" class="form-control" asp-items="ViewBag.tiendaOnlineUserID"></select>
             </div>
             <div class="form-group">
-                <label asp-for="metodoEnvioID" class="control-label"></label>
-                <select asp-for="metodoEnvioID" class ="form-control" asp-items="ViewBag.metodoEnvioID"></select>
+                <label asp-for="metodoEnvio" class="control-label"></label>
+                <select asp-for="metodoEnvioID" class="form-control" asp-items="ViewBag.metodoEnvioID"></select>
             </div>
             <div class="form-group">
-                <label asp-for="cuponID" class="control-label"></label>
-                <select asp-for="cuponID" class ="form-control" asp-items="ViewBag.cuponID"></select>
+                <label asp-for="cupon" class="control-label"></label>
+                <input asp-for="cuponID" class="form-control" asp-items="ViewBag.cuponID"></input>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

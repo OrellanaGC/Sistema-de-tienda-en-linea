@@ -35,5 +35,11 @@ namespace tiendaOnline.Models
         public Cupon cupon { get; set; }
         public int? cuponID { get; set; }
 
+        public Orden()
+        {
+            estadoDeOrden = true;
+            fechaOrden = DateTime.Now;
+
+        }
     }
 }
