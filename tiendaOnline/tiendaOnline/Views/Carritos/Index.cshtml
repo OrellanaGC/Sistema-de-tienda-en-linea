@@ -40,8 +40,17 @@
                 <!--Con esta linea selecciona los que desea comprar ahorita es una PRUEBA-->
                 <td class="col-md-1 text-center">
                     <br /><!--en lugar de usar la etiqueta style, con bootrap se le agrega el tmaaño de la columna col-md-1-->
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value="" title="Quiero comprarlo!" asp-controller="Carritos" asp-action="SeleccionarDeCarrito" asp-route-productoID="@linea.producto.ProductoID">
+          
+                    <label class="list-inline">
+                        <!--no usé el checkbox... porque estaba embrujado-->
+                        @if (linea.IsSelected == true)
+                        {
+                            <a class="fa fa-check-square" title="Quitar de mi orden de compra" asp-controller="Carritos" asp-action="SeleccionarProd" asp-route-idProducto="@linea.producto.ProductoID"></a>
+                        }
+                        else
+                        {
+                            <a class="fas fa-square" title="¡Quiero comprarlo!" asp-controller="Carritos" asp-action="SeleccionarProd" asp-route-idProducto="@linea.producto.ProductoID"></a>
+                        }
                     </label>
                 </td>
                 <td class="col-md-1 text-center">
@@ -102,7 +111,7 @@
 
             </tbody>
         </table>
-        <a class="btn btn-success  text-right" title="Realizar ya mi compra! " asp-controller="Orden" asp-action="Index" asp-route-id="">
+        <a class="btn btn-success  text-right" title="Realizar ya mi compra! " asp-controller="Ordenes" asp-action="Index" asp-route-id="">
             <i class="fas fa-credit-card"></i> <b>Realizar compra</b>
         </a>
     </aside>

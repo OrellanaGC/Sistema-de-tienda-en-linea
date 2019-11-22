@@ -9,6 +9,8 @@ namespace tiendaOnline.Models
     {
         public int ProdCarritoID { get; set; }
         public int cantidadProducto { get; set; }
+        public bool IsSelected { get; set; }
+
 
         //Relacion con Carrito
         public int CarritoID { get; set; }
@@ -19,6 +21,12 @@ namespace tiendaOnline.Models
 
         //Relacion con LineaDeOrden uno a uno
         public LineaDeOrden lineaOrden { get; set; }
-        
+
+
+        public ProdCarrito()
+        {
+            IsSelected = true;
+
+        }
     }
 }

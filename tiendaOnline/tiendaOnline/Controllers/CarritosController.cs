@@ -58,9 +58,9 @@ namespace tiendaOnline.Controllers
         public async Task<RedirectToActionResult> EliminarDeCarrito(int idProducto)
         {
             var user = await _userManager.GetUserAsync(User);
-            System.Diagnostics.Debug.WriteLine(idProducto);
+
             var prodSeleccionado = _producto.Productos.FirstOrDefault(p => p.ProductoID == idProducto);
-            System.Diagnostics.Debug.WriteLine(prodSeleccionado);
+
             if (prodSeleccionado != null)
             {
                 _carrito.EliminarDeCarrito(prodSeleccionado);
@@ -71,13 +71,25 @@ namespace tiendaOnline.Controllers
         public async Task<RedirectToActionResult> EliminarProdDeCarrito(int idProducto)
         {
             var user = await _userManager.GetUserAsync(User);
-            System.Diagnostics.Debug.WriteLine(idProducto);
+
             var prodSeleccionado = _producto.Productos.FirstOrDefault(p => p.ProductoID == idProducto);
-            System.Diagnostics.Debug.WriteLine(prodSeleccionado);
+
             if (prodSeleccionado != null)
             {
                 _carrito.EliminarProdDeCarrito(prodSeleccionado);
             }
+            return RedirectToAction("Index");
+        }
+
+        public async Task<RedirectToActionResult> SeleccionarProd(int idProducto)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var prodSeleccionado = _producto.Productos.FirstOrDefault(p => p.ProductoID == idProducto);
+            if (prodSeleccionado != null)
+            {
+                _carrito.SeleccionarProd(prodSeleccionado);
+            }
+
             return RedirectToAction("Index");
         }
     }

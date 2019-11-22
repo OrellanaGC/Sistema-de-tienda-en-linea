@@ -148,10 +148,34 @@ namespace tiendaOnline.Models
             _ApplicationDbContext.SaveChanges();
         }
 
+        public void SeleccionarProd(Producto producto)
+        {
+            var prodCarrito =
+                    _ApplicationDbContext.ProdCarrito.SingleOrDefault(
+                        s => s.producto.ProductoID == producto.ProductoID && s.CarritoID == CarritoID);
+            if (prodCarrito != null)
+            {
+                
+                if (prodCarrito.IsSelected == false)
+                {
+
+                    prodCarrito.IsSelected = true;
+                }
+                else
+                {
+                    prodCarrito.IsSelected = false;
+                }
+                //Hay que guardar en LineaOrden
+              //  _ApplicationDbContext.ProdCarrito.Add(prodCarrito);
+            }
+            _ApplicationDbContext.SaveChanges();
+        }
+
+
 
         public double GetcarritoTotal()
         {
-            var total = _ApplicationDbContext.ProdCarrito.Where(c => c.CarritoID == CarritoID)
+            var total = _ApplicationDbContext.ProdCarrito.Where(c => c.CarritoID == CarritoID && c.IsSelected== true)
                 .Select(c => c.producto.PrecioUnitario * c.cantidadProducto).Sum();
             return total;
         }
