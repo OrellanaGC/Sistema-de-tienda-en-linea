@@ -8,15 +8,14 @@ namespace tiendaOnline.Models
 {
     public class Municipio
     {
+
         public int MunicipioID { get; set; }
-        [Required(ErrorMessage ="Ingresar nombre del Municipio")]
+        [Required(ErrorMessage = "Ingresar nombre del Municipio")]
         public string nombreMunicipio { get; set; }
-       
         //Relacion con Departamento
-        public int DepartamentoID { get; set; }
         public Departamento Departamento { get; set; }
+        public int DepartamentoID { get; set; }
 
     }
 
- 
 }
