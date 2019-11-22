@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<tiendaOnline.Models.DetalleVendedor>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Informacion del vendedor";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Informacion del vendedor</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-primary" asp-action="Create"><i class="fas fa-plus"></i> Agregar</a>
 </p>
 <table class="table">
     <thead>
@@ -22,9 +22,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.tipoVendedor)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.tiendaOnlineUser)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -40,15 +38,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.tipoVendedor)
             </td>
+            
             <td>
-                @Html.DisplayFor(modelItem => item.tiendaOnlineUser.Email)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.DetalleVendedorID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.DetalleVendedorID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.DetalleVendedorID">Delete</a>
+                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.DetalleVendedorID"><i class="fas fa-pen"></i></a>
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.DetalleVendedorID"><i class="fas fa-info"></i></a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.DetalleVendedorID"><i class="fas fa-trash-alt"></i></a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<a class="btn btn-default" asp-area="Identity" asp-page="/Account/Manage/Vendedor" title="Manage"> <i class="fa fa-home"> </i></a>

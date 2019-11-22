@@ -1,0 +1,64 @@
+﻿@model tiendaOnline.Models.Cupon
+
+@{
+    ViewData["Title"] = "Eliminar cupón";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminar</h2>
+
+<h3>¿Realmente desea eliminar este cupón?</h3>
+<div>
+    <h4>Detalles</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.codigoCupon)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.codigoCupon)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.montoCupon)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.montoCupon)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.estadoCupon)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.estadoCupon)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaCreacion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.fechaCreacion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaVencimiento)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.fechaVencimiento)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcionCupon)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.descripcionCupon)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.tiendaOnlineUser)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.tiendaOnlineUser.Id)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CuponID" />
+        <input type="submit" value="Eliminar" class="btn btn-default" /> |
+        <a class="btn btn-primary" asp-action="Index"><i class="fa fa-home"></i> Cupones</a>
+    </form>
+</div>

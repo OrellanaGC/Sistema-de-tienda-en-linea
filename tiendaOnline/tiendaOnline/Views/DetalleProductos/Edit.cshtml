@@ -1,19 +1,20 @@
 ﻿@model tiendaOnline.Models.DetalleProducto
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Editar</h2>
+<h2>@Model.producto.NombreProducto</h2>
 
-<h4>Detalles del producto</h4>
+<h4>Editar</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="DetalleProductoID" />
+            <input type="hidden" asp-for="productoID" />
             <div class="form-group">
                 <label asp-for="Descripcion" class="control-label"></label>
                 <input asp-for="Descripcion" class="form-control" />
@@ -43,12 +44,7 @@
                 <label asp-for="Modelo" class="control-label"></label>
                 <input asp-for="Modelo" class="form-control" />
                 <span asp-validation-for="Modelo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="productoID" class="control-label">ID del producto</label>
-                <select asp-for="productoID" class="form-control" asp-items="ViewBag.productoID"></select>
-                <span asp-validation-for="productoID" class="text-danger"></span>
-            </div>
+            </div>           
             <div class="form-group">
                 <input type="submit" value="Guardar cambios" class="btn btn-default" />
             </div>
@@ -57,7 +53,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Mis productos</a>
+    <<a class="btn btn-primary" asp-controller="Productos" asp-action="IndexVendedor"><i class="fa fa-home"></i> Mis productos</a>
 </div>
 
 @section Scripts {

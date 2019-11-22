@@ -42,7 +42,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Municipio.Departamento)
+                @Html.DisplayFor(modelItem => item.Municipio.DepartamentoID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Municipio.nombreMunicipio)
@@ -71,4 +71,6 @@
         </tr>
 }
     </tbody>
+    
 </table>
+<a class="btn btn-default" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"> <i class="fa fa-home"> </i></a>

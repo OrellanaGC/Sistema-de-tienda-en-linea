@@ -27,7 +27,10 @@ namespace tiendaOnline.Controllers
         // GET: DetalleVendedores
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.DetalleVendedor.Include(d => d.tiendaOnlineUser);
+            //Filtrar solo los detalles del vendedor que ha iniciado sesion
+            var user = await _userManager.GetUserAsync(User);
+            var vendedor = _context.DetalleVendedor.Single(v=> v.tiendaOnlineUserID== user.Id);
+            var applicationDbContext = _context.DetalleVendedor.Include(d => d.tiendaOnlineUser).Where(d=> d.DetalleVendedorID== vendedor.DetalleVendedorID);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -66,10 +69,10 @@ namespace tiendaOnline.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                _context.Add(detalleVendedor);
-                await _context.SaveChangesAsync();
                 var user = await _userManager.GetUserAsync(User);
+                detalleVendedor.tiendaOnlineUserID = user.Id;
+                _context.Add(detalleVendedor);
+                await _context.SaveChangesAsync();                
                 await _userManager.AddToRoleAsync(user, "Seller");
                 return RedirectToAction(nameof(Index));
             }

@@ -1,0 +1,15 @@
+﻿@page
+@inject SignInManager<tiendaOnlineUser> SignInManager
+@inject UserManager<tiendaOnlineUser> UserManager
+@model AdministrarModel
+@{
+}
+
+@if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin"))
+{
+    <a class="btn btn-danger" asp-controller="Direcciones" asp-action="IndexVendedor"><i class="fas fa-map-marker-alt"></i> Productos</a><br />
+    <a class="btn btn-success" asp-controller="Tarjetas" asp-action="IndexVendedor"><i class="fas fa-credit-card"></i> Ordenes en proceso</a><br />
+    <a class="btn btn-warning" asp-controller="DetalleVendedores" asp-action="Index"><i class="fas fa-user-tie"></i> Ordenes finalizadas</a>
+}
+
+

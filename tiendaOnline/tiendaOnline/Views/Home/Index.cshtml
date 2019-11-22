@@ -34,16 +34,10 @@
                                 }
                                 </div>
                             </form>
-
                         </div>
-
-
                     </td>
                 </tr>
             }
-
-
-
         </table>
     </div>
     <!--Slideshows de banner-->
@@ -53,38 +47,48 @@
                     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                     <li data-target="#myCarousel" data-slide-to="1"></li>
                     <li data-target="#myCarousel" data-slide-to="2"></li>
+                    <li data-target="#myCarousel" data-slide-to="3"></li>
                 </ol>
                 <div class="carousel-inner" role="listbox">
                     <div class="item active">
                         <img src="~/images/banner1.jpg" alt="ASP.NET" class="img-responsive" />
                         <div class="carousel-caption" role="option">
                             <!--p>
-                                Learn how to build ASP.NET apps that can run anywhere.
-                                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409">
-                                    Learn More
-                                </a>
-                            </p-->
+                Learn how to build ASP.NET apps that can run anywhere.
+                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409">
+                    Learn More
+                </a>
+            </p-->
                         </div>
                     </div>
                     <div class="item">
                         <img src="~/images/banner2.jpg" alt="Visual Studio" class="img-responsive" />
                         <div class="carousel-caption" role="option">
                             <!--p>
-                                There are powerful new features in Visual Studio for building modern web apps.
-                                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525030&clcid=0x409">
-                                    Learn More
-                                </a>
-                            </p-->
+                There are powerful new features in Visual Studio for building modern web apps.
+                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525030&clcid=0x409">
+                    Learn More
+                </a>
+            </p-->
                         </div>
                     </div>
                     <div class="item">
                         <img src="~/images/banner3.jpg" alt="Microsoft Azure" class="img-responsive" />
                         <div class="carousel-caption" role="option">
                             <p>
-                                Nuevos descuentos se aproximan
                                 <!--a> class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525027&clcid=0x409">
-                                    Learn More
-                                </a-->
+                    Learn More
+                </a-->
+                            </p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="~/images/banner4.jpg" alt="Microsoft Azure" class="img-responsive" />
+                        <div class="carousel-caption" role="option">
+                            <p>
+                                <!--a> class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525027&clcid=0x409">
+                    Learn More
+                </a-->
                             </p>
                         </div>
                     </div>
@@ -99,7 +103,11 @@
                 </a>
             </div>
         </div>
-    </div>
+        <div class="col-md-9">
+            <img src="~/images/33.jpg" height="180px" />
+            <img src="~/images/44.jpg" height="180px" />
+        </div>
+</div>
     <div class="row">
         <div class="col-md-12">
             <h3>LO NUEVO</h3>
@@ -111,7 +119,7 @@
                 <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">
                     <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
                 </a>
-                <h4>$ @Html.DisplayFor(modelItem => producto.PrecioUnitario)</h4>
+                <h4>$ @Html.DisplayFor(modelItem => producto.PrecioUnitario)</h4><br />
                 <!--a asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a-->
 
                 <div class="agregarCarrito text-left"  title="Agrega el producto a tu carrito!">
@@ -123,7 +131,6 @@
                             <i class="fas fa-cart-plus"></i>
                         </a>
                     </p>
-
                 </div>
             </div>
             }

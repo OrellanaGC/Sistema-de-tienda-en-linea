@@ -22,7 +22,8 @@ namespace tiendaOnline.Controllers
         // GET: Municipios
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Municipio.ToListAsync());
+            var applicationDbContext = _context.Municipio.Include(m => m.Departamento);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Municipios/Details/5
@@ -34,6 +35,7 @@ namespace tiendaOnline.Controllers
             }
 
             var municipio = await _context.Municipio
+                .Include(m => m.Departamento)
                 .FirstOrDefaultAsync(m => m.MunicipioID == id);
             if (municipio == null)
             {
@@ -46,6 +48,7 @@ namespace tiendaOnline.Controllers
         // GET: Municipios/Create
         public IActionResult Create()
         {
+            ViewData["DepartamentoID"] = new SelectList(_context.Departamento, "DepartamentoID", "nombreDepartamento");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MunicipioID,nombreMunicipio,Departamento")] Municipio municipio)
+        public async Task<IActionResult> Create([Bind("MunicipioID,nombreMunicipio,DepartamentoID")] Municipio municipio)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace tiendaOnline.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["DepartamentoID"] = new SelectList(_context.Departamento, "DepartamentoID", "nombreDepartamento", municipio.DepartamentoID);
             return View(municipio);
         }
 
@@ -78,6 +82,7 @@ namespace tiendaOnline.Controllers
             {
                 return NotFound();
             }
+            ViewData["DepartamentoID"] = new SelectList(_context.Departamento, "DepartamentoID", "nombreDepartamento", municipio.DepartamentoID);
             return View(municipio);
         }
 
@@ -86,7 +91,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MunicipioID,nombreMunicipio,Departamento")] Municipio municipio)
+        public async Task<IActionResult> Edit(int id, [Bind("MunicipioID,nombreMunicipio,DepartamentoID")] Municipio municipio)
         {
             if (id != municipio.MunicipioID)
             {
@@ -113,6 +118,7 @@ namespace tiendaOnline.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["DepartamentoID"] = new SelectList(_context.Departamento, "DepartamentoID", "nombreDepartamento", municipio.DepartamentoID);
             return View(municipio);
         }
 
@@ -125,6 +131,7 @@ namespace tiendaOnline.Controllers
             }
 
             var municipio = await _context.Municipio
+                .Include(m => m.Departamento)
                 .FirstOrDefaultAsync(m => m.MunicipioID == id);
             if (municipio == null)
             {

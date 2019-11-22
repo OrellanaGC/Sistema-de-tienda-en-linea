@@ -86,22 +86,42 @@ namespace tiendaOnline.Models
             var prodCarrito =
                     _ApplicationDbContext.ProdCarrito.SingleOrDefault(
                         s => s.producto.ProductoID == producto.ProductoID && s.CarritoID == CarritoID);
-
+            System.Diagnostics.Debug.WriteLine("esto en consola xD");
+            System.Diagnostics.Debug.WriteLine("esto en consola xD");
             var cantidadlocal = 0;
 
             if (prodCarrito != null)
             {
                 if (prodCarrito.cantidadProducto > 1)
                 {
+
+                    
                     prodCarrito.cantidadProducto--;
                     cantidadlocal = prodCarrito.cantidadProducto;
                 }
                 else
                 {
-                    _ApplicationDbContext.ProdCarrito.Remove(prodCarrito);
+                    _ApplicationDbContext.Remove(prodCarrito);
                 }
             }
+            _ApplicationDbContext.SaveChanges();
 
+            return cantidadlocal;
+        }
+
+        public int EliminarProdDeCarrito(Producto producto)
+        {
+            var prodCarrito =
+                    _ApplicationDbContext.ProdCarrito.SingleOrDefault(
+                        s => s.producto.ProductoID == producto.ProductoID && s.CarritoID == CarritoID);
+            var cantidadlocal = 0;
+
+            if (prodCarrito != null)
+            {
+                
+                    _ApplicationDbContext.Remove(prodCarrito);
+                
+            }
             _ApplicationDbContext.SaveChanges();
 
             return cantidadlocal;
@@ -128,10 +148,34 @@ namespace tiendaOnline.Models
             _ApplicationDbContext.SaveChanges();
         }
 
+        public void SeleccionarProd(Producto producto)
+        {
+            var prodCarrito =
+                    _ApplicationDbContext.ProdCarrito.SingleOrDefault(
+                        s => s.producto.ProductoID == producto.ProductoID && s.CarritoID == CarritoID);
+            if (prodCarrito != null)
+            {
+                
+                if (prodCarrito.IsSelected == false)
+                {
+
+                    prodCarrito.IsSelected = true;
+                }
+                else
+                {
+                    prodCarrito.IsSelected = false;
+                }
+                //Hay que guardar en LineaOrden
+              //  _ApplicationDbContext.ProdCarrito.Add(prodCarrito);
+            }
+            _ApplicationDbContext.SaveChanges();
+        }
+
+
 
         public double GetcarritoTotal()
         {
-            var total = _ApplicationDbContext.ProdCarrito.Where(c => c.CarritoID == CarritoID)
+            var total = _ApplicationDbContext.ProdCarrito.Where(c => c.CarritoID == CarritoID && c.IsSelected== true)
                 .Select(c => c.producto.PrecioUnitario * c.cantidadProducto).Sum();
             return total;
         }

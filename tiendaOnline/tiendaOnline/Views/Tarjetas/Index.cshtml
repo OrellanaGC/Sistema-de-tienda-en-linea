@@ -27,10 +27,12 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.fechaVencimiento)
+
             </th>
             <!--th>
                 Html.DisplayNameFor(model => model.tiendaOnlineUser)
             </th-->
+
             <th></th>
         </tr>
     </thead>
@@ -51,10 +53,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.fechaVencimiento)
+
             </td>
             <!--td>
                 Html.DisplayFor(modelItem => item.tiendaOnlineUser.Id)
-            </td-->
+            </td-->          
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.TarjetaID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.TarjetaID">Details</a> |

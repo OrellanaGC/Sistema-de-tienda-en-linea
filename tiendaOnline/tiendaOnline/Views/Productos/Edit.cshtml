@@ -1,5 +1,10 @@
 ﻿@model tiendaOnline.Models.Producto
 
+
+@using tiendaOnline.Data
+<!--Haciendo una inyeccion del context para traer cualquier modelo-->
+@inject ApplicationDbContext _context
+
 @{
     ViewData["Title"] = "Editar producto";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -23,6 +28,9 @@
                 <label asp-for="PrecioUnitario" class="control-label">Precio unitario</label>
                 <input asp-for="PrecioUnitario" class="form-control" />
                 <span asp-validation-for="PrecioUnitario" class="text-danger"></span>
+            </div>
+            <div>
+                <a class="btn btn-warning" asp-controller="TipoDeDescuentos" asp-action="Edit" asp-route-id=" @{ @Model.ProductoID; }"><i class="fas fa-pen"></i> Descuento de producto</a>
             </div>
             <div class="form-group">
                 <label asp-for="Existencia" class="control-label">Cantidad disponible</label>
@@ -49,15 +57,20 @@
                 <select asp-for="detalleVendedorID" class="form-control" asp-items="ViewBag.detalleVendedorID"></select>
                 <span asp-validation-for="detalleVendedorID" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Guardar cambios" class="btn btn-default" />
+                <a class="btn btn-warning" asp-controller="DetalleProductos" asp-action="Edit" asp-route-id=" @{ @Model.ProductoID; }"><i class="fas fa-pen"></i> Editar detalles del producto</a>
+                
+                <input type="submit" value="Guardar cambios" class="btn btn-success" />
             </div>
+                    
+                
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Mis productos</a>
 </div>
 
 @section Scripts {

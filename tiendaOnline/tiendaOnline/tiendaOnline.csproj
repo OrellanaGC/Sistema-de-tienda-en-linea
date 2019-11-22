@@ -43,4 +43,22 @@
     <Folder Include="wwwroot\images\productos\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Direcciones\CreateParaVendedor.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Direcciones\IndexVendedor.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Productos\IndexVendedor.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Tarjetas\CreateVendedor.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Tarjetas\IndexVendedor.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
 </Project>

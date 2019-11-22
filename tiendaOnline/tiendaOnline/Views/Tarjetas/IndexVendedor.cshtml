@@ -1,0 +1,61 @@
+﻿@model IEnumerable<tiendaOnline.Models.Tarjeta>
+
+@{
+    ViewData["Title"] = "Tarjetas del vendedor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Tarjetas del vendedor</h2>
+
+<p>
+    <a class="btn btn-primary" asp-action="CreateVendedor"><i class="fas fa-plus"></i> Agregar</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.numeroTarjeta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.codigoSeguridad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tipoTarjeta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.titularTarjeta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaVencimiento)
+            </th>           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.numeroTarjeta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.codigoSeguridad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipoTarjeta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.titularTarjeta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fechaVencimiento)
+            </td>           
+            <td>
+                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.TarjetaID"><i class="fas fa-pen"></i></a>
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.TarjetaID"><i class="fas fa-info"></i></a>
+                <a class="btn btn-danger" asp-action="Delete" asp-controller="Tarjetas" asp-route-id="@item.TarjetaID"><i class="fas fa-trash-alt"></i></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<a class="btn btn-default" asp-area="Identity" asp-page="/Account/Manage/Vendedor" title="Manage"> <i class="fa fa-home"> </i></a>

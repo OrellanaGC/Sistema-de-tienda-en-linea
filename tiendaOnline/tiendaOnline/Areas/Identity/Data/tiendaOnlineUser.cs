@@ -15,7 +15,7 @@ namespace tiendaOnline.Areas.Identity.Data
         [Display(Name = "Femenino")] Femenino
 
     }
-    // Add profile data for application users by adding properties to the tiendaOnlineUser class
+    
     public class tiendaOnlineUser : IdentityUser
     {
         public string nombres { get; set; }

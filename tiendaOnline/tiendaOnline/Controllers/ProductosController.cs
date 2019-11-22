@@ -29,9 +29,9 @@ namespace tiendaOnline.Controllers
             he = e;
         }
 
-        // GET: Productos
-        public async Task<IActionResult> Index(string searchString)
-        {         
+        // GET: Productos       
+         public async Task<IActionResult> Index(string searchString)
+        {
             var applicationDbContext = _context.Producto.Include(p => p.Subcategoria).Include(p => p.detalleVendedor);
             //Cuadro de busqueda
 
@@ -62,6 +62,32 @@ namespace tiendaOnline.Controllers
             //return View(await applicationDbContext.ToListAsync());
         }
 
+        //Visualizar productos propios de cada vendedor
+        public async Task<IActionResult> IndexVendedor(string searchString)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
+            var applicationDbContext = _context.Producto.Include(p => p.Subcategoria).Include(p => p.detalleVendedor);
+            //Cuadro de busqueda
+
+            ViewData["CurrentFilter"] = searchString;
+            var productos = from p in _context.Producto.Where(p => p.detalleVendedorID == vendedor.DetalleVendedorID) select p; //recorre todos los items en producto
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                //agregar metadata si se modifican los atributos
+                //agregar metadata si se modifican los atributos
+                productos = productos.Where(p => p.NombreProducto.Contains(searchString) ||
+                p.Subcategoria.nombreSubcategoria.Contains(searchString) ||
+                p.Subcategoria.Categoria.nombre_categoria.Contains(searchString)
+                );//realiza busqueda por nombre
+            }
+
+
+            return View(await productos.AsNoTracking().ToListAsync());
+            //return View(await applicationDbContext.ToListAsync());
+        }
+
         // GET: Productos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -82,10 +108,19 @@ namespace tiendaOnline.Controllers
             return View(producto);
         }
 
+        //Metodo Json para llenar el select de subcategorias en la vista
+        public async Task<JsonResult> SubCate(int idcat)
+        {
+            List<Subcategoria> subcats = await this._context.Subcategoria.Where(c => c.CategoriaID == idcat).ToListAsync();
+            ViewData["SUB"] = new SelectList(subcats, "SubcategoriaID", "nombreSubcategoria");
+            return new JsonResult(subcats);
+        }
+
         // GET: Productos/Create
         public IActionResult Create()
-        {                        
-            ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "nombreSubcategoria");                        
+        {
+            ViewData["CategoriaID"] = new SelectList(_context.Categoria, "CategoriaID", "nombre_categoria");
+                                
             return View();
         }
         //Guarda la imagen
@@ -109,6 +144,7 @@ namespace tiendaOnline.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 Agrega(Imagen);
                 producto.Imagen = Imagen.FileName;
                 //Asignando el producto al vendedor que ha iniciado sesion
@@ -120,7 +156,7 @@ namespace tiendaOnline.Controllers
                 return RedirectToAction("Create", "DetalleProductos");
 
             }
-            ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "nombreSubcategoria", producto.SubcategoriaID);
+            ViewData["CategoriaID"] = new SelectList(_context.Categoria, "CategoriaID", "nombre_categoria");
             ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", producto.detalleVendedorID);
             return View(producto);
         }
@@ -162,6 +198,7 @@ namespace tiendaOnline.Controllers
                     _context.Update(producto);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Index", "Productos");
+                   
                 }
                 catch (DbUpdateConcurrencyException)
                 {

@@ -37,5 +37,7 @@ namespace tiendaOnline.Models
         //Relacion con Producto
         public int productoID { get; set; }
         public Producto producto { get; set; }
+
+        
     }
 }

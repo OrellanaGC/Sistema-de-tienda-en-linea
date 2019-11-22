@@ -1,0 +1,62 @@
+﻿@model tiendaOnline.Models.Orden
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+<h4>Orden</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="OrdenID" />
+            <div class="form-group">
+                <label asp-for="fechaOrden" class="control-label"></label>
+                <input asp-for="fechaOrden" class="form-control" />
+                <span asp-validation-for="fechaOrden" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="total" class="control-label"></label>
+                <input asp-for="total" class="form-control" />
+                <span asp-validation-for="total" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="estadoDeOrden" /> @Html.DisplayNameFor(model => model.estadoDeOrden)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="tiendaOnlineUserID" class="control-label"></label>
+                <select asp-for="tiendaOnlineUserID" class="form-control" asp-items="ViewBag.tiendaOnlineUserID"></select>
+                <span asp-validation-for="tiendaOnlineUserID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="metodoEnvioID" class="control-label"></label>
+                <select asp-for="metodoEnvioID" class="form-control" asp-items="ViewBag.metodoEnvioID"></select>
+                <span asp-validation-for="metodoEnvioID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="cuponID" class="control-label"></label>
+                <select asp-for="cuponID" class="form-control" asp-items="ViewBag.cuponID"></select>
+                <span asp-validation-for="cuponID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -44,10 +44,10 @@ namespace tiendaOnline.Controllers
         [Authorize]
         public async Task<RedirectToActionResult> AgregarCarrito(int idProducto)
         {
-            var user = await _userManager.GetUserAsync(User);
-
+            var user = await _userManager.GetUserAsync(User);;
 
             var prodSeleccionado = _producto.Productos.FirstOrDefault(p => p.ProductoID == idProducto);
+           
             if (prodSeleccionado != null)
             {
                 _carrito.AgregarCarrito(prodSeleccionado, 1);
@@ -55,14 +55,41 @@ namespace tiendaOnline.Controllers
             return RedirectToAction("Index");
         }
 
-        public RedirectToActionResult EliminarDeCarrito(int idProducto)
+        public async Task<RedirectToActionResult> EliminarDeCarrito(int idProducto)
         {
-            
+            var user = await _userManager.GetUserAsync(User);
+
             var prodSeleccionado = _producto.Productos.FirstOrDefault(p => p.ProductoID == idProducto);
+
             if (prodSeleccionado != null)
-            {    
+            {
                 _carrito.EliminarDeCarrito(prodSeleccionado);
             }
+            return RedirectToAction("Index");
+        }
+
+        public async Task<RedirectToActionResult> EliminarProdDeCarrito(int idProducto)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            var prodSeleccionado = _producto.Productos.FirstOrDefault(p => p.ProductoID == idProducto);
+
+            if (prodSeleccionado != null)
+            {
+                _carrito.EliminarProdDeCarrito(prodSeleccionado);
+            }
+            return RedirectToAction("Index");
+        }
+
+        public async Task<RedirectToActionResult> SeleccionarProd(int idProducto)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var prodSeleccionado = _producto.Productos.FirstOrDefault(p => p.ProductoID == idProducto);
+            if (prodSeleccionado != null)
+            {
+                _carrito.SeleccionarProd(prodSeleccionado);
+            }
+
             return RedirectToAction("Index");
         }
     }

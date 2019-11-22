@@ -1,0 +1,72 @@
+﻿@model IEnumerable<tiendaOnline.Models.Cupon>
+
+@{
+    ViewData["Title"] = "Cupones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cupones</h2>
+
+<p>
+    <a class="btn btn-info" asp-action="Create"><i class="fas fa-plus"></i> Agregar </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.codigoCupon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.montoCupon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.estadoCupon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaCreacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaVencimiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcionCupon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tiendaOnlineUser)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.codigoCupon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.montoCupon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estadoCupon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fechaCreacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fechaVencimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descripcionCupon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tiendaOnlineUser.Id)
+            </td>
+            <td>
+                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.CuponID"><i class="fas fa-pen"></i></a>
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.CuponID"><i class="fas fa-info"></i></a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.CuponID"><i class="fas fa-trash-alt"></i></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
