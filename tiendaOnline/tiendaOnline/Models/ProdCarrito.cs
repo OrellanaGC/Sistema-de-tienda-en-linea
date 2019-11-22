@@ -25,7 +25,7 @@ namespace tiendaOnline.Models
 
         public ProdCarrito()
         {
-            IsSelected = true;
+            IsSelected = false;
 
         }
     }
