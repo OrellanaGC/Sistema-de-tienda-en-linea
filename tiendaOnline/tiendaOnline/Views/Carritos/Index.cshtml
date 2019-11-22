@@ -2,16 +2,22 @@
 
 <style>
     /*scroll shido para carrito*/
-    .my-custom-scrollbar {        
-        height:450px;
+    .my-custom-scrollbar {
+        height: 450px;
         overflow: auto;
     }
 
     .table-wrapper-scroll-y {
         display: block;
     }
-    .seccion aside{        
+
+    .seccion aside {
         display: flex;
+    }
+    /*quita el subrayado de los botones*/
+    a.fa, a.fas, a.glyphicon {
+        text-decoration: none;
+        display: inline-block;
     }
 </style>
 <h2>Tu carrito de compras</h2>
@@ -45,11 +51,11 @@
                         <!--no usé el checkbox... porque estaba embrujado-->
                         @if (linea.IsSelected == true)
                         {
-                            <a class="fa fa-check-square" title="Quitar de mi orden de compra" asp-controller="Carritos" asp-action="SeleccionarProd" asp-route-idProducto="@linea.producto.ProductoID"></a>
+                            <a class="fa fa-check-square"  title="Quitar de mi orden de compra" asp-controller="Carritos" asp-action="SeleccionarProd" asp-route-idProducto="@linea.producto.ProductoID"></a>
                         }
                         else
                         {
-                            <a class="fas fa-square" title="¡Quiero comprarlo!" asp-controller="Carritos" asp-action="SeleccionarProd" asp-route-idProducto="@linea.producto.ProductoID"></a>
+                            <a class="fas fa-square"  title="¡Quiero comprarlo!" asp-controller="Carritos" asp-action="SeleccionarProd" asp-route-idProducto="@linea.producto.ProductoID"></a>
                         }
                     </label>
                 </td>
