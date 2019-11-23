@@ -74,7 +74,7 @@ namespace tiendaOnline.Controllers
                 _context.Add(detalleVendedor);
                 await _context.SaveChangesAsync();                
                 await _userManager.AddToRoleAsync(user, "Seller");
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Home");
             }
             ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Email", detalleVendedor.tiendaOnlineUserID);
             return View(detalleVendedor);
