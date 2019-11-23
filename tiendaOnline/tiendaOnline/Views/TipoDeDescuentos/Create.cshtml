@@ -1,13 +1,13 @@
 ﻿@model tiendaOnline.Models.TipoDeDescuento
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Nuevo descuento";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2>Nuevo descuento</h2>
 
-<h4>TipoDeDescuento</h4>
+<h4>Detalles</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -33,14 +33,14 @@
                 <select asp-for="ProductoID" class ="form-control" asp-items="ViewBag.ProductoID"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Crear" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-action="Index"><i class="fa fa-home"> Cancelar</i></a>
 </div>
 
 @section Scripts {
