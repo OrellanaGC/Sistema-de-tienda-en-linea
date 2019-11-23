@@ -1,14 +1,14 @@
 ﻿@model tiendaOnline.Models.Municipio
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles del municipio";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Municipio</h2>
 
 <div>
-    <h4>Municipio</h4>
+    <h4>Detalles</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -27,5 +27,5 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.MunicipioID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-action="Index"><i class="fa fa-home"></i> Municipios</a>
 </div>

@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<tiendaOnline.Models.Municipio>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Municipios";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Municipios</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-info" asp-action="Create"><i class="fas fa-plus"></i> Agregar </a>
 </p>
 <table class="table">
     <thead>
@@ -32,9 +32,9 @@
                 @Html.DisplayFor(modelItem => item.Departamento.nombreDepartamento)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.MunicipioID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MunicipioID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MunicipioID">Delete</a>
+                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.MunicipioID"><i class="fa fa-pen"></i></a>
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.MunicipioID"><i class="fa fa-info"></i></a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.MunicipioID"><i class="fa fa-trash-alt"></i></a>
             </td>
         </tr>
 }
