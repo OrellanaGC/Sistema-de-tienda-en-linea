@@ -1,15 +1,15 @@
 ﻿@model tiendaOnline.Models.Tarjeta
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Eliminar Tarjeta";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Eliminar Tarjeta</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>¿Realmente desea eliminar la siguiente Tarjeta?</h3>
 <div>
-    <h4>Tarjeta</h4>
+    <h4>Detalles</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -52,7 +52,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="TarjetaID" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a href='javascript:history.go(-1)'>Regresar a la lista</a>
+        <input type="submit" value="Eliminar" class="btn btn-default" /> |
+        <a href='javascript:history.go(-1)'>Regresar</a>
     </form>
 </div>

@@ -1,11 +1,11 @@
 ﻿@model tiendaOnline.Models.Orden
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles de la orden";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Detalles de la orden</h2>
 
 <div>
     <h4>Orden</h4>
@@ -51,5 +51,5 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.OrdenID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-action="Index"><i class="fa fa-home"></i> Órdenes</a>
 </div>

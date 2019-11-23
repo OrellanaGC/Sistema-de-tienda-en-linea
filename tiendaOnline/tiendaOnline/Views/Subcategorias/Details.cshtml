@@ -1,14 +1,14 @@
 ﻿@model tiendaOnline.Models.Subcategoria
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Subcategoria";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>@Model.nombreSubcategoria</h2>
 
 <div>
-    <h4>Subcategoria</h4>
+    <h4>Detalles</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -26,6 +26,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.SubcategoriaID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.SubcategoriaID"><i class="fa fa-pen"></i></a>
+    <a class="btn btn-primary" asp-action="Index"><i class="fa fa-home"></i> Subcategorias</a>
 </div>
