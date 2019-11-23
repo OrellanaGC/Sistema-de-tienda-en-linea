@@ -10,13 +10,15 @@ namespace tiendaOnline.Models
     {
         public int EmpresaID { get; set; }
 
-        [Required(ErrorMessage ="Ingrese el nombre de la empresa")]
-        [Display(Name ="Nombre de la Empresa")]
+        
         public string nombreEmpresa { get; set; }
 
-        [Display(Name = "Correo")]
-        [EmailAddress(ErrorMessage = "Ingresar un correo valido")]
-        [Required(ErrorMessage = "Ingresar el Correo ")]
         public string correoComercial { get; set; }
+
+        public Empresa()
+        {
+            nombreEmpresa="iBuy Corporation";
+            correoComercial = "iBuy.newstoreonline@gmail.com";
+        }
     }
 }

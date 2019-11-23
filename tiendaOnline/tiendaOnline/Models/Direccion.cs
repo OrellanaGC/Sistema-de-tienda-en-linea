@@ -33,5 +33,10 @@ namespace tiendaOnline.Models
         //Relacion con DetalleVendedor
         public int? detalleVendedorID { get; set; }
         public DetalleVendedor detalleVendedor {get; set;}
+
+
+        //Relacion para sucursal
+        public string SucursalID { get; set; }
+        public Sucursal Sucursal { get; set; }
     }
 }
