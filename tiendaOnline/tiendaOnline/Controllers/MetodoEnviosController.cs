@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using tiendaOnline.Areas.Identity.Data;
 using tiendaOnline.Data;
 using tiendaOnline.Models;
 
@@ -12,11 +17,15 @@ namespace tiendaOnline.Controllers
 {
     public class MetodoEnviosController : Controller
     {
+        private readonly UserManager<tiendaOnlineUser> _userManager;
         private readonly ApplicationDbContext _context;
+        private readonly IHostingEnvironment he;
 
-        public MetodoEnviosController(ApplicationDbContext context)
+        public MetodoEnviosController(IHostingEnvironment e, ApplicationDbContext context, UserManager<tiendaOnlineUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
+            he = e;
         }
 
         // GET: MetodoEnvios

@@ -10,8 +10,8 @@ namespace tiendaOnline.Models
     {
         public int MetodoEnvioID { get; set; }
 
-        [Required(ErrorMessage = "Ingrese el nombre del metodo de envio")]
-        [Display(Name = "Metodo de Envio")]
+        [Required(ErrorMessage = "Ingrese el nombre del intermediario de envio")]
+        [Display(Name = "Intermediario de Envio")]
         public string nombreMetodoEnvio { get; set; }
 
         [Required(ErrorMessage = "Ingrese el maximo de Dias")]
@@ -23,7 +23,7 @@ namespace tiendaOnline.Models
         public int minDiasEnvio { get; set; }
 
         [Required(ErrorMessage = "Ingrese el monto del envio")]
-        [Display(Name = "Nombre de la Empresa")]
+        [Display(Name = "Monto del envio")]
         public double montoEnvio { get; set; }
 
 
