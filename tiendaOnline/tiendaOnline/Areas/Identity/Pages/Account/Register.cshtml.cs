@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -103,6 +104,19 @@ namespace tiendaOnline.Areas.Identity.Pages.Account
                         await _userManager.AddToRoleAsync(user, "User");
                         var carrito = new Carrito(user.Id);
                         _context.Add(carrito);
+                        //generador random de codigo
+                        var chars = Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", 8);
+                        var randomStr = new string(chars.SelectMany(str => str)
+                                                        .OrderBy(c => Guid.NewGuid())
+                                                        .Take(8).ToArray());
+                        //cuponcito wapeton
+                        var cupon = new Cupon();
+                        cupon.codigoCupon = randomStr;
+                        cupon.montoCupon = 5.00;
+                        cupon.estadoCupon = true;
+                        cupon.descripcionCupon = "Cupón de nuevo usuario";
+                        cupon.tiendaOnlineUserID = user.Id;
+                        _context.Add(cupon);
                     }                    
                     await _context.SaveChangesAsync();
                     //await _signInManager.SignInAsync(user, isPersistent: false);
