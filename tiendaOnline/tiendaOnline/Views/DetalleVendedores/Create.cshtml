@@ -1,13 +1,14 @@
 ﻿@model tiendaOnline.Models.DetalleVendedor
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Convertirse en vendedor";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2>Vendedor</h2>
 
-<h4>DetalleVendedor</h4>
+<h4>Qué esperas para formar de la gran familia iBuy y comenzar a vender tus productos!<br />
+    Regístrate como vendedor ahora.</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -29,14 +30,14 @@
                 <span asp-validation-for="tipoVendedor" class="text-danger"></span>
             </div>            
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Convertirme en vendedor" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-action="Index"><i class="fa fa-home"></i> Regresar</a>
 </div>
 
 @section Scripts {
