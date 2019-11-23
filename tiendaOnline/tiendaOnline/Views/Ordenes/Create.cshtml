@@ -5,56 +5,87 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2>Detalles de tu compra</h2>
 
-<h4>Orden</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <!--Hay que mostrar acá a los productos del usuario, foto, nombre, cantidad, precio unitario, subtotal de c/u-->
-            <!--la fecha solo hay que hacerla internamente y q la obtenga el sistema-->
-            <!--muestra el total-->
-            <div class="form-group">
-                <label asp-for="total" class="control-label"></label>
-                <input asp-for="total" class="form-control" />
-                <span asp-validation-for="total" class="text-danger"></span>
-            </div>
-
-            <!--
-        <div class="form-group">
-            <div class="checkbox">
-                <label>
-                    <input asp-for="estadoDeOrden" /> Html.DisplayNameFor(model => model.estadoDeOrden)
-                </label>
-            </div>
-        </div>
-        -->
-            <div class="form-group">
-                <label asp-for="tiendaOnlineUserID" class="control-label"></label>
-                <select asp-for="tiendaOnlineUserID" class="form-control" asp-items="ViewBag.tiendaOnlineUserID"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="metodoEnvio" class="control-label"></label>
-                <select asp-for="metodoEnvioID" class="form-control" asp-items="ViewBag.metodoEnvioID"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="cupon" class="control-label"></label>
-                <input asp-for="cuponID" class="form-control" asp-items="ViewBag.cuponID"></input>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
+<!--Muestra la fecha y hra actual-->
+<div style="float:right;">
+    <script type="text/javascript">
+        //<![CDATA[
+        var today = new Date();
+        var m = today.getMonth() + 1;
+        var mes = (m < 10) ? '0' + m : m;
+        document.write('Fecha: ' + today.getDate(), '/' + mes, '/' + today.getFullYear());
+        //]]>
+    </script>
+  
+        <script type="text/javascript">
+            function startTime() {
+                today = new Date();
+                h = today.getHours();
+                m = today.getMinutes();
+                s = today.getSeconds();
+                m = checkTime(m);
+                s = checkTime(s);
+                document.getElementById('reloj').innerHTML = h + ":" + m + ":" + s;
+                t = setTimeout('startTime()', 500);
+            }
+            function checkTime(i) { if (i < 10) { i = "0" + i; } return i; }
+            window.onload = function () { startTime(); }
+        </script>
+        <div id="reloj" style="font-size:20px;"></div>
     </div>
-</div>
+    <h4>Ya te falta poco!</h4>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <hr />
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <!--Hay que mostrar acá a los productos del usuario, foto, nombre, cantidad, precio unitario, subtotal de c/u-->
+
+
+
+                <!--muestra el total-->
+                <div class="form-group">
+                    <label asp-for="total" class="control-label"></label>
+                    <input asp-for="total" class="form-control" />
+                    <span asp-validation-for="total" class="text-danger"></span>
+                </div>
+
+                <!--
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="estadoDeOrden" /> Html.DisplayNameFor(model => model.estadoDeOrden)
+                        </label>
+                    </div>
+                </div>
+                -->
+                <div class="form-group">
+                    <label asp-for="tiendaOnlineUserID" class="control-label"></label>
+                    <select asp-for="tiendaOnlineUserID" class="form-control" asp-items="ViewBag.tiendaOnlineUserID"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="metodoEnvio" class="control-label"></label>
+                    <select asp-for="metodoEnvioID" class="form-control" asp-items="ViewBag.metodoEnvioID"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="cupon" class="control-label"></label>
+                    <input asp-for="cuponID" class="form-control" asp-items="ViewBag.cuponID"></input>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

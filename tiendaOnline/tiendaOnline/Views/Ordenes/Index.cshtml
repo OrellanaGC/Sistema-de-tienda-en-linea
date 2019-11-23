@@ -44,7 +44,13 @@
                 @Html.DisplayFor(modelItem => item.total)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.estadoDeOrden)
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="estadoDeOrden" /> Html.DisplayNameFor(model => model.estadoDeOrden)
+                        </label>
+                    </div>
+                </div>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.tiendaOnlineUser.Id)
