@@ -9,6 +9,7 @@ namespace tiendaOnline.Models
 {
     public class Orden
     {
+        public List<LineaDeOrden> LineasDeOrden { get; set; } 
         public int OrdenID { get; set; }
 
         [Required]

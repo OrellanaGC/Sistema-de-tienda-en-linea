@@ -74,6 +74,7 @@ namespace tiendaOnline
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
             services.AddTransient<IProducto, ImpProducto>();
+            services.AddTransient<IOrden, ImpOrden>();
             services.AddScoped(sp => Carrito.GetCarrito(sp));
 
             //Configuracion del usuario

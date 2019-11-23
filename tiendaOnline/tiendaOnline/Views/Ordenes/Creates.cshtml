@@ -1,0 +1,24 @@
+﻿@model tiendaOnline.Models.Orden
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+<h4>Orden</h4>
+
+<h1>
+    @ViewBag.OrdenCompletadaMessage aaaaa
+</h1>
+<hr />
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

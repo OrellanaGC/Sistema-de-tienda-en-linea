@@ -6,17 +6,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using tiendaOnline.Data;
+using tiendaOnline.Data.Interfaces;
 using tiendaOnline.Models;
+using tiendaOnline.ViewModels;
 
 namespace tiendaOnline.Controllers
 {
     public class OrdenesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IOrden _orden;
+        private readonly Carrito _carrito;
 
-        public OrdenesController(ApplicationDbContext context)
+        public OrdenesController(ApplicationDbContext context, IOrden orden, Carrito carrito)
         {
             _context = context;
+            _orden = orden;
+            _carrito = carrito;
+
         }
 
         // GET: Ordenes
@@ -50,6 +57,7 @@ namespace tiendaOnline.Controllers
         // GET: Ordenes/Create
         public IActionResult Create()
         {
+            
             ViewData["cuponID"] = new SelectList(_context.Cupon, "CuponID", "CuponID");
             ViewData["metodoEnvioID"] = new SelectList(_context.MetodoEnvio, "MetodoEnvioID", "nombreMetodoEnvio");
             ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id");
@@ -63,9 +71,19 @@ namespace tiendaOnline.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("OrdenID,fechaOrden,total,estadoDeOrden,tiendaOnlineUserID,metodoEnvioID,cuponID")] Orden orden)
         {
+            var items = _carrito.GetprodCarrito();
+            _carrito.prodCarrito = items;
+            var carritoVM = new CarritoVM
+            {
+                Carrito = _carrito,
+                TotalCarrito = _carrito.GetcarritoTotal()
+            };
             if (ModelState.IsValid)
             {
-                _context.Add(orden);
+               // _context.Add(orden);
+                _orden.CrearOrden(orden);
+                _carrito.GetprodCarrito();
+                _carrito.VaciarCarrito();
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

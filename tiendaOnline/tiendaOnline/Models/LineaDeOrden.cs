@@ -10,16 +10,23 @@ namespace tiendaOnline.Models
     {
         public int LineaDeOrdenID { get; set; }
 
-        [Display(Name ="Subtotal")]
+        //the freaking price
+        [Display(Name = "Subtotal")]
         public double subtotal { get; set; }
 
-        //Relacion uno a uno con ProdCarrito
-        public ProdCarrito productoCarrito { get; set; }
-        public int productoCarritoID { get; set; }
+        public int Cantidad { get; set; }
+
+        //Relacion a Producto
+        public virtual Producto Producto { get; set; }
+        public int? ProductoID { get; set; }
         
 
         //Relacion uno a muchos con Orden
         public Orden orden { get; set; }
-        public int ordenID { get; set; }
+        public int OrdenID { get; set; }
+
+        //Relacion uno a uno con ProdCarrito
+        //public ProdCarrito productoCarrito { get; set; }
+        //public int productoCarritoID { get; set; }
     }
 }

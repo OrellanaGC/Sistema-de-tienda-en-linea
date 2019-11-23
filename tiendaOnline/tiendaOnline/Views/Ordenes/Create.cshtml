@@ -43,7 +43,11 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <!--Hay que mostrar acá a los productos del usuario, foto, nombre, cantidad, precio unitario, subtotal de c/u-->
+            <!--Mostrar acá a los productos del usuario, foto, nombre, cantidad, precio unitario, subtotal de c/u-->
+            @{await
+                          Html.RenderPartialAsync("ListaProd");
+            }
+
             <!--Preguntarle si quiere envío o ir a recogerla a la sucursal-->
             <br /><b>¿Desea recoger el producto o que se le envíe?</b>
             <br />
@@ -94,11 +98,11 @@
             </div>
 
             <br /><br /><br />
-                        <div class="form-group">
-                            <label asp-for="cupon.codigoCupon" class="control-label"></label>
-                            <input asp-for="cupon.codigoCupon" class="form-control" asp-items="ViewBag.cuponID"></input>
-                            <span asp-validation-for="cupon.codigoCupon" class="text-danger"></span>
-                        </div>
+            <div class="form-group">
+                <label asp-for="cupon.codigoCupon" class="control-label"></label>
+                <input asp-for="cupon.codigoCupon" class="form-control" asp-items="ViewBag.cuponID"></input>
+                <span asp-validation-for="cupon.codigoCupon" class="text-danger"></span>
+            </div>
 
 
 

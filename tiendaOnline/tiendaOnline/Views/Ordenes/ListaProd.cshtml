@@ -1,0 +1,56 @@
+﻿@using tiendaOnline.Data
+@using Microsoft.AspNetCore.Identity
+@using tiendaOnline.Areas.Identity.Data
+
+@inject UserManager<tiendaOnlineUser> UserManager
+@inject ApplicationDbContext _context
+<table class="table table-bordered table-hover table-wrapper-scroll-y my-custom-scrollbar">
+
+    <thead style="background-color: gainsboro" class="row">
+        <tr>
+            <th class="col-md-1 text-center">Producto</th>
+            <th class="col-md-2 text-center">Nombre del producto</th>
+            <th class="col-md-1 text-center">Cantidad <br />seleccionada</th>
+            <th class="col-md-1 text-center">Precio Unitario</th>
+            <th class="col-md-1 text-center">Subtotal</th>
+        </tr>
+    </thead>
+
+        @foreach (var idk in _context.Carrito)
+        {
+            if (idk.tiendaOnlineUserID == UserManager.GetUserId(User))
+            {
+                @foreach(var prod in _context.ProdCarrito)
+                {
+                    if(prod.CarritoID == idk.CarritoID && prod.IsSelected == true)
+                    {
+                        @foreach(var producto in _context.Producto)
+                        {
+                            if(producto.ProductoID == prod.productoID)
+                            {
+                                <tr>
+       
+                                    <td class="col-md-1 text-center">
+                                        <img class="zoom" height=90px width=100px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />     
+                                    </td>
+                                    <td class="col-md-2 text-center"><br /><b>@Html.DisplayFor(modelItem => producto.NombreProducto)</b></td>
+                                    <td class="col-md-1 text-center"><br />@Html.DisplayFor(modelItem => prod.cantidadProducto)</td>         
+                                    <td class="col-md-1 text-center"><i><br />$@Html.DisplayFor(modelItem => producto.PrecioUnitario)</i></td>
+                                    <td class="col-md-1 text-center">
+                                        <br />
+                                        @((prod.cantidadProducto * producto.PrecioUnitario).ToString("c"))
+                                    </td>
+                                 </tr>
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+</table>
+
+
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@

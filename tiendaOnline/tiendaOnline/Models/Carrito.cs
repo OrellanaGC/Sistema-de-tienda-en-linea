@@ -141,7 +141,7 @@ namespace tiendaOnline.Models
         {
             var prodCarrito = _ApplicationDbContext
                 .ProdCarrito
-                .Where(carrito => carrito.CarritoID == CarritoID);
+                .Where(carrito => carrito.CarritoID == CarritoID && carrito.IsSelected==true);
 
             _ApplicationDbContext.ProdCarrito.RemoveRange(prodCarrito);
 
