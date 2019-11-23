@@ -1,13 +1,13 @@
 ﻿@model tiendaOnline.Models.Municipio
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar municipio";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Editar municipio</h2>
 
-<h4>Municipio</h4>
+<h4>Detalles</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -25,14 +25,14 @@
                 <span asp-validation-for="Departamento" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Guardar" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-action="Index"><i class="fa fa-home"></i> Municipios</a>
 </div>
 
 @section Scripts {

@@ -1,11 +1,11 @@
 ﻿@model tiendaOnline.Models.MetodoEnvio
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Nuevo método de envío";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Ingreso de métodos de envio</h2>
+<h2>Ingreso de métodos de envío</h2>
 
 <hr />
 <div class="row">
@@ -33,14 +33,14 @@
                 <span asp-validation-for="montoEnvio" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Registrar" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-action="Index"><i class="fa fa-home"></i> Métodos de envío</a>
 </div>
 
 @section Scripts {

@@ -1,14 +1,14 @@
 ﻿@model tiendaOnline.Models.Paypal
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Cuenta Paypal registrada";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Cuenta Paypal registrada</h2>
 
 <div>
-    <h4>Paypal</h4>
+    <h4>Detalles</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -32,6 +32,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.PaypalID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.PaypalID"><i class="fa fa-pen"></i> Editar</a> |
+    <a class="btn btn-primary" asp-action="Index"><i class="fa fa-home"></i> Cuentas Paypal</a>
 </div>
