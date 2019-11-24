@@ -24,7 +24,6 @@ namespace tiendaOnline.Data.Implementations
             _applicationDbContext.Orden.Add(orden);
 
             var prodCarrito = _carrito.prodCarrito;
-            System.Diagnostics.Debug.WriteLine("esto en consola D");
             System.Diagnostics.Debug.WriteLine(_carrito.CarritoID);
 
             foreach (var producto in prodCarrito)
