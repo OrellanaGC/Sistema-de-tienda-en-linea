@@ -75,12 +75,73 @@
                                                         <input type="radio" id="sucursal" name="envio" checked="checked" value="sucursal" /> Recoger en la sucursal
                                                     </label><br />
 
+                                                    <!--para mostrarle la sucursal-->
+
+                                                    <div class="col-md-pull-10">
+                                                        <div class="panel panel-default panel-srcbox">
+                                                            <div class="panel-heading">
+                                                                <fieldset>
+                                                                    <table>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @foreach (var linea in _context.Sucursal)
+                                                                                {                                                                                
+                                                                                    <td style="padding-left:10px;"> <input type="radio"  name="hm" value="@ViewData["ScursalID"]@linea.SucursalID" id="@ViewData["SucursalID"]@linea.SucursalID"></td>
+                                                                                    <td>
+                                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal">&nbsp; @Html.DisplayFor(subcategorias => linea.nombreSucursal)</label>
+                                                                                        @foreach (var linea2 in _context.Direccion)
+                                                                                        {
+                                                                                            @if (linea.SucursalID == linea2.sucursalID)
+                                                                                            {
+                                                                                                @foreach (var linea3 in _context.Municipio)
+                                                                                                {
+                                                                                                    @if (linea3.MunicipioID == linea2.MunicipioID)
+                                                                                                    {
+                                                                                                        @foreach (var linea4 in _context.Departamento)
+                                                                                                        {
+                                                                                                            @if (linea3.DepartamentoID == linea4.DepartamentoID)
+                                                                                                            {
+                                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> &nbsp; @Html.DisplayFor(subcategorias => linea4.nombreDepartamento), </label> 
+                                                                                                            }
+                                                                                                        }
+                                                                                                                <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea3.nombreMunicipio), </label>
+                                                                                                            }
+                                                                                                        }
+                                                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.direccionDetallada), Código postal: </label>
+                                                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.codigoPostal)</label><br />
+
+
+                                                                                                    }
+                                                                                                }
+                                                                                                <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal"> &nbsp; @Html.DisplayFor(subcategorias => linea.horarioDeAtencion)</label>
+
+                                                                                            </td>
+
+                                                                                }
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </fieldset>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
                                                     <br />
                                                     <label>
-                                                        <input type="radio" id="enviado" name="envio" value="enviado" onclick="activar('ww')" /> Método de envío
+                                                        <input type="radio" id="enviado" name="envio" value="enviado"  /> Método de envío
                                                     </label>
 
                                                 </div>
@@ -105,7 +166,7 @@
                                                                     <tbody>
 
                                                                         <tr>
-                                                                            <td style="padding-left:5px;"></td>
+                                                                            <td style="padding-left:5px;"><p></p></td>
                                                                             <td style="padding-left:15px;"><b>Monto extra</b></td>
                                                                             <td colspan="2" style="padding-left:15px;"><b>&nbsp;Días de envío</b></td>
                                                                             <td style="padding-left:15px;"><b>Nombre del intermediario</b></td>
