@@ -22,6 +22,10 @@
 </style>
 <h2>Tu carrito de compras</h2>
 <h4>Aqui estan los productos que has agregado que esperas a comprarlos!</h4><br />
+
+@*cuenta cuantos productos seleccionados hay*@
+@{ var prodSelect = 0; }
+
 <!--Lado izquierdo-->
 <aside class="col-md-9">
     <table class="table table-bordered table-hover">
@@ -42,44 +46,45 @@
         <tbody>
             @foreach (var linea in Model.Carrito.prodCarrito)
             {
-            <tr>
-                <!--Con esta linea selecciona los que desea comprar ahorita es una PRUEBA-->
-                <td class="col-md-1 text-center">
-                    <br /><!--en lugar de usar la etiqueta style, con bootrap se le agrega el tmaaño de la columna col-md-1-->
-          
-                    <label class="list-inline">
-                        <!--no usé el checkbox... porque estaba embrujado-->
-                        @if (linea.IsSelected == true)
-                        {
-                            <a class="fa fa-check-square"  title="Quitar de mi orden de compra" asp-controller="Carritos" asp-action="SeleccionarProd" asp-route-idProducto="@linea.producto.ProductoID"></a>
-                        }
-                        else
-                        {
-                            <a class="fas fa-square"  title="¡Quiero comprarlo!" asp-controller="Carritos" asp-action="SeleccionarProd" asp-route-idProducto="@linea.producto.ProductoID"></a>
-                        }
-                    </label>
-                </td>
-                <td class="col-md-1 text-center">
+                <tr>
+                    <!--Con esta linea selecciona los que desea comprar ahorita es una PRUEBA-->
+                    <td class="col-md-1 text-center">
+                        <br /><!--en lugar de usar la etiqueta style, con bootrap se le agrega el tmaaño de la columna col-md-1-->
 
-                    <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@linea.producto.ProductoID">
-                        <img class="zoom" height=90px width=100px src="~/images/productos/@Html.DisplayFor(modelItem => linea.producto.Imagen)" />
-                    </a>
-                </td>
-                <td class="col-md-2 text-center"><br /><b>@Html.DisplayFor(modelItem => linea.producto.NombreProducto)</b></td>
-                <td class="col-md-1 text-center"><br />@Html.DisplayFor(modelItem => linea.cantidadProducto)</td>
-                <td class="col-sm-1 text-center">
-                    <!--Boton para incrementar la cantidad de productos-->
-                    <br /><a class="glyphicon glyphicon-chevron-up" title="Añadir más de este producto" asp-controller="Carritos" asp-action="AgregarCarrito" asp-route-idProducto="@linea.producto.ProductoID"></a>
-                    <!--Boton para decrementar la cantidad de productos-->
-                    <br /><a class="glyphicon glyphicon-chevron-down" title="Disminuir de este producto" asp-controller="Carritos" asp-action="EliminarDeCarrito" asp-route-idProducto="@linea.producto.ProductoID"></a>
-                </td>
-                <td class="col-md-1 text-center"><i><br />$@Html.DisplayFor(modelItem => linea.producto.PrecioUnitario)</i></td>
-                <td class="col-md-1 text-center">
-                    <br />
-                    @((linea.cantidadProducto * linea.producto.PrecioUnitario).ToString("c"))
-                </td>
-                <td class="col-sm-1 text-center"><br /><a class="glyphicon glyphicon-remove text-danger remove" title="Eliminar de mi carrito!" asp-controller="Carritos" asp-action="EliminarProdDeCarrito" asp-route-idProducto="@linea.producto.ProductoID"></a></td>
-            </tr>
+                        <label class="list-inline">
+                            <!--no usé el checkbox... porque estaba embrujado-->
+                            @if (linea.IsSelected == true)
+                            {
+                                prodSelect++;
+                                <a class="fa fa-check-square" title="Quitar de mi orden de compra" asp-controller="Carritos" asp-action="SeleccionarProd" asp-route-idProducto="@linea.producto.ProductoID"></a>
+                            }
+                            else
+                            {
+                                <a class="fas fa-square" title="¡Quiero comprarlo!" asp-controller="Carritos" asp-action="SeleccionarProd" asp-route-idProducto="@linea.producto.ProductoID"></a>
+                            }
+                        </label>
+                    </td>
+                    <td class="col-md-1 text-center">
+
+                        <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@linea.producto.ProductoID">
+                            <img class="zoom" height=90px width=100px src="~/images/productos/@Html.DisplayFor(modelItem => linea.producto.Imagen)" />
+                        </a>
+                    </td>
+                    <td class="col-md-2 text-center"><br /><b>@Html.DisplayFor(modelItem => linea.producto.NombreProducto)</b></td>
+                    <td class="col-md-1 text-center"><br />@Html.DisplayFor(modelItem => linea.cantidadProducto)</td>
+                    <td class="col-sm-1 text-center">
+                        <!--Boton para incrementar la cantidad de productos-->
+                        <br /><a class="glyphicon glyphicon-chevron-up" title="Añadir más de este producto" asp-controller="Carritos" asp-action="AgregarCarrito" asp-route-idProducto="@linea.producto.ProductoID"></a>
+                        <!--Boton para decrementar la cantidad de productos-->
+                        <br /><a class="glyphicon glyphicon-chevron-down" title="Disminuir de este producto" asp-controller="Carritos" asp-action="EliminarDeCarrito" asp-route-idProducto="@linea.producto.ProductoID"></a>
+                    </td>
+                    <td class="col-md-1 text-center"><i><br />$@Html.DisplayFor(modelItem => linea.producto.PrecioUnitario)</i></td>
+                    <td class="col-md-1 text-center">
+                        <br />
+                        @((linea.cantidadProducto * linea.producto.PrecioUnitario).ToString("c"))
+                    </td>
+                    <td class="col-sm-1 text-center"><br /><a class="glyphicon glyphicon-remove text-danger remove" title="Eliminar de mi carrito!" asp-controller="Carritos" asp-action="EliminarProdDeCarrito" asp-route-idProducto="@linea.producto.ProductoID"></a></td>
+                </tr>
             }
 
         </tbody>
@@ -117,9 +122,22 @@
 
             </tbody>
         </table>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  
-        <a class="btn btn-success  text-right" title="Realizar ya mi compra! " asp-controller="Ordenes" asp-action="Create" asp-route-id="">
-            <i class="fas fa-credit-card"></i> <b>Realizar compra</b>
-        </a>
+
+        @if (prodSelect == 0)
+        {
+            <b>Selecciona los productos que deseas comprar</b><br />
+            <b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</b>
+            <a class="btn btn-success  text-right disabled" title="Realizar ya mi compra! " asp-controller="Ordenes" asp-action="Create" asp-route-id="">
+                <i class="fas fa-credit-card"></i> <b>Realizar compra</b>
+            </a>
+        }
+        else
+        {
+
+            <b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</b>
+            <a class="btn btn-success  text-right" title="Realizar ya mi compra! " asp-controller="Ordenes" asp-action="Create" asp-route-id="">
+                <i class="fas fa-credit-card"></i> <b>Realizar compra</b>
+            </a>
+        }
     </aside>
 </div>
