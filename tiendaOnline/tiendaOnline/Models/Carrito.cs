@@ -63,6 +63,7 @@ namespace tiendaOnline.Models
             var prodCarrito =
                     _ApplicationDbContext.ProdCarrito.SingleOrDefault(
                         s => s.producto.ProductoID == producto.ProductoID && s.CarritoID == CarritoID);
+            
             if (prodCarrito == null)
             {
                 prodCarrito = new ProdCarrito
@@ -78,6 +79,7 @@ namespace tiendaOnline.Models
             {
                 prodCarrito.cantidadProducto++;
             }
+
             _ApplicationDbContext.SaveChanges();
         }
 
@@ -86,16 +88,12 @@ namespace tiendaOnline.Models
             var prodCarrito =
                     _ApplicationDbContext.ProdCarrito.SingleOrDefault(
                         s => s.producto.ProductoID == producto.ProductoID && s.CarritoID == CarritoID);
-            System.Diagnostics.Debug.WriteLine("esto en consola xD");
-            System.Diagnostics.Debug.WriteLine("esto en consola xD");
             var cantidadlocal = 0;
 
             if (prodCarrito != null)
             {
                 if (prodCarrito.cantidadProducto > 1)
                 {
-
-                    
                     prodCarrito.cantidadProducto--;
                     cantidadlocal = prodCarrito.cantidadProducto;
                 }
@@ -175,8 +173,37 @@ namespace tiendaOnline.Models
 
         public double GetcarritoTotal()
         {
-            var total = _ApplicationDbContext.ProdCarrito.Where(c => c.CarritoID == CarritoID && c.IsSelected== true)
+
+            var subtotal = _ApplicationDbContext.ProdCarrito.Where(c => c.CarritoID == CarritoID && c.IsSelected == true)
                 .Select(c => c.producto.PrecioUnitario * c.cantidadProducto).Sum();
+            var total = 0.0;
+            var tieneDesc = false;
+
+            //aplica el precio de descuento
+            foreach (var producto in _ApplicationDbContext.ProdCarrito)
+            {
+                if (producto.CarritoID == CarritoID && producto.IsSelected == true)
+                {
+                    foreach(var descuento in _ApplicationDbContext.Descuento)
+                    {
+                        if(descuento.ProductoID == producto.productoID)
+                        {
+                            tieneDesc = true;
+                            //usar precio de descuento
+                            total = total + (descuento.PrecioConDesc * producto.cantidadProducto);
+                        }
+                        
+                    }
+                    if (tieneDesc == false)
+                    {
+                            //precio total sin descuento
+                            total = total + (producto.producto.PrecioUnitario * producto.cantidadProducto);   
+                    }
+
+                    
+                }
+            }
+
             return total;
         }
     }

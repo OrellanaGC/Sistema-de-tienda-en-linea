@@ -1,5 +1,11 @@
 ﻿@model tiendaOnline.ViewModels.CarritoVM
 
+@using tiendaOnline.Data
+<!--Haciendo una inyeccion del context para traer cualquier modelo-->
+@inject ApplicationDbContext _context
+
+
+
 <style>
     /*scroll shido para carrito*/
     .my-custom-scrollbar {
@@ -23,8 +29,8 @@
 <h2>Tu carrito de compras</h2>
 <h4>Aqui estan los productos que has agregado que esperas a comprarlos!</h4><br />
 
-@*cuenta cuantos productos seleccionados hay*@
-@{ var prodSelect = 0; }
+@*cuenta cuantos productos seleccionados hay y para aplicar los descuentos*@
+@{ var prodSelect = 0; var precios = 0.0; var desc = false; var subtotal = 0.00; var descuentos = 0.00; }
 
 <!--Lado izquierdo-->
 <aside class="col-md-9">
@@ -46,6 +52,28 @@
         <tbody>
             @foreach (var linea in Model.Carrito.prodCarrito)
             {
+                //subtotal sin los descuentos asi se hace sin foreach btw
+                subtotal = _context.ProdCarrito.Where(c => c.CarritoID == linea.CarritoID && c.IsSelected == true)
+                            .Select(c => c.producto.PrecioUnitario * c.cantidadProducto).Sum();
+
+                @*aplicando el descuento*@
+                @foreach (var precio in _context.Descuento)
+                {
+                    if (precio.ProductoID == linea.productoID && precio.MontoDeDescuento>0)
+                    {
+                        desc = true;
+                        precios = precio.PrecioConDesc;
+                    }
+                    else
+                    {
+                        desc = false;
+                    }
+
+                }
+                if (desc == false)
+                {
+                    precios = linea.producto.PrecioUnitario;
+                }
                 <tr>
                     <!--Con esta linea selecciona los que desea comprar ahorita es una PRUEBA-->
                     <td class="col-md-1 text-center">
@@ -78,10 +106,21 @@
                         <!--Boton para decrementar la cantidad de productos-->
                         <br /><a class="glyphicon glyphicon-chevron-down" title="Disminuir de este producto" asp-controller="Carritos" asp-action="EliminarDeCarrito" asp-route-idProducto="@linea.producto.ProductoID"></a>
                     </td>
-                    <td class="col-md-1 text-center"><i><br />$@Html.DisplayFor(modelItem => linea.producto.PrecioUnitario)</i></td>
                     <td class="col-md-1 text-center">
                         <br />
-                        @((linea.cantidadProducto * linea.producto.PrecioUnitario).ToString("c"))
+                        @if (desc)
+                        {
+                            <div style="text-decoration:line-through">  $@(linea.producto.PrecioUnitario)</div>
+                        }
+                        <i>$@precios</i>
+                    </td>
+                    <td class="col-md-1 text-center">
+                        <br />
+                        @if (desc)
+                        {
+                            <div style="text-decoration:line-through">  @((linea.cantidadProducto * linea.producto.PrecioUnitario).ToString("c"))</div>
+                        }
+                        @((linea.cantidadProducto * precios).ToString("c"))
                     </td>
                     <td class="col-sm-1 text-center"><br /><a class="glyphicon glyphicon-remove text-danger remove" title="Eliminar de mi carrito!" asp-controller="Carritos" asp-action="EliminarProdDeCarrito" asp-route-idProducto="@linea.producto.ProductoID"></a></td>
                 </tr>
@@ -104,13 +143,16 @@
                 <tr>
                     <th class="col-sm-2 text-center"><b>SubTotal</b></th>
                     <th class="col-sm-1 text-center">
-                        @Model.TotalCarrito.ToString("c")
+                       
+                        $@subtotal
                     </th>
                 </tr>
                 <tr>
-                    <th class="col-sm-2 text-center">Cupón</th>
+                    <th class="col-sm-2 text-center">Descuento</th>
                     <th class="col-sm-1 text-center">
-                        $0.00 <!--Debe traer el cupón de los producto-->
+                        @{descuentos = subtotal - Model.TotalCarrito;}
+
+                        $@descuentos  
                     </th>
                 </tr>
                 <tr>
