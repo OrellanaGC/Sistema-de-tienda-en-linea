@@ -17,11 +17,11 @@ namespace tiendaOnline.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<tiendaOnlineUser> _userManager;
         private readonly ApplicationDbContext _context; //Para tener acceso a los datos de la base
-        public HomeController(RoleManager<IdentityRole> roleManager, ApplicationDbContext context)
+        public HomeController(RoleManager<IdentityRole> roleManager, ApplicationDbContext context, UserManager<tiendaOnlineUser> userManager)
         {
             this.roleManager = roleManager;
-            _context = context; //variable para contexto de la base
-         //   _userManager = userManager;
+            _context = context;  //variable para contexto de la base 
+           _userManager = userManager;
 
         }        
 
@@ -40,16 +40,16 @@ namespace tiendaOnline.Controllers
             }
             var subcategorias = from s in _context.Subcategoria select s; //recorre todos los items en sucategoria
          var productos = from p in _context.Producto select p; //recorre todos los items en producto
-           /* var productos = from p in _context.Producto select p; //recorre todos los items en producto
+           
             var user = await _userManager.GetUserAsync(User);
-            var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
+       /*     var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
             if (vendedor != null)
             {
                 productos = productos.Where(p => p.detalleVendedor.tiendaOnlineUserID != user.Id);
-            }
+                return View(await productos.AsNoTracking().ToListAsync());
 
-            return View(await subcategorias.AsNoTracking().ToListAsync());
-         */   return View(await productos.AsNoTracking().ToListAsync());
+            }*/
+            return View(await productos.AsNoTracking().ToListAsync());
         }
         public IActionResult About()
         {

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tiendaOnline.Data;
 
 namespace tiendaOnline.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191124205906_pepe")]
+    partial class pepe
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -272,7 +274,9 @@ namespace tiendaOnline.Migrations
 
                     b.Property<int>("MontoDeDescuento");
 
-                    b.Property<string>("NombreDelDescuento");
+                    b.Property<string>("NombreDelDescuento")
+                        .IsRequired()
+                        .HasMaxLength(20);
 
                     b.Property<double>("PrecioConDesc");
 
@@ -535,7 +539,9 @@ namespace tiendaOnline.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Codigo");
+                    b.Property<string>("Codigo")
+                        .IsRequired()
+                        .HasMaxLength(20);
 
                     b.Property<int>("Existencia");
 

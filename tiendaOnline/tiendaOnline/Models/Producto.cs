@@ -22,8 +22,6 @@ namespace tiendaOnline.Models
         [Required(ErrorMessage ="Ingresar Existencia"), Range(1,100,ErrorMessage ="Debe ingresar menos de 100 productos a la venta")]
         public int Existencia { get; set; }
 
-        [Display(Name = "Codigo del producto")]
-        [Required(ErrorMessage ="Ingresar Codigo"), MinLength(10, ErrorMessage = "Ingresar minimo 10 caracteres"), StringLength(20,ErrorMessage ="el código que ingrese debe contener mínimo 10 y máximo 20 caracteres")]
         public string Codigo { get; set; }
 
         [Display(Name = "Imagen")]
@@ -41,6 +39,8 @@ namespace tiendaOnline.Models
         //Relacion con Vendedor
         public int? detalleVendedorID { get; set; }
         public DetalleVendedor detalleVendedor { get; set; }
+
+
     }
 }
 
