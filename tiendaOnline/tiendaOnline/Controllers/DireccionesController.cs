@@ -26,6 +26,7 @@ namespace tiendaOnline.Controllers
         // GET: Direcciones
         public async Task<IActionResult> Index()
         {
+
             //var applicationDbContext = _context.Direccion.Include(d => d.Municipio).Include(d => d.detalleVendedor).Include(d => d.tiendaOnlineUser);
 
             //Filtro de direcciones, filtro por id de usuario

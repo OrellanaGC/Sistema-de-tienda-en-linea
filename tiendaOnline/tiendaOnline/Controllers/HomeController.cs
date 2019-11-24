@@ -17,6 +17,8 @@ namespace tiendaOnline.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<tiendaOnlineUser> _userManager;
         private readonly ApplicationDbContext _context; //Para tener acceso a los datos de la base
+
+
         public HomeController(RoleManager<IdentityRole> roleManager, ApplicationDbContext context, UserManager<tiendaOnlineUser> userManager)
         {
             this.roleManager = roleManager;

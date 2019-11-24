@@ -48,7 +48,7 @@
             <div class="container">
                 <div class="col-md-pull-7">
                     @{await
-                                            Html.RenderPartialAsync("ListaProd");
+                                                      Html.RenderPartialAsync("ListaProd");
                     }
                 </div>
             </div>
@@ -67,7 +67,10 @@
                                             <label>
 
                                                 <input type="radio" id="sucursal" name="envio" checked="checked" value="sucursal" data-toggle="modal" data-target="#cuadritoWapeton3" /> Recoger en la sucursal
-                                            </label><br /> <br />
+                                            </label><br />
+                                          
+
+                                            <br />
                                             <!--Popup para seleccion de sucursal-->
                                             <div class="modal fade" id="cuadritoWapeton3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
@@ -84,25 +87,21 @@
                                                             </h4>
                                                             <!--body del popup-->
                                                             <div class="modal-body">
-                                                                <form class="form-horizontal" role="form">
-                                                                    <!--Aqui mandan a llamar a las tarjetas-->
-                                                                    <p>Tu sensual sucursal aquí.</p>
-                                                                </form>
+
+                                                                <!--Aqui mandan a llamar a las tarjetas-->
+
+
                                                             </div>
                                                             <!--para mostrarle la sucursal-->
-
                                                             <div class="col-md-pull-10">
                                                                 <div class="panel panel-default panel-srcbox">
                                                                     <div class="panel-heading">
-                                                                        <fieldset>
-                                                                            <table>
-                                                                                <tbody>
-                                                                                    <tr>
+                                                                      
                                                                                         @foreach (var linea in _context.Sucursal)
                                                                                         {
-                                                                                            <td style="padding-left:10px;"> <input type="radio" name="hm" value="@ViewData["ScursalID"]@linea.SucursalID" id="@ViewData["SucursalID"]@linea.SucursalID"></td>
-                                                                                            <td>
+                                                                                           
                                                                                                 <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal">&nbsp; @Html.DisplayFor(subcategorias => linea.nombreSucursal)</label>
+                                                                        <br />
                                                                                                 @foreach (var linea2 in _context.Direccion)
                                                                                                 {
                                                                                                     @if (linea.SucursalID == linea2.sucursalID)
@@ -128,14 +127,10 @@
                                                                                                     }
                                                                                                 }
                                                                                                 <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal"> &nbsp; @Html.DisplayFor(subcategorias => linea.horarioDeAtencion)</label>
-
-                                                                                            </td>
+                                                                                         
 
                                                                                         }
-                                                                                    </tr>
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </fieldset>
+                                                                                 
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -175,48 +170,48 @@
                                                             </h4>
                                                             <!--body del popup-->
                                                             <div class="modal-body">
-                                                                <form class="form-horizontal" role="form">
-                                                                    <!--Aqui mandan a llamar a las tarjetas-->
-                                                                    <p>Tus métodos de envío shidos aquí. Ai dise gratis :v</p>
-                                                                    <div class="col-md-10">
-                                                                        <div class="panel panel-default panel-srcbox">
-                                                                            <div class="panel-heading">
-                                                                                <fieldset>
-                                                                                    <table>
-                                                                                        <tbody>
+
+                                                                <!--Aqui mandan a llamar a las tarjetas-->
+                                                                <p>Tus métodos de envío shidos aquí. Ai dise gratis :v</p>
+                                                                <div class="col-md-10">
+                                                                    <div class="panel panel-default panel-srcbox">
+                                                                        <div class="panel-heading">
+                                                                            <fieldset>
+                                                                                <table>
+                                                                                    <tbody>
+
+                                                                                        <tr>
+                                                                                            <td style="padding-left:5px;"></td>
+                                                                                            <td style="padding-left:15px;"><b>Monto extra</b></td>
+                                                                                            <td colspan="2" style="padding-left:15px;"><b>&nbsp;Días de envío</b></td>
+                                                                                            <td style="padding-left:15px;"><b>Nombre del intermediario</b></td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>&nbsp;</td>
+                                                                                            <td>&nbsp;</td>
+                                                                                            <td>&nbsp;</td>
+                                                                                            <td>&nbsp;</td>
+                                                                                            <td>&nbsp;</td>
+                                                                                        </tr>
+                                                                                        @foreach (var linea in _context.MetodoEnvio)
+                                                                                        {
 
                                                                                             <tr>
-                                                                                                <td style="padding-left:5px;"></td>
-                                                                                                <td style="padding-left:15px;"><b>Monto extra</b></td>
-                                                                                                <td colspan="2" style="padding-left:15px;"><b>&nbsp;Días de envío</b></td>
-                                                                                                <td style="padding-left:15px;"><b>Nombre del intermediario</b></td>
+                                                                                                <td style="padding-left:5px;"> <input type="radio" name="hm" value="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID" id="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"></td>
+                                                                                                <td style="padding-left:15px;"> <label style="right" for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> $@Html.DisplayFor(modelItem => linea.montoEnvio)</label></td>
+                                                                                                <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID">( @Html.DisplayFor(modelItem => linea.minDiasEnvio)</label> &nbsp; &nbsp; &nbsp; - </td>
+                                                                                                <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.maxDiasEnvio) )</label></td>
+                                                                                                <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)</label></td>
                                                                                             </tr>
-                                                                                            <tr>
-                                                                                                <td>&nbsp;</td>
-                                                                                                <td>&nbsp;</td>
-                                                                                                <td>&nbsp;</td>
-                                                                                                <td>&nbsp;</td>
-                                                                                                <td>&nbsp;</td>
-                                                                                            </tr>
-                                                                                            @foreach (var linea in _context.MetodoEnvio)
-                                                                                            {
+                                                                                        }
 
-                                                                                                <tr>
-                                                                                                    <td style="padding-left:5px;"> <input type="radio" name="hm" value="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID" id="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"></td>
-                                                                                                    <td style="padding-left:15px;"> <label style="right" for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> $@Html.DisplayFor(modelItem => linea.montoEnvio)</label></td>
-                                                                                                    <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID">( @Html.DisplayFor(modelItem => linea.minDiasEnvio)</label> &nbsp; &nbsp; &nbsp; - </td>
-                                                                                                    <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.maxDiasEnvio) )</label></td>
-                                                                                                    <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)</label></td>
-                                                                                                </tr>
-                                                                                            }
-
-                                                                                        </tbody>
-                                                                                    </table>
-                                                                                </fieldset>
-                                                                            </div>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </fieldset>
                                                                         </div>
                                                                     </div>
-                                                                </form>
+                                                                </div>
+
                                                             </div>
                                                             <!--Fin del body del popup-->
                                                             <!-- Modal Footer -->
@@ -234,9 +229,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            </div>
                                         </div>
                                     </div>
+                                </div>
                             </fieldset>
                         </div>
                     </div>
@@ -270,10 +265,10 @@
                                                         </h4>
                                                         <!--body del popup-->
                                                         <div class="modal-body">
-                                                            <form class="form-horizontal" role="form">
-                                                                <!--Aqui mandan a llamar a las tarjetas-->
-                                                                <p>Mirenme soy un cuadrito wapeton</p>
-                                                            </form>
+
+                                                            <!--Aqui mandan a llamar a las tarjetas-->
+                                                            <p>Mirenme soy un cuadrito wapeton</p>
+
                                                         </div>
                                                         <!--Fin del body del popup-->
                                                         <!-- Modal Footer -->
@@ -309,10 +304,10 @@
                                                         </h4>
                                                         <!--body del popup-->
                                                         <div class="modal-body">
-                                                            <form class="form-horizontal" role="form">
-                                                                <!--aqui va el formulario para paypal-->
-                                                                <p>Mirenme soy un cuadrito wapeton again</p>
-                                                            </form>
+
+                                                            <!--aqui va el formulario para paypal-->
+                                                            <p>Mirenme soy un cuadrito wapeton again</p>
+
                                                         </div>
                                                         <!--Fin del body del popup-->
                                                         <!-- Modal Footer -->
@@ -365,10 +360,10 @@
                                                             </h4>
                                                             <!--body del popup-->
                                                             <div class="modal-body">
-                                                                <form class="form-horizontal" role="form">
-                                                                    <!--aqui va el formulario para paypal-->
-                                                                    <p>No tenes cupones :v ni modo asi es la life</p>
-                                                                </form>
+
+                                                                <!--aqui va el formulario para paypal-->
+                                                                <p>No tenes cupones :v ni modo asi es la life</p>
+
                                                             </div>
                                                             <!--Fin del body del popup-->
                                                             <!-- Modal Footer -->
@@ -391,39 +386,42 @@
                                             </label>
                                         </div>
                                     </div>
-                                </fieldset>
-                            </div>
+                                </div>
+                            </fieldset>
                         </div>
                     </div>
                 </div>
             </div>
+   
 
 
-            <br /><br /><br />
-           <div class="form-group" id="divcupon" style="display:none">
-                <label asp-for="cupon.codigoCupon" class="control-label">Introduzca el codigo de su cupon</label>
-                <input asp-for="cupon.codigoCupon" class="form-control" asp-items="ViewBag.cuponID">
-                <span asp-validation-for="cupon.codigoCupon" class="text-danger"></span>
-            </div>
-            <!--muestra el total-->
-            <div class="form-group">
-                <label asp-for="total" class="control-label"></label>
-                <input asp-for="total" class="form-control" />
-                <span asp-validation-for="total" class="text-danger"></span>
-            </div>
-
-
-            <div class="form-group">
-                <input type="submit" value="Finalizar compra" class="btn btn-success" />     <a class="btn btn-danger" asp-action="Index"><i class="fas fa-remove"></i> Cancelar</a>
-            </div>
-        </form>
-
+    <br /><br /><br />
+    <div class="form-group" id="divcupon" style="display:none">
+        <label asp-for="cupon.codigoCupon" class="control-label">Introduzca el codigo de su cupon</label>
+        <input asp-for="cupon.codigoCupon" class="form-control" asp-items="ViewBag.cuponID">
+        <span asp-validation-for="cupon.codigoCupon" class="text-danger"></span>
     </div>
+
+    <!--muestra el total-->
+    <div class="form-group">
+        <label asp-for="total" class="control-label"></label>
+        <input asp-for="total" class="form-control" />
+        <span asp-validation-for="total" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <input type="submit" value="Finalizar compra" class="btn btn-success" />     <a class="btn btn-danger" asp-action="Index"><i class="fas fa-remove"></i> Cancelar</a>
+    </div>
+
+    </form>
+
+
 </div>
 
-<div>
 
-</div>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
