@@ -1,19 +1,12 @@
 ﻿@model tiendaOnline.Models.Orden
-
-
 @using tiendaOnline.Data
-
 <!--Haciendo una inyeccion del context para traer cualquier modelo-->
 @inject ApplicationDbContext _context
-
-
 @{
     ViewData["Title"] = "Detalles de tu compra";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <h2>Detalles de tu compra</h2>
-
 <!--Muestra la fecha y hra actual-->
 <div style="float:right;">
     <script type="text/javascript">
@@ -42,7 +35,6 @@
     <div id="reloj" style="font-size:20px;"></div>
 </div>
 <h4>Ya te falta poco!</h4>
-
 <hr />
 
 <div class="row">
@@ -73,27 +65,13 @@
                                                 <div class="btn-group" data-toggle="buttons">
                                                     <label>
                                                         <input type="radio" id="sucursal" name="envio" checked="checked" value="sucursal" /> Recoger en la sucursal
-                                                    </label><br />
-
-
-
-
-                                                    <br />
+                                                    </label><br /> <br />
                                                     <label>
                                                         <input type="radio" id="enviado" name="envio" value="enviado" onclick="activar('ww')" /> Método de envío
                                                     </label>
-
                                                 </div>
                                                     <!--Direccion del usuario-->
-
-
-
-
-
-
-
-
-
+                                                                                                                                                                                                                                                                                                                                                                    
 
                                                     <!--Metodos de envío-->
                                                 
@@ -109,7 +87,6 @@
                                                                             <td style="padding-left:15px;"><b>Monto extra</b></td>
                                                                             <td colspan="2" style="padding-left:15px;"><b>&nbsp;Días de envío</b></td>
                                                                             <td style="padding-left:15px;"><b>Nombre del intermediario</b></td>
-
                                                                         </tr>
                                                                         <tr>
                                                                             <td>&nbsp;</td>
@@ -183,12 +160,7 @@
                                 <label asp-for="metodoEnvio" class="control-label"></label>
                                 <select asp-for="metodoEnvioID" class="form-control" asp-items="ViewBag.metodoEnvioID"></select>
                             </div>
-                -->
-
-
-
-
-
+                -->                                                                                          
 
                         <br />
                         <div class="col-md-3">
