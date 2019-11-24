@@ -25,8 +25,5 @@ namespace tiendaOnline.Models
         public Orden orden { get; set; }
         public int OrdenID { get; set; }
 
-        //Relacion uno a uno con ProdCarrito
-        //public ProdCarrito productoCarrito { get; set; }
-        //public int productoCarritoID { get; set; }
     }
 }

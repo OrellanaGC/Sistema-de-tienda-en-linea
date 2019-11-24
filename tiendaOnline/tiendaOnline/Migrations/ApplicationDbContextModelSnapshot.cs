@@ -229,13 +229,9 @@ namespace tiendaOnline.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("codigoCupon")
-                        .IsRequired()
-                        .HasMaxLength(7);
+                    b.Property<string>("codigoCupon");
 
-                    b.Property<string>("descripcionCupon")
-                        .IsRequired()
-                        .HasMaxLength(20);
+                    b.Property<string>("descripcionCupon");
 
                     b.Property<bool>("estadoCupon");
 
@@ -336,10 +332,6 @@ namespace tiendaOnline.Migrations
 
                     b.Property<int>("MunicipioID");
 
-                    b.Property<string>("SucursalID");
-
-                    b.Property<int?>("SucursalID1");
-
                     b.Property<int>("codigoPostal");
 
                     b.Property<int?>("detalleVendedorID");
@@ -348,19 +340,36 @@ namespace tiendaOnline.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
+                    b.Property<int?>("sucursalID");
+
                     b.Property<string>("tiendaOnlineUserID");
 
                     b.HasKey("DireccionID");
 
                     b.HasIndex("MunicipioID");
 
-                    b.HasIndex("SucursalID1");
-
                     b.HasIndex("detalleVendedorID");
+
+                    b.HasIndex("sucursalID");
 
                     b.HasIndex("tiendaOnlineUserID");
 
                     b.ToTable("Direccion");
+                });
+
+            modelBuilder.Entity("tiendaOnline.Models.Empresa", b =>
+                {
+                    b.Property<int>("EmpresaID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("correoComercial");
+
+                    b.Property<string>("nombreEmpresa");
+
+                    b.HasKey("EmpresaID");
+
+                    b.ToTable("Empresa");
                 });
 
             modelBuilder.Entity("tiendaOnline.Models.LineaDeOrden", b =>
@@ -369,18 +378,19 @@ namespace tiendaOnline.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ordenID");
+                    b.Property<int>("Cantidad");
 
-                    b.Property<int>("productoCarritoID");
+                    b.Property<int>("OrdenID");
+
+                    b.Property<int?>("ProductoID");
 
                     b.Property<double>("subtotal");
 
                     b.HasKey("LineaDeOrdenID");
 
-                    b.HasIndex("ordenID");
+                    b.HasIndex("OrdenID");
 
-                    b.HasIndex("productoCarritoID")
-                        .IsUnique();
+                    b.HasIndex("ProductoID");
 
                     b.ToTable("LineaDeOrden");
                 });
@@ -554,6 +564,10 @@ namespace tiendaOnline.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("horarioDeAtencion");
+
+                    b.Property<string>("nombreSucursal");
+
                     b.HasKey("SucursalID");
 
                     b.ToTable("Sucursal");
@@ -694,13 +708,13 @@ namespace tiendaOnline.Migrations
                         .HasForeignKey("MunicipioID")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("tiendaOnline.Models.Sucursal", "Sucursal")
-                        .WithMany()
-                        .HasForeignKey("SucursalID1");
-
                     b.HasOne("tiendaOnline.Models.DetalleVendedor", "detalleVendedor")
                         .WithMany()
                         .HasForeignKey("detalleVendedorID");
+
+                    b.HasOne("tiendaOnline.Models.Sucursal", "sucursal")
+                        .WithMany()
+                        .HasForeignKey("sucursalID");
 
                     b.HasOne("tiendaOnline.Areas.Identity.Data.tiendaOnlineUser", "tiendaOnlineUser")
                         .WithMany()
@@ -710,14 +724,13 @@ namespace tiendaOnline.Migrations
             modelBuilder.Entity("tiendaOnline.Models.LineaDeOrden", b =>
                 {
                     b.HasOne("tiendaOnline.Models.Orden", "orden")
-                        .WithMany()
-                        .HasForeignKey("ordenID")
+                        .WithMany("LineasDeOrden")
+                        .HasForeignKey("OrdenID")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("tiendaOnline.Models.ProdCarrito", "productoCarrito")
-                        .WithOne("lineaOrden")
-                        .HasForeignKey("tiendaOnline.Models.LineaDeOrden", "productoCarritoID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("tiendaOnline.Models.Producto", "Producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoID");
                 });
 
             modelBuilder.Entity("tiendaOnline.Models.Municipio", b =>

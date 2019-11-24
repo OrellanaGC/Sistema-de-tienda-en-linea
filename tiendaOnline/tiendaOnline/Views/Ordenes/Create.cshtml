@@ -1,5 +1,12 @@
 ﻿@model tiendaOnline.Models.Orden
 
+
+@using tiendaOnline.Data
+
+<!--Haciendo una inyeccion del context para traer cualquier modelo-->
+@inject ApplicationDbContext _context
+
+
 @{
     ViewData["Title"] = "Detalles de tu compra";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -45,58 +52,155 @@
 
             <!--Mostrar acá a los productos del usuario, foto, nombre, cantidad, precio unitario, subtotal de c/u-->
             @{await
-                          Html.RenderPartialAsync("ListaProd");
+                                Html.RenderPartialAsync("ListaProd");
             }
 
             <!--Preguntarle si quiere envío o ir a recogerla a la sucursal-->
-            <br /><b>¿Desea recoger el producto o que se le envíe?</b>
             <br />
+            <br />
+            <div class="container">
+                <div class="col-md-pull-7">
+                    <div class="panel panel-default panel-srcbox">
+                        <div class="panel-heading">
+                            <fieldset>
+                                <legend><b>¿Desea recoger el producto o que se le envíe?</b></legend>
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <label>
+                                                <input type="radio" id="sucursal" name="envio" checked="checked" value="sucursal" /> Recoger en la sucursal
+                                            </label><br />
 
-            <div class="col-md-10">
 
-                <input id="Gender" name="Gender" value="Male" type="radio">     Recoger en la sucursal
+
+                                            <br />
+                                            <label>
+                                                <input type="radio" id="enviado" name="envio" value="enviado" /> Método de envío
+                                            </label>
+
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="panel panel-default panel-srcbox">
+                                                <div class="panel-heading">
+                                                    <fieldset>
+                                                        <table>
+                                                            <tbody>
+                                                                <!--
+                                                        <tr>
+                                                            <td style="padding-left:5px;"> <input type="radio" name="ninguno" value="ninguno" id="ninguno" checked="checked"></td>
+                                                            <td style="padding-left:5px;"> <label for="h">Ninguno</label></td>
+                                                        </tr>
+                                                            -->
+                                                                <tr>
+                                                                    <td style="padding-left:5px;"></td>
+                                                                    <td style="padding-left:15px;"><b>Monto extra</b></td>
+                                                                    <td colspan="2" style="padding-left:15px;"><b>&nbsp;Días de envío</b></td>
+                                                                    <td style="padding-left:15px;"><b>Nombre del intermediario</b></td>
+
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>&nbsp;</td>
+                                                                    <td>&nbsp;</td>
+                                                                    <td>&nbsp;</td>
+                                                                    <td>&nbsp;</td>
+                                                                    <td>&nbsp;</td>
+                                                                </tr>
+                                                                @foreach (var linea in _context.MetodoEnvio)
+                                                                {
+
+                                                                    <tr>
+                                                                        <td style="padding-left:5px;"> <input type="radio" name="hm" value="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID" id="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"></td>
+                                                                        <td style="padding-left:15px;"> <label style="right" for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> $@Html.DisplayFor(modelItem => linea.montoEnvio)</label></td>
+                                                                        <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID">( @Html.DisplayFor(modelItem => linea.minDiasEnvio)</label> &nbsp; &nbsp; &nbsp; - </td>
+                                                                        <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.maxDiasEnvio) )</label></td>
+                                                                        <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)</label></td>
+                                                                    </tr>
+                                                                }
+
+                                                            </tbody>
+                                                        </table>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
                 <br />
-                <input id="Gender" name="Gender" value="Female" type="radio">     Método de envío
+                <!--Preguntarle si quiere pagar con tarjeta o paypal-->
+                <div class="panel panel-default panel-srcbox">
+                    <div class="panel-heading">
+                        <fieldset>
+                            <legend><b>¿Desea realizar pago con tarjeta o paypal?</b></legend>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label>
+                                            <input type="radio" id="tarjeta" name="pago" checked="checked" value="tarjeta" /> Realizar pago con tarjeta de crédito
+                                        </label><br />
+                                        <label>
+                                            <input type="radio" id="paypal" name="pago" value="paypal" />  Realizar pago con Paypal
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <br /><br /><br />
 
+
+
+                <!--
+        <div class="form-group">
+            <div class="checkbox">
+                <label>
+                    <input asp-for="estadoDeOrden" /> Html.DisplayNameFor(model => model.estadoDeOrden)
+                </label>
             </div>
-
-
-
-
-            <br /><br /><br />
-
-
-            <!--
-    <div class="form-group">
-        <div class="checkbox">
-            <label>
-                <input asp-for="estadoDeOrden" /> Html.DisplayNameFor(model => model.estadoDeOrden)
-            </label>
         </div>
-    </div>
-    -->
-
             <div class="form-group">
-                <label asp-for="tiendaOnlineUserID" class="control-label"></label>
-                <select asp-for="tiendaOnlineUserID" class="form-control" asp-items="ViewBag.tiendaOnlineUserID"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="metodoEnvio" class="control-label"></label>
-                <select asp-for="metodoEnvioID" class="form-control" asp-items="ViewBag.metodoEnvioID"></select>
-            </div>
+            <label asp-for="tiendaOnlineUserID" class="control-label"></label>
+            <select asp-for="tiendaOnlineUserID" class="form-control" asp-items="ViewBag.tiendaOnlineUserID"></select>
+        </div>
+                        <div class="form-group">
+                        <label asp-for="metodoEnvio" class="control-label"></label>
+                        <select asp-for="metodoEnvioID" class="form-control" asp-items="ViewBag.metodoEnvioID"></select>
+                    </div>
+        -->
 
 
-            <br /><b>¿Posee algún cupón?</b>
-            <br />
 
-            <div class="col-md-10">
 
-                <input id="Gender" name="Gender" value="Male" type="radio">     Si
+
+
                 <br />
-                <input id="Gender" name="Gender" value="Female" type="radio">     No
-
+                <div class="col-md-3">
+                    <div class="panel panel-default panel-srcbox">
+                        <div class="panel-heading">
+                            <fieldset>
+                                <legend><b>¿Posee algún cupón?</b></legend>
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <label>
+                                                <input type="radio" id="concupon" name="cupon" checked="checked" value="concupon" /> Si
+                                            </label>
+                                            <br />
+                                            <label>
+                                                <input type="radio" id="sincupon" name="cupon" value="sincupon" /> No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
             </div>
-
             <br /><br /><br />
             <div class="form-group">
                 <label asp-for="cupon.codigoCupon" class="control-label"></label>
@@ -104,7 +208,7 @@
                 <span asp-validation-for="cupon.codigoCupon" class="text-danger"></span>
             </div>
 
-
+           
 
             <!--muestra el total-->
             <div class="form-group">
@@ -129,5 +233,13 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-
+    <script type="text/javascript">
+        function activar() {
+            frm = document.forms[0];
+            for (i = 0; ele = frm.getElementsByTagName('select')[i]; i++)
+                ele.style.display = 'none';
+            for (i = 0; ele = arguments[i]; i++)
+                frm[ele].style.display = 'block';
+        }
+    </script>
 }

@@ -4,8 +4,8 @@ namespace tiendaOnline.Models
 {
     public class ErrorViewModel
     {
-        public string RequestId { get; set; }
+        public string RequestID { get; set; }
 
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        public bool ShowRequestId => !string.IsNullOrEmpty(RequestID);
     }
 }

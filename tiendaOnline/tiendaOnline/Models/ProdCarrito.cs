@@ -18,11 +18,7 @@ namespace tiendaOnline.Models
         //Relacion con Producto
         public int? productoID { get; set; }
         public Producto producto { get; set; }
-
-        //Relacion con LineaDeOrden uno a uno
-        public LineaDeOrden lineaOrden { get; set; }
-
-
+        
         public ProdCarrito()
         {
             IsSelected = false;

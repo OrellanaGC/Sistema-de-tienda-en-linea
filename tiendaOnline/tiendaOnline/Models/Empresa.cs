@@ -18,7 +18,7 @@ namespace tiendaOnline.Models
         public Empresa()
         {
             nombreEmpresa="iBuy Corporation";
-            correoComercial = "iBuy.newstoreonline@gmail.com";
+            correoComercial = "iBuy.Newstoreonline@gmail.com";
         }
     }
 }

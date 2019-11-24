@@ -36,7 +36,7 @@ namespace tiendaOnline.Models
 
 
         //Relacion para sucursal
-        public string SucursalID { get; set; }
-        public Sucursal Sucursal { get; set; }
+        public int? sucursalID { get; set; }
+        public Sucursal sucursal { get; set; }
     }
 }
