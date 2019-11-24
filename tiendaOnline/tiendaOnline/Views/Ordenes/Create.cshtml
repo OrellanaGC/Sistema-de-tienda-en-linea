@@ -1,19 +1,12 @@
 ﻿@model tiendaOnline.Models.Orden
-
-
 @using tiendaOnline.Data
-
 <!--Haciendo una inyeccion del context para traer cualquier modelo-->
 @inject ApplicationDbContext _context
-
-
 @{
     ViewData["Title"] = "Detalles de tu compra";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <h2>Detalles de tu compra</h2>
-
 <!--Muestra la fecha y hra actual-->
 <div style="float:right;">
     <script type="text/javascript">
@@ -42,7 +35,6 @@
     <div id="reloj" style="font-size:20px;"></div>
 </div>
 <h4>Ya te falta poco!</h4>
-
 <hr />
 
 <div class="row">
@@ -72,131 +64,124 @@
                                             <div class="col-sm-9">
                                                 <div class="btn-group" data-toggle="buttons">
                                                     <label>
-                                                        <input type="radio" id="sucursal" name="envio" checked="checked" value="sucursal" /> Recoger en la sucursal
-                                                    </label><br />
 
-                                                    <!--para mostrarle la sucursal-->
-
-                                                    <div class="col-md-pull-10">
-                                                        <div class="panel panel-default panel-srcbox">
-                                                            <div class="panel-heading">
-                                                                <fieldset>
-                                                                    <table>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                @foreach (var linea in _context.Sucursal)
-                                                                                {                                                                                
-                                                                                    <td style="padding-left:10px;"> <input type="radio"  name="hm" value="@ViewData["ScursalID"]@linea.SucursalID" id="@ViewData["SucursalID"]@linea.SucursalID"></td>
-                                                                                    <td>
-                                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal">&nbsp; @Html.DisplayFor(subcategorias => linea.nombreSucursal)</label>
-                                                                                        @foreach (var linea2 in _context.Direccion)
-                                                                                        {
-                                                                                            @if (linea.SucursalID == linea2.sucursalID)
-                                                                                            {
-                                                                                                @foreach (var linea3 in _context.Municipio)
-                                                                                                {
-                                                                                                    @if (linea3.MunicipioID == linea2.MunicipioID)
-                                                                                                    {
-                                                                                                        @foreach (var linea4 in _context.Departamento)
-                                                                                                        {
-                                                                                                            @if (linea3.DepartamentoID == linea4.DepartamentoID)
-                                                                                                            {
-                                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> &nbsp; @Html.DisplayFor(subcategorias => linea4.nombreDepartamento), </label> 
-                                                                                                            }
-                                                                                                        }
-                                                                                                                <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea3.nombreMunicipio), </label>
-                                                                                                            }
-                                                                                                        }
-                                                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.direccionDetallada), Código postal: </label>
-                                                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.codigoPostal)</label><br />
-
-
-                                                                                                    }
-                                                                                                }
-                                                                                                <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal"> &nbsp; @Html.DisplayFor(subcategorias => linea.horarioDeAtencion)</label>
-
-                                                                                            </td>
-
-                                                                                }
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </fieldset>
+                                                        <input type="radio" id="sucursal" name="envio" checked="checked" value="sucursal" data-toggle="modal" data-target="#cuadritoWapeton3" /> Recoger en la sucursal
+                                                    </label><br /> <br />
+                                                    <!--Popup para seleccion de sucursal-->
+                                                    <div class="modal fade" id="cuadritoWapeton3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <!--Header del popup-->
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close"
+                                                                            data-dismiss="modal">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                        <span class="sr-only">Close</span>
+                                                                    </button>
+                                                                    <h4 class="modal-title" id="myModalLabel">
+                                                                        Elegir surcursal
+                                                                    </h4>
+                                                                    <!--body del popup-->
+                                                                    <div class="modal-body">
+                                                                        <form class="form-horizontal" role="form">
+                                                                            <!--Aqui mandan a llamar a las tarjetas-->
+                                                                            <p>Tu sensual sucursal aquí.</p>
+                                                                        </form>
+                                                                    </div>
+                                                                    <!--Fin del body del popup-->
+                                                                    <!-- Modal Footer -->
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default"
+                                                                                data-dismiss="modal">
+                                                                            Cerrar
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-primary">
+                                                                            Guardar
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                    <br />
                                                     <label>
-                                                        <input type="radio" id="enviado" name="envio" value="enviado"  /> Método de envío
+                                                        <input type="radio" id="enviado" name="envio" value="enviado" onclick="activar('ww')" data-toggle="modal" data-target="#cuadritoWapeton4" /> Método de envío
                                                     </label>
+                                                    <!--Popup para seleccion del metodo de envio-->
+                                                    <div class="modal fade" id="cuadritoWapeton4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <!--Header del popup-->
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close"
+                                                                            data-dismiss="modal">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                        <span class="sr-only">Close</span>
+                                                                    </button>
+                                                                    <h4 class="modal-title" id="myModalLabel">
+                                                                        Elegir método de envío
+                                                                    </h4>
+                                                                    <!--body del popup-->
+                                                                    <div class="modal-body">
+                                                                        <form class="form-horizontal" role="form">
+                                                                            <!--Aqui mandan a llamar a las tarjetas-->
+                                                                            <p>Tus métodos de envío shidos aquí. Ai dise gratis :v</p>
+                                                                            <div class="col-md-10">
+                                                                                <div class="panel panel-default panel-srcbox">
+                                                                                    <div class="panel-heading">
+                                                                                        <fieldset>
+                                                                                            <table>
+                                                                                                <tbody>
 
-                                                </div>
-                                                    <!--Direccion del usuario-->
+                                                                                                    <tr>
+                                                                                                        <td style="padding-left:5px;"></td>
+                                                                                                        <td style="padding-left:15px;"><b>Monto extra</b></td>
+                                                                                                        <td colspan="2" style="padding-left:15px;"><b>&nbsp;Días de envío</b></td>
+                                                                                                        <td style="padding-left:15px;"><b>Nombre del intermediario</b></td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>&nbsp;</td>
+                                                                                                        <td>&nbsp;</td>
+                                                                                                        <td>&nbsp;</td>
+                                                                                                        <td>&nbsp;</td>
+                                                                                                        <td>&nbsp;</td>
+                                                                                                    </tr>
+                                                                                                    @foreach (var linea in _context.MetodoEnvio)
+                                                                                                    {
 
+                                                                                                        <tr>
+                                                                                                            <td style="padding-left:5px;"> <input type="radio" name="hm" value="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID" id="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"></td>
+                                                                                                            <td style="padding-left:15px;"> <label style="right" for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> $@Html.DisplayFor(modelItem => linea.montoEnvio)</label></td>
+                                                                                                            <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID">( @Html.DisplayFor(modelItem => linea.minDiasEnvio)</label> &nbsp; &nbsp; &nbsp; - </td>
+                                                                                                            <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.maxDiasEnvio) )</label></td>
+                                                                                                            <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)</label></td>
+                                                                                                        </tr>
+                                                                                                    }
 
-
-
-
-
-
-
-
-
-                                                    <!--Metodos de envío-->
-                                                
-                                                <div class="col-md-10" >
-                                                    <div class="panel panel-default panel-srcbox">
-                                                        <div class="panel-heading">
-                                                            <fieldset>
-                                                                <table>
-                                                                    <tbody>
-
-                                                                        <tr>
-                                                                            <td style="padding-left:5px;"><p></p></td>
-                                                                            <td style="padding-left:15px;"><b>Monto extra</b></td>
-                                                                            <td colspan="2" style="padding-left:15px;"><b>&nbsp;Días de envío</b></td>
-                                                                            <td style="padding-left:15px;"><b>Nombre del intermediario</b></td>
-
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>&nbsp;</td>
-                                                                            <td>&nbsp;</td>
-                                                                            <td>&nbsp;</td>
-                                                                            <td>&nbsp;</td>
-                                                                            <td>&nbsp;</td>
-                                                                        </tr>
-                                                                        @foreach (var linea in _context.MetodoEnvio)
-                                                                        {
-
-                                                                            <tr>
-                                                                                <td style="padding-left:5px;"> <input type="radio" name="hm" value="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID" id="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"></td>
-                                                                                <td style="padding-left:15px;"> <label style="right" for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> $@Html.DisplayFor(modelItem => linea.montoEnvio)</label></td>
-                                                                                <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID">( @Html.DisplayFor(modelItem => linea.minDiasEnvio)</label> &nbsp; &nbsp; &nbsp; - </td>
-                                                                                <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.maxDiasEnvio) )</label></td>
-                                                                                <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)</label></td>
-                                                                            </tr>
-                                                                        }
-
-                                                                    </tbody>
-                                                                </table>
-                                                            </fieldset>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </fieldset>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                    <!--Fin del body del popup-->
+                                                                    <!-- Modal Footer -->
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default"
+                                                                                data-dismiss="modal">
+                                                                            Cerrar
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-primary">
+                                                                            Guardar
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                
                                                         </div>
                                                     </div>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </fieldset>
@@ -213,11 +198,83 @@
                                         <div class="col-sm-9">
                                             <div class="btn-group" data-toggle="buttons">
                                                 <label>
-                                                    <input type="radio" id="tarjeta" name="pago" checked="checked" value="tarjeta" /> Realizar pago con tarjeta de crédito
+                                                    <input type="radio" id="tarjeta" name="pago" checked="checked" value="tarjeta" data-toggle="modal" data-target="#cuadritoWapeton1" /> Realizar pago con tarjeta de crédito
                                                 </label><br />
+                                                <!--aqui comienza lo que saldria del primer popup-->
+                                                <div class="modal fade" id="cuadritoWapeton1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <!--Header del popup-->
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close"
+                                                                        data-dismiss="modal">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                    <span class="sr-only">Close</span>
+                                                                </button>
+                                                                <h4 class="modal-title" id="myModalLabel">
+                                                                    Pago con tarjeta
+                                                                </h4>
+                                                                <!--body del popup-->
+                                                                <div class="modal-body">
+                                                                    <form class="form-horizontal" role="form">
+                                                                        <!--Aqui mandan a llamar a las tarjetas-->
+                                                                        <p>Mirenme soy un cuadrito wapeton</p>
+                                                                    </form>
+                                                                </div>
+                                                                <!--Fin del body del popup-->
+                                                                <!-- Modal Footer -->
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-default"
+                                                                            data-dismiss="modal">
+                                                                        Cerrar
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-primary">
+                                                                        Guardar
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <label>
-                                                    <input type="radio" id="paypal" name="pago" value="paypal" />  Realizar pago con Paypal
+                                                    <input type="radio" id="paypal" name="pago" value="paypal" data-toggle="modal" data-target="#cuadritoWapeton2"/>  Realizar pago con Paypal
                                                 </label>
+                                                <!--inicio popup paypal-->
+                                                <div class="modal fade" id="cuadritoWapeton2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <!--Header del popup-->
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close"
+                                                                        data-dismiss="modal">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                    <span class="sr-only">Close</span>
+                                                                </button>
+                                                                <h4 class="modal-title" id="myModalLabel">
+                                                                    Pago con Paypal
+                                                                </h4>
+                                                                <!--body del popup-->
+                                                                <div class="modal-body">
+                                                                    <form class="form-horizontal" role="form">
+                                                                        <!--aqui va el formulario para paypal-->
+                                                                        <p>Mirenme soy un cuadrito wapeton again</p>
+                                                                    </form>
+                                                                </div>
+                                                                <!--Fin del body del popup-->
+                                                                <!-- Modal Footer -->
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-default"
+                                                                            data-dismiss="modal">
+                                                                        Cerrar
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-primary">
+                                                                        Guardar
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -225,31 +282,6 @@
                             </div>
                         </div>
                         <br /><br /><br />
-
-
-
-                        <!--
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input asp-for="estadoDeOrden" /> Html.DisplayNameFor(model => model.estadoDeOrden)
-                        </label>
-                    </div>
-                </div>
-                    <div class="form-group">
-                    <label asp-for="tiendaOnlineUserID" class="control-label"></label>
-                    <select asp-for="tiendaOnlineUserID" class="form-control" asp-items="ViewBag.tiendaOnlineUserID"></select>
-                </div>
-                                <div class="form-group">
-                                <label asp-for="metodoEnvio" class="control-label"></label>
-                                <select asp-for="metodoEnvioID" class="form-control" asp-items="ViewBag.metodoEnvioID"></select>
-                            </div>
-                -->
-
-
-
-
-
 
                         <br />
                         <div class="col-md-3">
@@ -261,8 +293,44 @@
                                             <div class="col-sm-9">
                                                 <div class="btn-group" data-toggle="buttons">
                                                     <label>
-                                                        <input type="radio" id="concupon" name="cupon" checked="checked" value="concupon" /> Si
+                                                        <input type="radio" id="concupon" name="cupon" checked="checked" value="concupon" data-toggle="modal" data-target="#cuadritoWapeton5"/> Si
                                                     </label>
+                                                    <!--inicio popup del cupon-->
+                                                    <div class="modal fade" id="cuadritoWapeton5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <!--Header del popup-->
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close"
+                                                                            data-dismiss="modal">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                        <span class="sr-only">Close</span>
+                                                                    </button>
+                                                                    <h4 class="modal-title" id="myModalLabel">
+                                                                        Ingrese su cupón
+                                                                    </h4>
+                                                                    <!--body del popup-->
+                                                                    <div class="modal-body">
+                                                                        <form class="form-horizontal" role="form">
+                                                                            <!--aqui va el formulario para paypal-->
+                                                                            <p>No tenes cupones :v ni modo asi es la life</p>
+                                                                        </form>
+                                                                    </div>
+                                                                    <!--Fin del body del popup-->
+                                                                    <!-- Modal Footer -->
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default"
+                                                                                data-dismiss="modal">
+                                                                            Cerrar
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-primary">
+                                                                            Guardar
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <br />
                                                     <label>
                                                         <input type="radio" id="sincupon" name="cupon" value="sincupon" /> No
