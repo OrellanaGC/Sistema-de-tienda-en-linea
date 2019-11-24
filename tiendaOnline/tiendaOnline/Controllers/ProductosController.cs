@@ -47,8 +47,7 @@ namespace tiendaOnline.Controllers
                 p.Subcategoria.Categoria.nombre_categoria.Contains(searchString)
                 );//realiza busqueda por nombre
             }
-            //filtrado cuando le da al boton de Mis Productos. en realidad solo verifica
-            //que haya un vendedor logeado
+            //muestra los productos que no son del vendedor logeado
             var user = await _userManager.GetUserAsync(User);
             var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
             if (vendedor!=null)
