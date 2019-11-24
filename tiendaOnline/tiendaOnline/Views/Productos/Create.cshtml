@@ -43,8 +43,9 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label">Categorias <br/> <h6>Seleccione una para poder continuar</h6></label>
-                <select class="form-control" id="selecategoria" asp-items="ViewBag.CategoriaID" ></select>
+                <label class="control-label">Categorias <br/> <h5>Seleccione una para poder continuar</h5></label>
+                <select class="form-control" id="selecategoria" asp-items="ViewBag.CategoriaID" > <option>-----------------------</option></select>
+                
             </div>
 
             <div class="form-group" id="sudcat" hidden="">
@@ -52,20 +53,11 @@
                 <select asp-for="SubcategoriaID" class="form-control"></select>
                 <br/>
                 <div class="form-group">
-                    <input type="submit" value="Crear" class="btn btn-default" />
+                    <input type="submit" value="Crear" class="btn btn-success" /> <a asp-action="Index" class="btn btn-warning">Mis productos</a>
                 </div>
-            </div>
-
-            
-
-
-            
+            </div>     
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Mis productos</a>
 </div>
 
 
