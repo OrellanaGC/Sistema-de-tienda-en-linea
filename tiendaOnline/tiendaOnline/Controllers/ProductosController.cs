@@ -32,7 +32,6 @@ namespace tiendaOnline.Controllers
         // GET: Productos       
          public async Task<IActionResult> Index(string searchString)
         {
-
             //var applicationDbContext = _context.Producto.Include(p => p.Subcategoria).Include(p => p.detalleVendedor).Include(p => p.detalleVendedor.tiendaOnlineUser);
             //Cuadro de busqueda
 
