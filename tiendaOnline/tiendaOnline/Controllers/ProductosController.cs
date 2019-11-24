@@ -32,7 +32,7 @@ namespace tiendaOnline.Controllers
         // GET: Productos       
          public async Task<IActionResult> Index(string searchString)
         {
-            var applicationDbContext = _context.Producto.Include(p => p.Subcategoria).Include(p => p.detalleVendedor);
+            //var applicationDbContext = _context.Producto.Include(p => p.Subcategoria).Include(p => p.detalleVendedor).Include(p => p.detalleVendedor.tiendaOnlineUser);
             //Cuadro de busqueda
 
             ViewData["CurrentFilter"] = searchString;
@@ -53,7 +53,7 @@ namespace tiendaOnline.Controllers
             var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
             if (vendedor!=null)
             {
-                productos = productos.Where(p => p.detalleVendedor.tiendaOnlineUserID.Contains(user.Id));
+                productos = productos.Where(p => p.detalleVendedor.tiendaOnlineUserID!= user.Id);
             }
 
 
