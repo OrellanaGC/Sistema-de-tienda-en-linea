@@ -147,6 +147,14 @@ namespace tiendaOnline.Controllers
                 
                 Agrega(Imagen);
                 producto.Imagen = Imagen.FileName;
+                //generador random de codigo
+                var chars = Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", 10);
+                var randomStr = new string(chars.SelectMany(str => str)
+                                                .OrderBy(c => Guid.NewGuid())
+                                                .Take(10).ToArray());
+                //setzy codiguito wapo
+                producto.Codigo = randomStr;
+
                 //Asignando el producto al vendedor que ha iniciado sesion
                 var user = await _userManager.GetUserAsync(User);
                 var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
