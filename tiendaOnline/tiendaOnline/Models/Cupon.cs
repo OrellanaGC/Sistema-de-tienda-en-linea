@@ -27,8 +27,7 @@ namespace tiendaOnline.Models
             descripcionCupon = "Cupón de nuevo usuario";
             fechaCreacion = DateTime.Now;
             estadoCupon = false;
-            fechaVencimiento = DateTime.Now;
-            fechaVencimiento.AddDays(30);
+            fechaVencimiento = fechaCreacion.AddDays(30);
         }
 
 
