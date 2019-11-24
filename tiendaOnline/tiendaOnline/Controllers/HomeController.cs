@@ -38,14 +38,14 @@ namespace tiendaOnline.Controllers
                     result = await roleManager.CreateAsync(new IdentityRole(roleName));
                 }
             }
-           var productos = from p in _context.Producto select p; //recorre todos los items en producto
-           /* var user = await _userManager.GetUserAsync(User);
+            var productos = from p in _context.Producto select p; //recorre todos los items en producto
+            var user = await _userManager.GetUserAsync(User);
             var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
             if (vendedor != null)
             {
                 productos = productos.Where(p => p.detalleVendedor.tiendaOnlineUserID != user.Id);
             }
-            */
+
             return View(await productos.AsNoTracking().ToListAsync());
         }
 
