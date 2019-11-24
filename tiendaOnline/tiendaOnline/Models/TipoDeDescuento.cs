@@ -11,7 +11,7 @@ namespace tiendaOnline.Models
         public int TipoDeDescuentoID { get; set; }
 
         [Display(Name = "Nombre de su descuento")]
-        [MinLength(5, ErrorMessage = "Ingresar minimo 5 caracteres"), , StringLength(20, ErrorMessage = "El nombre deldescuento solo admite como máximo 20 caracteres")]
+        [MinLength(5, ErrorMessage = "Ingresar minimo 5 caracteres"), StringLength(20, ErrorMessage = "El nombre deldescuento solo admite como máximo 20 caracteres")]
         public string nombreDelDescuento { get; set; }
 
         [Display(Name = "Monto de su descuento")]
