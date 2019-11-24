@@ -9,40 +9,69 @@
 
 <h4>Detalles</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="nombreDelDescuento" class="control-label"></label>
-                <input asp-for="nombreDelDescuento" class="form-control" />
-                <span asp-validation-for="nombreDelDescuento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="montoDeDescuento" class="control-label"></label>
-                <input asp-for="montoDeDescuento" class="form-control" />
-                <span asp-validation-for="montoDeDescuento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="porcentajeDeDescuento" class="control-label"></label>
-                <input asp-for="porcentajeDeDescuento" class="form-control" />
-                <span asp-validation-for="porcentajeDeDescuento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductoID" class="control-label"></label>
-                <select asp-for="ProductoID" class ="form-control" asp-items="ViewBag.ProductoID"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-default" />
-            </div>
-        </form>
+
+<br />
+<div class="container">
+    <div class="col-md-pull-7">
+        <div class="panel panel-default panel-srcbox">
+            <div class="panel-heading">
+                <fieldset>
+                    <legend><b>¿Desea ingresarle algún descuento?</b></legend>
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="btn-group" data-toggle="buttons">
+                                <label>
+                                    <input type="radio" id="sindescuento" name="envio" value="sindescuento" "   /> Ingresar descuento en otro momento
+                                </label>  <br />
+                                <label>
+                                    <input type="radio" id="condescuento" name="envio" checked="checked" value="condescuento" /> Ingresar descuento
+                                </label><br />
+
+
+
+
+
+                            </div>
+
+
+
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <form asp-action="Create">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="form-group">
+                                            <label asp-for="nombreDelDescuento" class="control-label"></label>
+                                            <input asp-for="nombreDelDescuento" class="form-control" placeholder=" " onKeyUp="copiar()" name="ww" />
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="montoDeDescuento" class="control-label"></label>
+                                            <input asp-for="montoDeDescuento" class="form-control" placeholder="0" onKeyUp="copiarr()" name="www" />
+                                            <span asp-validation-for="montoDeDescuento" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="porcentajeDeDescuento" class="control-label"></label>
+                                            <input asp-for="porcentajeDeDescuento" class="form-control" placeholder="0" onKeyUp="copiarr()" name="www" />
+                                            <span asp-validation-for="porcentajeDeDescuento" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="ProductoID" class="control-label"></label>
+                                            <select asp-for="ProductoID" class="form-control" asp-items="ViewBag.ProductoID"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="submit" value="Crear" class="btn btn-success" /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a class="btn btn-primary" asp-action="Index"><i class="fa fa-home"> Cancelar</i></a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+           
+            </fieldset>
+        </div>
     </div>
-</div>
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-<div>
-    <a class="btn btn-primary" asp-action="Index"><i class="fa fa-home"> Cancelar</i></a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    }
