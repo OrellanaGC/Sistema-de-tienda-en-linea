@@ -30,10 +30,11 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Productos       
-         public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString)
         {
             var applicationDbContext = _context.Producto.Include(p => p.Subcategoria).Include(p => p.detalleVendedor);
-            //var applicationDbContext = _context.Producto.Include(p => p.Subcategoria).Include(p => p.detalleVendedor).Include(p => p.detalleVendedor.tiendaOnlineUser);
+            //Cuadro de busqueda
+
             ViewData["CurrentFilter"] = searchString;
             var productos = from p in _context.Producto select p; //recorre todos los items en producto
 
@@ -46,13 +47,13 @@ namespace tiendaOnline.Controllers
                 p.Subcategoria.Categoria.nombre_categoria.Contains(searchString)
                 );//realiza busqueda por nombre
             }
-            //muestra los productos que no son del vendedor logeado
+            //filtrado cuando le da al boton de Mis Productos. en realidad solo verifica
+            //que haya un vendedor logeado
             var user = await _userManager.GetUserAsync(User);
             var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
-            if (vendedor!=null)
+            if (vendedor != null)
             {
                 productos = productos.Where(p => p.detalleVendedor.tiendaOnlineUserID.Contains(user.Id));
-              //  productos = productos.Where(p => p.detalleVendedor.tiendaOnlineUserID!= user.Id);
             }
 
 
@@ -119,7 +120,7 @@ namespace tiendaOnline.Controllers
         public IActionResult Create()
         {
             ViewData["CategoriaID"] = new SelectList(_context.Categoria, "CategoriaID", "nombre_categoria");
-                                
+
             return View();
         }
         //Guarda la imagen
@@ -143,17 +144,9 @@ namespace tiendaOnline.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
                 Agrega(Imagen);
                 producto.Imagen = Imagen.FileName;
-                //generador random de codigo
-                var chars = Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", 10);
-                var randomStr = new string(chars.SelectMany(str => str)
-                                                .OrderBy(c => Guid.NewGuid())
-                                                .Take(10).ToArray());
-                //setzy codiguito wapo
-                producto.Codigo = randomStr;
-
                 //Asignando el producto al vendedor que ha iniciado sesion
                 var user = await _userManager.GetUserAsync(User);
                 var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
@@ -205,7 +198,7 @@ namespace tiendaOnline.Controllers
                     _context.Update(producto);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Index", "Productos");
-                   
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -218,7 +211,7 @@ namespace tiendaOnline.Controllers
                         throw;
                     }
                 }
-                
+
             }
             ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "nombreSubcategoria", producto.SubcategoriaID);
             ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", producto.detalleVendedorID);
