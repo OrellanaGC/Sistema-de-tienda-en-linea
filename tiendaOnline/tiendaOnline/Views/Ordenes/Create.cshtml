@@ -64,13 +64,19 @@
                                 <div class="row">
                                     <div class="col-sm-9">
                                         <div class="btn-group" data-toggle="buttons">
-                                            <label>
+                                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 
-                                                <input type="radio" id="sucursal" name="envio" checked="checked" value="sucursal" data-toggle="modal" data-target="#cuadritoWapeton3" /> Recoger en la sucursal
-                                            </label><br />
+                                            @*<input type="radio" class="retirar"    checked="checked"       id="sucursal" name="envio" checked="checked" value="sucursal" data-toggle="modal" data-target="#cuadritoWapeton3" /> Recoger en la sucursal*@
+                                            <label>
+                                                <p class="auto-style3"><input class="envio" name="pago1" type="radio" style="width: 17px; height: 17px" value="envio" data-toggle="modal" data-target="#cuadritoWapeton3" /><span class="auto-style4">Recoger en sucursal</span></p>
+                                            </label>
+                                            <br />
+
+
+
 
                                             <!--aqui se le debe mostrar la direccion de la sucursal seleccionada cuando le de guardar al popup-->
-                                            <div class="col-md-10" id="div1">
+                                            <div class="col-md-10" id="div1" style="display:none">
                                                 <div class="panel panel-default panel-srcbox">
                                                     <div class="panel-heading">
                                                         <p>en esta sucursal irá a traer el producto, hay que validar q solo le aparezcan las direcciones de ese usuario</p>
@@ -79,6 +85,7 @@
                                             </div>
 
                                             <br />
+
                                             <!--Popup para seleccion de sucursal-->
                                             <div class="modal fade" id="cuadritoWapeton3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
@@ -155,14 +162,15 @@
                                             </div>
 
 
+                                            @*<label>
+            <input type="radio" id="enviado" name="envio" value="enviado" data-toggle="modal" /> Método de envío
+        </label>*@
                                             <label>
-                                                <input type="radio" id="enviado" name="envio" value="enviado" data-toggle="modal" /> Método de envío
+                                                <p class="auto-style3"><input name="pago1" class="envio" type="radio" style="width: 17px; height: 17px" data-toggle="modal" value="sucursal" />&nbsp;<span class="auto-style4">Metodo de envio</span></p>
                                             </label>
-                                           
-
                                             <!--preguntarle q direccion elegira de enviar-->
                                             <br />
-                                            <div class="col-md-pull-12">
+                                            <div class="col-md-pull-12" id="div2" style="display:none">
                                                 <div class="panel panel-default panel-srcbox">
                                                     <div class="panel-heading">
                                                         <fieldset>
@@ -172,7 +180,7 @@
                                                                     <div class="btn-group" data-toggle="buttons">
 
                                                                         <input type="button" id="direcciondeusuario" name="direccion" data-toggle="modal" data-target="#cuadritoWapeton6" value="Elegir dirección" />
-                                                                     
+
                                                                         <!--aqui se le debe mostrar la direccion del usuario seleccionada cuando le de guardar al popup-->
                                                                         <br /><br />
                                                                         <p>aqui se le debe mostrar la direccion del usuario seleccionada cuando le de guardar al popup</p>
@@ -380,11 +388,14 @@
                                     <div class="btn-group" data-toggle="buttons">
                                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
                                         <label>
-                                            <input type="radio" id="tarjeta" name="pago" checked="checked" value="tarjeta" data-toggle="modal" data-target="#cuadritoWapeton1" /> Realizar pago con tarjeta de crédito
+                                            <p class="auto-style3"><input class="pago"  name="pago" type="radio" style="width: 17px; height: 17px" value="si" data-toggle="modal" data-target="#cuadritoWapeton1" /><span class="auto-style4"> Realizar con tarjeta</span></p>
+
+                                            @*<input type="radio" id="tarjeta" name="pago" checked="checked" value="tarjeta" data-toggle="modal" data-target="#cuadritoWapeton1" /> Realizar pago con tarjeta de crédito*@
+
                                         </label><br />
 
                                         <!--aqui se le debe mostrar la tarjeta usará, hay que validar q solo le aparezcan las tarjetas de ese usuario y q la fecha solo muestre mes y año cuando le de guardar al popup-->
-                                        <div class="col-md-10">
+                                        <div class="col-md-10" id="divtar" style="display:none">
                                             <div class="panel panel-default panel-srcbox">
                                                 <div class="panel-heading">
                                                     <p>esta tarjeta usará, hay que validar q solo le aparezcan las tarjetas de ese usuario y q la fecha solo muestre mes y año</p>
@@ -464,11 +475,14 @@
                                             </div>
                                         </div>
                                         <label>
-                                            <input type="radio" id="paypal" name="pago" value="paypal" data-toggle="modal" data-target="#cuadritoWapeton2" />  Realizar pago con Paypal
+                                            <p class="auto-style3"><input class="pago"  name="pago" type="radio" style="width: 17px; height: 17px" value="no" data-toggle="modal" data-target="#cuadritoWapeton2" /><span class="auto-style4"> Realizar con Paypal</span></p>
+
+                                            @*<input type="radio" id="paypal" name="pago" value="paypal" data-toggle="modal" data-target="#cuadritoWapeton2" />  Realizar pago con Paypal*@
+                                       
                                         </label>
                                         <!--aqui se le debe mostrar la  cuenta de paypal que usará cuando le de cotinuar al popup-->
                                         <div class="col-md-10">
-                                            <div class="panel panel-default panel-srcbox">
+                                            <div class="panel panel-default panel-srcbox" id="divnone" style="display:none">
                                                 <div class="panel-heading">
                                                     <p>esta cuenta de paypal usará hay q mostrarla </p>
                                                 </div>
@@ -558,7 +572,7 @@
                         </fieldset>
                     </div>
                 </div>
-                <br /><br /><br />
+              <br />
                 <br />
                 <div class="col-md-3">
                     <div class="panel panel-default panel-srcbox">
@@ -569,7 +583,10 @@
                                     <div class="col-sm-9">
                                         <div class="btn-group" data-toggle="buttons">
                                             <label>
-                                                <input type="radio" id="concupon" name="cupon" checked="checked" value="concupon" data-toggle="modal" data-target="#cuadritoWapeton5" /> Si
+                                                <p class="auto-style3"><input class="cupon" name="cupon" type="radio" style="width: 17px; height: 17px" value="si" data-toggle="modal" data-target="#cuadritoWapeton5"/><span class="auto-style4"> Si</span></p>
+
+                                                @*<input type="radio" id="concupon" name="cupon" checked="checked" value="concupon" data-toggle="modal" data-target="#cuadritoWapeton5" /> Si*@
+                                           
                                             </label>
                                             <!--inicio popup del cupon-->
                                             <div class="modal fade" id="cuadritoWapeton5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -609,7 +626,9 @@
                                             </div>
                                             <br />
                                             <label>
-                                                <input type="radio" id="sincupon" name="cupon" value="sincupon" /> No
+                                                <p class="auto-style3"><input class="cupon" name="cupon" type="radio" style="width: 17px; height: 17px" value="no"  /><span class="auto-style4"> No</span></p>
+
+                                                @*<input type="radio" id="sincupon" name="cupon" value="no" /> No*@
                                             </label>
                                         </div>
                                     </div>
@@ -619,9 +638,10 @@
                     </div>
                 </div>
             </div>
+           
           
             <br /><br /><br />
-            <div class="form-group" id="divcupon" style="display:none">
+            <div class="form-group"  id="divsi" style="display:none">
                 <label asp-for="cupon.codigoCupon" class="control-label">Introduzca el codigo de su cupon</label>
                 <input asp-for="cupon.codigoCupon" class="form-control" asp-items="ViewBag.cuponID">
                 <span asp-validation-for="cupon.codigoCupon" class="text-danger"></span>
@@ -661,7 +681,7 @@
 
 
                 $(document).ready(function () {
-                    $(".pago").click(function (evento) {
+                    $(".envio").click(function (evento) {
 
                         var valor = $(this).val();
 
@@ -677,15 +697,30 @@
 
 
                 $(document).ready(function () {
+                    $(".pago").click(function (evento) {
+
+                        var valor = $(this).val();
+
+                        if (valor == 'si') {
+                            $("#divtar").css("display", "block");
+                            $("#divnone").css("display", "none");
+                        } else {
+                            $("#divtar").css("display", "none");
+                            $("#divnone").css("display", "block");
+                        }
+                    });
+                });
+
+                $(document).ready(function () {
                     $(".cupon").click(function (evento) {
 
                         var valor = $(this).val();
 
                         if (valor == 'si') {
-                            $("#divcupon").css("display", "block");
+                            $("#divsi").css("display", "block");
                             $("#divno").css("display", "none");
                         } else {
-                            $("#divcupon").css("display", "none");
+                            $("#divsi").css("display", "none");
                             $("#divno").css("display", "block");
                         }
                     });

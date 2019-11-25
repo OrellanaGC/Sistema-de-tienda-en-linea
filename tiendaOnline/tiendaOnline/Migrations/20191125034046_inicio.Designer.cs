@@ -10,8 +10,8 @@ using tiendaOnline.Data;
 namespace tiendaOnline.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191124010454_version")]
-    partial class version
+    [Migration("20191125034046_inicio")]
+    partial class inicio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -266,6 +266,29 @@ namespace tiendaOnline.Migrations
                     b.ToTable("Departamento");
                 });
 
+            modelBuilder.Entity("tiendaOnline.Models.Descuento", b =>
+                {
+                    b.Property<int>("DescuentoID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("MontoDeDescuento");
+
+                    b.Property<string>("NombreDelDescuento");
+
+                    b.Property<double>("PrecioConDesc");
+
+                    b.Property<int>("ProductoID");
+
+                    b.Property<bool>("TipoDeDescuento");
+
+                    b.HasKey("DescuentoID");
+
+                    b.HasIndex("ProductoID");
+
+                    b.ToTable("Descuento");
+                });
+
             modelBuilder.Entity("tiendaOnline.Models.DetalleProducto", b =>
                 {
                     b.Property<int>("DetalleProductoID")
@@ -514,9 +537,7 @@ namespace tiendaOnline.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Codigo")
-                        .IsRequired()
-                        .HasMaxLength(20);
+                    b.Property<string>("Codigo");
 
                     b.Property<int>("Existencia");
 
@@ -616,7 +637,6 @@ namespace tiendaOnline.Migrations
                     b.Property<int>("montoDeDescuento");
 
                     b.Property<string>("nombreDelDescuento")
-                        .IsRequired()
                         .HasMaxLength(20);
 
                     b.Property<int>("porcentajeDeDescuento");
@@ -686,6 +706,14 @@ namespace tiendaOnline.Migrations
                     b.HasOne("tiendaOnline.Areas.Identity.Data.tiendaOnlineUser", "tiendaOnlineUser")
                         .WithMany()
                         .HasForeignKey("tiendaOnlineUserID");
+                });
+
+            modelBuilder.Entity("tiendaOnline.Models.Descuento", b =>
+                {
+                    b.HasOne("tiendaOnline.Models.Producto", "producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("tiendaOnline.Models.DetalleProducto", b =>

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace tiendaOnline.Migrations
 {
-    public partial class version : Migration
+    public partial class inicio : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -432,7 +432,7 @@ namespace tiendaOnline.Migrations
                     NombreProducto = table.Column<string>(maxLength: 50, nullable: false),
                     PrecioUnitario = table.Column<double>(nullable: false),
                     Existencia = table.Column<int>(nullable: false),
-                    Codigo = table.Column<string>(maxLength: 20, nullable: false),
+                    Codigo = table.Column<string>(nullable: true),
                     Imagen = table.Column<string>(nullable: false),
                     SubcategoriaID = table.Column<int>(nullable: false),
                     detalleVendedorID = table.Column<int>(nullable: true)
@@ -494,6 +494,29 @@ namespace tiendaOnline.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Descuento",
+                columns: table => new
+                {
+                    DescuentoID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    NombreDelDescuento = table.Column<string>(nullable: true),
+                    TipoDeDescuento = table.Column<bool>(nullable: false),
+                    MontoDeDescuento = table.Column<int>(nullable: false),
+                    PrecioConDesc = table.Column<double>(nullable: false),
+                    ProductoID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Descuento", x => x.DescuentoID);
+                    table.ForeignKey(
+                        name: "FK_Descuento_Producto_ProductoID",
+                        column: x => x.ProductoID,
+                        principalTable: "Producto",
+                        principalColumn: "ProductoID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -583,7 +606,7 @@ namespace tiendaOnline.Migrations
                 {
                     TipoDeDescuentoID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    nombreDelDescuento = table.Column<string>(maxLength: 20, nullable: false),
+                    nombreDelDescuento = table.Column<string>(maxLength: 20, nullable: true),
                     montoDeDescuento = table.Column<int>(nullable: false),
                     porcentajeDeDescuento = table.Column<int>(nullable: false),
                     ProductoID = table.Column<int>(nullable: false)
@@ -649,6 +672,11 @@ namespace tiendaOnline.Migrations
                 name: "IX_Cupon_tiendaOnlineUserID",
                 table: "Cupon",
                 column: "tiendaOnlineUserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Descuento_ProductoID",
+                table: "Descuento",
+                column: "ProductoID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DetalleProducto_productoID",
@@ -776,6 +804,9 @@ namespace tiendaOnline.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Descuento");
 
             migrationBuilder.DropTable(
                 name: "DetalleProducto");
