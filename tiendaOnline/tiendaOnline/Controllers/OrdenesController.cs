@@ -57,6 +57,7 @@ namespace tiendaOnline.Controllers
         // GET: Ordenes/Create
         public IActionResult Create()
         {
+            ViewData["paypalID"] = new SelectList(_context.Paypal, "paypalID", "paypalID");
             ViewData["SucursalID"] = new SelectList(_context.Sucursal, "SucursalID", "SucursalID");
             ViewData["cuponID"] = new SelectList(_context.Cupon, "CuponID", "CuponID");
             ViewData["metodoEnvioID"] = new SelectList(_context.MetodoEnvio, "MetodoEnvioID", "nombreMetodoEnvio");
