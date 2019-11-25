@@ -1,4 +1,5 @@
-﻿@model tiendaOnline.Models.Orden
+﻿<div>
+    @model tiendaOnline.Models.Orden
 @using tiendaOnline.Data
 <!--Haciendo una inyeccion del context para traer cualquier modelo-->
 @inject ApplicationDbContext _context
@@ -48,7 +49,7 @@
             <div class="container">
                 <div class="col-md-pull-7">
                     @{await
-                                                          Html.RenderPartialAsync("ListaProd");
+                                                            Html.RenderPartialAsync("ListaProd");
                     }
                 </div>
             </div>
@@ -163,8 +164,8 @@
 
 
                                             @*<label>
-            <input type="radio" id="enviado" name="envio" value="enviado" data-toggle="modal" /> Método de envío
-        </label>*@
+                                                    <input type="radio" id="enviado" name="envio" value="enviado" data-toggle="modal" /> Método de envío
+                                                </label>*@
                                             <label>
                                                 <p class="auto-style3"><input name="pago1" class="envio" type="radio" style="width: 17px; height: 17px" data-toggle="modal" value="sucursal" />&nbsp;<span class="auto-style4">Metodo de envio</span></p>
                                             </label>
@@ -388,7 +389,7 @@
                                     <div class="btn-group" data-toggle="buttons">
                                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
                                         <label>
-                                            <p class="auto-style3"><input class="pago"  name="pago" type="radio" style="width: 17px; height: 17px" value="si" data-toggle="modal" data-target="#cuadritoWapeton1" /><span class="auto-style4"> Realizar con tarjeta</span></p>
+                                            <p class="auto-style3"><input class="pago" name="pago" type="radio" style="width: 17px; height: 17px" value="si" data-toggle="modal" data-target="#cuadritoWapeton1" /><span class="auto-style4"> Realizar con tarjeta</span></p>
 
                                             @*<input type="radio" id="tarjeta" name="pago" checked="checked" value="tarjeta" data-toggle="modal" data-target="#cuadritoWapeton1" /> Realizar pago con tarjeta de crédito*@
 
@@ -475,10 +476,10 @@
                                             </div>
                                         </div>
                                         <label>
-                                            <p class="auto-style3"><input class="pago"  name="pago" type="radio" style="width: 17px; height: 17px" value="no" data-toggle="modal" data-target="#cuadritoWapeton2" /><span class="auto-style4"> Realizar con Paypal</span></p>
+                                            <p class="auto-style3"><input class="pago" name="pago" type="radio" style="width: 17px; height: 17px" value="no" data-toggle="modal" data-target="#cuadritoWapeton2" /><span class="auto-style4"> Realizar con Paypal</span></p>
 
                                             @*<input type="radio" id="paypal" name="pago" value="paypal" data-toggle="modal" data-target="#cuadritoWapeton2" />  Realizar pago con Paypal*@
-                                       
+
                                         </label>
                                         <!--aqui se le debe mostrar la  cuenta de paypal que usará cuando le de cotinuar al popup-->
                                         <div class="col-md-10">
@@ -567,12 +568,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    </div>
-                                </div>                           
+                                </div>
+                            </div>
                         </fieldset>
                     </div>
                 </div>
-              <br />
+                <br />
                 <br />
                 <div class="col-md-3">
                     <div class="panel panel-default panel-srcbox">
@@ -583,10 +584,10 @@
                                     <div class="col-sm-9">
                                         <div class="btn-group" data-toggle="buttons">
                                             <label>
-                                                <p class="auto-style3"><input class="cupon" name="cupon" type="radio" style="width: 17px; height: 17px" value="si" data-toggle="modal" data-target="#cuadritoWapeton5"/><span class="auto-style4"> Si</span></p>
+                                                <p class="auto-style3"><input class="cupon" name="cupon" type="radio" style="width: 17px; height: 17px" value="si" data-toggle="modal" data-target="#cuadritoWapeton5" /><span class="auto-style4"> Si</span></p>
 
                                                 @*<input type="radio" id="concupon" name="cupon" checked="checked" value="concupon" data-toggle="modal" data-target="#cuadritoWapeton5" /> Si*@
-                                           
+
                                             </label>
                                             <!--inicio popup del cupon-->
                                             <div class="modal fade" id="cuadritoWapeton5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -626,7 +627,7 @@
                                             </div>
                                             <br />
                                             <label>
-                                                <p class="auto-style3"><input class="cupon" name="cupon" type="radio" style="width: 17px; height: 17px" value="no"  /><span class="auto-style4"> No</span></p>
+                                                <p class="auto-style3"><input class="cupon" name="cupon" type="radio" style="width: 17px; height: 17px" value="no" /><span class="auto-style4"> No</span></p>
 
                                                 @*<input type="radio" id="sincupon" name="cupon" value="no" /> No*@
                                             </label>
@@ -638,10 +639,10 @@
                     </div>
                 </div>
             </div>
-           
-          
+
+
             <br /><br /><br />
-            <div class="form-group"  id="divsi" style="display:none">
+            <div class="form-group" id="divsi" style="display:none">
                 <label asp-for="cupon.codigoCupon" class="control-label">Introduzca el codigo de su cupon</label>
                 <input asp-for="cupon.codigoCupon" class="form-control" asp-items="ViewBag.cuponID">
                 <span asp-validation-for="cupon.codigoCupon" class="text-danger"></span>
@@ -668,62 +669,63 @@
 
 
 
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-       
-        
-            <script type="text/javascript">
 
-              
+
+    <script type="text/javascript">
 
 
 
 
-                $(document).ready(function () {
-                    $(".envio").click(function (evento) {
-
-                        var valor = $(this).val();
-
-                        if (valor == 'envio') {
-                            $("#div1").css("display", "block");
-                            $("#div2").css("display", "none");
-                        } else {
-                            $("#div1").css("display", "none");
-                            $("#div2").css("display", "block");
-                        }
-                    });
-                });
 
 
-                $(document).ready(function () {
-                    $(".pago").click(function (evento) {
+        $(document).ready(function () {
+            $(".envio").click(function (evento) {
 
-                        var valor = $(this).val();
+                var valor = $(this).val();
 
-                        if (valor == 'si') {
-                            $("#divtar").css("display", "block");
-                            $("#divnone").css("display", "none");
-                        } else {
-                            $("#divtar").css("display", "none");
-                            $("#divnone").css("display", "block");
-                        }
-                    });
-                });
+                if (valor == 'envio') {
+                    $("#div1").css("display", "block");
+                    $("#div2").css("display", "none");
+                } else {
+                    $("#div1").css("display", "none");
+                    $("#div2").css("display", "block");
+                }
+            });
+        });
 
-                $(document).ready(function () {
-                    $(".cupon").click(function (evento) {
 
-                        var valor = $(this).val();
+        $(document).ready(function () {
+            $(".pago").click(function (evento) {
 
-                        if (valor == 'si') {
-                            $("#divsi").css("display", "block");
-                            $("#divno").css("display", "none");
-                        } else {
-                            $("#divsi").css("display", "none");
-                            $("#divno").css("display", "block");
-                        }
-                    });
-                });
-        </script>
-    }
+                var valor = $(this).val();
+
+                if (valor == 'si') {
+                    $("#divtar").css("display", "block");
+                    $("#divnone").css("display", "none");
+                } else {
+                    $("#divtar").css("display", "none");
+                    $("#divnone").css("display", "block");
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $(".cupon").click(function (evento) {
+
+                var valor = $(this).val();
+
+                if (valor == 'si') {
+                    $("#divsi").css("display", "block");
+                    $("#divno").css("display", "none");
+                } else {
+                    $("#divsi").css("display", "none");
+                    $("#divno").css("display", "block");
+                }
+            });
+        });
+    </script>
+}
+</div>
