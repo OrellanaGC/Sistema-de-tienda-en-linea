@@ -73,7 +73,7 @@
                                             <div class="col-md-10" id="div1">
                                                 <div class="panel panel-default panel-srcbox">
                                                     <div class="panel-heading">
-                                                        <p>en esta sucursal irá a traer el producto</p>
+                                                        <p>en esta sucursal irá a traer el producto, hay que validar q solo le aparezcan las direcciones de ese usuario</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -232,7 +232,8 @@
 
                                                                                                                                         <tr>
                                                                                                                                             <td>
-                                                                                                                                                <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea3.nombreDepartamento), </label>
+                                                                                                                                                <label  for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea3.nombreDepartamento), </label>
+                                                                                                                                              
                                                                                                                                                 <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea2.nombreMunicipio), </label>
                                                                                                                                                 <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea.direccionDetallada).<br /></label>
                                                                                                                                                 <label for="@ViewData["DireccionID"]@linea.DireccionID">Código postal: @Html.DisplayFor(modelItem => linea.codigoPostal)</label>
@@ -538,9 +539,7 @@
                     </div>
                 </div>
             </div>
-
-
-
+          
             <br /><br /><br />
             <div class="form-group" id="divcupon" style="display:none">
                 <label asp-for="cupon.codigoCupon" class="control-label">Introduzca el codigo de su cupon</label>
@@ -556,32 +555,6 @@
             </div>
 
 
-
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             <div class="form-group">
                 <input type="submit" value="Finalizar compra" class="btn btn-success" />     <a class="btn btn-danger" asp-action="Index"><i class="fas fa-remove"></i> Cancelar</a>
             </div>
@@ -591,7 +564,7 @@
 
     </div>
 
-
+</div>
 
 
 
