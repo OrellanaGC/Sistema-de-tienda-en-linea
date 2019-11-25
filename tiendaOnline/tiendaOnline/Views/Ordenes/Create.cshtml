@@ -173,16 +173,17 @@
 
                                                                         <input type="button" id="direcciondeusuario" name="direccion" data-toggle="modal" data-target="#cuadritoWapeton6" value="Elegir dirección" />
                                                                         &nbsp;&nbsp;
+                                                                        <!--aqui se le debe mostrar la direccion del usuario seleccionada cuando le de guardar al popup-->
+                                                                        <br /><br />
+                                                                        <p>aqui se le debe mostrar la direccion del usuario seleccionada cuando le de guardar al popup</p>
+                                                                        <br />
                                                                         <input type="button" id="metododeenvioseleccionado" name="metododeenvio" data-toggle="modal" data-target="#cuadritoWapeton4" value="Elegir método de envío" />
 
-                                                                        <!--aqui se le debe mostrar la direccion del usuario seleccionada cuando le de guardar al popup-->
-                                                                       <br /><br />
-                                                                                    <p>aqui se le debe mostrar la direccion del usuario seleccionada cuando le de guardar al popup</p>
-                                                                               <br />
+                                                                        <br /> <br />
                                                                         <!--aqui se le debe mostrar el metodo de envio seleccionada cuando le de guardar al popup-->
-                                                                      
-                                                                                    <p>aqui se le debe mostrar el metodo de envio seleccionada cuando le de guardar al popup</p>
-                                                                             
+
+                                                                        <p>aqui se le debe mostrar el metodo de envio seleccionada cuando le de guardar al popup</p>
+
 
 
 
@@ -232,8 +233,8 @@
 
                                                                                                                                         <tr>
                                                                                                                                             <td>
-                                                                                                                                                <label  for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea3.nombreDepartamento), </label>
-                                                                                                                                              
+                                                                                                                                                <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea3.nombreDepartamento), </label>
+
                                                                                                                                                 <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea2.nombreMunicipio), </label>
                                                                                                                                                 <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea.direccionDetallada).<br /></label>
                                                                                                                                                 <label for="@ViewData["DireccionID"]@linea.DireccionID">Código postal: @Html.DisplayFor(modelItem => linea.codigoPostal)</label>
