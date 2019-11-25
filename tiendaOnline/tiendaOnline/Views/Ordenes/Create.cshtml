@@ -498,7 +498,7 @@
                                                                     <div class="panel-heading">
                                                                         <fieldset>
                                                                             <label class="control-label">Introduzca el correo de su cuenta de Paypal</label>
-                                                                            <input class="form-control" asp-items="ViewBag.paypalID">
+                                                                            <input class="form-control" asp-items="ViewBag.paypalID"> <br /><br />
                                                                             <label class="control-label">Introduzca la contraseña de su cuenta de Paypal</label>
                                                                             <input type="password" class="form-control" asp-items="ViewBag.paypalID">
                                                                         </fieldset>
@@ -514,11 +514,7 @@
                                                                 data-dismiss="modal">
                                                             Cerrar
                                                         </button>
-
                                                         <input type="button" class="btn btn-default" data-toggle="modal" data-target="#cuadritoWapeton7" value="Validar" />
-
-
-
                                                         <div class="modal fade" id="cuadritoWapeton7" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">
@@ -541,7 +537,6 @@
                                                                                     data-dismiss="modal">
                                                                                 Continuar
                                                                             </button>
-
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -588,21 +583,25 @@
                                                             <!--body del popup-->
                                                             <div class="modal-body">
 
-                                                                <!--aqui va el formulario para paypal-->
-                                                                <p>No tenes cupones :v ni modo asi es la life</p>
-
+                                                                <!--aqui va el formulario para cupon-->
+                                                               
+                                                                                <label asp-for="cupon.codigoCupon" class="control-label">Introduzca el codigo de su cupon</label>
+                                                                             
+                                                                                <input asp-for="cupon.codigoCupon" class="form-control" asp-items="ViewBag.cuponID" required="">
+                                                                             
+                                                                        
                                                             </div>
-                                                            <!--Fin del body del popup-->
-                                                            <!-- Modal Footer -->
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default"
-                                                                        data-dismiss="modal">
-                                                                    Cerrar
-                                                                </button>
-                                                                <button type="button" class="btn btn-primary">
-                                                                    Guardar
-                                                                </button>
-                                                            </div>
+                                                        </div>
+                                                        <!--Fin del body del popup-->
+                                                        <!-- Modal Footer -->
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">
+                                                                Cerrar
+                                                            </button>
+                                                            <input type="button" class="btn btn-default" data-toggle="modal" value="Validar" />
+                                                           
+                                                            <br />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -621,12 +620,7 @@
             </div>
           
             <br /><br /><br />
-            <div class="form-group" id="divcupon" style="display:none">
-                <label asp-for="cupon.codigoCupon" class="control-label">Introduzca el codigo de su cupon</label>
-                <input asp-for="cupon.codigoCupon" class="form-control" asp-items="ViewBag.cuponID">
-                <span asp-validation-for="cupon.codigoCupon" class="text-danger"></span>
-            </div>
-
+          
             <!--muestra el total-->
             <div class="form-group">
                 <label asp-for="total" class="control-label"></label>
