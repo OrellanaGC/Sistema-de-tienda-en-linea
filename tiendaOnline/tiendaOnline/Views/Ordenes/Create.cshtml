@@ -48,7 +48,7 @@
             <div class="container">
                 <div class="col-md-pull-7">
                     @{await
-                                                      Html.RenderPartialAsync("ListaProd");
+                                                          Html.RenderPartialAsync("ListaProd");
                     }
                 </div>
             </div>
@@ -68,7 +68,15 @@
 
                                                 <input type="radio" id="sucursal" name="envio" checked="checked" value="sucursal" data-toggle="modal" data-target="#cuadritoWapeton3" /> Recoger en la sucursal
                                             </label><br />
-                                          
+
+                                            <!--aqui se le debe mostrar la direccion de la sucursal seleccionada cuando le de guardar al popup-->
+                                            <div class="col-md-10" id="div1">
+                                                <div class="panel panel-default panel-srcbox">
+                                                    <div class="panel-heading">
+                                                        <p>en esta sucursal irá a traer el producto</p>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                             <br />
                                             <!--Popup para seleccion de sucursal-->
@@ -86,51 +94,45 @@
                                                                 Elegir surcursal
                                                             </h4>
                                                             <!--body del popup-->
-                                                            <div class="modal-body">
-
-                                                                <!--Aqui mandan a llamar a las tarjetas-->
-
-
-                                                            </div>
                                                             <!--para mostrarle la sucursal-->
-                                                            <div class="col-md-pull-10">
+                                                            <div class="col-md-pull-12">
                                                                 <div class="panel panel-default panel-srcbox">
                                                                     <div class="panel-heading">
-                                                                      
-                                                                                        @foreach (var linea in _context.Sucursal)
+
+                                                                        @foreach (var linea in _context.Sucursal)
+                                                                        {
+
+                                                                            <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal">&nbsp; @Html.DisplayFor(subcategorias => linea.nombreSucursal)</label>
+                                                                            <br />
+                                                                            @foreach (var linea2 in _context.Direccion)
+                                                                            {
+                                                                                @if (linea.SucursalID == linea2.sucursalID)
+                                                                                {
+                                                                                    @foreach (var linea3 in _context.Municipio)
+                                                                                    {
+                                                                                        @if (linea3.MunicipioID == linea2.MunicipioID)
                                                                                         {
-                                                                                           
-                                                                                                <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal">&nbsp; @Html.DisplayFor(subcategorias => linea.nombreSucursal)</label>
-                                                                        <br />
-                                                                                                @foreach (var linea2 in _context.Direccion)
+                                                                                            @foreach (var linea4 in _context.Departamento)
+                                                                                            {
+                                                                                                @if (linea3.DepartamentoID == linea4.DepartamentoID)
                                                                                                 {
-                                                                                                    @if (linea.SucursalID == linea2.sucursalID)
-                                                                                                    {
-                                                                                                        @foreach (var linea3 in _context.Municipio)
-                                                                                                        {
-                                                                                                            @if (linea3.MunicipioID == linea2.MunicipioID)
-                                                                                                            {
-                                                                                                                @foreach (var linea4 in _context.Departamento)
-                                                                                                                {
-                                                                                                                    @if (linea3.DepartamentoID == linea4.DepartamentoID)
-                                                                                                                    {
-                                                                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> &nbsp; @Html.DisplayFor(subcategorias => linea4.nombreDepartamento), </label>
-                                                                                                                    }
-                                                                                                                }
-                                                                                                                <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea3.nombreMunicipio), </label>
-                                                                                                            }
-                                                                                                        }
-                                                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.direccionDetallada), Código postal: </label>
-                                                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.codigoPostal)</label><br />
-
-
-                                                                                                    }
+                                                                                                    <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> &nbsp; @Html.DisplayFor(subcategorias => linea4.nombreDepartamento), </label>
                                                                                                 }
-                                                                                                <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal"> &nbsp; @Html.DisplayFor(subcategorias => linea.horarioDeAtencion)</label>
-                                                                                         
-
+                                                                                            }
+                                                                                            <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea3.nombreMunicipio), </label>
                                                                                         }
-                                                                                 
+                                                                                    }
+                                                                                    <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.direccionDetallada), Código postal: </label>
+                                                                                    <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.codigoPostal)</label><br />
+
+
+                                                                                }
+                                                                            }
+                                                                            <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal"> &nbsp; @Html.DisplayFor(subcategorias => linea.horarioDeAtencion)</label>
+
+
+                                                                        }
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -151,9 +153,154 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+
                                             <label>
-                                                <input type="radio" id="enviado" name="envio" value="enviado" data-toggle="modal" data-target="#cuadritoWapeton4" /> Método de envío
+                                                <input type="radio" id="enviado" name="envio" value="enviado" data-toggle="modal" /> Método de envío
                                             </label>
+                                           
+
+                                            <!--preguntarle q direccion elegira de enviar-->
+                                            <br />
+                                            <div class="col-md-pull-12">
+                                                <div class="panel panel-default panel-srcbox">
+                                                    <div class="panel-heading">
+                                                        <fieldset>
+                                                            <legend><h5>¿A qué dirección desea que se le envíe?</h5></legend>
+                                                            <div class="row">
+                                                                <div class="col-sm-9">
+                                                                    <div class="btn-group" data-toggle="buttons">
+
+                                                                        <input type="button" id="direcciondeusuario" name="direccion" data-toggle="modal" data-target="#cuadritoWapeton6" value="Elegir dirección" />
+                                                                        &nbsp;&nbsp;
+                                                                        <input type="button" id="metododeenvioseleccionado" name="metododeenvio" data-toggle="modal" data-target="#cuadritoWapeton4" value="Elegir método de envío" />
+
+                                                                        <!--aqui se le debe mostrar la direccion del usuario seleccionada cuando le de guardar al popup-->
+                                                                       <br /><br />
+                                                                                    <p>aqui se le debe mostrar la direccion del usuario seleccionada cuando le de guardar al popup</p>
+                                                                               <br />
+                                                                        <!--aqui se le debe mostrar el metodo de envio seleccionada cuando le de guardar al popup-->
+                                                                      
+                                                                                    <p>aqui se le debe mostrar el metodo de envio seleccionada cuando le de guardar al popup</p>
+                                                                             
+
+
+
+                                                                        <!--inicio popup de direcciones-->
+                                                                        <div class="modal fade" id="cuadritoWapeton6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog">
+                                                                                <div class="modal-content">
+                                                                                    <!--Header del popup-->
+                                                                                    <div class="modal-header">
+                                                                                        <button type="button" class="close"
+                                                                                                data-dismiss="modal">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                            <span class="sr-only">Close</span>
+                                                                                        </button>
+                                                                                        <h4 class="modal-title" id="myModalLabel">
+                                                                                            Elegir método de envío
+                                                                                        </h4>
+                                                                                        <!--body del popup-->
+                                                                                        <div class="modal-body">
+
+                                                                                            <!--Aqui mandan a llamar a las direcciones-->
+                                                                                            <div class="col-md-pull-0">
+                                                                                                <div class="panel panel-default panel-srcbox">
+                                                                                                    <div class="panel-heading">
+                                                                                                        <fieldset>
+                                                                                                            <table>
+                                                                                                                <tbody>
+
+                                                                                                                    <tr>
+                                                                                                                        <td><b>Direcciones</b></td>
+
+                                                                                                                    </tr>
+                                                                                                                    <tr>
+                                                                                                                        <td>&nbsp;</td>
+
+                                                                                                                    </tr>
+                                                                                                                    @foreach (var linea in _context.Direccion)
+                                                                                                                    {
+                                                                                                                        @foreach (var linea2 in _context.Municipio)
+                                                                                                                        {
+                                                                                                                            @if (linea.MunicipioID == linea2.MunicipioID)
+                                                                                                                            {
+                                                                                                                                @foreach (var linea3 in _context.Departamento)
+                                                                                                                                {
+                                                                                                                                    @if (linea2.DepartamentoID == linea3.DepartamentoID)
+                                                                                                                                    {
+
+                                                                                                                                        <tr>
+                                                                                                                                            <td>
+                                                                                                                                                <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea3.nombreDepartamento), </label>
+                                                                                                                                                <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea2.nombreMunicipio), </label>
+                                                                                                                                                <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea.direccionDetallada).<br /></label>
+                                                                                                                                                <label for="@ViewData["DireccionID"]@linea.DireccionID">Código postal: @Html.DisplayFor(modelItem => linea.codigoPostal)</label>
+
+                                                                                                                                            </td>
+                                                                                                                                        </tr>
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                            }
+                                                                                                                        }
+
+                                                                                                                    }
+                                                                                                                </tbody>
+                                                                                                            </table>
+                                                                                                        </fieldset>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                        <!--Fin del body del popup-->
+                                                                                        <!-- Modal Footer -->
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button" class="btn btn-default"
+                                                                                                    data-dismiss="modal">
+                                                                                                Cerrar
+                                                                                            </button>
+                                                                                            <button type="button" class="btn btn-primary">
+                                                                                                Guardar
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <br />
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+
+
+
+
+                                            <p></p>
+
+
+
+
+
+
+
+                                            <!--aqui se mostrara el metodo de envio seleccionado-->
+                                            <asp:TextBox id="envioelegido" ReadOnly="True" runat="server"></asp:TextBox>
+
+
                                             <!--Popup para seleccion del metodo de envio-->
                                             <div class="modal fade" id="cuadritoWapeton4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
@@ -171,9 +318,8 @@
                                                             <!--body del popup-->
                                                             <div class="modal-body">
 
-                                                                <!--Aqui mandan a llamar a las tarjetas-->
-                                                                <p>Tus métodos de envío shidos aquí. Ai dise gratis :v</p>
-                                                                <div class="col-md-10">
+                                                                <!--Aqui mandan a llamar a los metodos de envio-->
+                                                                <div class="col-md-pull-0">
                                                                     <div class="panel panel-default panel-srcbox">
                                                                         <div class="panel-heading">
                                                                             <fieldset>
@@ -181,7 +327,6 @@
                                                                                     <tbody>
 
                                                                                         <tr>
-                                                                                            <td style="padding-left:5px;"></td>
                                                                                             <td style="padding-left:15px;"><b>Monto extra</b></td>
                                                                                             <td colspan="2" style="padding-left:15px;"><b>&nbsp;Días de envío</b></td>
                                                                                             <td style="padding-left:15px;"><b>Nombre del intermediario</b></td>
@@ -191,14 +336,12 @@
                                                                                             <td>&nbsp;</td>
                                                                                             <td>&nbsp;</td>
                                                                                             <td>&nbsp;</td>
-                                                                                            <td>&nbsp;</td>
                                                                                         </tr>
                                                                                         @foreach (var linea in _context.MetodoEnvio)
                                                                                         {
 
                                                                                             <tr>
-                                                                                                <td style="padding-left:5px;"> <input type="radio" name="hm" value="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID" id="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"></td>
-                                                                                                <td style="padding-left:15px;"> <label style="right" for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> $@Html.DisplayFor(modelItem => linea.montoEnvio)</label></td>
+                                                                                                <td style="padding-left:15px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> $@Html.DisplayFor(modelItem => linea.montoEnvio)</label></td>
                                                                                                 <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID">( @Html.DisplayFor(modelItem => linea.minDiasEnvio)</label> &nbsp; &nbsp; &nbsp; - </td>
                                                                                                 <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.maxDiasEnvio) )</label></td>
                                                                                                 <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)</label></td>
@@ -237,6 +380,9 @@
                     </div>
                 </div>
                 <br />
+
+
+
                 <!--Preguntarle si quiere pagar con tarjeta o paypal-->
                 <div class="panel panel-default panel-srcbox">
                     <div class="panel-heading">
@@ -392,70 +538,104 @@
                     </div>
                 </div>
             </div>
-   
 
 
-    <br /><br /><br />
-    <div class="form-group" id="divcupon" style="display:none">
-        <label asp-for="cupon.codigoCupon" class="control-label">Introduzca el codigo de su cupon</label>
-        <input asp-for="cupon.codigoCupon" class="form-control" asp-items="ViewBag.cuponID">
-        <span asp-validation-for="cupon.codigoCupon" class="text-danger"></span>
+
+            <br /><br /><br />
+            <div class="form-group" id="divcupon" style="display:none">
+                <label asp-for="cupon.codigoCupon" class="control-label">Introduzca el codigo de su cupon</label>
+                <input asp-for="cupon.codigoCupon" class="form-control" asp-items="ViewBag.cuponID">
+                <span asp-validation-for="cupon.codigoCupon" class="text-danger"></span>
+            </div>
+
+            <!--muestra el total-->
+            <div class="form-group">
+                <label asp-for="total" class="control-label"></label>
+                <input asp-for="total" class="form-control" ReadOnly="readonly" />
+                <span asp-validation-for="total" class="text-danger"></span>
+            </div>
+
+
+
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Finalizar compra" class="btn btn-success" />     <a class="btn btn-danger" asp-action="Index"><i class="fas fa-remove"></i> Cancelar</a>
+            </div>
+
+        </form>
+
+
     </div>
 
-    <!--muestra el total-->
-    <div class="form-group">
-        <label asp-for="total" class="control-label"></label>
-        <input asp-for="total" class="form-control" />
-        <span asp-validation-for="total" class="text-danger"></span>
-    </div>
-
-
-    <div class="form-group">
-        <input type="submit" value="Finalizar compra" class="btn btn-success" />     <a class="btn btn-danger" asp-action="Index"><i class="fas fa-remove"></i> Cancelar</a>
-    </div>
-
-    </form>
-
-
-</div>
 
 
 
 
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+       
+        
+            <script type="text/javascript">
 
-    <script type="text/javascript">
-       $(document).ready(function () {
-            $(".pago").click(function (evento) {
-
-                var valor = $(this).val();
-
-                if (valor == 'envio') {
-                    $("#div1").css("display", "block");
-                    $("#div2").css("display", "none");
-                } else {
-                    $("#div1").css("display", "none");
-                    $("#div2").css("display", "block");
-                }
-            });
-        });
+              
 
 
-        $(document).ready(function () {
-            $(".cupon").click(function (evento) {
 
-                var valor = $(this).val();
 
-                if (valor == 'si') {
-                    $("#divcupon").css("display", "block");
-                    $("#divno").css("display", "none");
-                } else {
-                    $("#divcupon").css("display", "none");
-                    $("#divno").css("display", "block");
-                }
-            });
-        });
-    </script>
-}
+                $(document).ready(function () {
+                    $(".pago").click(function (evento) {
+
+                        var valor = $(this).val();
+
+                        if (valor == 'envio') {
+                            $("#div1").css("display", "block");
+                            $("#div2").css("display", "none");
+                        } else {
+                            $("#div1").css("display", "none");
+                            $("#div2").css("display", "block");
+                        }
+                    });
+                });
+
+
+                $(document).ready(function () {
+                    $(".cupon").click(function (evento) {
+
+                        var valor = $(this).val();
+
+                        if (valor == 'si') {
+                            $("#divcupon").css("display", "block");
+                            $("#divno").css("display", "none");
+                        } else {
+                            $("#divcupon").css("display", "none");
+                            $("#divno").css("display", "block");
+                        }
+                    });
+                });
+        </script>
+    }
