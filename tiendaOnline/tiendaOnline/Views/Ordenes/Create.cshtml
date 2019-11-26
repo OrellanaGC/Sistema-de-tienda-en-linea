@@ -69,7 +69,7 @@
 
                                             @*<input type="radio" class="retirar"    checked="checked"       id="sucursal" name="envio" checked="checked" value="sucursal" data-toggle="modal" data-target="#cuadritoWapeton3" /> Recoger en la sucursal*@
                                             <label>
-                                                <p class="auto-style3"><input  name="envio" type="radio" style="width: 17px; height: 17px" data-toggle="modal" data-target="#cuadritoWapeton3" checked="checked" />Recoger en sucursal</p>
+                                                <p class="auto-style3"><input  name="envio" type="radio" style="width: 17px; height: 17px" data-toggle="modal" data-target="#cuadritoWapeton3"  />Recoger en sucursal</p>
                                             </label>
                                             <br />
 
@@ -132,15 +132,15 @@
                                                                 <span aria-hidden="true">&times;</span>
                                                                 <span class="sr-only">Close</span>
                                                             </button>
-                                                            <h4 class="modal-title" id="myModalLabel">
-                                                                Elegir surcursal
-                                                            </h4>
+                                                            <h3 class="modal-title" id="myModalLabel">
+                                                                <b> Seleccionar la sucursal adonde irá a recoger su pedido</b>
+                                                            </h3>
                                                             <!--body del popup-->
                                                             <!--para mostrarle la sucursal-->
                                                             <div class="col-md-pull-12">
-                                                              
-                                                                    <div class="panel-heading">
-                                                                        <button style="FONT-SIZE: 11pt;" type="submit" class="btn  btn-lg envio" name="pago1"  value="envio"  data-dismiss="modal">
+                                                                <br /><br />
+                                                             
+                                                                        <button style="FONT-SIZE: 11pt; border:none" type="submit" class="btn btn-default btn-lg envio" name="pago1"  value="envio"  data-dismiss="modal">
 
                                                                             @foreach (var linea in _context.Sucursal)
                                                                                 {
@@ -176,7 +176,7 @@
 
                                                                             }
                                                                             </button>
-                                                                    </div>
+                                                                   
                                                               
                                                             </div>
 
@@ -242,23 +242,22 @@
                                                                                                 <span aria-hidden="true">&times;</span>
                                                                                                 <span class="sr-only">Close</span>
                                                                                             </button>
-                                                                                            <h4 class="modal-title" id="myModalLabel">
-                                                                                                Elegir método de envío
-                                                                                            </h4>
+                                                                                            <h3 class="modal-title" id="myModalLabel"><b>
+                                                                                                Elegir dirección donde recibira el producto
+                                                                                                </b>
+                                                                                            </h3>
                                                                                             <!--body del popup-->
                                                                                             <div class="modal-body">
 
                                                                                                 <!--Aqui mandan a llamar a las direcciones-->
                                                                                                 <div class="col-md-pull-0">
-                                                                                                    <div class="panel panel-default panel-srcbox">
-                                                                                                        <div class="panel-heading">
+                                                                                                    
                                                                                                             <fieldset>
-                                                                                                                <table style="text-align:center; ">
-                                                                                                                    <tbody style="align-content:center;">
+                                                                                                                <table >
+                                                                                                                    <tbody >
 
                                                                                                                         <tr>
-                                                                                                                            <td><b>Direcciones</b></td>
-
+                                                                                                                       
                                                                                                                         </tr>
                                                                                                                         <tr>
                                                                                                                             <td>&nbsp;</td>
@@ -300,8 +299,7 @@
                                                                                                                     </tbody>
                                                                                                                 </table>
                                                                                                             </fieldset>
-                                                                                                        </div>
-                                                                                                    </div>
+                                                                                                       
                                                                                                 </div>
 
                                                                                             </div>
@@ -356,8 +354,9 @@
                                                             <div class="modal-body">
                                                                 <form role="form">
                                                                     <!--Aqui mandan a llamar a los metodos de envio-->
-                                                                    <div class="form-group">
-                                                                        <div>
+                                                                    <br />
+                                                                  <p><i>Eligue el método de envío que requieres</i></p>
+                                                                    <br />
                                                                             <table style="text-align:center;">
                                                                                 <tbody>
                                                                                     <tr >
@@ -435,7 +434,7 @@
                                     <div class="btn-group" data-toggle="buttons">
                                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
                                         <label>
-                                            <p class="auto-style3"><input class="pago" name="pago" type="radio" style="width: 17px; height: 17px" value="si" data-toggle="modal" data-target="#cuadritoWapeton1" /><span class="auto-style4"> Realizar con tarjeta</span></p>
+                                            <p class="auto-style3"><input name="pago" type="radio" style="width: 17px; height: 17px" value="si" data-toggle="modal" data-target="#cuadritoWapeton1" /><span class="auto-style4"> Realizar con tarjeta</span></p>
 
                                             @*<input type="radio" id="tarjeta" name="pago" checked="checked" value="tarjeta" data-toggle="modal" data-target="#cuadritoWapeton1" /> Realizar pago con tarjeta de crédito*@
 
@@ -491,11 +490,25 @@
                                                                                     @foreach (var linea in _context.Tarjeta)
                                                                                     {
 
-                                                                                        <tr>
-                                                                                            <td style="padding-left:15px;"> <label for="@ViewData["TarjetaID"]@linea.TarjetaID"> @Html.DisplayFor(modelItem => linea.tipoTarjeta)</label></td>
-                                                                                            <td style="padding-left:20px;"> <label for="@ViewData["TarjetaID"]@linea.TarjetaID"> @Html.DisplayFor(modelItem => linea.titularTarjeta)</label></td>
-                                                                                            <td style="padding-left:20px;"> <label for="@ViewData["TarjetaID"]@linea.TarjetaID"> @Html.DisplayFor(modelItem => linea.fechaVencimiento)</label></td>
-                                                                                        </tr>
+                                                                                    <tr>
+                                                                                      
+                                                                                        <td style="padding-left:15px;">
+                                                                                            <button type="submit" style="border:none" class="btn btn-default btn-block pago" name="pago" value="si" data-dismiss="modal">
+                                                                                                <label for="@ViewData["TarjetaID"]@linea.TarjetaID"> @Html.DisplayFor(modelItem => linea.tipoTarjeta)</label>
+                                                                                                </button>
+                                                                                        </td>
+                                                                                        <td style="padding-left:20px;">
+                                                                                            <button type="submit" style="border:none" class="btn btn-default btn-block pago" name="pago" value="si" data-dismiss="modal">
+                                                                                                <label for="@ViewData["TarjetaID"]@linea.TarjetaID"> @Html.DisplayFor(modelItem => linea.titularTarjeta)</label>
+                                                                                                </button>
+                                                                                        </td>
+                                                                                        <td style="padding-left:20px;">
+                                                                                            <button type="submit" style="border:none" class="btn btn-default btn-block pago" name="pago" value="si" data-dismiss="modal">
+                                                                                                <label for="@ViewData["TarjetaID"]@linea.TarjetaID"> @Html.DisplayFor(modelItem => linea.fechaVencimiento)</label>
+                                                                                                </button>
+                                                                                        </td>
+                                                                               
+                                                                                            </tr>
                                                                                     }
 
                                                                                 </tbody>
@@ -716,6 +729,7 @@
 
 
 @section Scripts {
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
 
