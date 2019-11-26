@@ -140,7 +140,7 @@
                                                             <div class="col-md-pull-12">
                                                               
                                                                     <div class="panel-heading">
-                                                                        <button  type="submit" class="btn btn-primary btn-lg envio" name="pago1"  value="envio"  data-dismiss="modal">
+                                                                        <button style="FONT-SIZE: 11pt;" type="submit" class="btn  btn-lg envio" name="pago1"  value="envio"  data-dismiss="modal">
 
                                                                             @foreach (var linea in _context.Sucursal)
                                                                                 {
@@ -253,8 +253,8 @@
                                                                                                     <div class="panel panel-default panel-srcbox">
                                                                                                         <div class="panel-heading">
                                                                                                             <fieldset>
-                                                                                                                <table>
-                                                                                                                    <tbody>
+                                                                                                                <table style="text-align:center; ">
+                                                                                                                    <tbody style="align-content:center;">
 
                                                                                                                         <tr>
                                                                                                                             <td><b>Direcciones</b></td>
@@ -276,9 +276,9 @@
                                                                                                                                         {
 
                                                                                                                                             <tr>
-                                                                                                                                                <td>
+                                                                                                                                                <td style="text-align:center;">
 
-                                                                                                                                                    <button type="submit" class="btn btn-primary btn-block dir" name="dir" value="direcciondelusuario" data-dismiss="modal">
+                                                                                                                                                    <button type="submit" style="border:none" class="btn btn-default btn-block dir" name="dir" value="direcciondelusuario" data-dismiss="modal">
                                                                                                                                                         <label for="@ViewData["DireccionID"]@linea.DireccionID">El Salvador, @Html.DisplayFor(modelItem => linea3.nombreDepartamento), </label>
                                                                                                                                                         <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea2.nombreMunicipio), </label>
                                                                                                                                                         <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea.direccionDetallada).</label><br />
@@ -358,36 +358,41 @@
                                                                     <!--Aqui mandan a llamar a los metodos de envio-->
                                                                     <div class="form-group">
                                                                         <div>
-                                                                            <table class="table-bordered">
+                                                                            <table style="text-align:center;">
                                                                                 <tbody>
                                                                                     <tr >
-                                                                                        <th class="col-md-3"><b>Monto extra</b></th>
-                                                                                        <th class="col-md-2"><b>Días de envío</b></th>
-                                                                                        <th class="col-md-4"><b>Nombre del intermediario</b></th>
+                                                                                        <th class="col-md-3"><b><center>Monto extra</center></b></th>
+                                                                                        <th class="col-md-2"><b><center>Días de envío</center></b></th>
+                                                                                        <th class="col-md-4"><b><center>Nombre del intermediario</center></b></th>
                                                                                     </tr>
 
 
                                                                                     @foreach (var linea in _context.MetodoEnvio)
                                                                                     {
 
-                                                                                        <tr>
+                                                                                        <tr >
                                                                                             <td class="col-md-3">
-                                                                                                <button type="submit" class="btn btn-primary btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                                <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
                                                                                                     <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> $@Html.DisplayFor(modelItem => linea.montoEnvio)</label>
                                                                                                 </button>
                                                                                             </td>
                                                                                             <td class="col-md-2">
-                                                                                                <button type="submit" class="btn btn-primary btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                                <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
                                                                                                     <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID">(@Html.DisplayFor(modelItem => linea.minDiasEnvio)</label> -
                                                                                                     <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.maxDiasEnvio) )</label>
                                                                                                 </button>
                                                                                             </td>                                                                                              
                                                                                             <td class="col-md-4">
-                                                                                                <button type="submit" class="btn btn-primary btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                                <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
                                                                                                     <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)</label>
                                                                                                 </button>
                                                                                             </td>
-</tr>
+</tr                                                                                     </tr>
+                                                                                        <tr>
+                                                                                            <td>&nbsp;</td>
+                                                                                            <td>&nbsp;</td>
+                                                                                            <td>&nbsp;</td>
+                                                                                        </tr>
                                                                                     }
                                                                                 </tbody>
                                                                             </table>
