@@ -49,7 +49,7 @@
             <div class="container">
                 <div class="col-md-pull-7">
                     @{await
-                                                              Html.RenderPartialAsync("ListaProd");
+                                                                Html.RenderPartialAsync("ListaProd");
                     }
                 </div>
             </div>
@@ -69,7 +69,7 @@
 
                                             @*<input type="radio" class="retirar"    checked="checked"       id="sucursal" name="envio" checked="checked" value="sucursal" data-toggle="modal" data-target="#cuadritoWapeton3" /> Recoger en la sucursal*@
                                             <label>
-                                                <p class="auto-style3"><input  name="envio" type="radio" style="width: 17px; height: 17px" data-toggle="modal" data-target="#cuadritoWapeton3"  />Recoger en sucursal</p>
+                                                <p class="auto-style3"><input name="envio" type="radio" style="width: 17px; height: 17px" data-toggle="modal" data-target="#cuadritoWapeton3" />Recoger en sucursal</p>
                                             </label>
                                             <br />
 
@@ -139,54 +139,54 @@
                                                             <!--para mostrarle la sucursal-->
                                                             <div class="col-md-pull-12">
                                                                 <br /><br />
-                                                             
-                                                                        <button style="FONT-SIZE: 11pt; border:none" type="submit" class="btn btn-default btn-lg envio" name="pago1"  value="envio"  data-dismiss="modal">
 
-                                                                            @foreach (var linea in _context.Sucursal)
+                                                                <button style="FONT-SIZE: 11pt; border:none" type="submit" class="btn btn-default btn-lg envio" name="pago1" value="envio" data-dismiss="modal">
+
+                                                                    @foreach (var linea in _context.Sucursal)
+                                                                    {
+
+                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal">&nbsp; @Html.DisplayFor(subcategorias => linea.nombreSucursal)</label>
+                                                                        <br />
+                                                                        @foreach (var linea2 in _context.Direccion)
+                                                                        {
+                                                                            @if (linea.SucursalID == linea2.sucursalID)
+                                                                            {
+                                                                                @foreach (var linea3 in _context.Municipio)
                                                                                 {
-                                                                                    
-                                                                                <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal">&nbsp; @Html.DisplayFor(subcategorias => linea.nombreSucursal)</label>
-                                                                                <br />
-                                                                                @foreach (var linea2 in _context.Direccion)
-                                                                                {
-                                                                                    @if (linea.SucursalID == linea2.sucursalID)
+                                                                                    @if (linea3.MunicipioID == linea2.MunicipioID)
                                                                                     {
-                                                                                        @foreach (var linea3 in _context.Municipio)
+                                                                                        @foreach (var linea4 in _context.Departamento)
                                                                                         {
-                                                                                            @if (linea3.MunicipioID == linea2.MunicipioID)
+                                                                                            @if (linea3.DepartamentoID == linea4.DepartamentoID)
                                                                                             {
-                                                                                                @foreach (var linea4 in _context.Departamento)
-                                                                                                {
-                                                                                                    @if (linea3.DepartamentoID == linea4.DepartamentoID)
-                                                                                                    {
-                                                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> &nbsp; @Html.DisplayFor(subcategorias => linea4.nombreDepartamento), </label>
-                                                                                                    }
-                                                                                                }
-                                                                                                <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea3.nombreMunicipio), </label>
+                                                                                                <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> &nbsp; @Html.DisplayFor(subcategorias => linea4.nombreDepartamento), </label>
                                                                                             }
                                                                                         }
-                                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.direccionDetallada), Código postal: </label>
-                                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.codigoPostal)</label><br />
-
-
+                                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea3.nombreMunicipio), </label>
                                                                                     }
                                                                                 }
-                                                                                <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal">@Html.DisplayFor(subcategorias => linea.horarioDeAtencion)</label>
+                                                                                <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.direccionDetallada), Código postal: </label>
+                                                                                <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.codigoPostal)</label><br />
 
 
                                                                             }
-                                                                            </button>
-                                                                   
-                                                              
+                                                                        }
+                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal">@Html.DisplayFor(subcategorias => linea.horarioDeAtencion)</label>
+
+
+                                                                    }
+                                                                </button>
+
+
                                                             </div>
 
 
                                                             <!--Fin del body del popup-->
                                                             <!-- Modal Footer -->
                                                             <div class="modal-footer">
-                                                               
-                                                                   <button    data-dismiss="modal">Cancelar</button>                                                            
-                                                             
+
+                                                                <button data-dismiss="modal">Cancelar</button>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -198,7 +198,7 @@
                                             <input type="radio" id="enviado" name="envio" value="enviado" data-toggle="modal" /> Método de envío
                                         </label>*@
                                             <label>
-                                                <p class="auto-style3"><input class="envio" name="envio"  type="radio" style="width: 17px; height: 17px" value="enviar" />&nbsp;<span class="auto-style4">Metodo de envio</span></p>
+                                                <p class="auto-style3"><input class="envio" name="envio" type="radio" style="width: 17px; height: 17px" value="enviar" />&nbsp;<span class="auto-style4">Metodo de envio</span></p>
                                             </label>
                                             <!--preguntarle q direccion elegira de enviar-->
                                             <br />
@@ -215,115 +215,113 @@
 
                                                                         <!--aqui se le debe mostrar la direccion del usuario seleccionada cuando le de guardar al popup-->
                                                                         <div class="form-group" id="diruser" style="display:none">
-                                                                            <br /><br />
+                                                                            <br />
                                                                             <p>aqui se le debe mostrar la direccion del usuario seleccionada cuando le de guardar al popup</p>
 
                                                                         </div>
-                                                                        <br />
-                                                                        <br />
+                                                                        <br /><br />
                                                                         <input type="button" id="metododeenvioseleccionado" name="metododeenvio" data-toggle="modal" data-target="#cuadritoWapeton4" value="Elegir método de envío" />
 
-                                                                        <br /> <br />
+                                                                        <br />
                                                                         <!--aqui se le debe mostrar el metodo de envio seleccionada cuando le de guardar al popup-->
                                                                         <div class="form-group" id="metuser" style="display:none">
                                                                             <p>aqui se le debe mostrar el metodo de envio seleccionada cuando le de guardar al popup</p>
 
 
-                                                                            </div>
+                                                                        </div>
 
-                                                                            <!--inicio popup de direcciones-->
-                                                                            <div class="modal fade" id="cuadritoWapeton6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                                                <div class="modal-dialog">
-                                                                                    <div class="modal-content">
-                                                                                        <!--Header del popup-->
-                                                                                        <div class="modal-header">
-                                                                                            <button type="button" class="close"
-                                                                                                    data-dismiss="modal">
-                                                                                                <span aria-hidden="true">&times;</span>
-                                                                                                <span class="sr-only">Close</span>
-                                                                                            </button>
-                                                                                            <h3 class="modal-title" id="myModalLabel"><b>
+                                                                        <!--inicio popup de direcciones-->
+                                                                        <div class="modal fade" id="cuadritoWapeton6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog">
+                                                                                <div class="modal-content">
+                                                                                    <!--Header del popup-->
+                                                                                    <div class="modal-header">
+                                                                                        <button type="button" class="close"
+                                                                                                data-dismiss="modal">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                            <span class="sr-only">Close</span>
+                                                                                        </button>
+                                                                                        <h3 class="modal-title" id="myModalLabel">
+                                                                                            <b>
                                                                                                 Elegir dirección donde recibira el producto
-                                                                                                </b>
-                                                                                            </h3>
-                                                                                            <!--body del popup-->
-                                                                                            <div class="modal-body">
+                                                                                            </b>
+                                                                                        </h3>
+                                                                                        <!--body del popup-->
+                                                                                        <div class="modal-body">
 
-                                                                                                <!--Aqui mandan a llamar a las direcciones-->
-                                                                                                <div class="col-md-pull-0">
-                                                                                                    
-                                                                                                            <fieldset>
-                                                                                                                <table >
-                                                                                                                    <tbody >
+                                                                                            <!--Aqui mandan a llamar a las direcciones-->
+                                                                                            <div class="col-md-pull-0">
 
-                                                                                                                        <tr>
-                                                                                                                       
-                                                                                                                        </tr>
-                                                                                                                        <tr>
-                                                                                                                            <td>&nbsp;</td>
+                                                                                                <fieldset>
+                                                                                                    <table>
+                                                                                                        <tbody>
 
-                                                                                                                        </tr>
-                                                                                                                        @foreach (var linea in _context.Direccion)
+                                                                                                            <tr></tr>
+                                                                                                            <tr>
+                                                                                                                <td>&nbsp;</td>
+
+                                                                                                            </tr>
+                                                                                                            @foreach (var linea in _context.Direccion)
+                                                                                                            {
+                                                                                                                @foreach (var linea2 in _context.Municipio)
+                                                                                                                {
+                                                                                                                    @if (linea.MunicipioID == linea2.MunicipioID)
+                                                                                                                    {
+                                                                                                                        @foreach (var linea3 in _context.Departamento)
                                                                                                                         {
-                                                                                                                            @foreach (var linea2 in _context.Municipio)
+                                                                                                                            @if (linea2.DepartamentoID == linea3.DepartamentoID)
                                                                                                                             {
-                                                                                                                                @if (linea.MunicipioID == linea2.MunicipioID)
-                                                                                                                                {
-                                                                                                                                    @foreach (var linea3 in _context.Departamento)
-                                                                                                                                    {
-                                                                                                                                        @if (linea2.DepartamentoID == linea3.DepartamentoID)
-                                                                                                                                        {
 
-                                                                                                                                            <tr>
-                                                                                                                                                <td style="text-align:center;">
+                                                                                                                                <tr>
+                                                                                                                                    <td style="text-align:center;">
 
-                                                                                                                                                    <button type="submit" style="border:none" class="btn btn-default btn-block dir" name="dir" value="direcciondelusuario" data-dismiss="modal">
-                                                                                                                                                        <label for="@ViewData["DireccionID"]@linea.DireccionID">El Salvador, @Html.DisplayFor(modelItem => linea3.nombreDepartamento), </label>
-                                                                                                                                                        <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea2.nombreMunicipio), </label>
-                                                                                                                                                        <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea.direccionDetallada).</label><br />
-                                                                                                                                                        <label for="@ViewData["DireccionID"]@linea.DireccionID"> Código postal: @Html.DisplayFor(modelItem => linea.codigoPostal)</label>
-                                                                                                                                                    </button>
-                                                                                                                                                </td>
+                                                                                                                                        <button type="submit" style="border:none" class="btn btn-default btn-block dir" name="dir" value="direcciondelusuario" data-dismiss="modal">
+                                                                                                                                            <label for="@ViewData["DireccionID"]@linea.DireccionID">El Salvador, @Html.DisplayFor(modelItem => linea3.nombreDepartamento), </label>
+                                                                                                                                            <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea2.nombreMunicipio), </label>
+                                                                                                                                            <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea.direccionDetallada).</label><br />
+                                                                                                                                            <label for="@ViewData["DireccionID"]@linea.DireccionID"> Código postal: @Html.DisplayFor(modelItem => linea.codigoPostal)</label>
+                                                                                                                                        </button>
+                                                                                                                                    </td>
 
-                                                                                                                                            </tr>
-                                                                                                                                            <tr>
-                                                                                                                                                <td>&nbsp;</td>
+                                                                                                                                </tr>
+                                                                                                                                <tr>
+                                                                                                                                    <td>&nbsp;</td>
 
-                                                                                                                                            </tr>
-                                                                                                                                        }
-                                                                                                                                    }
-                                                                                                                                }
+                                                                                                                                </tr>
                                                                                                                             }
-
                                                                                                                         }
-                                                                                                                    </tbody>
-                                                                                                                </table>
-                                                                                                            </fieldset>
-                                                                                                       
-                                                                                                </div>
+                                                                                                                    }
+                                                                                                                }
+
+                                                                                                            }
+                                                                                                        </tbody>
+                                                                                                    </table>
+                                                                                                </fieldset>
 
                                                                                             </div>
-                                                                                            <!--Fin del body del popup-->
-                                                                                            <!-- Modal Footer -->
-                                                                                            <div class="modal-footer">
-                                                                                                <button type="button" class="btn btn-default"
-                                                                                                        data-dismiss="modal">
-                                                                                                    Cerrar
-                                                                                                </button>
-                                                                                            </div>
+
                                                                                         </div>
-
-
-
-
+                                                                                        <!--Fin del body del popup-->
+                                                                                        <!-- Modal Footer -->
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button" class="btn btn-default"
+                                                                                                    data-dismiss="modal">
+                                                                                                Cerrar
+                                                                                            </button>
+                                                                                        </div>
                                                                                     </div>
+
+
+
+
                                                                                 </div>
                                                                             </div>
-
-                                                                            <br />
-
                                                                         </div>
+
+                                                                        <br />
+
                                                                     </div>
+                                                                </div>
                                                             </div>
                                                         </fieldset>
                                                     </div>
@@ -355,47 +353,47 @@
                                                                 <form role="form">
                                                                     <!--Aqui mandan a llamar a los metodos de envio-->
                                                                     <br />
-                                                                  <p><i>Eligue el método de envío que requieres</i></p>
+                                                                    <p><i>Eligue el método de envío que requieres</i></p>
                                                                     <br />
-                                                                            <table style="text-align:center;">
-                                                                                <tbody>
-                                                                                    <tr >
-                                                                                        <th class="col-md-3"><b><center>Monto extra</center></b></th>
-                                                                                        <th class="col-md-2"><b><center>Días de envío</center></b></th>
-                                                                                        <th class="col-md-4"><b><center>Nombre del intermediario</center></b></th>
-                                                                                    </tr>
+                                                                    <table style="text-align:center;">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <th class="col-md-3"><b><center>Monto extra</center></b></th>
+                                                                                <th class="col-md-2"><b><center>Días de envío</center></b></th>
+                                                                                <th class="col-md-4"><b><center>Nombre del intermediario</center></b></th>
+                                                                            </tr>
 
 
-                                                                                    @foreach (var linea in _context.MetodoEnvio)
-                                                                                    {
+                                                                            @foreach (var linea in _context.MetodoEnvio)
+                                                                            {
 
-                                                                                        <tr >
-                                                                                            <td class="col-md-3">
-                                                                                                <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
-                                                                                                    <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> $@Html.DisplayFor(modelItem => linea.montoEnvio)</label>
-                                                                                                </button>
-                                                                                            </td>
-                                                                                            <td class="col-md-2">
-                                                                                                <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
-                                                                                                    <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID">(@Html.DisplayFor(modelItem => linea.minDiasEnvio)</label> -
-                                                                                                    <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.maxDiasEnvio) )</label>
-                                                                                                </button>
-                                                                                            </td>                                                                                              
-                                                                                            <td class="col-md-4">
-                                                                                                <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
-                                                                                                    <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)</label>
-                                                                                                </button>
-                                                                                            </td>
-</tr                                                                                     </tr>
-                                                                                        <tr>
-                                                                                            <td>&nbsp;</td>
-                                                                                            <td>&nbsp;</td>
-                                                                                            <td>&nbsp;</td>
-                                                                                        </tr>
-                                                                                    }
-                                                                                </tbody>
-                                                                            </table>
-                                                                     
+                                                                                <tr>
+                                                                                    <td class="col-md-3">
+                                                                                        <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                            <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> $@Html.DisplayFor(modelItem => linea.montoEnvio)</label>
+                                                                                        </button>
+                                                                                    </td>
+                                                                                    <td class="col-md-2">
+                                                                                        <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                            <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID">(@Html.DisplayFor(modelItem => linea.minDiasEnvio)</label> -
+                                                                                            <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.maxDiasEnvio) )</label>
+                                                                                        </button>
+                                                                                    </td>
+                                                                                    <td class="col-md-4">
+                                                                                        <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                            <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)</label>
+                                                                                        </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>&nbsp;</td>
+                                                                                    <td>&nbsp;</td>
+                                                                                    <td>&nbsp;</td>
+                                                                                </tr>
+                                                                            }
+                                                                        </tbody>
+                                                                    </table>
+
                                                                 </form>
 
 
@@ -420,7 +418,84 @@
                         </div>
                     </div>
                 </div>
-                <br />
+            
+
+                <!--Pregunta si posee cupón el usuario-->
+                <div class="container">
+                    <div class="col-md-5">
+                        <div class="panel panel-default panel-srcbox">
+                            <div class="panel-heading">
+                                <fieldset>
+                                    <legend><b>¿Posee algún cupón?</b></legend>
+
+                                    <div class="col-lg-pull-0">
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <label>
+                                                <p class="auto-style3"><input name="cupon" type="radio" style="width: 17px; height: 17px" value="si" data-toggle="modal" data-target="#cuadritoWapeton5" /><span class="auto-style4"> Si</span></p>
+                                                @*<input type="radio" id="concupon" name="cupon" checked="checked" value="concupon" data-toggle="modal" data-target="#cuadritoWapeton5" /> Si*@
+                                            </label>
+                                            <div class="form-group" id="divsi" style="display:none">
+                                                <label class="control-label">Cupon valido o no valido de nuevo usuario</label>
+
+                                            </div>
+                                            <!--inicio popup del cupon-->
+                                            <div class="modal fade" id="cuadritoWapeton5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <!--Header del popup-->
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close"
+                                                                    data-dismiss="modal">
+                                                                <span aria-hidden="true">&times;</span>
+                                                                <span class="sr-only">Close</span>
+                                                            </button>
+                                                            <h4 class="modal-title" id="myModalLabel">
+                                                                Ingrese su cupón
+                                                            </h4>
+                                                            <!--body del popup-->
+                                                            <div class="modal-body">
+
+                                                                <!--aqui va el formulario para cupon-->
+
+                                                                <label asp-for="cupon.codigoCupon" class="control-label">Introduzca el codigo de su cupon</label>
+
+                                                                <input asp-for="cupon.codigoCupon" class="form-control" asp-items="ViewBag.cuponID" type="text" required pattern="[A-Za-z0-9]{9,15}">
+                                                                <span asp-validation-for="cupon.codigoCupon" class="text-danger"></span>
+
+                                                            </div>
+                                                        </div>
+                                                        <!--Fin del body del popup-->
+                                                        <!-- Modal Footer -->
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">
+                                                                Cerrar
+                                                            </button>
+                                                            <button type="submit" style="border:none" class="btn btn-success cupon" name="cupon" value="si" data-dismiss="modal">
+                                                                Validar
+                                                            </button>
+                                                            <br />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <label>
+                                            <p class="auto-style3"><input class="cupon" name="cupon" type="radio" style="width: 17px; height: 17px" value="no" /><span class="auto-style4"> No</span></p>
+
+                                            @*<input type="radio" id="sincupon" name="cupon" value="no" /> No*@
+                                        </label>
+                                    </div>
+
+
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            
 
 
 
@@ -462,62 +537,56 @@
                                                             <span class="sr-only">Close</span>
                                                         </button>
                                                         <h4 class="modal-title" id="myModalLabel">
-                                                            Pago con tarjeta
+                                                            Elegir tarjeta para realizar el pago
                                                         </h4>
                                                         <!--body del popup-->
                                                         <div class="modal-body">
 
                                                             <!--Aqui mandan a llamar a las tarjetas-->
                                                             <div class="col-md-pull-0">
-                                                                <div class="panel panel-default panel-srcbox">
-                                                                    <div class="panel-heading">
-                                                                        <fieldset>
-                                                                            <table>
-                                                                                <tbody>
 
-                                                                                    <tr>
-                                                                                        <td style="padding-left:15px;"><b>Tipo de tarjeta</b></td>
-                                                                                        <td style="padding-left:15px;"><b>Titular</b></td>
-                                                                                        <td style="padding-left:15px;"><b>Fecha de vencimiento</b></td>
-                                                                                    </tr>
-                                                                                    <tr>
+                                                                <fieldset>
+                                                                    <table>
+                                                                        <tbody style="text-align:center;">
 
-                                                                                        <td>&nbsp;</td>
-                                                                                        <td>&nbsp;</td>
-                                                                                        <td>&nbsp;</td>
-                                                                                    </tr>
+                                                                            <tr>
+                                                                                <td style="padding-left:15px;"><b>Tipo de tarjeta</b></td>
+                                                                                <td style="padding-left:15px;"><b>Titular</b></td>
+                                                                                <td style="padding-left:15px;"><b>Fecha de vencimiento</b></td>
+                                                                            </tr>
+                                                                            <tr>
 
-                                                                                    @foreach (var linea in _context.Tarjeta)
-                                                                                    {
+                                                                                <td>&nbsp;</td>
+                                                                                <td>&nbsp;</td>
+                                                                                <td>&nbsp;</td>
+                                                                            </tr>
 
-                                                                                    <tr>
-                                                                                      
-                                                                                        <td style="padding-left:15px;">
-                                                                                            <button type="submit" style="border:none" class="btn btn-default btn-block pago" name="pago" value="si" data-dismiss="modal">
-                                                                                                <label for="@ViewData["TarjetaID"]@linea.TarjetaID"> @Html.DisplayFor(modelItem => linea.tipoTarjeta)</label>
-                                                                                                </button>
-                                                                                        </td>
-                                                                                        <td style="padding-left:20px;">
-                                                                                            <button type="submit" style="border:none" class="btn btn-default btn-block pago" name="pago" value="si" data-dismiss="modal">
-                                                                                                <label for="@ViewData["TarjetaID"]@linea.TarjetaID"> @Html.DisplayFor(modelItem => linea.titularTarjeta)</label>
-                                                                                                </button>
-                                                                                        </td>
-                                                                                        <td style="padding-left:20px;">
-                                                                                            <button type="submit" style="border:none" class="btn btn-default btn-block pago" name="pago" value="si" data-dismiss="modal">
-                                                                                                <label for="@ViewData["TarjetaID"]@linea.TarjetaID"> @Html.DisplayFor(modelItem => linea.fechaVencimiento)</label>
-                                                                                                </button>
-                                                                                        </td>
-                                                                               
-                                                                                            </tr>
-                                                                                    }
+                                                                            @foreach (var linea in _context.Tarjeta)
+                                                                            {
 
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </fieldset>
-                                                                    </div>
-                                                                </div>
+                                                                                <tr>
+
+                                                                                    <td style="padding-left:15px;">
+                                                                                        <button type="submit" style="border:none" class="btn btn-default btn-block pago" name="pago" value="si" data-dismiss="modal">
+                                                                                            <label for="@ViewData["TarjetaID"]@linea.TarjetaID"> @Html.DisplayFor(modelItem => linea.tipoTarjeta)</label>
+                                                                                        </button>
+                                                                                    </td>
+                                                                                    <td style="padding-left:20px;">
+                                                                                        <button type="submit" style="border:none" class="btn btn-default btn-block pago" name="pago" value="si" data-dismiss="modal">
+                                                                                            <label for="@ViewData["TarjetaID"]@linea.TarjetaID"> @Html.DisplayFor(modelItem => linea.titularTarjeta)</label>
+                                                                                        </button>
+                                                                                    </td>
+                                                                                    <td style="padding-left:20px;">
+                                                                                        <button type="submit" style="border:none" class="btn btn-default btn-block pago" name="pago" value="si" data-dismiss="modal">
+                                                                                            <label for="@ViewData["TarjetaID"]@linea.TarjetaID"> @Html.DisplayFor(modelItem => linea.fechaVencimiento.Month) / @Html.DisplayFor(modelItem => linea.fechaVencimiento.Year)</label>
+                                                                                        </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            }
+                                                                        </tbody>
+                                                                    </table>
+                                                                </fieldset>
                                                             </div>
-
                                                         </div>
                                                         <!--Fin del body del popup-->
                                                         <!-- Modal Footer -->
@@ -535,7 +604,7 @@
                                             </div>
                                         </div>
                                         <label>
-                                            <p class="auto-style3"><input class="pago" name="pago" type="radio" style="width: 17px; height: 17px" value="no" data-toggle="modal" data-target="#cuadritoWapeton2" /><span class="auto-style4"> Realizar con Paypal</span></p>
+                                            <p class="auto-style3"><input name="pago" type="radio" style="width: 17px; height: 17px" value="no" data-toggle="modal" data-target="#cuadritoWapeton2" /><span class="auto-style4"> Realizar con Paypal</span></p>
 
                                             @*<input type="radio" id="paypal" name="pago" value="paypal" data-toggle="modal" data-target="#cuadritoWapeton2" />  Realizar pago con Paypal*@
 
@@ -575,6 +644,7 @@
                                                                             <input class="form-control" asp-items="ViewBag.paypalID"> <br /><br />
                                                                             <label class="control-label">Introduzca la contraseña de su cuenta de Paypal</label>
                                                                             <input type="password" class="form-control" asp-items="ViewBag.paypalID">
+
                                                                         </fieldset>
                                                                     </div>
                                                                 </div>
@@ -607,9 +677,8 @@
                                                                         <!--Fin del body del popup-->
                                                                         <!-- Modal Footer -->
                                                                         <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-default"
-                                                                                    data-dismiss="modal">
-                                                                                Continuar
+                                                                            <button type="submit" style="border:none" class="btn btn-success pago" name="pago" value="no" data-dismiss="modal">
+                                                                                Procedes a finalizar compra
                                                                             </button>
                                                                         </div>
                                                                     </div>
@@ -627,91 +696,54 @@
                         </fieldset>
                     </div>
                 </div>
-                <br />
-                <br />
-                <div class="col-md-3">
-                    <div class="panel panel-default panel-srcbox">
-                        <div class="panel-heading">
-                            <fieldset>
-                                <legend><b>¿Posee algún cupón?</b></legend>
-                                <div class="row">
-                                    <div class="col-sm-9">
-                                        <div class="btn-group" data-toggle="buttons">
-                                            <label>
-                                                <p class="auto-style3"><input class="cupon" name="cupon" type="radio" style="width: 17px; height: 17px" value="si" data-toggle="modal" data-target="#cuadritoWapeton5" /><span class="auto-style4"> Si</span></p>
-                                                @*<input type="radio" id="concupon" name="cupon" checked="checked" value="concupon" data-toggle="modal" data-target="#cuadritoWapeton5" /> Si*@
-                                            </label>
-                                            <div class="form-group" id="divsi" style="display:none">
-                                                <label class="control-label">Cupon por el monto tal valido</label>
-
-                                            </div>
-                                            <!--inicio popup del cupon-->
-                                            <div class="modal fade" id="cuadritoWapeton5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <!--Header del popup-->
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close"
-                                                                    data-dismiss="modal">
-                                                                <span aria-hidden="true">&times;</span>
-                                                                <span class="sr-only">Close</span>
-                                                            </button>
-                                                            <h4 class="modal-title" id="myModalLabel">
-                                                                Ingrese su cupón
-                                                            </h4>
-                                                            <!--body del popup-->
-                                                            <div class="modal-body">
-
-                                                                <!--aqui va el formulario para cupon-->
-
-                                                                <label asp-for="cupon.codigoCupon" class="control-label">Introduzca el codigo de su cupon</label>
-
-                                                                <input asp-for="cupon.codigoCupon" class="form-control" asp-items="ViewBag.cuponID" required="">
-                                                                <span asp-validation-for="cupon.codigoCupon" class="text-danger"></span>
-
-                                                            </div>
-                                                        </div>
-                                                        <!--Fin del body del popup-->
-                                                        <!-- Modal Footer -->
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default"
-                                                                    data-dismiss="modal">
-                                                                Cerrar
-                                                            </button>
-                                                            <input type="button" class="btn btn-default" data-toggle="modal" value="Validar" />
-
-                                                            <br />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <label>
-                                            <p class="auto-style3"><input class="cupon" name="cupon" type="radio" style="width: 17px; height: 17px" value="no" /><span class="auto-style4"> No</span></p>
-
-                                            @*<input type="radio" id="sincupon" name="cupon" value="no" /> No*@
-                                        </label>
-                                    </div>
-                                </div>
-
-                            </fieldset>
-                        </div>
-                    </div>
-                </div>
+             
             </div>
-
-
-            <br /><br /><br />
           
 
+            <table class="table table-bordered table-hover">
+                <thead style="background-color: gainsboro">
+                    <tr>
+                        <th colspan="2" class="col-md-3 text-center">Detalle de tu compra</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-            <!--muestra el total-->
-            <div class="form-group">
-                <label asp-for="total" class="control-label"></label>
-                <label asp-for="total" class="form-control" ReadOnly="readonly" />
-                <span asp-validation-for="total" class="text-danger"></span>
-            </div>
+                    <tr>
+                        <th class="col-sm-2 text-center"><b>SubTotal</b></th>
+                        <th class="col-sm-1 text-center">
+
+                            $0.00
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-2 text-center">Descuento</th>
+                        <th class="col-sm-1 text-center">
+
+                            $0.00
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-2 text-center">Descuento de cupón</th>
+                        <th class="col-sm-1 text-center">
+
+                            $0.00
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-2 text-center"><h4><b>Total</b></h4></th>
+                        <th class="col-sm-1 text-center">
+                            <label asp-for="total" class="form-control" ReadOnly="readonly" />
+                        </th>
+                    </tr>
+
+                </tbody>
+            </table>
+
+
+
+
+
+
 
 
 
