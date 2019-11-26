@@ -49,7 +49,7 @@
             <div class="container">
                 <div class="col-md-pull-7">
                     @{await
-                                                            Html.RenderPartialAsync("ListaProd");
+                                                              Html.RenderPartialAsync("ListaProd");
                     }
                 </div>
             </div>
@@ -164,8 +164,8 @@
 
 
                                             @*<label>
-                                                    <input type="radio" id="enviado" name="envio" value="enviado" data-toggle="modal" /> Método de envío
-                                                </label>*@
+                                            <input type="radio" id="enviado" name="envio" value="enviado" data-toggle="modal" /> Método de envío
+                                        </label>*@
                                             <label>
                                                 <p class="auto-style3"><input name="pago1" class="envio" type="radio" style="width: 17px; height: 17px" data-toggle="modal" value="sucursal" />&nbsp;<span class="auto-style4">Metodo de envio</span></p>
                                             </label>
@@ -611,7 +611,7 @@
                                                                 <label asp-for="cupon.codigoCupon" class="control-label">Introduzca el codigo de su cupon</label>
 
                                                                 <input asp-for="cupon.codigoCupon" class="form-control" asp-items="ViewBag.cuponID" required="">
-
+                                                                <span asp-validation-for="cupon.codigoCupon" class="text-danger"></span>
 
                                                             </div>
                                                         </div>
@@ -627,18 +627,18 @@
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    </div>
                                                 </div>
                                             </div>
-                                            <br />
-                                            <label>
-                                                <p class="auto-style3"><input class="cupon" name="cupon" type="radio" style="width: 17px; height: 17px" value="no" /><span class="auto-style4"> No</span></p>
-
-                                                @*<input type="radio" id="sincupon" name="cupon" value="no" /> No*@
-                                            </label>
                                         </div>
+                                        <br />
+                                        <label>
+                                            <p class="auto-style3"><input class="cupon" name="cupon" type="radio" style="width: 17px; height: 17px" value="no" /><span class="auto-style4"> No</span></p>
+
+                                            @*<input type="radio" id="sincupon" name="cupon" value="no" /> No*@
+                                        </label>
                                     </div>
-                               
+                                </div>
+
                             </fieldset>
                         </div>
                     </div>
@@ -648,17 +648,18 @@
 
             <br /><br /><br />
             <div class="form-group" id="divsi" style="display:none">
-                <label asp-for="cupon.codigoCupon" class="control-label">Introduzca el codigo de su cupon</label>
-                <input asp-for="cupon.codigoCupon" class="form-control" asp-items="ViewBag.cuponID">
-                <span asp-validation-for="cupon.codigoCupon" class="text-danger"></span>
+                <label class="control-label">Cupon por el monto tal valido</label>
+              
             </div>
+
 
             <!--muestra el total-->
             <div class="form-group">
                 <label asp-for="total" class="control-label"></label>
-                <input asp-for="total" class="form-control" ReadOnly="readonly" />
+                <label asp-for="total" class="form-control" ReadOnly="readonly" />
                 <span asp-validation-for="total" class="text-danger"></span>
             </div>
+
 
 
             <div class="form-group">
