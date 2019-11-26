@@ -69,7 +69,7 @@
 
                                             @*<input type="radio" class="retirar"    checked="checked"       id="sucursal" name="envio" checked="checked" value="sucursal" data-toggle="modal" data-target="#cuadritoWapeton3" /> Recoger en la sucursal*@
                                             <label>
-                                                <p class="auto-style3"><input class="envio" name="pago1" type="radio" style="width: 17px; height: 17px" value="envio" data-toggle="modal" data-target="#cuadritoWapeton3" /><span class="auto-style4">Recoger en sucursal</span></p>
+                                                <p class="auto-style3"><input  type="radio" style="width: 17px; height: 17px" value="envio" data-toggle="modal" data-target="#cuadritoWapeton3" />Recoger en sucursal</p>
                                             </label>
                                             <br />
 
@@ -77,10 +77,44 @@
 
 
                                             <!--aqui se le debe mostrar la direccion de la sucursal seleccionada cuando le de guardar al popup-->
-                                            <div class="col-md-10" id="div1" style="display:none">
+                                            <div class="col-md-pull-12" id="div1" style="display:none">
                                                 <div class="panel panel-default panel-srcbox">
                                                     <div class="panel-heading">
-                                                        <p>en esta sucursal irá a traer el producto, hay que validar q solo le aparezcan las direcciones de ese usuario</p>
+
+                                                        @foreach (var linea in _context.Sucursal)
+                                                        {
+
+                                                            <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal">&nbsp; @Html.DisplayFor(subcategorias => linea.nombreSucursal)</label>
+                                                            <br />
+                                                            @foreach (var linea2 in _context.Direccion)
+                                                            {
+                                                                @if (linea.SucursalID == linea2.sucursalID)
+                                                                {
+                                                                    @foreach (var linea3 in _context.Municipio)
+                                                                    {
+                                                                        @if (linea3.MunicipioID == linea2.MunicipioID)
+                                                                        {
+                                                                            @foreach (var linea4 in _context.Departamento)
+                                                                            {
+                                                                                @if (linea3.DepartamentoID == linea4.DepartamentoID)
+                                                                                {
+                                                                                    <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> &nbsp; @Html.DisplayFor(subcategorias => linea4.nombreDepartamento), </label>
+                                                                                }
+                                                                            }
+                                                                            <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea3.nombreMunicipio), </label>
+                                                                        }
+                                                                    }
+                                                                    <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.direccionDetallada), Código postal: </label>
+                                                                    <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.codigoPostal)</label><br />
+
+
+                                                                }
+                                                            }
+                                                            <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal"> &nbsp; @Html.DisplayFor(subcategorias => linea.horarioDeAtencion)</label>
+
+
+                                                        }
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -149,13 +183,9 @@
                                                             <!--Fin del body del popup-->
                                                             <!-- Modal Footer -->
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default"
-                                                                        data-dismiss="modal">
-                                                                    Cerrar
-                                                                </button>
-                                                                <button type="button" class="btn btn-primary">
-                                                                    Guardar
-                                                                </button>
+                                                               
+                                                                   <button class="envio" name="pago1" type="button" value="envio"    data-dismiss="modal">Guardar</button>                                                            
+                                                             
                                                             </div>
                                                         </div>
                                                     </div>
@@ -572,10 +602,12 @@
                                         <div class="btn-group" data-toggle="buttons">
                                             <label>
                                                 <p class="auto-style3"><input class="cupon" name="cupon" type="radio" style="width: 17px; height: 17px" value="si" data-toggle="modal" data-target="#cuadritoWapeton5" /><span class="auto-style4"> Si</span></p>
-
                                                 @*<input type="radio" id="concupon" name="cupon" checked="checked" value="concupon" data-toggle="modal" data-target="#cuadritoWapeton5" /> Si*@
-
                                             </label>
+                                            <div class="form-group" id="divsi" style="display:none">
+                                                <label class="control-label">Cupon por el monto tal valido</label>
+
+                                            </div>
                                             <!--inicio popup del cupon-->
                                             <div class="modal fade" id="cuadritoWapeton5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
@@ -634,10 +666,7 @@
 
 
             <br /><br /><br />
-            <div class="form-group" id="divsi" style="display:none">
-                <label class="control-label">Cupon por el monto tal valido</label>
-
-            </div>
+          
 
 
             <!--muestra el total-->
