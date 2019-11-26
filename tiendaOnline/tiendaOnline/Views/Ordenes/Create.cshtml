@@ -48,7 +48,7 @@
             <div class="container">
                 <div class="col-md-pull-7">
                     @{await
-                                                          Html.RenderPartialAsync("ListaProd");
+                                                            Html.RenderPartialAsync("ListaProd");
                     }
                 </div>
             </div>
@@ -158,7 +158,7 @@
                                             <label>
                                                 <input type="radio" id="enviado" name="envio" value="enviado" data-toggle="modal" /> Método de envío
                                             </label>
-                                           
+
 
                                             <!--preguntarle q direccion elegira de enviar-->
                                             <br />
@@ -172,7 +172,7 @@
                                                                     <div class="btn-group" data-toggle="buttons">
 
                                                                         <input type="button" id="direcciondeusuario" name="direccion" data-toggle="modal" data-target="#cuadritoWapeton6" value="Elegir dirección" />
-                                                                     
+
                                                                         <!--aqui se le debe mostrar la direccion del usuario seleccionada cuando le de guardar al popup-->
                                                                         <br /><br />
                                                                         <p>aqui se le debe mostrar la direccion del usuario seleccionada cuando le de guardar al popup</p>
@@ -548,8 +548,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    </div>
-                                </div>                           
+                                </div>
+                            </div>
                         </fieldset>
                     </div>
                 </div>
@@ -584,12 +584,12 @@
                                                             <div class="modal-body">
 
                                                                 <!--aqui va el formulario para cupon-->
-                                                               
-                                                                                <label asp-for="cupon.codigoCupon" class="control-label">Introduzca el codigo de su cupon</label>
-                                                                             
-                                                                                <input asp-for="cupon.codigoCupon" class="form-control" asp-items="ViewBag.cuponID" required="">
-                                                                             
-                                                                        
+
+                                                                <label asp-for="cupon.codigoCupon" class="control-label">Introduzca el codigo de su cupon</label>
+
+                                                                <input asp-for="cupon.codigoCupon" class="form-control" asp-items="ViewBag.cuponID" required="">
+
+
                                                             </div>
                                                         </div>
                                                         <!--Fin del body del popup-->
@@ -600,7 +600,7 @@
                                                                 Cerrar
                                                             </button>
                                                             <input type="button" class="btn btn-default" data-toggle="modal" value="Validar" />
-                                                           
+
                                                             <br />
                                                         </div>
                                                     </div>
@@ -618,16 +618,16 @@
                     </div>
                 </div>
             </div>
-          
+
             <br /><br /><br />
-          
+
             <!--muestra el total-->
             <div class="form-group">
                 <label asp-for="total" class="control-label"></label>
-                <input asp-for="total" class="form-control" ReadOnly="readonly" />
+                <label asp-for="total" class="form-control" ReadOnly="readonly" />
                 <span asp-validation-for="total" class="text-danger"></span>
             </div>
-
+           
 
             <div class="form-group">
                 <input type="submit" value="Finalizar compra" class="btn btn-success" />     <a class="btn btn-danger" asp-action="Index"><i class="fas fa-remove"></i> Cancelar</a>
