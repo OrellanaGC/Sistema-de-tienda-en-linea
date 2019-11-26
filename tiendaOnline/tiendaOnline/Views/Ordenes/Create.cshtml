@@ -304,43 +304,38 @@
                                                             </h4>
                                                             <!--body del popup-->
                                                             <div class="modal-body">
-
-                                                                <!--Aqui mandan a llamar a los metodos de envio-->
-                                                                <div class="col-md-pull-0">
-                                                                    <div class="panel panel-default panel-srcbox">
-                                                                        <div class="panel-heading">
-                                                                            <fieldset>
-                                                                                <table>
-                                                                                    <tbody>
-
-                                                                                        <tr>
-                                                                                            <td style="padding-left:15px;"><b>Monto extra</b></td>
-                                                                                            <td colspan="2" style="padding-left:15px;"><b>&nbsp;Días de envío</b></td>
-                                                                                            <td style="padding-left:15px;"><b>Nombre del intermediario</b></td>
+                                                                <form role="form">
+                                                                    <!--Aqui mandan a llamar a los metodos de envio-->
+                                                                    <div class="form-group">
+                                                                        <div>
+                                                                            <table class="table-bordered">
+                                                                                <thead>
+                                                                                    <tr class="row">
+                                                                                        <th class="col-md-3"><b>Monto extra</b></th>
+                                                                                        <th class="col-md-2" ><b>Días de envío</b></th>
+                                                                                        <th class="col-md-4"><b>Nombre del intermediario</b></th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    @foreach (var linea in _context.MetodoEnvio)
+                                                                                    {
+                                                                                        
+                                                                                        <tr class="row">
+                                                                                            <td class="col-md-3"><input type="radio" name="envio" /> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> $@Html.DisplayFor(modelItem => linea.montoEnvio)</label></td>
+                                                                                            <td class="col-md-2">
+                                                                                                <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID">(@Html.DisplayFor(modelItem => linea.minDiasEnvio)</label> -
+                                                                                                <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.maxDiasEnvio) )</label>
+                                                                                            </td>
+                                                                                            <td class="col-md-4"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)</label></td>
                                                                                         </tr>
-                                                                                        <tr>
-                                                                                            <td>&nbsp;</td>
-                                                                                            <td>&nbsp;</td>
-                                                                                            <td>&nbsp;</td>
-                                                                                            <td>&nbsp;</td>
-                                                                                        </tr>
-                                                                                        @foreach (var linea in _context.MetodoEnvio)
-                                                                                        {
-
-                                                                                            <tr>
-                                                                                                <td style="padding-left:15px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> $@Html.DisplayFor(modelItem => linea.montoEnvio)</label></td>
-                                                                                                <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID">( @Html.DisplayFor(modelItem => linea.minDiasEnvio)</label> &nbsp; &nbsp; &nbsp; - </td>
-                                                                                                <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.maxDiasEnvio) )</label></td>
-                                                                                                <td style="padding-left:20px;"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)</label></td>
-                                                                                            </tr>
-                                                                                        }
-
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </fieldset>
+                                                                                    }
+                                                                                </tbody>
+                                                                            </table>                                                                            
                                                                         </div>
+                                                                        <input class="btn btn-primary" type="submit" value="Aceptar"/>
                                                                     </div>
-                                                                </div>
+                                                                </form>
+                                                                
 
                                                             </div>
                                                             <!--Fin del body del popup-->
@@ -349,10 +344,7 @@
                                                                 <button type="button" class="btn btn-default"
                                                                         data-dismiss="modal">
                                                                     Cerrar
-                                                                </button>
-                                                                <button type="button" class="btn btn-primary">
-                                                                    Guardar
-                                                                </button>
+                                                                </button>                                       
                                                             </div>
                                                         </div>
 
