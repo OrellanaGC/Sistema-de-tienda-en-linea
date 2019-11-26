@@ -69,7 +69,7 @@
 
                                             @*<input type="radio" class="retirar"    checked="checked"       id="sucursal" name="envio" checked="checked" value="sucursal" data-toggle="modal" data-target="#cuadritoWapeton3" /> Recoger en la sucursal*@
                                             <label>
-                                                <p class="auto-style3"><input  type="radio" style="width: 17px; height: 17px" value="envio" data-toggle="modal" data-target="#cuadritoWapeton3" />Recoger en sucursal</p>
+                                                <p class="auto-style3"><input  name="envio" type="radio" style="width: 17px; height: 17px" data-toggle="modal" data-target="#cuadritoWapeton3" checked="checked" />Recoger en sucursal</p>
                                             </label>
                                             <br />
 
@@ -122,8 +122,8 @@
                                             <br />
 
                                             <!--Popup para seleccion de sucursal-->
-                                            <div class="modal fade" id="cuadritoWapeton3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
+                                            <div class="modal fade " id="cuadritoWapeton3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg modal-dialog-centered">
                                                     <div class="modal-content">
                                                         <!--Header del popup-->
                                                         <div class="modal-header">
@@ -138,45 +138,46 @@
                                                             <!--body del popup-->
                                                             <!--para mostrarle la sucursal-->
                                                             <div class="col-md-pull-12">
-                                                                <div class="panel panel-default panel-srcbox">
+                                                              
                                                                     <div class="panel-heading">
+                                                                        <button  type="submit" class="btn btn-primary btn-lg envio" name="pago1"  value="envio"  data-dismiss="modal">
 
-                                                                        @foreach (var linea in _context.Sucursal)
-                                                                        {
-
-                                                                            <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal">&nbsp; @Html.DisplayFor(subcategorias => linea.nombreSucursal)</label>
-                                                                            <br />
-                                                                            @foreach (var linea2 in _context.Direccion)
-                                                                            {
-                                                                                @if (linea.SucursalID == linea2.sucursalID)
+                                                                            @foreach (var linea in _context.Sucursal)
                                                                                 {
-                                                                                    @foreach (var linea3 in _context.Municipio)
+                                                                                    
+                                                                                <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal">&nbsp; @Html.DisplayFor(subcategorias => linea.nombreSucursal)</label>
+                                                                                <br />
+                                                                                @foreach (var linea2 in _context.Direccion)
+                                                                                {
+                                                                                    @if (linea.SucursalID == linea2.sucursalID)
                                                                                     {
-                                                                                        @if (linea3.MunicipioID == linea2.MunicipioID)
+                                                                                        @foreach (var linea3 in _context.Municipio)
                                                                                         {
-                                                                                            @foreach (var linea4 in _context.Departamento)
+                                                                                            @if (linea3.MunicipioID == linea2.MunicipioID)
                                                                                             {
-                                                                                                @if (linea3.DepartamentoID == linea4.DepartamentoID)
+                                                                                                @foreach (var linea4 in _context.Departamento)
                                                                                                 {
-                                                                                                    <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> &nbsp; @Html.DisplayFor(subcategorias => linea4.nombreDepartamento), </label>
+                                                                                                    @if (linea3.DepartamentoID == linea4.DepartamentoID)
+                                                                                                    {
+                                                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> &nbsp; @Html.DisplayFor(subcategorias => linea4.nombreDepartamento), </label>
+                                                                                                    }
                                                                                                 }
+                                                                                                <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea3.nombreMunicipio), </label>
                                                                                             }
-                                                                                            <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea3.nombreMunicipio), </label>
                                                                                         }
+                                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.direccionDetallada), Código postal: </label>
+                                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.codigoPostal)</label><br />
+
+
                                                                                     }
-                                                                                    <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.direccionDetallada), Código postal: </label>
-                                                                                    <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.codigoPostal)</label><br />
-
-
                                                                                 }
+                                                                                <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal">@Html.DisplayFor(subcategorias => linea.horarioDeAtencion)</label>
+
+
                                                                             }
-                                                                            <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal"> &nbsp; @Html.DisplayFor(subcategorias => linea.horarioDeAtencion)</label>
-
-
-                                                                        }
-
+                                                                            </button>
                                                                     </div>
-                                                                </div>
+                                                              
                                                             </div>
 
 
@@ -184,7 +185,7 @@
                                                             <!-- Modal Footer -->
                                                             <div class="modal-footer">
                                                                
-                                                                   <button class="envio" name="pago1" type="button" value="envio"    data-dismiss="modal">Guardar</button>                                                            
+                                                                   <button    data-dismiss="modal">Cancelar</button>                                                            
                                                              
                                                             </div>
                                                         </div>
@@ -197,7 +198,7 @@
                                             <input type="radio" id="enviado" name="envio" value="enviado" data-toggle="modal" /> Método de envío
                                         </label>*@
                                             <label>
-                                                <p class="auto-style3"><input name="pago1" class="envio" type="radio" style="width: 17px; height: 17px" data-toggle="modal" value="sucursal" />&nbsp;<span class="auto-style4">Metodo de envio</span></p>
+                                                <p class="auto-style3"><input class="envio" name="envio"  type="radio" style="width: 17px; height: 17px" value="enviar" />&nbsp;<span class="auto-style4">Metodo de envio</span></p>
                                             </label>
                                             <!--preguntarle q direccion elegira de enviar-->
                                             <br />
@@ -213,108 +214,118 @@
                                                                         <input type="button" id="direcciondeusuario" name="direccion" data-toggle="modal" data-target="#cuadritoWapeton6" value="Elegir dirección" />
 
                                                                         <!--aqui se le debe mostrar la direccion del usuario seleccionada cuando le de guardar al popup-->
-                                                                        <br /><br />
-                                                                        <p>aqui se le debe mostrar la direccion del usuario seleccionada cuando le de guardar al popup</p>
+                                                                        <div class="form-group" id="diruser" style="display:none">
+                                                                            <br /><br />
+                                                                            <p>aqui se le debe mostrar la direccion del usuario seleccionada cuando le de guardar al popup</p>
+
+                                                                        </div>
+                                                                        <br />
                                                                         <br />
                                                                         <input type="button" id="metododeenvioseleccionado" name="metododeenvio" data-toggle="modal" data-target="#cuadritoWapeton4" value="Elegir método de envío" />
 
                                                                         <br /> <br />
                                                                         <!--aqui se le debe mostrar el metodo de envio seleccionada cuando le de guardar al popup-->
-
-                                                                        <p>aqui se le debe mostrar el metodo de envio seleccionada cuando le de guardar al popup</p>
-
-
+                                                                        <div class="form-group" id="metuser" style="display:none">
+                                                                            <p>aqui se le debe mostrar el metodo de envio seleccionada cuando le de guardar al popup</p>
 
 
-                                                                        <!--inicio popup de direcciones-->
-                                                                        <div class="modal fade" id="cuadritoWapeton6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                                            <div class="modal-dialog">
-                                                                                <div class="modal-content">
-                                                                                    <!--Header del popup-->
-                                                                                    <div class="modal-header">
-                                                                                        <button type="button" class="close"
-                                                                                                data-dismiss="modal">
-                                                                                            <span aria-hidden="true">&times;</span>
-                                                                                            <span class="sr-only">Close</span>
-                                                                                        </button>
-                                                                                        <h4 class="modal-title" id="myModalLabel">
-                                                                                            Elegir método de envío
-                                                                                        </h4>
-                                                                                        <!--body del popup-->
-                                                                                        <div class="modal-body">
+                                                                            </div>
 
-                                                                                            <!--Aqui mandan a llamar a las direcciones-->
-                                                                                            <div class="col-md-pull-0">
-                                                                                                <div class="panel panel-default panel-srcbox">
-                                                                                                    <div class="panel-heading">
-                                                                                                        <fieldset>
-                                                                                                            <table>
-                                                                                                                <tbody>
+                                                                            <!--inicio popup de direcciones-->
+                                                                            <div class="modal fade" id="cuadritoWapeton6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog">
+                                                                                    <div class="modal-content">
+                                                                                        <!--Header del popup-->
+                                                                                        <div class="modal-header">
+                                                                                            <button type="button" class="close"
+                                                                                                    data-dismiss="modal">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                                <span class="sr-only">Close</span>
+                                                                                            </button>
+                                                                                            <h4 class="modal-title" id="myModalLabel">
+                                                                                                Elegir método de envío
+                                                                                            </h4>
+                                                                                            <!--body del popup-->
+                                                                                            <div class="modal-body">
 
-                                                                                                                    <tr>
-                                                                                                                        <td><b>Direcciones</b></td>
+                                                                                                <!--Aqui mandan a llamar a las direcciones-->
+                                                                                                <div class="col-md-pull-0">
+                                                                                                    <div class="panel panel-default panel-srcbox">
+                                                                                                        <div class="panel-heading">
+                                                                                                            <fieldset>
+                                                                                                                <table>
+                                                                                                                    <tbody>
 
-                                                                                                                    </tr>
-                                                                                                                    <tr>
-                                                                                                                        <td>&nbsp;</td>
+                                                                                                                        <tr>
+                                                                                                                            <td><b>Direcciones</b></td>
 
-                                                                                                                    </tr>
-                                                                                                                    @foreach (var linea in _context.Direccion)
-                                                                                                                    {
-                                                                                                                        @foreach (var linea2 in _context.Municipio)
+                                                                                                                        </tr>
+                                                                                                                        <tr>
+                                                                                                                            <td>&nbsp;</td>
+
+                                                                                                                        </tr>
+                                                                                                                        @foreach (var linea in _context.Direccion)
                                                                                                                         {
-                                                                                                                            @if (linea.MunicipioID == linea2.MunicipioID)
+                                                                                                                            @foreach (var linea2 in _context.Municipio)
                                                                                                                             {
-                                                                                                                                @foreach (var linea3 in _context.Departamento)
+                                                                                                                                @if (linea.MunicipioID == linea2.MunicipioID)
                                                                                                                                 {
-                                                                                                                                    @if (linea2.DepartamentoID == linea3.DepartamentoID)
+                                                                                                                                    @foreach (var linea3 in _context.Departamento)
                                                                                                                                     {
+                                                                                                                                        @if (linea2.DepartamentoID == linea3.DepartamentoID)
+                                                                                                                                        {
 
-                                                                                                                                        <tr>
-                                                                                                                                            <td>
-                                                                                                                                                <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea3.nombreDepartamento), </label>
+                                                                                                                                            <tr>
+                                                                                                                                                <td>
 
-                                                                                                                                                <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea2.nombreMunicipio), </label>
-                                                                                                                                                <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea.direccionDetallada).<br /></label>
-                                                                                                                                                <label for="@ViewData["DireccionID"]@linea.DireccionID">Código postal: @Html.DisplayFor(modelItem => linea.codigoPostal)</label>
+                                                                                                                                                    <button type="submit" class="btn btn-primary btn-block dir" name="dir" value="direcciondelusuario" data-dismiss="modal">
+                                                                                                                                                        <label for="@ViewData["DireccionID"]@linea.DireccionID">El Salvador, @Html.DisplayFor(modelItem => linea3.nombreDepartamento), </label>
+                                                                                                                                                        <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea2.nombreMunicipio), </label>
+                                                                                                                                                        <label for="@ViewData["DireccionID"]@linea.DireccionID">@Html.DisplayFor(modelItem => linea.direccionDetallada).</label><br />
+                                                                                                                                                        <label for="@ViewData["DireccionID"]@linea.DireccionID"> Código postal: @Html.DisplayFor(modelItem => linea.codigoPostal)</label>
+                                                                                                                                                    </button>
+                                                                                                                                                </td>
 
-                                                                                                                                            </td>
-                                                                                                                                        </tr>
+                                                                                                                                            </tr>
+                                                                                                                                            <tr>
+                                                                                                                                                <td>&nbsp;</td>
+
+                                                                                                                                            </tr>
+                                                                                                                                        }
                                                                                                                                     }
                                                                                                                                 }
                                                                                                                             }
-                                                                                                                        }
 
-                                                                                                                    }
-                                                                                                                </tbody>
-                                                                                                            </table>
-                                                                                                        </fieldset>
+                                                                                                                        }
+                                                                                                                    </tbody>
+                                                                                                                </table>
+                                                                                                            </fieldset>
+                                                                                                        </div>
                                                                                                     </div>
                                                                                                 </div>
+
                                                                                             </div>
+                                                                                            <!--Fin del body del popup-->
+                                                                                            <!-- Modal Footer -->
+                                                                                            <div class="modal-footer">
+                                                                                                <button type="button" class="btn btn-default"
+                                                                                                        data-dismiss="modal">
+                                                                                                    Cerrar
+                                                                                                </button>
+                                                                                            </div>
+                                                                                        </div>
 
-                                                                                        </div>
-                                                                                        <!--Fin del body del popup-->
-                                                                                        <!-- Modal Footer -->
-                                                                                        <div class="modal-footer">
-                                                                                            <button type="button" class="btn btn-default"
-                                                                                                    data-dismiss="modal">
-                                                                                                Cerrar
-                                                                                            </button>
-                                                                                            <button type="button" class="btn btn-primary">
-                                                                                                Guardar
-                                                                                            </button>
-                                                                                        </div>
+
+
+
                                                                                     </div>
-
                                                                                 </div>
                                                                             </div>
+
+                                                                            <br />
+
                                                                         </div>
-
-                                                                        <br />
-
                                                                     </div>
-                                                                </div>
                                                             </div>
                                                         </fieldset>
                                                     </div>
@@ -348,31 +359,39 @@
                                                                     <div class="form-group">
                                                                         <div>
                                                                             <table class="table-bordered">
-                                                                                <thead>
-                                                                                    <tr class="row">
+                                                                                <tbody>
+                                                                                    <tr >
                                                                                         <th class="col-md-3"><b>Monto extra</b></th>
-                                                                                        <th class="col-md-2" ><b>Días de envío</b></th>
+                                                                                        <th class="col-md-2"><b>Días de envío</b></th>
                                                                                         <th class="col-md-4"><b>Nombre del intermediario</b></th>
                                                                                     </tr>
-                                                                                </thead>
-                                                                                <tbody>
+
+
                                                                                     @foreach (var linea in _context.MetodoEnvio)
                                                                                     {
 
-                                                                                        <tr class="row">
-                                                                                            <td class="col-md-3"><input type="radio" name="envio" /> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> $@Html.DisplayFor(modelItem => linea.montoEnvio)</label></td>
-                                                                                            <td class="col-md-2">
-                                                                                                <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID">(@Html.DisplayFor(modelItem => linea.minDiasEnvio)</label> -
-                                                                                                <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.maxDiasEnvio) )</label>
+                                                                                        <tr>
+                                                                                            <td class="col-md-3">
+                                                                                                <button type="submit" class="btn btn-primary btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                                    <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> $@Html.DisplayFor(modelItem => linea.montoEnvio)</label>
+                                                                                                </button>
                                                                                             </td>
-                                                                                            <td class="col-md-4"> <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)</label></td>
-                                                                                        </tr>
+                                                                                            <td class="col-md-2">
+                                                                                                <button type="submit" class="btn btn-primary btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                                    <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID">(@Html.DisplayFor(modelItem => linea.minDiasEnvio)</label> -
+                                                                                                    <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.maxDiasEnvio) )</label>
+                                                                                                </button>
+                                                                                            </td>                                                                                              
+                                                                                            <td class="col-md-4">
+                                                                                                <button type="submit" class="btn btn-primary btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                                    <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)</label>
+                                                                                                </button>
+                                                                                            </td>
+</tr>
                                                                                     }
                                                                                 </tbody>
                                                                             </table>
-                                                                        </div>
-                                                                        <input class="btn btn-primary" type="submit" value="Aceptar"/>
-                                                                    </div>
+                                                                     
                                                                 </form>
 
 
@@ -740,6 +759,33 @@
                 } else {
                     $("#divsi").css("display", "none");
                     $("#divno").css("display", "block");
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $(".dir").click(function (evento) {
+
+                var valor = $(this).val();
+
+                if (valor == 'direcciondelusuario') {
+                    $("#diruser").css("display", "block");                 
+                } else {                  
+                    $("#diruser").css("display", "none");
+                }
+            });
+        });
+
+
+        $(document).ready(function () {
+            $(".met").click(function (evento) {
+
+                var valor = $(this).val();
+
+                if (valor == 'metusuario') {
+                    $("#metuser").css("display", "block");
+                } else {
+                    $("#metuser").css("display", "none");
                 }
             });
         });
