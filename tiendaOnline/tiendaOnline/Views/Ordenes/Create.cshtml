@@ -606,22 +606,27 @@
                                                             <!--body del popup-->
                                                             <div class="modal-body">
 
-                                                                <!--aqui va el formulario para paypal-->
-                                                                <p>No tenes cupones :v ni modo asi es la life</p>
+                                                                <!--aqui va el formulario para cupon-->
+
+                                                                <label asp-for="cupon.codigoCupon" class="control-label">Introduzca el codigo de su cupon</label>
+
+                                                                <input asp-for="cupon.codigoCupon" class="form-control" asp-items="ViewBag.cuponID" required="">
+
 
                                                             </div>
-                                                            <!--Fin del body del popup-->
-                                                            <!-- Modal Footer -->
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default"
-                                                                        data-dismiss="modal">
-                                                                    Cerrar
-                                                                </button>
-                                                                <button type="button" class="btn btn-primary">
-                                                                    Guardar
-                                                                </button>
-                                                            </div>
                                                         </div>
+                                                        <!--Fin del body del popup-->
+                                                        <!-- Modal Footer -->
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">
+                                                                Cerrar
+                                                            </button>
+                                                            <button type="button" class="btn btn-primary">
+                                                                Guardar
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -633,7 +638,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                </div>
+                               
                             </fieldset>
                         </div>
                     </div>
