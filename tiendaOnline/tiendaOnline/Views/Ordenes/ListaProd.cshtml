@@ -4,6 +4,9 @@
 
 @inject UserManager<tiendaOnlineUser> UserManager
 @inject ApplicationDbContext _context
+
+
+@{ var desc = false; var precios = 0.00; }
 <table class="table table-bordered table-hover table-wrapper-scroll-y my-custom-scrollbar">
 
     <thead style="background-color: gainsboro" class="row">
@@ -16,38 +19,58 @@
         </tr>
     </thead>
 
-        @foreach (var idk in _context.Carrito)
+    @foreach (var idk in _context.Carrito)
+    {
+        if (idk.tiendaOnlineUserID == UserManager.GetUserId(User))
         {
-            if (idk.tiendaOnlineUserID == UserManager.GetUserId(User))
+            @foreach (var prod in _context.ProdCarrito)
             {
-                @foreach(var prod in _context.ProdCarrito)
+                if (prod.CarritoID == idk.CarritoID && prod.IsSelected == true)
                 {
-                    if(prod.CarritoID == idk.CarritoID && prod.IsSelected == true)
+                    @foreach (var producto in _context.Producto)
                     {
-                        @foreach(var producto in _context.Producto)
+                        if (producto.ProductoID == prod.productoID)
                         {
-                            if(producto.ProductoID == prod.productoID)
-                            {
-                                <tr>
-       
-                                    <td class="col-md-1 text-center">
-                                        <img class="zoom" height=90px width=100px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />     
+                            <tr>
+
+                                <td class="col-md-1 text-center">
+                                    <img class="zoom" height=90px width=100px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
+                                </td>
+                                <td class="col-md-2 text-center"><br /><b>@Html.DisplayFor(modelItem => producto.NombreProducto)</b></td>
+                                <td class="col-md-1 text-center"><br />@Html.DisplayFor(modelItem => prod.cantidadProducto)</td>
+                                 @*aplicando el descuento*@
+                                    @{var descuentos = _context.Descuento.SingleOrDefault(d => d.ProductoID == producto.ProductoID);}
+                                        @if (descuentos.EstaActivo == true)
+                                        {
+                                            desc = true;
+                                            precios = descuentos.PrecioConDesc;
+                                        }
+                                        else
+                                        {
+                                            desc = false;
+                                            precios = producto.PrecioUnitario;
+                                        }
+
+                                <td class="col-md-1 text-center">
+                                    @if (desc)
+                                    {
+                                        <div style="text-decoration:line-through">  $@(producto.PrecioUnitario)</div>
+                                    }
+                                    <i>$@precios</i>
+                                </td>
+                                <td class="col-md-1 text-center">
+                                    <br />
+                                   
+                                        @((prod.cantidadProducto * precios).ToString("c"))
                                     </td>
-                                    <td class="col-md-2 text-center"><br /><b>@Html.DisplayFor(modelItem => producto.NombreProducto)</b></td>
-                                    <td class="col-md-1 text-center"><br />@Html.DisplayFor(modelItem => prod.cantidadProducto)</td>         
-                                    <td class="col-md-1 text-center"><i><br />$@Html.DisplayFor(modelItem => producto.PrecioUnitario)</i></td>
-                                    <td class="col-md-1 text-center">
-                                        <br />
-                                        @((prod.cantidadProducto * producto.PrecioUnitario).ToString("c"))
-                                    </td>
-                                 </tr>
-                            }
+                            </tr>
                         }
                     }
                 }
-
             }
+
         }
+    }
 </table>
 
 
