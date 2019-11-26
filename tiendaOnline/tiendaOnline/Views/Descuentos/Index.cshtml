@@ -6,14 +6,17 @@
 
 <h2>Index</h2>
 
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>*@
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NombreDelDescuento)
+                Estado
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.producto)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TipoDeDescuento)
@@ -24,35 +27,67 @@
             <th>
                 @Html.DisplayNameFor(model => model.PrecioConDesc)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.producto)
-            </th>
+
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+
             <td>
-                @Html.DisplayFor(modelItem => item.NombreDelDescuento)
+                <label class="list-inline">
+                    <!--Activa/Desactiva los descuentos-->
+                    @if (item.EstaActivo == true)
+                    {
+                        <p class="button">
+                            <a class="btn btn-danger" id="Activar"
+                               asp-controller="Descuentos"
+                               asp-action="ActivarDescuento"
+                               asp-route-id="@item.DescuentoID">
+                                Desactivar
+                            </a>
+                        </p>
+                    }
+                    else
+                    {
+                        <div class="button">
+                            <a class="btn btn-success" id="Activar"
+                               asp-action="Edit" asp-route-id="@item.DescuentoID">
+                                Activar
+                            </a>
+                        </div>
+                    }
+                </label>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TipoDeDescuento)
+                <h5>@Html.DisplayFor(modelItem => item.producto.NombreProducto)</h5>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MontoDeDescuento)
+                @if (item.TipoDeDescuento == true)
+                {
+                    <h5>Por Porcentaje</h5>
+                }
+                else
+                {
+                    <h5>Por Cantidad</h5>
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PrecioConDesc)
+                @if (item.TipoDeDescuento == true)
+                {
+                    <h5>@Html.DisplayFor(modelItem => item.MontoDeDescuento)%</h5>
+                }
+                else
+                {
+                    <h5>@Html.DisplayFor(modelItem => item.MontoDeDescuento)</h5>
+                }
+
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.producto.Codigo)
+                <h5> @Html.DisplayFor(modelItem => item.PrecioConDesc)</h5>
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.DescuentoID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.DescuentoID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.DescuentoID">Delete</a>
-            </td>
+
         </tr>
 }
     </tbody>

@@ -184,24 +184,21 @@ namespace tiendaOnline.Models
             {
                 if (producto.CarritoID == CarritoID && producto.IsSelected == true)
                 {
-                    foreach(var descuento in _ApplicationDbContext.Descuento)
-                    {
-                        if(descuento.ProductoID == producto.productoID)
-                        {
-                            tieneDesc = true;
-                            //usar precio de descuento
-                            total = total + (descuento.PrecioConDesc * producto.cantidadProducto);
-                        }
-                        
-                    }
-                    if (tieneDesc == false)
-                    {
-                            //precio total sin descuento
-                            total = total + (producto.producto.PrecioUnitario * producto.cantidadProducto);   
-                    }
+                    var desc = _ApplicationDbContext.Descuento.SingleOrDefault(d => d.ProductoID == producto.productoID);
 
-                    
+                    //usar precio de descuento
+                    if (desc.EstaActivo == true)
+                    {
+                        total = total + (desc.PrecioConDesc * producto.cantidadProducto);
+                    }
+                    else
+                    {
+                        //precio total sin descuento
+                        total = total + (producto.producto.PrecioUnitario * producto.cantidadProducto);
+                    }
                 }
+
+
             }
 
             return total;

@@ -156,7 +156,7 @@ namespace tiendaOnline.Controllers
                 //setzy codiguito wapo
                 producto.Codigo = randomStr;
 
-
+                
 
 
 
@@ -165,6 +165,18 @@ namespace tiendaOnline.Controllers
                 var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
                 producto.detalleVendedorID = vendedor.DetalleVendedorID;
                 _context.Add(producto);
+                //crea un descuento para cada producto
+                var descuento = new Descuento()
+                {
+                    EstaActivo = false,
+                    NombreDelDescuento = "",
+                    MontoDeDescuento = 0,
+                    TipoDeDescuento = true,
+                    PrecioConDesc = 0,
+                    ProductoID = producto.ProductoID
+                };
+                _context.Add(descuento);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Create", "DetalleProductos");
 

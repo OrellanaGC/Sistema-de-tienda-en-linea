@@ -30,7 +30,7 @@
 <h4>Aqui estan los productos que has agregado que esperas a comprarlos!</h4><br />
 
 @*cuenta cuantos productos seleccionados hay y para aplicar los descuentos*@
-@{ var prodSelect = 0; var precios = 0.0; var desc = false; var subtotal = 0.00; var descuentos = 0.00; }
+@{ var prodSelect = 0; var precios = 0.0; var desc = false; var subtotal = 0.00; }
 
 <!--Lado izquierdo-->
 <aside class="col-md-9">
@@ -57,23 +57,18 @@
                             .Select(c => c.producto.PrecioUnitario * c.cantidadProducto).Sum();
 
                 @*aplicando el descuento*@
-                @foreach (var precio in _context.Descuento)
+                var descuentos = _context.Descuento.SingleOrDefault(d => d.ProductoID == linea.productoID);
+                if ( descuentos.EstaActivo == true)
                 {
-                    if (precio.ProductoID == linea.productoID && precio.MontoDeDescuento>0)
-                    {
-                        desc = true;
-                        precios = precio.PrecioConDesc;
-                    }
-                    else
-                    {
-                        desc = false;
-                    }
-
+                    desc = true;
+                    precios = descuentos.PrecioConDesc;
                 }
-                if (desc == false)
+                else
                 {
+                    desc = false;
                     precios = linea.producto.PrecioUnitario;
                 }
+               
                 <tr>
                     <!--Con esta linea selecciona los que desea comprar ahorita es una PRUEBA-->
                     <td class="col-md-1 text-center">
@@ -150,9 +145,9 @@
                 <tr>
                     <th class="col-sm-2 text-center">Descuento</th>
                     <th class="col-sm-1 text-center">
-                        @{descuentos = subtotal - Model.TotalCarrito;}
+                        @{var descuento = subtotal - Model.TotalCarrito;}
 
-                        $@descuentos  
+                        $@descuento  
                     </th>
                 </tr>
                 <tr>

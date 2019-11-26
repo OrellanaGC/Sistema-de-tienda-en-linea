@@ -113,6 +113,24 @@ namespace tiendaOnline.Controllers
             {
                 return NotFound();
             }
+            double desc = descuento.MontoDeDescuento;
+            descuento.EstaActivo = true;
+            foreach (var producto in _context.Producto)
+            {
+                if (descuento.ProductoID == producto.ProductoID)
+                {
+                    if (descuento.TipoDeDescuento == true)
+                    {
+
+                        descuento.PrecioConDesc = producto.PrecioUnitario * (1 - (desc * 0.01));
+                    }
+                    else
+                    {
+                        descuento.PrecioConDesc = producto.PrecioUnitario - desc;
+                    }
+                }
+
+            }
 
             if (ModelState.IsValid)
             {
@@ -138,6 +156,18 @@ namespace tiendaOnline.Controllers
             return View(descuento);
         }
 
+        
+        //Para Desactivar desde el index
+        public async Task<RedirectToActionResult> ActivarDescuento(int id)
+        {
+            var descSeleccionado = _context.Descuento.FirstOrDefault(d => d.DescuentoID == id);
+
+                descSeleccionado.EstaActivo = false;
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            
+        }
+
         // GET: Descuentos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -156,6 +186,8 @@ namespace tiendaOnline.Controllers
 
             return View(descuento);
         }
+
+
 
         // POST: Descuentos/Delete/5
         [HttpPost, ActionName("Delete")]

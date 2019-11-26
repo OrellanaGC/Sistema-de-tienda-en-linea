@@ -44,7 +44,7 @@ namespace tiendaOnline.Controllers
         [Authorize]
         public async Task<RedirectToActionResult> AgregarCarrito(int idProducto)
         {
-            var user = await _userManager.GetUserAsync(User);;
+            var user = await _userManager.GetUserAsync(User);
 
             var prodSeleccionado = _producto.Productos.FirstOrDefault(p => p.ProductoID == idProducto);
            
