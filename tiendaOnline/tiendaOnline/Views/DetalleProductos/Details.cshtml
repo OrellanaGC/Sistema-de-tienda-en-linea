@@ -15,7 +15,7 @@
 <div class="row">
     <div class="col-md-3">
         <br /><br />
-        <table class="table table-bordered table-hover" >
+        <table class="table table-bordered table-hover">
             <thead><tr><th>Categorías</th></tr></thead>
             <!--Menu de categorias y subcategorias-->
 
@@ -43,12 +43,12 @@
                 </tr>
             }
         </table>
-        </br> 
-    </div>
-      <div class="row">
+        </br>
+    </div> 
+    <div class="row">
         <br /><br />
         <div class="col-md-4">
-            <img height=380px width=380px src="~/images/productos/@Html.DisplayFor(model => model.producto.Imagen)" />
+            <img class="zoom"  height=380px width=380px src="~/images/productos/@Html.DisplayFor(model => model.producto.Imagen)" />
         </div>
         <div class="col-md-3">
             <h4>@Html.DisplayFor(model => model.producto.NombreProducto)</h4>
@@ -71,7 +71,7 @@
                 <dt>@Html.DisplayNameFor(model => model.Color)</dt>
                 <dd>@Html.DisplayFor(model => model.Color)</dd>
                 <br />
-                <div class="agregarCarrito text-left" >
+                <div class="agregarCarrito text-left">
                     <p class="button">
                         <a class="btn btn-success" id="cartButton" title="Agrega el producto a tu carrito!"
                            asp-controller="Carritos"
@@ -80,8 +80,8 @@
                             <i class="fas fa-cart-plus"></i>
                         </a>
                     </p>
-                </div>                           
-            </dl>           
+                </div>
+            </dl>
         </div>
     </div>
 </div>
