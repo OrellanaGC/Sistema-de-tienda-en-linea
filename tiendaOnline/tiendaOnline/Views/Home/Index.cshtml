@@ -116,9 +116,11 @@
         @foreach (var producto in Model)
         {
             <div class="col-md-2">
+                <center> <b><h5><a asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a></h5></b></center>
                 <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">
                     <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
                 </a>
+
                 @*variables para el descuento*@
                 @{ var desc = false; var precios = 0.0; }
 
@@ -135,6 +137,7 @@
                 }
                 @if (desc == false)
                 {
+                <h4>&nbsp;</h4>
                     precios = producto.PrecioUnitario;
 
                 }
@@ -143,55 +146,59 @@
                 {
                     <h5 style="text-decoration:line-through">  $@(producto.PrecioUnitario)</h5>
                 }
-                <h4>$ @precios</h4><br />
-                <!--a asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a-->
-
-
-             
-
-                    <div class="agregarCarrito text-left" title="Agrega el producto a tu carrito!">
-                        <p class="button">
-                            <a class="btn btn-success" id="cartButton"
-                               asp-controller="Carritos"
-                               asp-action="AgregarCarrito"
-                               asp-route-idProducto="@producto.ProductoID">
-                                <i class="fas fa-cart-plus"></i>
-                            </a>
-                        </p>
-                    </div>
+                <h4>$ @precios</h4>
+               
 
 
 
+
+                <div class="agregarCarrito text-left" title="Agrega el producto a tu carrito!">
+                    <p class="button">
+                        <a class="btn btn-success" id="cartButton"
+                           asp-controller="Carritos"
+                           asp-action="AgregarCarrito"
+                           asp-route-idProducto="@producto.ProductoID">
+                            <i class="fas fa-cart-plus"></i>
+                        </a>
+                    </p>
+                </div>
+
+
+                <br />
 
             </div>
         }
     </div>
-    <div class="customSizeBox">
-        <div class="col-md-3">
-            <img height=180px width=180px src="~/images/gris.jpg" />
-            <h4>$1000.00</h4><p>Producto</p>
+
+    <!--
+         <div class="customSizeBox">
+            <div class="col-md-3">
+                <img height=180px width=180px src="~/images/gris.jpg" />
+                <h4>$1000.00</h4><p>Producto</p>
+            </div>
         </div>
     </div>
-</div>
-<!--div class="row">
-    <div class="col-md-12">
-        <h3>LO NUEVO</h3>
+
+
+        div class="row">
+        <div class="col-md-12">
+            <h3>LO NUEVO</h3>
+        </div>
+        <div class="customSizeBox">
+            <div class="col-md-3">--------.</div>
+            <div class="col-md-3">--------.</div>
+            <div class="col-md-3">--------.</div>
+            <div class="col-md-3">--------.</div>
+        </div>
     </div>
-    <div class="customSizeBox">
-        <div class="col-md-3">--------.</div>
-        <div class="col-md-3">--------.</div>
-        <div class="col-md-3">--------.</div>
-        <div class="col-md-3">--------.</div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <h3>MARCAS PRINCIPALES</h3>
-    </div>
-    <div class="customSizeBox">
-        <div class="col-md-3">--------.</div>
-        <div class="col-md-3">--------.</div>
-        <div class="col-md-3">--------.</div>
-        <div class="col-md-3">--------.</div>
-    </div>
-</div-->
+    <div class="row">
+        <div class="col-md-12">
+            <h3>MARCAS PRINCIPALES</h3>
+        </div>
+        <div class="customSizeBox">
+            <div class="col-md-3">--------.</div>
+            <div class="col-md-3">--------.</div>
+            <div class="col-md-3">--------.</div>
+            <div class="col-md-3">--------.</div>
+        </div>
+    </div-->

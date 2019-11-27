@@ -123,7 +123,7 @@ namespace tiendaOnline.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("IndexVendedor", "Productos");
             }
             
             return View(detalleProducto);
