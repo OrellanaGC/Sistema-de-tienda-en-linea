@@ -54,7 +54,7 @@
           
 
             <div class="form-group">
-                <a class="btn btn-warning" asp-controller="DetalleProductos" asp-action="Edit" asp-route-id="@{@Model.ProductoID; }"><i class="fas fa-pen"></i> Editar detalles del producto</a>
+                <a class="btn btn-primary" asp-controller="DetalleProductos" asp-action="Edit" asp-route-id="@{@Model.ProductoID; }"><i class="fas fa-pen"></i> Editar detalles</a>
                 
                 <input type="submit" value="Guardar cambios" class="btn btn-success" />
             </div>
@@ -64,9 +64,7 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Mis productos</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

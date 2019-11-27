@@ -21,17 +21,41 @@
         @foreach (var producto in Model)
         {
         <div class="col-md-2">
-            <h4 class="productBox"><a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a></h4>
-            <h5>$@Html.DisplayFor(modelItem => producto.PrecioUnitario)</h5>
-
-            
+            <br />
+            <center><a style="color:teal;" asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a></center>
             <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">
                 <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
             </a>
-            <p></p>
+            @*variables para el descuento*@
+            @{ var desc = false; var precios = 0.0; }
 
-            <a class="btn btn-warning" title="Edita detalles importantes del producto!" asp-controller="Productos" asp-action="Edit" asp-route-id="@producto.ProductoID"><i class="fas fa-pen"></i> Editar Producto</a>
-           
+            @*aplicando el descuento*@
+            @foreach (var precio in _context.Descuento)
+            {
+                if (precio.ProductoID == producto.ProductoID && precio.EstaActivo == true)
+                {
+                    desc = true;
+                    precios = precio.PrecioConDesc;
+                }
+
+
+            }
+            @if (desc == false)
+            {
+                precios = producto.PrecioUnitario;
+                <h4>&nbsp;</h4>
+            }
+
+            @if (desc)
+            {
+                <h5 style="text-decoration:line-through">  $@(producto.PrecioUnitario)</h5>
+
+            }
+            $@precios  <br />
+<a class="btn btn-primary" title="Edita detalles importantes del producto!" asp-controller="Productos" asp-action="Edit" asp-route-id="@producto.ProductoID"><i class="fas fa-pen"></i> Editar Producto</a>
+
+            <br /><br />
+
         </div>
         }
     </div>

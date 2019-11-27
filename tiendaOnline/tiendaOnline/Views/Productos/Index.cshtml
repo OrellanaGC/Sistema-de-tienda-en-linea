@@ -25,28 +25,54 @@
         @foreach (var producto in Model)
         {
         <div class="col-md-2">
-            <h4 class="productBox"><a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a></h4>
-            <h5>$@Html.DisplayFor(modelItem => producto.PrecioUnitario)</h5>
+            <br />
+            <b>
+                <center><a style="color:teal;" asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a></center>
+            </b>
             <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">
                 <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
-            </a>          
-            <br /><br />
-           
-           
-                  <div class="container dl-horizontal">
-                      <a class="btn btn-success" id="cartButton" title="Agrega el producto a tu carrito!"
-                         asp-controller="Carritos"
-                         asp-action="AgregarCarrito"
-                         asp-route-idProducto="@producto.ProductoID">
-                          <i class="fas fa-cart-plus"></i>
-                      </a>
+            </a>
+            @*variables para el descuento*@
+            @{ var desc = false; var precios = 0.0; }
+
+            @*aplicando el descuento*@
+            @foreach (var precio in _context.Descuento)
+            {
+                if (precio.ProductoID == producto.ProductoID && precio.EstaActivo == true)
+                {
+                    desc = true;
+                    precios = precio.PrecioConDesc;
+                }
+
+
+            }
+            @if (desc == false)
+            {
+                precios = producto.PrecioUnitario;
+                <h4>&nbsp;</h4>
+            }
+
+            @if (desc)
+            {
+                <h5 style="text-decoration:line-through">  $@(producto.PrecioUnitario)</h5>
+
+            }
+            $@precios   
+            <div class="container dl-horizontal">
+                <a class="btn btn-success" id="cartButton" title="Agrega el producto a tu carrito!"
+                   asp-controller="Carritos"
+                   asp-action="AgregarCarrito"
+                   asp-route-idProducto="@producto.ProductoID">
+                    <i class="fas fa-cart-plus"> Comprar ya</i>
+                </a>
+            </div>
 
 
 
-                  </div>
-           
-                  
-            
+
+
+
+
         </div>
         }
     </div>

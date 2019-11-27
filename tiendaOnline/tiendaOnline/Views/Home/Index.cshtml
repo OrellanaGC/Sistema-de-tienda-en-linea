@@ -116,7 +116,7 @@
         @foreach (var producto in Model)
         {
             <div class="col-md-2">
-                <center> <b><h5><a asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a></h5></b></center>
+                <center> <b><h5><a style="color:teal;" asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a></h5></b></center>
                 <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">
                     <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
                 </a>
@@ -146,7 +146,7 @@
                 {
                     <h5 style="text-decoration:line-through">  $@(producto.PrecioUnitario)</h5>
                 }
-                <h4>$ @precios</h4>
+                <h4>$ @precios</h4> 
                
 
 
