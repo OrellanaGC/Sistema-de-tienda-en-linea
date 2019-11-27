@@ -51,32 +51,56 @@
             <img class="zoom"  height=380px width=380px src="~/images/productos/@Html.DisplayFor(model => model.producto.Imagen)" />
         </div>
         <div class="col-md-3">
-            <h4>@Html.DisplayFor(model => model.producto.NombreProducto)</h4>
-            <h3><b>$ @Html.DisplayFor(model => model.producto.PrecioUnitario) </b></h3>
-            <h5>Categoria: @Html.DisplayFor(model => model.producto.Subcategoria.nombreSubcategoria)</h5>
+            <h4><b><u>@Html.DisplayFor(model => model.producto.NombreProducto)</u></b></h4>
+            <h3><b>$ @Html.DisplayFor(model => model.producto.PrecioUnitario)<br /> </b></h3>
+            <dd><b>Vendedor: </b>@Html.DisplayFor(model => model.producto.detalleVendedor.nombreComercial)</dd> <br />
+            <h5><b>Categoria:</b> @Html.DisplayFor(model => model.producto.Subcategoria.nombreSubcategoria)</h5>
             <dl>
-                <dt>
-                    @Html.DisplayNameFor(model => model.producto.Existencia)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.producto.Existencia)
-                </dd>
+                <br />
+                @{var cant = 0;}
+                @if (cant != Model.producto.Existencia)
+                {
+
+                    <dd>
+                        <b> Cantidad de productos:</b> @Html.DisplayFor(model => model.producto.Existencia)
+                    </dd>
+                }
                 <br />
                 <dt>@Html.DisplayNameFor(model => model.Descripcion)</dt>
                 <dd>@Html.DisplayFor(model => model.Descripcion)</dd>
                 <br />
-                <dt>@Html.DisplayNameFor(model => model.Talla)</dt>
-                <dd>@Html.DisplayFor(model => model.Talla)</dd>
-                <br />
-                <dt>@Html.DisplayNameFor(model => model.Color)</dt>
-                <dd>@Html.DisplayFor(model => model.Color)</dd>
-                <br />
+
+                @{ var pro = ""; pro = null;}
+
+                @if (pro != Model.Talla)
+                {
+                    <dd><b>Talla:</b> @Html.DisplayFor(model => model.Talla)</dd>
+                    <br />
+
+                }
+                @if (pro != Model.Color)
+                {
+                    <dd><b>Color: </b>@Html.DisplayFor(model => model.Color)</dd>
+                    <br />
+                }
+                @if (pro != Model.Marca)
+                {
+                    <dd><b>Marca: </b>@Html.DisplayFor(model => model.Marca)</dd>
+                    <br />
+                }
+                @{var peso = 0.00;}
+                @if (peso != Model.PesoKg)
+                {
+                    <dd><b>Peso: </b>@Html.DisplayFor(model => model.PesoKg)kg</dd>
+                }
+              
+
                 <div class="agregarCarrito text-left">
                     <p class="button">
                         <a class="btn btn-success" id="cartButton" title="Agrega el producto a tu carrito!"
                            asp-controller="Carritos"
                            asp-action="AgregarCarrito"
-                           asp-route-idProducto="@Model.producto.ProductoID">
+                           asp-route-idProducto="@Model.producto.ProductoID"> Comprar
                             <i class="fas fa-cart-plus"></i>
                         </a>
                     </p>

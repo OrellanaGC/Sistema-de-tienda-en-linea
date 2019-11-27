@@ -39,7 +39,7 @@ namespace tiendaOnline.Controllers
             }
 
             var detalleProducto = await _context.DetalleProducto
-                .Include(d => d.producto)
+                .Include(d => d.producto).Include(d =>d.producto.detalleVendedor)
                 .FirstOrDefaultAsync(m => m.productoID == id);
             if (detalleProducto == null)
             {

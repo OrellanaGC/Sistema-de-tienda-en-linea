@@ -2,6 +2,8 @@
 @model IEnumerable<tiendaOnline.Models.Producto>
 <!--Haciendo una inyeccion del context para traer cualquier modelo-->
 @inject ApplicationDbContext _context
+
+
 @{
     ViewData["Title"] = "iBuy";
 }
@@ -113,47 +115,55 @@
     <div>
         @foreach (var producto in Model)
         {
-        <div class="col-md-2">
-            <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">
-                <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
-            </a>
-            @*variables para el descuento*@
-            @{ var desc = false; var precios = 0.0; }
+            <div class="col-md-2">
+                <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">
+                    <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
+                </a>
+                @*variables para el descuento*@
+                @{ var desc = false; var precios = 0.0; }
 
-            @*aplicando el descuento*@
-            @foreach (var precio in _context.Descuento)
-            {
-                if (precio.ProductoID == producto.ProductoID && precio.EstaActivo==true)
+                @*aplicando el descuento*@
+                @foreach (var precio in _context.Descuento)
                 {
-                    desc = true;
-                    precios = precio.PrecioConDesc;
+                    if (precio.ProductoID == producto.ProductoID && precio.EstaActivo == true)
+                    {
+                        desc = true;
+                        precios = precio.PrecioConDesc;
+                    }
+
+
                 }
-               
+                @if (desc == false)
+                {
+                    precios = producto.PrecioUnitario;
 
-            }
-            @if (desc == false)
-            {
-                precios = producto.PrecioUnitario;
-            }
+                }
 
-            @if (desc)
-            {
-                <h4 style="text-decoration:line-through">  $@(producto.PrecioUnitario)</h4>
-            }
-            <h4>$ @precios</h4><br />
-            <!--a asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a-->
+                @if (desc)
+                {
+                    <h5 style="text-decoration:line-through">  $@(producto.PrecioUnitario)</h5>
+                }
+                <h4>$ @precios</h4><br />
+                <!--a asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a-->
 
-            <div class="agregarCarrito text-left" title="Agrega el producto a tu carrito!">
-                <p class="button">
-                    <a class="btn btn-success" id="cartButton"
-                       asp-controller="Carritos"
-                       asp-action="AgregarCarrito"
-                       asp-route-idProducto="@producto.ProductoID">
-                        <i class="fas fa-cart-plus"></i>
-                    </a>
-                </p>
+
+             
+
+                    <div class="agregarCarrito text-left" title="Agrega el producto a tu carrito!">
+                        <p class="button">
+                            <a class="btn btn-success" id="cartButton"
+                               asp-controller="Carritos"
+                               asp-action="AgregarCarrito"
+                               asp-route-idProducto="@producto.ProductoID">
+                                <i class="fas fa-cart-plus"></i>
+                            </a>
+                        </p>
+                    </div>
+
+
+
+
             </div>
-        </div>
         }
     </div>
     <div class="customSizeBox">

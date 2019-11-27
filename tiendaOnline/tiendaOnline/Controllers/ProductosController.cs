@@ -41,7 +41,6 @@ namespace tiendaOnline.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 //agregar metadata si se modifican los atributos
-                //agregar metadata si se modifican los atributos
                 productos = productos.Where(p => p.NombreProducto.Contains(searchString) ||
                 p.Subcategoria.nombreSubcategoria.Contains(searchString) ||
                 p.Subcategoria.Categoria.nombre_categoria.Contains(searchString)

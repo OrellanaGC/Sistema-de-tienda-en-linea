@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using tiendaOnline.Areas.Identity.Data;
 using tiendaOnline.Data;
 using tiendaOnline.Models;
 
@@ -12,17 +17,24 @@ namespace tiendaOnline.Controllers
 {
     public class DescuentosController : Controller
     {
+        private readonly UserManager<tiendaOnlineUser> _userManager;
+
         private readonly ApplicationDbContext _context;
 
-        public DescuentosController(ApplicationDbContext context)
+        public DescuentosController(ApplicationDbContext context, UserManager<tiendaOnlineUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
 
         // GET: Descuentos
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Descuento.Include(d => d.producto);
+            var user = await _userManager.GetUserAsync(User);
+            var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
+
+
+            var applicationDbContext = _context.Descuento.Include(d => d.producto).Where(d => d.producto.detalleVendedorID==vendedor.DetalleVendedorID);
             return View(await applicationDbContext.ToListAsync());
         }
 

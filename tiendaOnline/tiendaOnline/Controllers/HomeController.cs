@@ -17,14 +17,15 @@ namespace tiendaOnline.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<tiendaOnlineUser> _userManager;
         private readonly ApplicationDbContext _context; //Para tener acceso a los datos de la base
+        private readonly SignInManager<tiendaOnlineUser> _signInManager;
 
 
-        public HomeController(RoleManager<IdentityRole> roleManager, ApplicationDbContext context, UserManager<tiendaOnlineUser> userManager)
+        public HomeController(RoleManager<IdentityRole> roleManager, SignInManager<tiendaOnlineUser> signInManager, ApplicationDbContext context, UserManager<tiendaOnlineUser> userManager)
         {
             this.roleManager = roleManager;
             _context = context;  //variable para contexto de la base 
-           _userManager = userManager;
-
+            _userManager = userManager;
+            _signInManager = signInManager;
         }        
 
         public async Task<IActionResult> Index()
@@ -40,30 +41,35 @@ namespace tiendaOnline.Controllers
                     result = await roleManager.CreateAsync(new IdentityRole(roleName));
                 }
             }
-            var subcategorias = from s in _context.Subcategoria select s; //recorre todos los items en sucategoria
-         var productos = from p in _context.Producto select p; //recorre todos los items en producto
-           
-            var user = await _userManager.GetUserAsync(User);
-       /*     var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
-            if (vendedor != null)
+            if (_signInManager.IsSignedIn(User))
             {
-                productos = productos.Where(p => p.detalleVendedor.tiendaOnlineUserID != user.Id);
-                return View(await productos.AsNoTracking().ToListAsync());
+                var user = await _userManager.GetUserAsync(User);
+                if (await _userManager.IsInRoleAsync(user, "Seller"))
+                {
+                    var vendedor = _context.DetalleVendedor.Single(v => v.tiendaOnlineUserID == user.Id);
+                    var subcategorias = from s in _context.Subcategoria select s; //recorre todos los items en sucategoria
+                                                                                  // var productos = from p in _context.Producto select p; //recorre todos los items en producto           
+                    var productos1 = _context.Producto.Include(p => p.detalleVendedor).Where(p => p.detalleVendedorID != vendedor.DetalleVendedorID);
+                    return View(await productos1.AsNoTracking().ToListAsync());
 
-            }*/
-            return View(await productos.AsNoTracking().ToListAsync());
+                }
+            }
+           
+              var productos2 = _context.Producto;
+              return View(await productos2.AsNoTracking().ToListAsync());
+           
         }
+
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
-
             return View();
         }
 
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 
