@@ -162,7 +162,8 @@ namespace tiendaOnline.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("IndexVendedor", "Productos");
+               
             }
             ViewData["ProductoID"] = new SelectList(_context.Producto, "ProductoID", "Codigo", descuento.ProductoID);
             return View(descuento);
