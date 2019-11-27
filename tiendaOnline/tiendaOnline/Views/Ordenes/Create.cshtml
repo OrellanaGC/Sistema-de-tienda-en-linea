@@ -261,6 +261,7 @@
                                                                                                                 <td>&nbsp;</td>
 
                                                                                                             </tr>
+                                                                                                         
                                                                                                             @foreach (var linea in _context.Direccion)
                                                                                                             {
                                                                                                                 @foreach (var linea2 in _context.Municipio)
@@ -305,11 +306,15 @@
                                                                                         <!-- Modal Footer -->
                                                                                         <div class="modal-footer">
                                                                                             <button type="button" class="btn btn-default"
+                                                                                         <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Registrar una nueva dirección</a>
+                                                                                            </button>
+                                                                                            <button type="button" class="btn btn-default"
                                                                                                     data-dismiss="modal">
                                                                                                 Cerrar
                                                                                             </button>
                                                                                         </div>
-                                                                                    </div>
+                                                                                           
+                                                                                        </div>
 
 
 
