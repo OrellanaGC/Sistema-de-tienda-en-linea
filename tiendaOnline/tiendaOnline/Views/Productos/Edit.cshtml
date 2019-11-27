@@ -19,6 +19,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProductoID" />
+            <input type="hidden" asp-for="detalleVendedorID"/>
             <div class="form-group">
                 <label asp-for="NombreProducto" class="control-label">Nombre</label>
                 <input asp-for="NombreProducto" class="form-control" />
@@ -53,7 +54,7 @@
           
 
             <div class="form-group">
-                <a class="btn btn-warning" asp-controller="DetalleProductos" asp-action="Edit" asp-route-id=" @{@Model.ProductoID; }"><i class="fas fa-pen"></i> Editar detalles del producto</a>
+                <a class="btn btn-warning" asp-controller="DetalleProductos" asp-action="Edit" asp-route-id="@{@Model.ProductoID; }"><i class="fas fa-pen"></i> Editar detalles del producto</a>
                 
                 <input type="submit" value="Guardar cambios" class="btn btn-success" />
             </div>

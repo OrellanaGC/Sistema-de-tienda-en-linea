@@ -51,9 +51,7 @@ namespace tiendaOnline.Controllers
 
         // GET: DetalleProductos/Create
         public IActionResult Create()
-        {            
-
-            ViewData["productoID"] = new SelectList(_context.Producto, "ProductoID", "Codigo");
+        {                        
             return View();
         }
 
@@ -74,7 +72,7 @@ namespace tiendaOnline.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Productos");
             }
-            ViewData["productoID"] = new SelectList(_context.Producto, "ProductoID", "Codigo", detalleProducto.productoID);
+            
             return View(detalleProducto);
         }
 
@@ -85,13 +83,13 @@ namespace tiendaOnline.Controllers
             {
                 return NotFound();
             }
-
-            var detalleProducto = await _context.DetalleProducto.FindAsync(id);
+            var detalleProducto = await _context.DetalleProducto
+                .Include(d => d.producto).Include(d => d.producto.detalleVendedor)
+                .FirstOrDefaultAsync(m => m.productoID == id);          
             if (detalleProducto == null)
             {
                 return NotFound();
-            }
-            ViewData["productoID"] = new SelectList(_context.Producto, "ProductoID", "Codigo", detalleProducto.productoID);
+            }            
             return View(detalleProducto);
         }
         
@@ -102,7 +100,7 @@ namespace tiendaOnline.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("DetalleProductoID,Descripcion,Talla,Color,PesoKg,Marca,Modelo,productoID")] DetalleProducto detalleProducto)
         {
-            if (id != detalleProducto.DetalleProductoID)
+            if (id != detalleProducto.productoID)
             {
                 return NotFound();
             }
@@ -127,7 +125,7 @@ namespace tiendaOnline.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["productoID"] = new SelectList(_context.Producto, "ProductoID", "Codigo", detalleProducto.productoID);
+            
             return View(detalleProducto);
         }
 
