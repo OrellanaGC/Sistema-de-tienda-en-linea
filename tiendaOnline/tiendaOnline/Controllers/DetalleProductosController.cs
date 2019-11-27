@@ -70,7 +70,7 @@ namespace tiendaOnline.Controllers
                 detalleProducto.producto = _context.Producto.Last(p=> p.detalleVendedorID== vendedor.DetalleVendedorID);
                 _context.Add(detalleProducto);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Productos");
+                return RedirectToAction("IndexVendedor", "Productos");
             }
             
             return View(detalleProducto);

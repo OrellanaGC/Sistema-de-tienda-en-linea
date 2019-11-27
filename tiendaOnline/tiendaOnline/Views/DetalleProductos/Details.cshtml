@@ -52,11 +52,74 @@
         </div>
         <div class="col-md-3">
             <h4><b><u>@Html.DisplayFor(model => model.producto.NombreProducto)</u></b></h4>
-            <h3><b>$ @Html.DisplayFor(model => model.producto.PrecioUnitario)<br /> </b></h3>
+            <b>
+            @*variables para el descuento*@
+            @{ var desc = false; var precios = 0.0; }
+
+            @*aplicando el descuento*@
+            @foreach (var precio in _context.Descuento)
+            {
+                if (precio.ProductoID == Model.producto.ProductoID && precio.EstaActivo == true)
+                {
+                    desc = true;
+                    precios = precio.PrecioConDesc;
+                }
+
+
+            }
+            @if (desc == false)
+            {
+                precios = Model.producto.PrecioUnitario;
+
+            }
+
+            @if (desc)
+            {
+                <h5 style="text-decoration:line-through">  $@(Model.producto.PrecioUnitario)</h5>
+                <p>En descuento</p>
+            }
+            <h2>$@precios</h2><br />
+            </b>
+       
+           
             <dd><b>Vendedor: </b>@Html.DisplayFor(model => model.producto.detalleVendedor.nombreComercial)</dd> <br />
-            <h5><b>Categoria:</b> @Html.DisplayFor(model => model.producto.Subcategoria.nombreSubcategoria)</h5>
+
             <dl>
-                <br />
+
+
+
+                <dt>@Html.DisplayNameFor(model => model.Descripcion)</dt>
+
+                <dd> <p align="justify">@Html.DisplayFor(model => model.Descripcion)</p></dd>
+
+
+                <h5><b>Categoria:</b> @Html.DisplayFor(model => model.producto.Subcategoria.Categoria.nombre_categoria)</h5>
+                <h5><b>SubCategoria:</b> @Html.DisplayFor(model => model.producto.Subcategoria.nombreSubcategoria)</h5>
+
+                @{ var pro = ""; pro = null;}
+
+                @if (pro != Model.Talla)
+                {
+                    <dd><b>Talla:</b> @Html.DisplayFor(model => model.Talla)</dd>
+
+
+                }
+                @if (pro != Model.Color)
+                {
+                    <dd><b>Color: </b>@Html.DisplayFor(model => model.Color)</dd>
+
+                }
+                @if (pro != Model.Marca)
+                {
+                    <dd><b>Marca: </b>@Html.DisplayFor(model => model.Marca)</dd>
+
+                }
+                @{var peso = 0.00;}
+                @if (peso != Model.PesoKg)
+                {
+                    <dd><b>Peso: </b>@Html.DisplayFor(model => model.PesoKg)kg</dd>
+                }
+
                 @{var cant = 0;}
                 @if (cant != Model.producto.Existencia)
                 {
@@ -65,42 +128,13 @@
                         <b> Cantidad de productos:</b> @Html.DisplayFor(model => model.producto.Existencia)
                     </dd>
                 }
-                <br />
-                <dt>@Html.DisplayNameFor(model => model.Descripcion)</dt>
-                <dd>@Html.DisplayFor(model => model.Descripcion)</dd>
-                <br />
-
-                @{ var pro = ""; pro = null;}
-
-                @if (pro != Model.Talla)
-                {
-                    <dd><b>Talla:</b> @Html.DisplayFor(model => model.Talla)</dd>
-                    <br />
-
-                }
-                @if (pro != Model.Color)
-                {
-                    <dd><b>Color: </b>@Html.DisplayFor(model => model.Color)</dd>
-                    <br />
-                }
-                @if (pro != Model.Marca)
-                {
-                    <dd><b>Marca: </b>@Html.DisplayFor(model => model.Marca)</dd>
-                    <br />
-                }
-                @{var peso = 0.00;}
-                @if (peso != Model.PesoKg)
-                {
-                    <dd><b>Peso: </b>@Html.DisplayFor(model => model.PesoKg)kg</dd>
-                }
-              
-
                 <div class="agregarCarrito text-left">
                     <p class="button">
                         <a class="btn btn-success" id="cartButton" title="Agrega el producto a tu carrito!"
                            asp-controller="Carritos"
                            asp-action="AgregarCarrito"
-                           asp-route-idProducto="@Model.producto.ProductoID"> Comprar
+                           asp-route-idProducto="@Model.producto.ProductoID">
+                            Comprar
                             <i class="fas fa-cart-plus"></i>
                         </a>
                     </p>
