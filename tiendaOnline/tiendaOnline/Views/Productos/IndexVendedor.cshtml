@@ -42,17 +42,19 @@
             }
             @if (desc == false)
             {
-                precios = producto.PrecioUnitario;
-                <h4>&nbsp;</h4>
-            }
+                precios = producto.PrecioUnitario;  
+                
+                <h4>$@precios</h4>
+            <h4>&nbsp;</h4>
+}
+   
 
             @if (desc)
             {
-                <h5 style="text-decoration:line-through">  $@(producto.PrecioUnitario)</h5>
+            <h4 style="text-decoration:line-through">  $@(producto.PrecioUnitario) </h4> <h4>$@precios </h4>
+            }          
 
-            }
-            $@precios  <br />
-<a class="btn btn-primary" title="Edita detalles importantes del producto!" asp-controller="Productos" asp-action="Edit" asp-route-id="@producto.ProductoID"><i class="fas fa-pen"></i> Editar Producto</a>
+            <a class="btn btn-primary" title="Edita detalles importantes del producto!" asp-controller="Productos" asp-action="Edit" asp-route-id="@producto.ProductoID"><i class="fas fa-pen"></i> Editar Producto</a>
 
             <br /><br />
 

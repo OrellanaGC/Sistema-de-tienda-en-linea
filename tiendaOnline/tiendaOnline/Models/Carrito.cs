@@ -175,7 +175,7 @@ namespace tiendaOnline.Models
         {
 
             var subtotal = _ApplicationDbContext.ProdCarrito.Where(c => c.CarritoID == CarritoID && c.IsSelected == true)
-                .Select(c => c.producto.PrecioUnitario * c.cantidadProducto).Sum();
+                .Select(c => Math.Round( c.producto.PrecioUnitario,2) * c.cantidadProducto).Sum();
             var total = 0.0;
             var tieneDesc = false;
 
@@ -189,12 +189,12 @@ namespace tiendaOnline.Models
                     //usar precio de descuento
                     if (desc.EstaActivo == true)
                     {
-                        total = total + (desc.PrecioConDesc * producto.cantidadProducto);
+                        total = Math.Round(( total + (desc.PrecioConDesc * producto.cantidadProducto)),2);
                     }
                     else
                     {
                         //precio total sin descuento
-                        total = total + (producto.producto.PrecioUnitario * producto.cantidadProducto);
+                        total = Math.Round(( total + (producto.producto.PrecioUnitario * producto.cantidadProducto)),2);
                     }
                 }
 

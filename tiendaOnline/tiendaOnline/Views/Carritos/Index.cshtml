@@ -107,7 +107,7 @@
                         {
                             <div style="text-decoration:line-through">  $@(linea.producto.PrecioUnitario)</div>
                         }
-                        <i>$@precios</i>
+                            <i>$@Math.Round(@precios,2)</i>
                     </td>
                     <td class="col-md-1 text-center">
                         <br />
@@ -147,7 +147,7 @@
                     <th class="col-sm-1 text-center">
                         @{var descuento = subtotal - Model.TotalCarrito;}
 
-                        $@descuento  
+                        $ @Math.Round(@descuento,2)  
                     </th>
                 </tr>
                 <tr>
