@@ -96,7 +96,6 @@ namespace tiendaOnline.Areas.Identity.Pages.Account
                         $"</br> Simplemente tienes que confirmar tu cuenta haciendo clic</font> " +
                         $"<a href='{HtmlEncoder.Default.Encode(callbackUrl)}'><font size=6>aquí!</font></a>.");
 
-
                     if (user.Email== "ibuycontrol@mailinator.com")
                     {
                         await _userManager.AddToRoleAsync(user, "Admin");
@@ -109,22 +108,7 @@ namespace tiendaOnline.Areas.Identity.Pages.Account
                         _context.Add(vendedor);
                     }
                     else {
-                        await _userManager.AddToRoleAsync(user, "User");
-                        var carrito = new Carrito(user.Id);
-                        _context.Add(carrito);
-                        //generador random de codigo
-                        var chars = Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", 8);
-                        var randomStr = new string(chars.SelectMany(str => str)
-                                                        .OrderBy(c => Guid.NewGuid())
-                                                        .Take(8).ToArray());
-                        //cuponcito wapeton
-                        var cupon = new Cupon();
-                        cupon.codigoCupon = randomStr;
-                        cupon.montoCupon = 5.00;
-                        cupon.estadoCupon = true;
-                        cupon.descripcionCupon = "Cupón de nuevo usuario";
-                        cupon.tiendaOnlineUserID = user.Id;
-                        _context.Add(cupon);
+                        await _userManager.AddToRoleAsync(user, "User");                                             
                     }                    
                     await _context.SaveChangesAsync();
                     //await _signInManager.SignInAsync(user, isPersistent: false);
