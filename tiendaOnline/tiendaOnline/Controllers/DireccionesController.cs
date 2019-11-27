@@ -113,6 +113,7 @@ namespace tiendaOnline.Controllers
         //Direccion para Vendedor
         public IActionResult CreateParaVendedor()
         {
+            ViewData["DepartamentoID"] = new SelectList(_context.Departamento, "DepartamentoID", "nombreDepartamento");
 
             ViewData["MunicipioID"] = new SelectList(_context.Municipio, "MunicipioID", "nombreMunicipio");
 
