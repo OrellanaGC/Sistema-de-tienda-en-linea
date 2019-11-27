@@ -23,7 +23,7 @@
         <div class="col-md-2">
             <br />
             <center><a style="color:teal;" asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a></center>
-            <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">
+            <a asp-controller="DetalleProductos" asp-action="DetailsVendedor" asp-route-id="@producto.ProductoID">
                 <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
             </a>
             @*variables para el descuento*@

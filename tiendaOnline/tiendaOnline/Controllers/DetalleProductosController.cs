@@ -49,6 +49,25 @@ namespace tiendaOnline.Controllers
             return View(detalleProducto);
         }
 
+        // GET: DetalleProductos/DetailsVendedor/5
+        public async Task<IActionResult> DetailsVendedor(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var detalleProducto = await _context.DetalleProducto
+                .Include(d => d.producto).Include(d => d.producto.detalleVendedor)
+                .FirstOrDefaultAsync(m => m.productoID == id);
+            if (detalleProducto == null)
+            {
+                return NotFound();
+            }
+
+            return View(detalleProducto);
+        }
+
         // GET: DetalleProductos/Create
         public IActionResult Create()
         {                        
