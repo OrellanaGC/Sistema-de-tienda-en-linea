@@ -4,7 +4,8 @@
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
 <ul class="nav nav-pills nav-stacked">
-
+    
+    <!--Muestra el index si es un un comprador-->
     @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "User"))
     {
         <li class="@ManageNavPages.IndexNavClass(ViewContext)"><a asp-page="./Index">Perfil</a></li>
