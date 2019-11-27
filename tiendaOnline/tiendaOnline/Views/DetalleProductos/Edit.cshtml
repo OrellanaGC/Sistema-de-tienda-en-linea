@@ -44,19 +44,16 @@
                 <label asp-for="Modelo" class="control-label"></label>
                 <input asp-for="Modelo" class="form-control" />
                 <span asp-validation-for="Modelo" class="text-danger"></span>
-            </div>           
+            </div>
+          
             <div class="form-group">
-                <a class="btn btn-warning" asp-controller="Descuentos" asp-action="Edit" asp-route-id="@{@Model.productoID;}"><i class="fas fa-pen"></i> Editar descuento del producto</a>
-
-                <input type="submit" value="Guardar cambios" class="btn btn-default" />
+                <input type="submit" value="Guardar cambios" class="btn btn-success" />
+                <a class="btn btn-warning" asp-controller="Descuentos" asp-action="Edit" asp-route-id="@{@Model.producto.ProductoID; }"><i class="fas fa-pen"></i> Editar descuento </a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a class="btn btn-primary" asp-controller="Productos" asp-action="IndexVendedor"><i class="fa fa-home"></i> Mis productos</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
