@@ -8,6 +8,7 @@
     @inject UserManager<tiendaOnlineUser> UserManager
     <!--Haciendo una inyeccion del context para traer cualquier modelo-->
     @inject ApplicationDbContext _context
+
     @{
         ViewData["Title"] = "Detalles de tu compra";
         Layout = "~/Views/Shared/_Layout.cshtml";
@@ -685,8 +686,8 @@
                         <tr>
                             <th class="col-sm-2 text-center"><b>SubTotal</b></th>
                             <th class="col-sm-1 text-center">
-
-                                $0.00
+                                        $0.00
+                                   
                             </th>
                         </tr>
                         <tr>
@@ -706,23 +707,18 @@
                         <tr>
                             <th class="col-sm-2 text-center"><h4><b>Total</b></h4></th>
                             <th class="col-sm-1 text-center">
+                             
                                 <label asp-for="total" class="form-control" ReadOnly="readonly" />
                             </th>
                         </tr>
-
                     </tbody>
                 </table>
                 <div class="form-group">
                     <input type="submit" value="Finalizar compra" class="btn btn-success" />     <a class="btn btn-danger" asp-action="Index"><i class="fas fa-remove"></i> Cancelar</a>
                 </div>
-
             </form>
-
-
         </div>
-
     </div>
-
 </div>
 
 @section Scripts {
