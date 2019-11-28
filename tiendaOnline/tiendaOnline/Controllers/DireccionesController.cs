@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,11 +25,9 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Direcciones
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Index()
         {
-
-            //var applicationDbContext = _context.Direccion.Include(d => d.Municipio).Include(d => d.detalleVendedor).Include(d => d.tiendaOnlineUser);
-
             //Filtro de direcciones, filtro por id de usuario
             var direcciones = from dir in (_context.Direccion.Include(d => d.Municipio).Include(d => d.detalleVendedor).Include(d => d.tiendaOnlineUser)) select dir;
             var user = await _userManager.GetUserAsync(User);
@@ -38,9 +37,9 @@ namespace tiendaOnline.Controllers
             //return View(await applicationDbContext.ToListAsync());
         }
 
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> IndexVendedor()
-        {
-            
+        {            
             //Filtro de direcciones, filtro por id de usuario
             var direcciones = from dir in (_context.Direccion.Include(d => d.Municipio).Include(d => d.detalleVendedor).Include(d => d.tiendaOnlineUser)) select dir;
             var user = await _userManager.GetUserAsync(User);
@@ -52,6 +51,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Direcciones/Details/5
+        [Authorize(Roles = "User, Seller")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -82,6 +82,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Direcciones/Create
+        [Authorize(Roles = "User")]
         public IActionResult Create()
         {
            
@@ -95,6 +96,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Create([Bind("DireccionID,direccionDetallada,codigoPostal,MunicipioID,tiendaOnlineUserID,detalleVendedorID")] Direccion direccion)
         {
             if (ModelState.IsValid)
@@ -111,6 +113,7 @@ namespace tiendaOnline.Controllers
         }
 
         //Direccion para Vendedor
+        [Authorize(Roles = "Seller")]
         public IActionResult CreateParaVendedor()
         {
             ViewData["DepartamentoID"] = new SelectList(_context.Departamento, "DepartamentoID", "nombreDepartamento");
@@ -122,6 +125,7 @@ namespace tiendaOnline.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> CreateParaVendedor([Bind("DireccionID,direccionDetallada,codigoPostal,MunicipioID,tiendaOnlineUserID,detalleVendedorID")] Direccion direccion)
         {
             if (ModelState.IsValid)
@@ -139,6 +143,7 @@ namespace tiendaOnline.Controllers
             return View(direccion);
         }
         // GET: Direcciones/Edit/5
+        [Authorize(Roles = "User, Seller")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -160,6 +165,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User, Seller")]
         public async Task<IActionResult> Edit(int id, [Bind("DireccionID,direccionDetallada,codigoPostal,MunicipioID,tiendaOnlineUserID,detalleVendedorID")] Direccion direccion)
         {
             if (id != direccion.DireccionID)
@@ -196,6 +202,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Direcciones/Delete/5
+        [Authorize(Roles = "User, Seller")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -217,6 +224,7 @@ namespace tiendaOnline.Controllers
         }
 
         // POST: Direcciones/Delete/5
+        [Authorize(Roles = "User, Seller")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

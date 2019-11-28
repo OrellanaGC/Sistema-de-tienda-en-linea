@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Municipios
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Municipio.Include(m => m.Departamento);
@@ -27,6 +29,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Municipios/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,6 +49,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Municipios/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["DepartamentoID"] = new SelectList(_context.Departamento, "DepartamentoID", "nombreDepartamento");
@@ -57,6 +61,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("MunicipioID,nombreMunicipio,DepartamentoID")] Municipio municipio)
         {
             if (ModelState.IsValid)
@@ -70,6 +75,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Municipios/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -91,6 +97,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("MunicipioID,nombreMunicipio,DepartamentoID")] Municipio municipio)
         {
             if (id != municipio.MunicipioID)
@@ -123,6 +130,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Municipios/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -142,6 +150,7 @@ namespace tiendaOnline.Controllers
         }
 
         // POST: Municipios/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

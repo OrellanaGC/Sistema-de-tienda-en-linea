@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,6 +25,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: DetalleProductos
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.DetalleProducto.Include(d => d.producto);
@@ -31,6 +33,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: DetalleProductos/Details/5
+       
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -50,6 +53,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: DetalleProductos/DetailsVendedor/5
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> DetailsVendedor(int? id)
         {
             if (id == null)
@@ -69,6 +73,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: DetalleProductos/Create
+        [Authorize(Roles = "Seller")]
         public IActionResult Create()
         {                        
             return View();
@@ -79,6 +84,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Create([Bind("DetalleProductoID,Descripcion,Talla,Color,PesoKg,Marca,Modelo,productoID")] DetalleProducto detalleProducto)
         {
             if (ModelState.IsValid)
@@ -95,7 +101,8 @@ namespace tiendaOnline.Controllers
             return View(detalleProducto);
         }
 
-         //GET: DetalleProductos/Edit/5
+        //GET: DetalleProductos/Edit/5
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -117,6 +124,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Edit(int id, [Bind("DetalleProductoID,Descripcion,Talla,Color,PesoKg,Marca,Modelo,productoID")] DetalleProducto detalleProducto)
         {
             if (id != detalleProducto.productoID)
@@ -149,6 +157,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: DetalleProductos/Delete/5
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -170,6 +179,7 @@ namespace tiendaOnline.Controllers
         // POST: DetalleProductos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var detalleProducto = await _context.DetalleProducto.FindAsync(id);

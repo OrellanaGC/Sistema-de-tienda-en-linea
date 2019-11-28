@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -25,6 +26,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Tarjetas
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -33,8 +35,9 @@ namespace tiendaOnline.Controllers
             return View(await applicationDbContext.AsNoTracking().ToListAsync());
         }
 
-       
+
         // GET: Tarjetas de Vendedor
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> IndexVendedor()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -44,6 +47,7 @@ namespace tiendaOnline.Controllers
             return View(await applicationDbContext.AsNoTracking().ToListAsync());
         }
         // GET: Tarjetas/Details/5
+        [Authorize(Roles = "User, Seller" )]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -63,6 +67,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Tarjetas/Create
+        [Authorize(Roles = "User")]
         public IActionResult Create()
         {            
             return View();
@@ -73,6 +78,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Create([Bind("TarjetaID,numeroTarjeta,codigoSeguridad,tipoTarjeta,titularTarjeta,fechaVencimiento,tiendaOnlineUserID")] Tarjeta tarjeta)
         {
             if (ModelState.IsValid)
@@ -88,6 +94,7 @@ namespace tiendaOnline.Controllers
         }
         //Creacion de Tarjetas para vendedor
         // GET: Tarjetas/Create
+        [Authorize(Roles = "Seller")]
         public IActionResult CreateVendedor()
         {            
             return View();
@@ -98,6 +105,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> CreateVendedor([Bind("TarjetaID,numeroTarjeta,codigoSeguridad,tipoTarjeta,titularTarjeta,fechaVencimiento,tiendaOnlineUserID")] Tarjeta tarjeta)
         {
             if (ModelState.IsValid)
@@ -116,6 +124,7 @@ namespace tiendaOnline.Controllers
 
 
         // GET: Tarjetas/Edit/5
+        [Authorize(Roles = "User, Seller")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -137,6 +146,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User, Seller")]
         public async Task<IActionResult> Edit(int id, [Bind("TarjetaID,numeroTarjeta,codigoSeguridad,tipoTarjeta,titularTarjeta,fechaVencimiento,tiendaOnlineUserID")] Tarjeta tarjeta)
         {
             if (id != tarjeta.TarjetaID)
@@ -174,6 +184,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Tarjetas/Delete/5
+        [Authorize(Roles = "User, Seller")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -195,6 +206,7 @@ namespace tiendaOnline.Controllers
         // POST: Tarjetas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User, Seller")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var tarjeta = await _context.Tarjeta.FindAsync(id);

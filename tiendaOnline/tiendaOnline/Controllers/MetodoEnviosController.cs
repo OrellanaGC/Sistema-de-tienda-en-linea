@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -53,6 +54,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: MetodoEnvios/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -63,6 +65,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("MetodoEnvioID,nombreMetodoEnvio,maxDiasEnvio,minDiasEnvio,montoEnvio")] MetodoEnvio metodoEnvio)
         {
             if (ModelState.IsValid)
@@ -75,6 +78,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: MetodoEnvios/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -95,6 +99,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("MetodoEnvioID,nombreMetodoEnvio,maxDiasEnvio,minDiasEnvio,montoEnvio")] MetodoEnvio metodoEnvio)
         {
             if (id != metodoEnvio.MetodoEnvioID)
@@ -126,6 +131,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: MetodoEnvios/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -146,6 +152,7 @@ namespace tiendaOnline.Controllers
         // POST: MetodoEnvios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var metodoEnvio = await _context.MetodoEnvio.FindAsync(id);

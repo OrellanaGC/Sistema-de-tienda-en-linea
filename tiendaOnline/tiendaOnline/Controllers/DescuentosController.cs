@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -28,6 +29,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Descuentos
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -39,6 +41,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Descuentos/Details/5
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -58,9 +61,10 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Descuentos/Create
+        [Authorize(Roles = "Seller")]
         public IActionResult Create()
         {
-            ViewData["ProductoID"] = new SelectList(_context.Producto, "ProductoID", "Codigo");
+            
             return View();
         }
 
@@ -69,6 +73,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Create([Bind("DescuentoID,NombreDelDescuento,TipoDeDescuento,MontoDeDescuento,PrecioConDesc,ProductoID")] Descuento descuento)
         {
             double desc = descuento.MontoDeDescuento;
@@ -93,11 +98,12 @@ namespace tiendaOnline.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductoID"] = new SelectList(_context.Producto, "ProductoID", "Codigo", descuento.ProductoID);
+            
             return View(descuento);
         }
 
         // GET: Descuentos/Edit/5
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -110,7 +116,7 @@ namespace tiendaOnline.Controllers
             {
                 return NotFound();
             }
-            ViewData["ProductoID"] = new SelectList(_context.Producto, "ProductoID", "Codigo", descuento.ProductoID);
+            
             return View(descuento);
         }
 
@@ -119,6 +125,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Edit(int id, [Bind("DescuentoID,NombreDelDescuento,TipoDeDescuento,MontoDeDescuento,PrecioConDesc,ProductoID")] Descuento descuento)
         {
             if (id != descuento.DescuentoID)
@@ -165,12 +172,13 @@ namespace tiendaOnline.Controllers
                 return RedirectToAction("IndexVendedor", "Productos");
                
             }
-            ViewData["ProductoID"] = new SelectList(_context.Producto, "ProductoID", "Codigo", descuento.ProductoID);
+            
             return View(descuento);
         }
 
-        
+
         //Para Desactivar desde el index
+        [Authorize(Roles = "Seller")]
         public async Task<RedirectToActionResult> ActivarDescuento(int id)
         {
             var descSeleccionado = _context.Descuento.FirstOrDefault(d => d.DescuentoID == id);
@@ -182,6 +190,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Descuentos/Delete/5
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -205,6 +214,7 @@ namespace tiendaOnline.Controllers
         // POST: Descuentos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var descuento = await _context.Descuento.FindAsync(id);

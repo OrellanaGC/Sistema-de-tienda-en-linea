@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -25,6 +26,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: DetalleVendedores
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Index()
         {
             //Filtrar solo los detalles del vendedor que ha iniciado sesion
@@ -35,6 +37,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: DetalleVendedores/Details/5
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -54,6 +57,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: DetalleVendedores/Create
+        [Authorize(Roles = "User")]
         public IActionResult Create()
         {
             ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Email");
@@ -65,6 +69,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Create([Bind("DetalleVendedorID,nombreComercial,correoComercial,tipoVendedor,tiendaOnlineUserID")] DetalleVendedor detalleVendedor)
         {
             if (ModelState.IsValid)
@@ -81,6 +86,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: DetalleVendedores/Edit/5
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -102,6 +108,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Edit(int id, [Bind("DetalleVendedorID,nombreComercial,correoComercial,tipoVendedor,tiendaOnlineUserID")] DetalleVendedor detalleVendedor)
         {
             if (id != detalleVendedor.DetalleVendedorID)
@@ -134,6 +141,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: DetalleVendedores/Delete/5
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -155,6 +163,7 @@ namespace tiendaOnline.Controllers
         // POST: DetalleVendedores/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var detalleVendedor = await _context.DetalleVendedor.FindAsync(id);

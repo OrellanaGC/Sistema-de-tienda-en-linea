@@ -28,16 +28,10 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.tipoVendedor)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.tiendaOnlineUser)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.tiendaOnlineUser.Id)
-        </dd>
+        </dd>        
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.DetalleVendedorID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.DetalleVendedorID">Editar</a> |
+    <a asp-action="Index">Regresar</a>
 </div>

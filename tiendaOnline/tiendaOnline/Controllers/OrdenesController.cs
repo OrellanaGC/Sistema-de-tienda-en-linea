@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Ordenes
+        [Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Orden.Include(o => o.cupon).Include(o => o.metodoEnvio).Include(o => o.tiendaOnlineUser);
@@ -34,6 +36,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Ordenes/Details/5
+        [Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -55,6 +58,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Ordenes/Create
+        [Authorize(Roles = "User, admin")]
         public IActionResult Create()
         {
             ViewData["paypalID"] = new SelectList(_context.Paypal, "paypalID", "paypalID");
@@ -70,6 +74,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> Create([Bind("OrdenID,fechaOrden,total,estadoDeOrden,tiendaOnlineUserID,metodoEnvioID,cuponID")] Orden orden)
         {
             var items = _carrito.GetprodCarrito();
@@ -95,6 +100,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Ordenes/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -118,6 +124,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("OrdenID,fechaOrden,total,estadoDeOrden,tiendaOnlineUserID,metodoEnvioID,cuponID")] Orden orden)
         {
             if (id != orden.OrdenID)
@@ -152,6 +159,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Ordenes/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -175,6 +183,7 @@ namespace tiendaOnline.Controllers
         // POST: Ordenes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var orden = await _context.Orden.FindAsync(id);

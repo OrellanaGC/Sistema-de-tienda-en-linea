@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -45,23 +46,14 @@ namespace tiendaOnline.Controllers
                 p.Subcategoria.nombreSubcategoria.Contains(searchString) ||
                 p.Subcategoria.Categoria.nombre_categoria.Contains(searchString)
                 );//realiza busqueda por nombre
-            }
-            //filtrado cuando le da al boton de Mis Productos. en realidad solo verifica
-            //que haya un vendedor logeado
-            var user = await _userManager.GetUserAsync(User);
-            var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
-            if (vendedor != null)
-            {
-                productos = productos.Where(p => p.detalleVendedor.tiendaOnlineUserID.Contains(user.Id));
-            }
-
-
-
+            }     
+            
             return View(await productos.AsNoTracking().ToListAsync());
             //return View(await applicationDbContext.ToListAsync());
         }
 
         //Visualizar productos propios de cada vendedor
+        [Authorize(Roles ="Seller")]
         public async Task<IActionResult> IndexVendedor(string searchString)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -88,6 +80,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Productos/Details/5
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -116,6 +109,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Productos/Create
+        [Authorize(Roles = "Seller")]
         public IActionResult Create()
         {
             ViewData["CategoriaID"] = new SelectList(_context.Categoria, "CategoriaID", "nombre_categoria");
@@ -139,6 +133,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Create([Bind("ProductoID,NombreProducto,PrecioUnitario,Existencia,Codigo,Imagen,SubcategoriaID,detalleVendedorID")] Producto producto, IFormFile Imagen)
         {
             if (ModelState.IsValid)
@@ -181,11 +176,12 @@ namespace tiendaOnline.Controllers
 
             }
             ViewData["CategoriaID"] = new SelectList(_context.Categoria, "CategoriaID", "nombre_categoria");
-            ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", producto.detalleVendedorID);
+            
             return View(producto);
         }
 
         // GET: Productos/Edit/5
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -199,7 +195,7 @@ namespace tiendaOnline.Controllers
                 return NotFound();
             }
             ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "nombreSubcategoria", producto.SubcategoriaID);
-            ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", producto.detalleVendedorID);
+            
             return View(producto);
         }
 
@@ -208,6 +204,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Edit(int id, [Bind("ProductoID,NombreProducto,PrecioUnitario,Existencia,Codigo,Imagen,SubcategoriaID,detalleVendedorID")] Producto producto)
         {
             if (id != producto.ProductoID)
@@ -238,7 +235,7 @@ namespace tiendaOnline.Controllers
 
             }
             ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "nombreSubcategoria", producto.SubcategoriaID);
-            ViewData["detalleVendedorID"] = new SelectList(_context.DetalleVendedor, "DetalleVendedorID", "correoComercial", producto.detalleVendedorID);
+            
 
             //Asignando el producto al vendedor que ha iniciado sesion
             var user = await _userManager.GetUserAsync(User);
@@ -250,6 +247,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Productos/Delete/5
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -272,6 +270,7 @@ namespace tiendaOnline.Controllers
         // POST: Productos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var producto = await _context.Producto.FindAsync(id);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Subcategorias
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Subcategoria.Include(s => s.Categoria);
@@ -46,6 +48,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Subcategorias/Create
+        [Authorize(Roles = "Seller")]
         public IActionResult Create()
         {
             ViewData["CategoriaID"] = new SelectList(_context.Categoria, "CategoriaID", "nombre_categoria");
@@ -57,6 +60,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Create([Bind("SubcategoriaID,nombreSubcategoria,CategoriaID")] Subcategoria subcategoria)
         {
             if (ModelState.IsValid)
@@ -70,6 +74,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Subcategorias/Edit/5
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -91,6 +96,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Edit(int id, [Bind("SubcategoriaID,nombreSubcategoria,CategoriaID")] Subcategoria subcategoria)
         {
             if (id != subcategoria.SubcategoriaID)
@@ -123,6 +129,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Subcategorias/Delete/5
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -144,6 +151,7 @@ namespace tiendaOnline.Controllers
         // POST: Subcategorias/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var subcategoria = await _context.Subcategoria.FindAsync(id);
