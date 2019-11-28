@@ -3,9 +3,11 @@
     @using tiendaOnline.Data
     @using Microsoft.AspNetCore.Identity
     @using tiendaOnline.Areas.Identity.Data
+
+    <!--Inyeccion para obtener el id del usuario que ha iniciado sesion y hacer filtros en sus direcciones y tarjetas-->
+    @inject UserManager<tiendaOnlineUser> UserManager
     <!--Haciendo una inyeccion del context para traer cualquier modelo-->
     @inject ApplicationDbContext _context
-    @inject UserManager<tiendaOnlineUser> UserManager
     @{
         ViewData["Title"] = "Detalles de tu compra";
         Layout = "~/Views/Shared/_Layout.cshtml";
@@ -41,6 +43,11 @@
     <h4>Ya te falta poco!</h4>
     <hr />
 
+
+
+
+
+
     <div class="row">
         <div class="col-md-4">
             <form asp-action="Create">
@@ -52,7 +59,7 @@
                 <div class="container">
                     <div class="col-md-pull-7">
                         @{await
-                                                                        Html.RenderPartialAsync("ListaProd");
+                                                                      Html.RenderPartialAsync("ListaProd");
                         }
                     </div>
                 </div>
@@ -143,12 +150,12 @@
                                                                 <div class="col-md-pull-12">
                                                                     <br /><br />
 
-                                                                    <button style="FONT-SIZE: 11pt; border:none" type="submit" class="btn btn-default btn-lg envio" name="pago1" value="envio" data-dismiss="modal">
 
-                                                                        @foreach (var linea in _context.Sucursal)
-                                                                        {
+                                                                    @foreach (var linea in _context.Sucursal)
+                                                                    {
+                                                                        <button style="FONT-SIZE: 11pt; border:none" type="submit" class="btn btn-default btn-lg envio" name="pago1" value="envio" id="@ViewData["SucursalID"]@linea.SucursalID" onclick="seleccionarSucursal()" data-dismiss="modal">
 
-                                                                            <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal">&nbsp; @Html.DisplayFor(subcategorias => linea.nombreSucursal)</label>
+                                                                            <label class="input-group-text" value="@ViewData["SucursalID"]@linea.nombreSucursal">&nbsp; @Html.DisplayFor(subcategorias => linea.nombreSucursal)</label>
                                                                             <br />
                                                                             @foreach (var linea2 in _context.Direccion)
                                                                             {
@@ -162,23 +169,23 @@
                                                                                             {
                                                                                                 @if (linea3.DepartamentoID == linea4.DepartamentoID)
                                                                                                 {
-                                                                                                    <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> &nbsp; @Html.DisplayFor(subcategorias => linea4.nombreDepartamento), </label>
+                                                                                                    <label class="input-group-text" value="@ViewData["uScursalID"]@linea2.DireccionID"> &nbsp; @Html.DisplayFor(subcategorias => linea4.nombreDepartamento), </label>
                                                                                                 }
                                                                                             }
-                                                                                            <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea3.nombreMunicipio), </label>
+                                                                                            <label class="input-group-text" value="@ViewData["SucursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea3.nombreMunicipio), </label>
                                                                                         }
                                                                                     }
-                                                                                    <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.direccionDetallada), Código postal: </label>
-                                                                                    <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.codigoPostal)</label><br />
+                                                                                    <label class="input-group-text" value="@ViewData["SucursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.direccionDetallada), Código postal: </label>
+                                                                                    <label class="input-group-text" value="@ViewData["SucursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.codigoPostal)</label><br />
 
 
                                                                                 }
                                                                             }
-                                                                            <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal">@Html.DisplayFor(subcategorias => linea.horarioDeAtencion)</label>
+                                                                            <label class="input-group-text" value="@ViewData["SucursalID"]@linea.nombreSucursal">@Html.DisplayFor(subcategorias => linea.horarioDeAtencion)</label>
+                                                                        </button>
 
+                                                                    }
 
-                                                                        }
-                                                                    </button>
 
 
                                                                 </div>
@@ -766,88 +773,87 @@
 
     </div>
 
-
-
-    @section Scripts {
-
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-
-
-        <script type="text/javascript">
-
-            $(document).ready(function () {
-                $(".envio").click(function (evento) {
-
-                    var valor = $(this).val();
-
-                    if (valor == 'envio') {
-                        $("#div1").css("display", "block");
-                        $("#div2").css("display", "none");
-                    } else {
-                        $("#div1").css("display", "none");
-                        $("#div2").css("display", "block");
-                    }
-                });
-            });
-
-
-            $(document).ready(function () {
-                $(".pago").click(function (evento) {
-
-                    var valor = $(this).val();
-
-                    if (valor == 'si') {
-                        $("#divtar").css("display", "block");
-                        $("#divnone").css("display", "none");
-                    } else {
-                        $("#divtar").css("display", "none");
-                        $("#divnone").css("display", "block");
-                    }
-                });
-            });
-
-            $(document).ready(function () {
-                $(".cupon").click(function (evento) {
-
-                    var valor = $(this).val();
-
-                    if (valor == 'si') {
-                        $("#divsi").css("display", "block");
-                        $("#divno").css("display", "none");
-                    } else {
-                        $("#divsi").css("display", "none");
-                        $("#divno").css("display", "block");
-                    }
-                });
-            });
-
-            $(document).ready(function () {
-                $(".dir").click(function (evento) {
-
-                    var valor = $(this).val();
-
-                    if (valor == 'direcciondelusuario') {
-                        $("#diruser").css("display", "block");
-                    } else {
-                        $("#diruser").css("display", "none");
-                    }
-                });
-            });
-
-
-            $(document).ready(function () {
-                $(".met").click(function (evento) {
-
-                    var valor = $(this).val();
-
-                    if (valor == 'metusuario') {
-                        $("#metuser").css("display", "block");
-                    } else {
-                        $("#metuser").css("display", "none");
-                    }
-                });
-            });
-        </script>
-    }
 </div>
+
+@section Scripts {
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $(".envio").click(function (evento) {
+
+                var valor = $(this).val();
+
+                if (valor == 'envio') {
+                    $("#div1").css("display", "block");
+                    $("#div2").css("display", "none");
+                } else {
+                    $("#div1").css("display", "none");
+                    $("#div2").css("display", "block");
+                }
+            });
+        });
+
+
+        $(document).ready(function () {
+            $(".pago").click(function (evento) {
+
+                var valor = $(this).val();
+
+                if (valor == 'si') {
+                    $("#divtar").css("display", "block");
+                    $("#divnone").css("display", "none");
+                } else {
+                    $("#divtar").css("display", "none");
+                    $("#divnone").css("display", "block");
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $(".cupon").click(function (evento) {
+
+                var valor = $(this).val();
+
+                if (valor == 'si') {
+                    $("#divsi").css("display", "block");
+                    $("#divno").css("display", "none");
+                } else {
+                    $("#divsi").css("display", "none");
+                    $("#divno").css("display", "block");
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $(".dir").click(function (evento) {
+
+                var valor = $(this).val();
+
+                if (valor == 'direcciondelusuario') {
+                    $("#diruser").css("display", "block");                 
+                } else {                  
+                    $("#diruser").css("display", "none");
+                }
+            });
+        });
+
+
+        $(document).ready(function () {
+            $(".met").click(function (evento) {
+
+                var valor = $(this).val();
+
+                if (valor == 'metusuario') {
+                    $("#metuser").css("display", "block");
+                } else {
+                    $("#metuser").css("display", "none");
+                }
+            });
+        });
+    </script>
+}

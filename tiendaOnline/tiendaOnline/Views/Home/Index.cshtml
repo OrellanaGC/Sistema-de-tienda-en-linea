@@ -7,7 +7,9 @@
 @{
     ViewData["Title"] = "iBuy";
 }
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.min.css">
 
 <div class="row">
     <div class="col-md-3">
@@ -113,60 +115,75 @@
         <h3>LO NUEVO</h3>
     </div>
 </div>
-    <div class="row">
-        @foreach (var producto in Model)
-        {
-            <div class="col-md-2">
-                <center> <b><h5><a style="color:teal;" asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a></h5></b></center>
-                <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">
-                    <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
-                </a>
+<div class="row">
+    @foreach (var producto in Model)
+    {
+        <div class="col-md-2">
+            <center> <b><h5><a style="color:teal;" asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a></h5></b></center>
+            <a asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">
+                <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
+            </a>
 
-                @*variables para el descuento*@
-                @{ var desc = false; var precios = 0.0; }
+            @*variables para el descuento*@
+            @{ var desc = false; var precios = 0.0; }
 
-                @*aplicando el descuento*@
-                @foreach (var precio in _context.Descuento)
+            @*aplicando el descuento*@
+            @foreach (var precio in _context.Descuento)
+            {
+                if (precio.ProductoID == producto.ProductoID && precio.EstaActivo == true)
                 {
-                    if (precio.ProductoID == producto.ProductoID && precio.EstaActivo == true)
-                    {
-                        desc = true;
-                        precios = precio.PrecioConDesc;
-                    }
-
-
+                    desc = true;
+                    precios = precio.PrecioConDesc;
                 }
-                @if (desc == false)
-                {
+
+
+            }
+            @if (desc == false)
+            {
                 <h4>&nbsp;</h4>
-                    precios = producto.PrecioUnitario;
+                precios = producto.PrecioUnitario;
 
+            }
+
+            @if (desc)
+            {
+                <h5 style="text-decoration:line-through">  $@(producto.PrecioUnitario)</h5>
+            }
+            <h4>$ @precios</h4>
+
+            <script>
+                function alerta() {
+                   Swal.fire({
+                  title: 'Producto agregado',
+                  width: 600,
+                  padding: '3em',
+                  background: '#fff url(https://sweetalert2.github.io/#downloadimages/trees.png)',
+                  backdrop: `
+                    rgba(0,0,123,0.4)
+                    url("https://sweetalert2.github.io/#downloadimages/nyan-cat.gif")
+                    left top
+                    no-repeat`
+                })
                 }
-
-                @if (desc)
-                {
-                    <h5 style="text-decoration:line-through">  $@(producto.PrecioUnitario)</h5>
-                }
-                <h4>$ @precios</h4>
+            </script>
 
 
 
-
-
-                <div class="agregarCarrito text-left" title="Agrega el producto a tu carrito!">
-                    <p class="button">
-                        <a class="btn btn-success" id="cartButton"
-                           asp-controller="Carritos"
-                           asp-action="AgregarCarrito"
-                           asp-route-idProducto="@producto.ProductoID">
-                            <i class="fas fa-cart-plus"></i>
-                        </a>
-                    </p>
-                </div>
-
-
-                <br />
-
+            <div class="agregarCarrito text-left" title="Agrega el producto a tu carrito!">
+                <p class="button">
+                    <a class="btn btn-success" id="cartButton"
+                       asp-controller="Carritos"
+                       asp-action="AgregarCarrito"
+                       asp-route-idProducto="@producto.ProductoID" onclick="alerta()">
+                        <i class="fas fa-cart-plus"></i>
+                    </a>
+                </p>
             </div>
-        }
-    </div>
+
+
+            <br />
+
+        </div>
+    }
+</div>
+

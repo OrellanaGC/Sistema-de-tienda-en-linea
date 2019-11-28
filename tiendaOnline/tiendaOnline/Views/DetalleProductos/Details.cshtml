@@ -2,13 +2,17 @@
 
 @using tiendaOnline.Data
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.min.css">
+
 <!--Haciendo una inyeccion del context para traer cualquier modelo-->
 @inject ApplicationDbContext _context
- 
+
 @{
     ViewData["Title"] = @Model.producto.NombreProducto;
     Layout = "~/Views/Shared/_Layout.cshtml";
- }
+}
 
 <!--Aqui se muestran los detalles de los productos-->
 
@@ -44,44 +48,44 @@
             }
         </table>
         </br>
-    </div> 
+    </div>
     <div class="row">
         <br /><br />
         <div class="col-md-4">
-            <img class="zoom"  height=380px width=380px src="~/images/productos/@Html.DisplayFor(model => model.producto.Imagen)" />
+            <img class="zoom" height=380px width=380px src="~/images/productos/@Html.DisplayFor(model => model.producto.Imagen)" />
         </div>
         <div class="col-md-3">
             <h4><b><u>@Html.DisplayFor(model => model.producto.NombreProducto)</u></b></h4>
             <b>
-            @*variables para el descuento*@
-            @{ var desc = false; var precios = 0.0; }
+                @*variables para el descuento*@
+                @{ var desc = false; var precios = 0.0; }
 
-            @*aplicando el descuento*@
-            @foreach (var precio in _context.Descuento)
-            {
-                if (precio.ProductoID == Model.producto.ProductoID && precio.EstaActivo == true)
+                @*aplicando el descuento*@
+                @foreach (var precio in _context.Descuento)
                 {
-                    desc = true;
-                    precios = precio.PrecioConDesc;
+                    if (precio.ProductoID == Model.producto.ProductoID && precio.EstaActivo == true)
+                    {
+                        desc = true;
+                        precios = precio.PrecioConDesc;
+                    }
+
+
+                }
+                @if (desc == false)
+                {
+                    precios = Model.producto.PrecioUnitario;
+
                 }
 
-
-            }
-            @if (desc == false)
-            {
-                precios = Model.producto.PrecioUnitario;
-
-            }
-
-            @if (desc)
-            {
-                <h5 style="text-decoration:line-through">  $@(Model.producto.PrecioUnitario)</h5>
-                <p>En descuento</p>
-            }
-            <h2>$@precios</h2><br />
+                @if (desc)
+                {
+                    <h5 style="text-decoration:line-through">  $@(Model.producto.PrecioUnitario)</h5>
+                    <p>En descuento</p>
+                }
+                <h2>$@precios</h2><br />
             </b>
-       
-           
+
+
             <dd><b>Vendedor: </b>@Html.DisplayFor(model => model.producto.detalleVendedor.nombreComercial)</dd> <br />
 
             <dl>
@@ -128,17 +132,39 @@
                         <b> Cantidad de productos:</b> @Html.DisplayFor(model => model.producto.Existencia)
                     </dd>
                 }
-                <div class="agregarCarrito text-left">
-                    <p class="button">
-                        <a class="btn btn-success" id="cartButton" title="Agrega el producto a tu carrito!"
-                           asp-controller="Carritos"
-                           asp-action="AgregarCarrito"
-                           asp-route-idProducto="@Model.producto.ProductoID">
-                            Comprar
-                            <i class="fas fa-cart-plus"></i>
-                        </a>
-                    </p>
-                </div>
+
+
+
+                  <script>
+                function alerta() {
+                   Swal.fire({
+                  title: 'Producto agregado',
+                  width: 600,
+                  padding: '3em',
+                  background: '#fff url(https://sweetalert2.github.io/#downloadimages/trees.png)',
+                  backdrop: `
+                    rgba(0,0,123,0.4)
+                    url("https://sweetalert2.github.io/#downloadimages/nyan-cat.gif")
+                    left top
+                    no-repeat`
+                })
+                }
+            </script>
+
+
+
+            <div class="agregarCarrito text-left" title="Agrega el producto a tu carrito!">
+                <p class="button">
+                    <a class="btn btn-success" id="cartButton"
+                       asp-controller="Carritos"
+                       asp-action="AgregarCarrito"
+                       asp-route-idProducto="@Model.producto.ProductoID" onclick="alerta()">
+                        <i class="fas fa-cart-plus"></i>
+                    </a>
+                </p>
+            </div>
+
+               
             </dl>
         </div>
     </div>

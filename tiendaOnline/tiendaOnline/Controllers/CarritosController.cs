@@ -52,7 +52,7 @@ namespace tiendaOnline.Controllers
             {
                 _carrito.AgregarCarrito(prodSeleccionado, 1);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
 
         [Authorize(Roles = "User")]
