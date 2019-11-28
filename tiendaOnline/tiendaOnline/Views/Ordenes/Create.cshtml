@@ -38,6 +38,11 @@
 <h4>Ya te falta poco!</h4>
 <hr />
 
+
+
+
+
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -140,45 +145,45 @@
                                                             <div class="col-md-pull-12">
                                                                 <br /><br />
 
-                                                                <button style="FONT-SIZE: 11pt; border:none" type="submit" class="btn btn-default btn-lg envio" name="pago1" value="envio" data-dismiss="modal">
 
-                                                                    @foreach (var linea in _context.Sucursal)
-                                                                    {
+                                                                @foreach (var linea in _context.Sucursal)
+                                                                {
+                                                                      <button style="FONT-SIZE: 11pt; border:none" type="submit" class="btn btn-default btn-lg envio" name="pago1" value="envio" id="@ViewData["SucursalID"]@linea.SucursalID" onclick="seleccionarSucursal()" data-dismiss="modal">
 
-                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal">&nbsp; @Html.DisplayFor(subcategorias => linea.nombreSucursal)</label>
-                                                                        <br />
-                                                                        @foreach (var linea2 in _context.Direccion)
-                                                                        {
-                                                                            @if (linea.SucursalID == linea2.sucursalID)
-                                                                            {
-                                                                                @foreach (var linea3 in _context.Municipio)
-                                                                                {
-                                                                                    @if (linea3.MunicipioID == linea2.MunicipioID)
-                                                                                    {
-                                                                                        @foreach (var linea4 in _context.Departamento)
-                                                                                        {
-                                                                                            @if (linea3.DepartamentoID == linea4.DepartamentoID)
-                                                                                            {
-                                                                                                <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> &nbsp; @Html.DisplayFor(subcategorias => linea4.nombreDepartamento), </label>
-                                                                                            }
-                                                                                        }
-                                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea3.nombreMunicipio), </label>
-                                                                                    }
-                                                                                }
-                                                                                <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.direccionDetallada), Código postal: </label>
-                                                                                <label class="input-group-text" value="@ViewData["ScursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.codigoPostal)</label><br />
+                                                                          <label class="input-group-text" value="@ViewData["SucursalID"]@linea.nombreSucursal">&nbsp; @Html.DisplayFor(subcategorias => linea.nombreSucursal)</label>
+                                                                          <br />
+                                                                          @foreach (var linea2 in _context.Direccion)
+                                                                          {
+                                                                              @if (linea.SucursalID == linea2.sucursalID)
+                                                                              {
+                                                                                  @foreach (var linea3 in _context.Municipio)
+                                                                                  {
+                                                                                      @if (linea3.MunicipioID == linea2.MunicipioID)
+                                                                                      {
+                                                                                          @foreach (var linea4 in _context.Departamento)
+                                                                                          {
+                                                                                              @if (linea3.DepartamentoID == linea4.DepartamentoID)
+                                                                                              {
+                                                                                                  <label class="input-group-text" value="@ViewData["uScursalID"]@linea2.DireccionID"> &nbsp; @Html.DisplayFor(subcategorias => linea4.nombreDepartamento), </label>
+                                                                                              }
+                                                                                          }
+                                                                                          <label class="input-group-text" value="@ViewData["SucursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea3.nombreMunicipio), </label>
+                                                                                      }
+                                                                                  }
+                                                                                  <label class="input-group-text" value="@ViewData["SucursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.direccionDetallada), Código postal: </label>
+                                                                                  <label class="input-group-text" value="@ViewData["SucursalID"]@linea2.DireccionID"> @Html.DisplayFor(subcategorias => linea2.codigoPostal)</label><br />
 
 
-                                                                            }
+                                                                              }
+                                                                          }
+                                                                          <label class="input-group-text" value="@ViewData["SucursalID"]@linea.nombreSucursal">@Html.DisplayFor(subcategorias => linea.horarioDeAtencion)</label>
+                                                                      </button>
+
                                                                         }
-                                                                        <label class="input-group-text" value="@ViewData["ScursalID"]@linea.nombreSucursal">@Html.DisplayFor(subcategorias => linea.horarioDeAtencion)</label>
+                                                                  
 
 
-                                                                    }
-                                                                </button>
-
-
-                                                            </div>
+                                                                </div>
 
 
                                                             <!--Fin del body del popup-->
@@ -763,7 +768,7 @@
 
 </div>
 
-
+</div>
 
 @section Scripts {
 
@@ -847,4 +852,3 @@
         });
     </script>
 }
-</div>

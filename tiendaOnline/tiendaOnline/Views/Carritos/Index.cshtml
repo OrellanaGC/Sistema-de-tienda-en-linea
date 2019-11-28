@@ -107,7 +107,7 @@
                         {
                             <div style="text-decoration:line-through">  $@(linea.producto.PrecioUnitario)</div>
                         }
-                            <i>$@Math.Round(@precios,2)</i>
+                            <i>$@String.Format("{0:0.00}", precios)</i>
                     </td>
                     <td class="col-md-1 text-center">
                         <br />
@@ -139,7 +139,7 @@
                     <th class="col-sm-2 text-center"><b>SubTotal</b></th>
                     <th class="col-sm-1 text-center">
                        
-                        $@subtotal
+                        $@String.Format("{0:0.00}", subtotal)
                     </th>
                 </tr>
                 <tr>
@@ -147,7 +147,7 @@
                     <th class="col-sm-1 text-center">
                         @{var descuento = subtotal - Model.TotalCarrito;}
 
-                        $ @Math.Round(@descuento,2)  
+                        $ @String.Format("{0:0.00}", descuento)
                     </th>
                 </tr>
                 <tr>
