@@ -372,14 +372,15 @@
                                                                                 <th class="col-md-2"><b><center>Días de envío</center></b></th>
                                                                                 <th class="col-md-4"><b><center>Nombre del intermediario</center></b></th>
                                                                             </tr>
-
+                                                                            
+                                                                            @{ var variable = 0;}
 
                                                                             @foreach (var linea in _context.MetodoEnvio)
                                                                             {
-
+                                                                                variable = linea.MetodoEnvioID;
                                                                                 <tr>
                                                                                     <td class="col-md-3">
-                                                                                        <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                        <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" id="@variable" value="metusuario" data-dismiss="modal">
                                                                                             <label for="@ViewData["metodoEnvioID"]@linea.MetodoEnvioID"> $@Html.DisplayFor(modelItem => linea.montoEnvio)</label>
                                                                                         </button>
                                                                                     </td>

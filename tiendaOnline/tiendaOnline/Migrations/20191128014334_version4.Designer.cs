@@ -10,8 +10,8 @@ using tiendaOnline.Data;
 namespace tiendaOnline.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191125034046_inicio")]
-    partial class inicio
+    [Migration("20191128014334_version4")]
+    partial class version4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -271,6 +271,8 @@ namespace tiendaOnline.Migrations
                     b.Property<int>("DescuentoID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("EstaActivo");
 
                     b.Property<int>("MontoDeDescuento");
 
@@ -626,29 +628,6 @@ namespace tiendaOnline.Migrations
                     b.ToTable("Tarjeta");
                 });
 
-            modelBuilder.Entity("tiendaOnline.Models.TipoDeDescuento", b =>
-                {
-                    b.Property<int>("TipoDeDescuentoID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ProductoID");
-
-                    b.Property<int>("montoDeDescuento");
-
-                    b.Property<string>("nombreDelDescuento")
-                        .HasMaxLength(20);
-
-                    b.Property<int>("porcentajeDeDescuento");
-
-                    b.HasKey("TipoDeDescuentoID");
-
-                    b.HasIndex("ProductoID")
-                        .IsUnique();
-
-                    b.ToTable("TipoDeDescuento");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -835,14 +814,6 @@ namespace tiendaOnline.Migrations
                     b.HasOne("tiendaOnline.Areas.Identity.Data.tiendaOnlineUser", "tiendaOnlineUser")
                         .WithMany()
                         .HasForeignKey("tiendaOnlineUserID");
-                });
-
-            modelBuilder.Entity("tiendaOnline.Models.TipoDeDescuento", b =>
-                {
-                    b.HasOne("tiendaOnline.Models.Producto", "producto")
-                        .WithOne("TipoDeDescuento")
-                        .HasForeignKey("tiendaOnline.Models.TipoDeDescuento", "ProductoID")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

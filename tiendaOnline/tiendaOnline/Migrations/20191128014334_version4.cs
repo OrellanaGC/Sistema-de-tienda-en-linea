@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace tiendaOnline.Migrations
 {
-    public partial class inicio : Migration
+    public partial class version4 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -503,6 +503,7 @@ namespace tiendaOnline.Migrations
                     DescuentoID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     NombreDelDescuento = table.Column<string>(nullable: true),
+                    EstaActivo = table.Column<bool>(nullable: false),
                     TipoDeDescuento = table.Column<bool>(nullable: false),
                     MontoDeDescuento = table.Column<int>(nullable: false),
                     PrecioConDesc = table.Column<double>(nullable: false),
@@ -598,28 +599,6 @@ namespace tiendaOnline.Migrations
                         principalTable: "Producto",
                         principalColumn: "ProductoID",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TipoDeDescuento",
-                columns: table => new
-                {
-                    TipoDeDescuentoID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    nombreDelDescuento = table.Column<string>(maxLength: 20, nullable: true),
-                    montoDeDescuento = table.Column<int>(nullable: false),
-                    porcentajeDeDescuento = table.Column<int>(nullable: false),
-                    ProductoID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TipoDeDescuento", x => x.TipoDeDescuentoID);
-                    table.ForeignKey(
-                        name: "FK_TipoDeDescuento_Producto_ProductoID",
-                        column: x => x.ProductoID,
-                        principalTable: "Producto",
-                        principalColumn: "ProductoID",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -780,12 +759,6 @@ namespace tiendaOnline.Migrations
                 name: "IX_Tarjeta_tiendaOnlineUserID",
                 table: "Tarjeta",
                 column: "tiendaOnlineUserID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TipoDeDescuento_ProductoID",
-                table: "TipoDeDescuento",
-                column: "ProductoID",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -828,9 +801,6 @@ namespace tiendaOnline.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tarjeta");
-
-            migrationBuilder.DropTable(
-                name: "TipoDeDescuento");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
