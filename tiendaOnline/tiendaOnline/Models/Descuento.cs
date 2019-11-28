@@ -25,12 +25,6 @@ namespace tiendaOnline.Models
         public int ProductoID { get; set; }
         public Producto producto { get; set; }
 
-        //public Descuento()
-        //{
-        //    NombreDelDescuento = "";
-        //    MontoDeDescuento = 0;
-        //    TipoDeDescuento = true;
-        //    PrecioConDesc = 0;
-        //}
+     
     }
 }

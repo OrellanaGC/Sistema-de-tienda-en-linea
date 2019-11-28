@@ -84,10 +84,10 @@ namespace tiendaOnline.Controllers
                     if(descuento.TipoDeDescuento == true)
                     {
                        
-                        descuento.PrecioConDesc = producto.PrecioUnitario *(1-(desc*0.01));
+                        descuento.PrecioConDesc = Math.Round( producto.PrecioUnitario *(1-(desc*0.01)),2);
                     } else
                     {
-                        descuento.PrecioConDesc = producto.PrecioUnitario - desc;
+                        descuento.PrecioConDesc = Math.Round( producto.PrecioUnitario - desc,2);
                     }
                 }
                  
@@ -141,11 +141,11 @@ namespace tiendaOnline.Controllers
                     if (descuento.TipoDeDescuento == true)
                     {
 
-                        descuento.PrecioConDesc = Math.Round( producto.PrecioUnitario * (1 - (desc * 0.01)), 3);
+                        descuento.PrecioConDesc = Math.Round(( producto.PrecioUnitario * (1 - (desc * 0.01))), 2);
                     }
                     else
                     {
-                        descuento.PrecioConDesc = Math.Round( producto.PrecioUnitario - desc,3);
+                        descuento.PrecioConDesc = Math.Round(( producto.PrecioUnitario - desc),2);
                     }
                 }
 
