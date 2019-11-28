@@ -20,8 +20,7 @@ namespace tiendaOnline.Models
         [Display(Name = "Total de Orden")]
         public double total { get; set; }
 
-        [Required]
-        [Display(Name = "Estado de Orden")]
+       
         public Boolean estadoDeOrden { get; set; }
 
         //Relacion con usuario
@@ -30,7 +29,7 @@ namespace tiendaOnline.Models
 
         //Relacion con MetodoEnvio
         public MetodoEnvio metodoEnvio { get; set; }
-        public int metodoEnvioID { get; set; }
+        public int? metodoEnvioID { get; set; }
 
         //Relacion con Cupon
         public Cupon cupon { get; set; }

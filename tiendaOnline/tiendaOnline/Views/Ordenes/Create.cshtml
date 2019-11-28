@@ -90,10 +90,12 @@
                                                 <!--aqui se le debe mostrar la direccion de la sucursal seleccionada cuando le de guardar al popup-->
                                                 <div class="col-md-pull-12" id="div1" >
                                                   
-                                                        <div class="panel-heading">
-                                                             <p id="sucursalElegida"></p>
+                                                    <div class="panel-heading">
+                                                        <p id="sucursalElegida"></p>
+                                                        <!--capturo el id de la sucursal en el siguiente input para mandarlo guardado-->
+                                                        <input style="visibility:hidden" id="sucursalid" class="form-control"  type="text" />
 
-                                                        </div>
+                                                    </div>
                                                  
                                                 </div>
 
@@ -194,6 +196,8 @@
                                                                                 <br />
                                                                                 <b>
                                                                                     <p id="direccionElegida"></p>
+                                                                                    <!--capturo el id de la direccion en el siguiente input para mandarlo guardado-->
+                                                                                    <input id="direccionid" style="visibility:hidden" class="form-control" />
                                                                                 </b>
 
                                                                             </div>
@@ -202,8 +206,10 @@
 
                                                                             <br />
                                                                             <!--aqui se le debe mostrar el metodo de envio seleccionada cuando le de guardar al popup-->
-                                                                            <div class="form-group" id="metuser" >
+                                                                            <div class="form-group" id="metuser">
                                                                                 <p id="metodoElegido"></p>
+                                                                                <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
+                                                                                <input id="metodoEid" asp-for="metodoEnvioID" style="visibility:hidden"  class="form-control" />
 
 
                                                                             </div>
@@ -231,11 +237,9 @@
                                                                                                     <fieldset>
                                                                                                         <table>
                                                                                                             <tbody>
-
                                                                                                                 <tr></tr>
                                                                                                                 <tr>
                                                                                                                     <td>&nbsp;</td>
-
                                                                                                                 </tr>
                                                                                                                 @{ var dir = " "; var dirid = 0;}
                                                                                                                 @foreach (var linea in _context.Direccion.Where(d => d.tiendaOnlineUserID == UserManager.GetUserId(User)))
@@ -335,26 +339,26 @@
                                                                                 </tr>
 
                                                                                 @{ var metodo =" ";
-                                                                                    var metodoid = 0;}
+                                                                                    var metid = 0;}
 
                                                                                 @foreach (var linea in _context.MetodoEnvio)
                                                                                 {
-                                                                                    metodo = linea.montoEnvio+" ("+ linea.minDiasEnvio+" - "+linea.maxDiasEnvio+") "+ linea.nombreMetodoEnvio;
-                                                                                    metodoid = linea.MetodoEnvioID;
+                                                                                    metodo = ". Intermediario: " + linea.nombreMetodoEnvio+". días: ("+ linea.minDiasEnvio+" - "+linea.maxDiasEnvio+") monto extra:"+ linea.montoEnvio;
+                                                                                    metid = linea.MetodoEnvioID;
 
                                                                                     <tr>
                                                                                         <td class="col-md-3">
-                                                                                            <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" onclick="seleccionarMetodo('@metodo','@metodoid')" value="metusuario" data-dismiss="modal">
+                                                                                            <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" onclick="seleccionarMetodo('@metodo','@metid')" value="metusuario" data-dismiss="modal">
                                                                                                 <label > $@Html.DisplayFor(modelItem => linea.montoEnvio)</label>
                                                                                             </button>
                                                                                         </td>
                                                                                         <td class="col-md-2">
-                                                                                            <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                            <button type="submit" style="border:none" onclick="seleccionarMetodo('@metodo','@metid')"  class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
                                                                                                 <label >(@Html.DisplayFor(modelItem => linea.minDiasEnvio)</label> - <label > @Html.DisplayFor(modelItem => linea.maxDiasEnvio) )</label>
                                                                                             </button>
                                                                                         </td>
                                                                                         <td class="col-md-4">
-                                                                                            <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                            <button type="submit" onclick="seleccionarMetodo('@metodo','@metid')"  style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
                                                                                                 <label > @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)</label>
                                                                                             </button>
                                                                                         </td>
@@ -404,10 +408,8 @@
                                                     <p class="auto-style3"><input name="cupon" type="radio" style="width: 17px; height: 17px" value="si" data-toggle="modal" data-target="#cuadritoWapeton5" /><span class="auto-style4"> Si</span></p>
                                                     @*<input type="radio" id="concupon" name="cupon" checked="checked" value="concupon" data-toggle="modal" data-target="#cuadritoWapeton5" /> Si*@
                                                 </label>
-                                                <!--div class="form-group" id="divsi" style="display:none">
-                                                    <!--label class="control-label">Cupon valido o no valido de nuevo usuario</!--label>
+                                             
 
-                                                </div>
                                                 <!--inicio popup del cupon-->
                                                 <div class="modal fade" id="cuadritoWapeton5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
@@ -490,6 +492,9 @@
                                                 <div class="panel panel-default panel-srcbox">
                                                     <div class="panel-heading">
                                                         <p id="tarjetaElegida"></p>
+                                                        <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
+                                                        <input id="tarjetaid" style="visibility:hidden" class="form-control" />
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -790,7 +795,7 @@
 
         function seleccionarMetodo(met, id) {
             $("#metodoElegido").text(met);
-            $("#metodoid").val(id);
+            $("#metodoEid").val(id);
         }
 
         function seleccionarSucursal(met,id) {
