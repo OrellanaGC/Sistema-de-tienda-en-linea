@@ -28,11 +28,24 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Ordenes
-        [Authorize(Roles = "User, Admin")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Orden.Include(o => o.cupon).Include(o => o.metodoEnvio).Include(o => o.tiendaOnlineUser);
             return View(await applicationDbContext.ToListAsync());
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> OrdenesTrue()
+        {
+            var applicationDbContext = _context.Orden.Include(o => o.cupon).Include(o => o.metodoEnvio).Include(o => o.tiendaOnlineUser).Where(o=> o.estadoDeOrden==true);
+            return View("Index", await applicationDbContext.ToListAsync());
+        }
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> OrdenesFalse()
+        {
+            var applicationDbContext = _context.Orden.Include(o => o.cupon).Include(o => o.metodoEnvio).Include(o => o.tiendaOnlineUser).Where(o => o.estadoDeOrden == false);
+            return View("Index", await applicationDbContext.ToListAsync());
         }
 
         // GET: Ordenes/Details/5

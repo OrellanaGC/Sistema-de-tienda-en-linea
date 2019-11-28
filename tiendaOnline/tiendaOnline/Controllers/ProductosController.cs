@@ -60,23 +60,18 @@ namespace tiendaOnline.Controllers
             var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
             var applicationDbContext = _context.Producto.Include(p => p.Subcategoria).Include(p => p.detalleVendedor);
             //Cuadro de busqueda
-
-            ViewData["CurrentFilter"] = searchString;
             var productos = from p in _context.Producto.Where(p => p.detalleVendedorID == vendedor.DetalleVendedorID) select p; //recorre todos los items en producto
 
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                //agregar metadata si se modifican los atributos
-                //agregar metadata si se modifican los atributos
-                productos = productos.Where(p => p.NombreProducto.Contains(searchString) ||
-                p.Subcategoria.nombreSubcategoria.Contains(searchString) ||
-                p.Subcategoria.Categoria.nombre_categoria.Contains(searchString)
-                );//realiza busqueda por nombre
-            }
-
-
+          
             return View(await productos.AsNoTracking().ToListAsync());
             //return View(await applicationDbContext.ToListAsync());
+        }
+        //Visualizar todos los productos para gestion del administrador
+        [Authorize(Roles ="Admin")]
+        public async Task<IActionResult> indexAdministrador(string searchString)
+        {
+            var productos = _context.Producto;
+            return View("IndexVendedor", await productos.ToListAsync());
         }
 
         // GET: Productos/Details/5
