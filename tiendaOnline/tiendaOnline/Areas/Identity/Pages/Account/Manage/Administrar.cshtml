@@ -7,9 +7,15 @@
 
 @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin"))
 {
-    <a class="btn btn-danger" asp-controller="Direcciones" asp-action="IndexVendedor"><i class="fas fa-map-marker-alt"></i> Productos</a><br />
-    <a class="btn btn-success" asp-controller="Tarjetas" asp-action="IndexVendedor"><i class="fas fa-credit-card"></i> Ordenes en proceso</a><br />
-    <a class="btn btn-warning" asp-controller="DetalleVendedores" asp-action="Index"><i class="fas fa-user-tie"></i> Ordenes finalizadas</a>
+    <a class="btn btn-danger" asp-controller="Productos" asp-action="IndexAdministrador"><i class="fas fa-map-marker-alt"></i> Productos</a><br />
+    <a class="btn btn-success" asp-controller="Ordenes" asp-action="OrdenesTrue"><i class="fas fa-credit-card"></i> Ordenes en proceso</a><br />
+    <a class="btn btn-warning" asp-controller="Ordenes" asp-action="OrdenesFalse"><i class="fas fa-user-tie"></i> Ordenes finalizadas</a>
+    <a class="btn btn-warning" asp-controller="Ordenes" asp-action="OrdenesFalse"><i class="fas fa-user-tie"></i> Categoria</a>
+    <a class="btn btn-warning" asp-controller="Ordenes" asp-action="OrdenesFalse"><i class="fas fa-user-tie"></i> Subcategorias</a>
+    <a class="btn btn-warning" asp-controller="Ordenes" asp-action="OrdenesFalse"><i class="fas fa-user-tie"></i> Usuarios</a>
+    <a class="btn btn-warning" asp-controller="Ordenes" asp-action="OrdenesFalse"><i class="fas fa-user-tie"></i> Vendedores</a>
+    <a class="btn btn-warning" asp-controller="Ordenes" asp-action="OrdenesFalse"><i class="fas fa-user-tie"></i> Metodos de envio</a>
+    <a class="btn btn-warning" asp-controller="Ordenes" asp-action="OrdenesFalse"><i class="fas fa-user-tie"></i> Cupones</a>
 }
 
 
