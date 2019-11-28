@@ -27,7 +27,7 @@ namespace tiendaOnline.Controllers
             _producto = producto;
             _userManager = userManager;
         }
-        [Authorize]
+        [Authorize(Roles ="User")]
         public ViewResult Index()
         {
             var Prod = _carrito.GetprodCarrito();
@@ -41,7 +41,7 @@ namespace tiendaOnline.Controllers
             return View(carritoVM);
         }
 
-        [Authorize]
+        [Authorize(Roles ="User")]
         public async Task<RedirectToActionResult> AgregarCarrito(int idProducto)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -55,6 +55,7 @@ namespace tiendaOnline.Controllers
             return RedirectToAction("Index","Home");
         }
 
+        [Authorize(Roles = "User")]
         public async Task<RedirectToActionResult> EliminarDeCarrito(int idProducto)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -68,6 +69,7 @@ namespace tiendaOnline.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "User")]
         public async Task<RedirectToActionResult> EliminarProdDeCarrito(int idProducto)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -81,6 +83,7 @@ namespace tiendaOnline.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "User")]
         public async Task<RedirectToActionResult> SeleccionarProd(int idProducto)
         {
             var user = await _userManager.GetUserAsync(User);

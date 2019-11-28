@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,12 +21,14 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Categorias
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Categoria.ToListAsync());
         }
 
         // GET: Categorias/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,7 +45,7 @@ namespace tiendaOnline.Controllers
 
             return View(categoria);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Categorias/Create
         public IActionResult Create()
         {
@@ -54,6 +57,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("CategoriaID,nombre_categoria,stockMax,stockMin")] Categoria categoria)
         {
             if (ModelState.IsValid)
@@ -64,7 +68,7 @@ namespace tiendaOnline.Controllers
             }
             return View(categoria);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Categorias/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -86,6 +90,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("CategoriaID,nombre_categoria,stockMax,stockMin")] Categoria categoria)
         {
             if (id != categoria.CategoriaID)
@@ -117,6 +122,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Categorias/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +143,7 @@ namespace tiendaOnline.Controllers
         // POST: Categorias/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var categoria = await _context.Categoria.FindAsync(id);

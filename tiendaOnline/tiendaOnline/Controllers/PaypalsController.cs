@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Paypals
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Paypal.Include(p => p.tiendaOnlineUser);
@@ -27,6 +29,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Paypals/Details/5
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,6 +49,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Paypals/Create
+        [Authorize(Roles = "User")]
         public IActionResult Create()
         {
             ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id");
@@ -57,6 +61,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Create([Bind("PaypalID,correoPaypal,psswrdPaypal,tiendaOnlineUserID")] Paypal paypal)
         {
             if (ModelState.IsValid)
@@ -70,6 +75,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Paypals/Edit/5
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,7 +88,7 @@ namespace tiendaOnline.Controllers
             {
                 return NotFound();
             }
-            ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", paypal.tiendaOnlineUserID);
+            
             return View(paypal);
         }
 
@@ -91,6 +97,7 @@ namespace tiendaOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Edit(int id, [Bind("PaypalID,correoPaypal,psswrdPaypal,tiendaOnlineUserID")] Paypal paypal)
         {
             if (id != paypal.PaypalID)
@@ -123,6 +130,7 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Paypals/Delete/5
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -144,6 +152,7 @@ namespace tiendaOnline.Controllers
         // POST: Paypals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var paypal = await _context.Paypal.FindAsync(id);
