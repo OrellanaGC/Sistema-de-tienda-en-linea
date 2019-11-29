@@ -338,26 +338,27 @@
                                                                                 </tr>
 
                                                                                 @{ var metodo = " ";
+                                                                                    var monto = " ";
                                                                                     var metid = 0;}
 
                                                                                 @foreach (var linea in _context.MetodoEnvio)
                                                                                 {
                                                                                     metodo = ". Intermediario: " + linea.nombreMetodoEnvio + ". días: (" + linea.minDiasEnvio + " - " + linea.maxDiasEnvio + ") monto extra:" + linea.montoEnvio;
                                                                                     metid = linea.MetodoEnvioID;
-
+                                                                                    monto = "$"+linea.montoEnvio;
                                                                                     <tr>
                                                                                         <td class="col-md-3">
-                                                                                            <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" onclick="seleccionarMetodo('@metodo','@metid')" value="metusuario" data-dismiss="modal">
+                                                                                            <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" onclick="seleccionarMetodo('@metodo','@metid','@monto')" value="metusuario" data-dismiss="modal">
                                                                                                 <label> $@Html.DisplayFor(modelItem => linea.montoEnvio)</label>
                                                                                             </button>
                                                                                         </td>
                                                                                         <td class="col-md-2">
-                                                                                            <button type="submit" style="border:none" onclick="seleccionarMetodo('@metodo','@metid')" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                            <button  type="submit" style="border:none" onclick="seleccionarMetodo('@metodo','@metid','@monto')" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
                                                                                                 <label>(@Html.DisplayFor(modelItem => linea.minDiasEnvio)</label> - <label> @Html.DisplayFor(modelItem => linea.maxDiasEnvio) )</label>
                                                                                             </button>
                                                                                         </td>
                                                                                         <td class="col-md-4">
-                                                                                            <button type="submit" onclick="seleccionarMetodo('@metodo','@metid')" style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                            <button  type="submit" onclick="seleccionarMetodo('@metodo','@metid','@monto')" style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
                                                                                                 <label> @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)</label>
                                                                                             </button>
                                                                                         </td>
@@ -707,15 +708,9 @@
                         <tr>
                             <th class="col-sm-2 text-center">Costo de envio</th>
                             <th class="col-sm-1 text-center">
-                                <!--aqui se le debe mostrar el metodo de envio seleccionada cuando le de guardar al popup-->
-                                <div class="form-group" id="metuser">
-                                    <p id="metodoElegido"></p>
-                                    <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
-                                    <input id="metodoEid" asp-for="metodoEnvioID" style="visibility:hidden" class="form-control" />
-
-
-                                </div>
-                                $0.00
+                                <center>
+                                    <b style="border:none" id="montoElegido" class="form-control" ></b>
+                                </center>
                             </th>
                         </tr>.
                         <tr>
@@ -726,10 +721,12 @@
                             </th>
                         </tr>
                         <tr>
-                            <th class="col-sm-2 text-center"><h4><b>Total</b></h4></th>
+                            <th class="col-sm-2 text-center"><h4><b><button onclick="total('@subtotal')">Total</button></b></h4></th>
                             <th class="col-sm-1 text-center">
+                                <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
+                                <label id="tot" asp-for="total"  class="form-control" />
 
-                                <label asp-for="total" class="form-control" ReadOnly="readonly" />
+                              
                             </th>
                         </tr>
                     </tbody>
@@ -807,9 +804,10 @@
             });
         });
 
-        function seleccionarMetodo(met, id) {
+        function seleccionarMetodo(met, id,mont) {
             $("#metodoElegido").text(met);
             $("#metodoEid").val(id);
+            $("#montoElegido").text(mont);
         }
 
         function seleccionarSucursal(met,id) {
@@ -827,6 +825,11 @@
             $("#tarjetaid").val(id);
         }
 
+
+        function total(id) {
+            
+            $("#tot").text(id);
+        }
        
 
     </script>

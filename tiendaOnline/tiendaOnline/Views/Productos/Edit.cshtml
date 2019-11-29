@@ -38,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Codigo" class="control-label">Código</label>
-                <input asp-for="Codigo" class="form-control" />
+                <input asp-for="Codigo" readonly="readonly" class="form-control" />
                 <span asp-validation-for="Codigo" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -50,25 +50,59 @@
 
             </div>
             <div class="form-group">
-                <label asp-for="SubcategoriaID" class="control-label">Subcategoria</label>
-                <select asp-for="SubcategoriaID" class="form-control" asp-items="ViewBag.SubcategoriaID"></select>
-                <span asp-validation-for="SubcategoriaID" class="text-danger"></span>
+                <label class="control-label">Categorias <br /> <h5>Seleccione una para poder continuar</h5></label>
+                <select class="form-control" id="selecategoria" asp-items="ViewBag.CategoriaID"> <option>-----------------------</option></select>
+
             </div>
 
+            <div class="form-group" id="sudcat" hidden="">
+                <label asp-for="SubcategoriaID" class="control-label">Sub Categorias  </label>
+                <select asp-for="SubcategoriaID" class="form-control"></select>
+                <br />
+                <div class="form-group">
+                    <a class="btn btn-primary" asp-controller="DetalleProductos" asp-action="Edit" asp-route-id="@{@Model.ProductoID; }"><i class="fas fa-pen"></i> Editar detalles</a>
 
-            <div class="form-group">
-                <a class="btn btn-primary" asp-controller="DetalleProductos" asp-action="Edit" asp-route-id="@{@Model.ProductoID; }"><i class="fas fa-pen"></i> Editar detalles</a>
+                    <input type="submit" value="Guardar cambios" class="btn btn-success" />
+                </div>
 
-                <input type="submit" value="Guardar cambios" class="btn btn-success" />
             </div>
-
-
         </form>
     </div>
+
 </div>
 
 
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+        <script>
+        var select = document.querySelector("#selecategoria");
+        select.addEventListener("change", (e) => {
+            var idcat = e.target.value;
+            var xhttp = new XMLHttpRequest();
+            var token = document.querySelector("#__RequestVerificationToken");
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var selsubcat = document.querySelector("#sudcat").children[1];
+                    selsubcat.innerHTML = "";
+                    console.log(selsubcat);
+                    var subcats = JSON.parse(this.responseText);
+                    var len = subcats.length;
+                    var option;
+                    for (var i = 0; i < len; i++) {
+                        option = document.createElement("option");
+                        option.setAttribute("value", subcats[i].subcategoriaID);
+                        option.innerHTML = subcats[i].nombreSubcategoria;
+                        selsubcat.appendChild(option);
+                    }
+                    document.querySelector("#sudcat").removeAttribute("hidden");
+                }
+            };
+            xhttp.open("POST", "/Productos/SubCate", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.setRequestHeader("RequestVerificationToken", token);
+            xhttp.send("idcat=" + idcat);
+        });
+        </script>
+    }

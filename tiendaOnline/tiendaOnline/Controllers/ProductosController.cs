@@ -179,6 +179,8 @@ namespace tiendaOnline.Controllers
         [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewData["CategoriaID"] = new SelectList(_context.Categoria, "CategoriaID", "nombre_categoria");
+
             if (id == null)
             {
                 return NotFound();
