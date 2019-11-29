@@ -242,9 +242,11 @@
                                                                                                                     <td>&nbsp;</td>
                                                                                                                 </tr>
                                                                                                                 @{ var dir = " "; var dirid = 0;}
+
                                                                                                                 @foreach (var linea in _context.Direccion.Where(d => d.tiendaOnlineUserID == UserManager.GetUserId(User)))
                                                                                                                 {
                                                                                                                     dirid = linea.DireccionID;
+
                                                                                                                     @foreach (var linea2 in _context.Municipio)
                                                                                                                     {
                                                                                                                         @if (linea.MunicipioID == linea2.MunicipioID)
@@ -430,7 +432,6 @@
                                                                     <!--aqui va el formulario para cupon-->
 
                                                                     <label asp-for="cupon.codigoCupon" class="control-label">Introduzca el codigo de su cupon</label>
-
                                                                     <input asp-for="cupon.codigoCupon" class="form-control" asp-items="ViewBag.cuponID" type="text" required pattern="[A-Za-z0-9]{9,15}">
                                                                     <span asp-validation-for="cupon.codigoCupon" class="text-danger"></span>
 
@@ -782,9 +783,7 @@
 
         $(document).ready(function () {
             $(".dir").click(function (evento) {
-
                 var valor = $(this).val();
-
                 if (valor == 'direcciondelusuario') {
                     $("#diruser").css("display", "block");
                 } else {

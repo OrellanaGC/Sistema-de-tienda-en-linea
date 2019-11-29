@@ -19,7 +19,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProductoID" />
-            <input type="hidden" asp-for="detalleVendedorID"/>
+            <input type="hidden" asp-for="detalleVendedorID" />
             <div class="form-group">
                 <label asp-for="NombreProducto" class="control-label">Nombre</label>
                 <input asp-for="NombreProducto" class="form-control" />
@@ -30,7 +30,7 @@
                 <input asp-for="PrecioUnitario" class="form-control" />
                 <span asp-validation-for="PrecioUnitario" class="text-danger"></span>
             </div>
-           
+
             <div class="form-group">
                 <label asp-for="Existencia" class="control-label">Cantidad disponible</label>
                 <input asp-for="Existencia" class="form-control" />
@@ -42,24 +42,27 @@
                 <span asp-validation-for="Codigo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Imagen" class="control-label">Imagen</label>
-                <input asp-for="Imagen" class="form-control" />
-                <span asp-validation-for="Imagen" class="text-danger"></span>
+                <div class="form-group">
+                    <label asp-for="Imagen" class="control-label"></label>
+                    <input type="file" name="Imagen" accept="images/*" /><br />
+                    <span asp-validation-for="Imagen" class="text-danger"></span>
+                </div>
+
             </div>
             <div class="form-group">
                 <label asp-for="SubcategoriaID" class="control-label">Subcategoria</label>
                 <select asp-for="SubcategoriaID" class="form-control" asp-items="ViewBag.SubcategoriaID"></select>
                 <span asp-validation-for="SubcategoriaID" class="text-danger"></span>
             </div>
-          
+
 
             <div class="form-group">
                 <a class="btn btn-primary" asp-controller="DetalleProductos" asp-action="Edit" asp-route-id="@{@Model.ProductoID; }"><i class="fas fa-pen"></i> Editar detalles</a>
-                
+
                 <input type="submit" value="Guardar cambios" class="btn btn-success" />
             </div>
-                    
-                
+
+
         </form>
     </div>
 </div>

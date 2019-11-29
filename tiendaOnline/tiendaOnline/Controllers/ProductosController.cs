@@ -183,6 +183,7 @@ namespace tiendaOnline.Controllers
             {
                 return NotFound();
             }
+         
 
             var producto = await _context.Producto.FindAsync(id);
             if (producto == null)
@@ -207,14 +208,17 @@ namespace tiendaOnline.Controllers
                 return NotFound();
             }
 
+           
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                  
                     _context.Update(producto);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("IndexVendedor", "Productos");
-
+                   
                 }
                 catch (DbUpdateConcurrencyException)
                 {
