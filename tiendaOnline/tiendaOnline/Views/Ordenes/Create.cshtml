@@ -9,6 +9,7 @@
     <!--Haciendo una inyeccion del context para traer cualquier modelo-->
     @inject ApplicationDbContext _context
 
+
     @{
         ViewData["Title"] = "Detalles de tu compra";
         Layout = "~/Views/Shared/_Layout.cshtml";
@@ -42,7 +43,7 @@
         <div id="reloj" style="font-size:20px;"></div>
     </div>
     <h4>Ya te falta poco!</h4>
-    <hr />
+    <hr /> 
 
 
 
@@ -60,7 +61,7 @@
                 <div class="container">
                     <div class="col-md-pull-7">
                         @{await
-                                                                      Html.RenderPartialAsync("ListaProd");
+                                                Html.RenderPartialAsync("ListaProd");
                         }
                     </div>
                 </div>
@@ -88,15 +89,15 @@
 
 
                                                 <!--aqui se le debe mostrar la direccion de la sucursal seleccionada cuando le de guardar al popup-->
-                                                <div class="col-md-pull-12" id="div1" >
-                                                  
+                                                <div class="col-md-pull-12" id="div1">
+
                                                     <div class="panel-heading">
                                                         <p id="sucursalElegida"></p>
                                                         <!--capturo el id de la sucursal en el siguiente input para mandarlo guardado-->
-                                                        <input style="visibility:hidden" id="sucursalid" class="form-control"  type="text" />
+                                                        <input style="visibility:hidden" id="sucursalid" class="form-control" type="text" />
 
                                                     </div>
-                                                 
+
                                                 </div>
 
                                                 <br />
@@ -112,9 +113,7 @@
                                                                     <span aria-hidden="true">&times;</span>
                                                                     <span class="sr-only">Close</span>
                                                                 </button>
-                                                                <h3 class="modal-title" id="myModalLabel">
-                                                                  
-                                                                </h3>
+                                                                <h3 class="modal-title" id="myModalLabel"></h3>
                                                                 <!--body del popup-->
                                                                 <!--para mostrarle la sucursal-->
                                                                 <div class="col-md-pull-12">
@@ -139,14 +138,14 @@
                                                                                             @if (linea3.DepartamentoID == linea4.DepartamentoID)
                                                                                             {
                                                                                                 suc = linea.nombreSucursal + ". " + linea.horarioDeAtencion + " " + linea4.nombreDepartamento + ",  " + linea3.nombreMunicipio + ", " + linea2.direccionDetallada + ". Codigo postal: " + linea2.codigoPostal;
-                                                                                               <button onclick="seleccionarSucursal('@suc','@sucid')" class="btn btn-default btn-block dir" name="dir" data-dismiss="modal">                                                                                              
-                                                                                                <label >&nbsp; @Html.DisplayFor(subcategorias => linea.nombreSucursal)</label>                                                                                                <br />
-                                                                                                <label  > &nbsp; @Html.DisplayFor(subcategorias => linea4.nombreDepartamento), </label>                                                                                               
-                                                                                                <label > @Html.DisplayFor(subcategorias => linea3.nombreMunicipio), </label>                                                                                               
-                                                                                                <label > @Html.DisplayFor(subcategorias => linea2.direccionDetallada), Código postal: </label>                                                                                               
-                                                                                                <label  > @Html.DisplayFor(subcategorias => linea2.codigoPostal)</label><br />                                                                                               
-                                                                                                <label   >@Html.DisplayFor(subcategorias => linea.horarioDeAtencion)</label>
-                                                                                                  </button>                                                                                                                                                                                                                                                                                       }
+                                                                                                <button onclick="seleccionarSucursal('@suc','@sucid')" class="btn btn-default btn-block dir" name="dir" data-dismiss="modal">
+                                                                                                    <label>&nbsp; @Html.DisplayFor(subcategorias => linea.nombreSucursal)</label>                                                                                                <br />
+                                                                                                    <label> &nbsp; @Html.DisplayFor(subcategorias => linea4.nombreDepartamento), </label>
+                                                                                                    <label> @Html.DisplayFor(subcategorias => linea3.nombreMunicipio), </label>
+                                                                                                    <label> @Html.DisplayFor(subcategorias => linea2.direccionDetallada), Código postal: </label>
+                                                                                                    <label> @Html.DisplayFor(subcategorias => linea2.codigoPostal)</label><br />
+                                                                                                    <label>@Html.DisplayFor(subcategorias => linea.horarioDeAtencion)</label>
+                                                                                                </button>}
                                                                                         }
                                                                                     }
                                                                                 }
@@ -192,7 +191,7 @@
                                                                             <input type="button" id="direcciondeusuario" name="direccion" data-toggle="modal" data-target="#cuadritoWapeton6" value="Elegir dirección" />
 
                                                                             <!--aqui se le debe mostrar la direccion del usuario seleccionada cuando le de guardar al popup-->
-                                                                            <div class="form-group" id="diruser" >
+                                                                            <div class="form-group" id="diruser">
                                                                                 <br />
                                                                                 <b>
                                                                                     <p id="direccionElegida"></p>
@@ -209,7 +208,7 @@
                                                                             <div class="form-group" id="metuser">
                                                                                 <p id="metodoElegido"></p>
                                                                                 <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
-                                                                                <input id="metodoEid" asp-for="metodoEnvioID" style="visibility:hidden"  class="form-control" />
+                                                                                <input id="metodoEid" asp-for="metodoEnvioID" style="visibility:hidden" class="form-control" />
 
 
                                                                             </div>
@@ -225,9 +224,7 @@
                                                                                                 <span aria-hidden="true">&times;</span>
                                                                                                 <span class="sr-only">Close</span>
                                                                                             </button>
-                                                                                            <h3 class="modal-title" id="myModalLabel">
-                                                                                               
-                                                                                            </h3>
+                                                                                            <h3 class="modal-title" id="myModalLabel"></h3>
                                                                                             <!--body del popup-->
                                                                                             <div class="modal-body">
 
@@ -253,15 +250,15 @@
                                                                                                                             {
                                                                                                                                 @if (linea2.DepartamentoID == linea3.DepartamentoID)
                                                                                                                                 {
-                                                                                                                                    dir = linea3.nombreDepartamento+", "+linea2.nombreMunicipio+", "+linea.direccionDetallada+ ". Código postal: "+linea.codigoPostal;
+                                                                                                                                    dir = linea3.nombreDepartamento + ", " + linea2.nombreMunicipio + ", " + linea.direccionDetallada + ". Código postal: " + linea.codigoPostal;
                                                                                                                                     <tr>
                                                                                                                                         <td style="text-align:center;">
-                                                                                                                                           
+
                                                                                                                                             <button type="submit" onclick="seleccionarDireccion('@dir','@dirid')" style="border:none" class="btn btn-default btn-block dir" name="dir" value="direcciondelusuario" data-dismiss="modal">
-                                                                                                                                                <label  >El Salvador, @Html.DisplayFor(modelItem => linea3.nombreDepartamento), </label>
-                                                                                                                                                <label  >@Html.DisplayFor(modelItem => linea2.nombreMunicipio), </label>
-                                                                                                                                                <label  >@Html.DisplayFor(modelItem => linea.direccionDetallada).</label><br />
-                                                                                                                                                <label  > Código postal: @Html.DisplayFor(modelItem => linea.codigoPostal)</label>
+                                                                                                                                                <label>El Salvador, @Html.DisplayFor(modelItem => linea3.nombreDepartamento), </label>
+                                                                                                                                                <label>@Html.DisplayFor(modelItem => linea2.nombreMunicipio), </label>
+                                                                                                                                                <label>@Html.DisplayFor(modelItem => linea.direccionDetallada).</label><br />
+                                                                                                                                                <label> Código postal: @Html.DisplayFor(modelItem => linea.codigoPostal)</label>
                                                                                                                                             </button>
                                                                                                                                         </td>
 
@@ -297,7 +294,7 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>                                                                           
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -326,8 +323,8 @@
                                                                     <form role="form">
                                                                         <!--Aqui mandan a llamar a los metodos de envio-->
                                                                         <br />
-                                                                         
-                                                                       
+
+
 
                                                                         <br />
                                                                         <table style="text-align:center;">
@@ -338,28 +335,28 @@
                                                                                     <th class="col-md-4"><b><center>Nombre del intermediario</center></b></th>
                                                                                 </tr>
 
-                                                                                @{ var metodo =" ";
+                                                                                @{ var metodo = " ";
                                                                                     var metid = 0;}
 
                                                                                 @foreach (var linea in _context.MetodoEnvio)
                                                                                 {
-                                                                                    metodo = ". Intermediario: " + linea.nombreMetodoEnvio+". días: ("+ linea.minDiasEnvio+" - "+linea.maxDiasEnvio+") monto extra:"+ linea.montoEnvio;
+                                                                                    metodo = ". Intermediario: " + linea.nombreMetodoEnvio + ". días: (" + linea.minDiasEnvio + " - " + linea.maxDiasEnvio + ") monto extra:" + linea.montoEnvio;
                                                                                     metid = linea.MetodoEnvioID;
 
                                                                                     <tr>
                                                                                         <td class="col-md-3">
                                                                                             <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" onclick="seleccionarMetodo('@metodo','@metid')" value="metusuario" data-dismiss="modal">
-                                                                                                <label > $@Html.DisplayFor(modelItem => linea.montoEnvio)</label>
+                                                                                                <label> $@Html.DisplayFor(modelItem => linea.montoEnvio)</label>
                                                                                             </button>
                                                                                         </td>
                                                                                         <td class="col-md-2">
-                                                                                            <button type="submit" style="border:none" onclick="seleccionarMetodo('@metodo','@metid')"  class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
-                                                                                                <label >(@Html.DisplayFor(modelItem => linea.minDiasEnvio)</label> - <label > @Html.DisplayFor(modelItem => linea.maxDiasEnvio) )</label>
+                                                                                            <button type="submit" style="border:none" onclick="seleccionarMetodo('@metodo','@metid')" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                                <label>(@Html.DisplayFor(modelItem => linea.minDiasEnvio)</label> - <label> @Html.DisplayFor(modelItem => linea.maxDiasEnvio) )</label>
                                                                                             </button>
                                                                                         </td>
                                                                                         <td class="col-md-4">
-                                                                                            <button type="submit" onclick="seleccionarMetodo('@metodo','@metid')"  style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
-                                                                                                <label > @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)</label>
+                                                                                            <button type="submit" onclick="seleccionarMetodo('@metodo','@metid')" style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                                <label> @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)</label>
                                                                                             </button>
                                                                                         </td>
                                                                                     </tr>
@@ -408,7 +405,7 @@
                                                     <p class="auto-style3"><input name="cupon" type="radio" style="width: 17px; height: 17px" value="si" data-toggle="modal" data-target="#cuadritoWapeton5" /><span class="auto-style4"> Si</span></p>
                                                     @*<input type="radio" id="concupon" name="cupon" checked="checked" value="concupon" data-toggle="modal" data-target="#cuadritoWapeton5" /> Si*@
                                                 </label>
-                                             
+
 
                                                 <!--inicio popup del cupon-->
                                                 <div class="modal fade" id="cuadritoWapeton5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -443,7 +440,7 @@
                                                                         data-dismiss="modal">
                                                                     Cerrar
                                                                 </button>
-                                                                <button  type="submit" style="border:none" class="btn btn-success cupon" name="cupon" value="si" data-dismiss="modal">
+                                                                <button type="submit" style="border:none" class="btn btn-success cupon" name="cupon" value="si" data-dismiss="modal">
                                                                     Validar
                                                                 </button>
                                                                 <br />
@@ -451,14 +448,14 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </!--div>
-                                            <br />
-                                            <label>
-                                                <p class="auto-style3"><input class="cupon" name="cupon" type="radio" style="width: 17px; height: 17px" value="no" /><span class="auto-style4"> No</span></p>
+                                                </!--div>
+                                                <br />
+                                                <label>
+                                                    <p class="auto-style3"><input class="cupon" name="cupon" type="radio" style="width: 17px; height: 17px" value="no" /><span class="auto-style4"> No</span></p>
 
-                                                @*<input type="radio" id="sincupon" name="cupon" value="no" /> No*@
-                                            </label>
-                                        </div>
+                                                    @*<input type="radio" id="sincupon" name="cupon" value="no" /> No*@
+                                                </label>
+                                            </div>
 
 
                                     </fieldset>
@@ -539,32 +536,32 @@
                                                                                 @{ var tarjeta = " "; var tarjetaid = 0;}
                                                                                 @foreach (var linea in _context.Tarjeta.Where(d => d.tiendaOnlineUserID == UserManager.GetUserId(User)))
                                                                                 {
-                                                                                    tarjeta = "Tipo de tarjeta: " + linea.tipoTarjeta + ". Titular: " + linea.titularTarjeta + ". Fecha de vencimiento: " + linea.fechaVencimiento.Month+"/"+ linea.fechaVencimiento.Year;
+                                                                                    tarjeta = "Tipo de tarjeta: " + linea.tipoTarjeta + ". Titular: " + linea.titularTarjeta + ". Fecha de vencimiento: " + linea.fechaVencimiento.Month + "/" + linea.fechaVencimiento.Year;
                                                                                     tarjetaid = linea.TarjetaID;
                                                                                     <tr>
-                                                                                    <td style="padding-left:15px;">
-                                                                                        <button onclick="seleccionarTarjeta('@tarjeta','@tarjetaid')" type="submit" style="border:none" class="btn btn-default btn-block pago" name="pago" value="si" data-dismiss="modal">
+                                                                                        <td style="padding-left:15px;">
+                                                                                            <button onclick="seleccionarTarjeta('@tarjeta','@tarjetaid')" type="submit" style="border:none" class="btn btn-default btn-block pago" name="pago" value="si" data-dismiss="modal">
 
-                                                                                            <label> @Html.DisplayFor(modelItem => linea.tipoTarjeta)</label>
-                                                                                        </button>
-                                                                                    </td>
-                                                                                    <td style="padding-left:20px;">
-                                                                                        <button onclick="seleccionarTarjeta('@tarjeta','@tarjetaid')" type="submit" style="border:none" class="btn btn-default btn-block pago" name="pago" value="si" data-dismiss="modal">
+                                                                                                <label> @Html.DisplayFor(modelItem => linea.tipoTarjeta)</label>
+                                                                                            </button>
+                                                                                        </td>
+                                                                                        <td style="padding-left:20px;">
+                                                                                            <button onclick="seleccionarTarjeta('@tarjeta','@tarjetaid')" type="submit" style="border:none" class="btn btn-default btn-block pago" name="pago" value="si" data-dismiss="modal">
 
-                                                                                            <label> @Html.DisplayFor(modelItem => linea.titularTarjeta)</label>
-                                                                                        </button>
-                                                                                    </td>
-                                                                                    <td style="padding-left:20px;">
-                                                                                        <button onclick="seleccionarTarjeta('@tarjeta','@tarjetaid')" type="submit" style="border:none" class="btn btn-default btn-block pago" name="pago" value="si" data-dismiss="modal">
-                                                                                            <label> @Html.DisplayFor(modelItem => linea.fechaVencimiento.Month) / @Html.DisplayFor(modelItem => linea.fechaVencimiento.Year)</label>
-                                                                                        </button>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                        }
-                                                                                  
+                                                                                                <label> @Html.DisplayFor(modelItem => linea.titularTarjeta)</label>
+                                                                                            </button>
+                                                                                        </td>
+                                                                                        <td style="padding-left:20px;">
+                                                                                            <button onclick="seleccionarTarjeta('@tarjeta','@tarjetaid')" type="submit" style="border:none" class="btn btn-default btn-block pago" name="pago" value="si" data-dismiss="modal">
+                                                                                                <label> @Html.DisplayFor(modelItem => linea.fechaVencimiento.Month) / @Html.DisplayFor(modelItem => linea.fechaVencimiento.Year)</label>
+                                                                                            </button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                }
 
-                                                                                </tbody>
-                                                                            </table>
+
+                                                                            </tbody>
+                                                                        </table>
                                                                     </fieldset>
                                                                 </div>
                                                             </div>
@@ -657,7 +654,7 @@
                                                                             <!--Fin del body del popup-->
                                                                             <!-- Modal Footer -->
                                                                             <div class="modal-footer">
-                                                                                <button  type="submit" style="border:none" class="btn btn-success pago" name="pago" value="no" data-dismiss="modal">
+                                                                                <button type="submit" style="border:none" class="btn btn-success pago" name="pago" value="no" data-dismiss="modal">
                                                                                     Finalizar compra
                                                                                 </button>
                                                                             </div>
@@ -691,17 +688,35 @@
                         <tr>
                             <th class="col-sm-2 text-center"><b>SubTotal</b></th>
                             <th class="col-sm-1 text-center">
-                                        $0.00
-                                   
+                                @*Costo de los productos sin descuento*@
+                                @{ var subtotal = _context.ProdCarrito.Where(d => d.CarritoID == _context.Carrito.SingleOrDefault(c => c.tiendaOnlineUserID == UserManager.GetUserId(User)).CarritoID && d.IsSelected == true)
+                                                  .Select(c => Math.Round(c.producto.PrecioUnitario, 2) * c.cantidadProducto).Sum(); }
+                                $@String.Format("{0:0.00}", subtotal)
                             </th>
                         </tr>
                         <tr>
-                            <th class="col-sm-2 text-center">Descuento</th>
+                            <th class="col-sm-2 text-center"><b>Descuentos</b></th>
                             <th class="col-sm-1 text-center">
+                                @*total es el costo ya con descuento, es mas facil de sacar que solo el descuento*@
+                                @{ var total = _context.Carrito.SingleOrDefault(c => c.tiendaOnlineUserID == UserManager.GetUserId(User)).GetcarritoTotal();}
+                                $@String.Format("{0:0.00}", subtotal-total)
 
-                                $0.00
                             </th>
                         </tr>
+                        <tr>
+                            <th class="col-sm-2 text-center">Costo de envio</th>
+                            <th class="col-sm-1 text-center">
+                                <!--aqui se le debe mostrar el metodo de envio seleccionada cuando le de guardar al popup-->
+                                <div class="form-group" id="metuser">
+                                    <p id="metodoElegido"></p>
+                                    <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
+                                    <input id="metodoEid" asp-for="metodoEnvioID" style="visibility:hidden" class="form-control" />
+
+
+                                </div>
+                                $0.00
+                            </th>
+                        </tr>.
                         <tr>
                             <th class="col-sm-2 text-center">Descuento de cupón</th>
                             <th class="col-sm-1 text-center">
@@ -712,7 +727,7 @@
                         <tr>
                             <th class="col-sm-2 text-center"><h4><b>Total</b></h4></th>
                             <th class="col-sm-1 text-center">
-                             
+
                                 <label asp-for="total" class="form-control" ReadOnly="readonly" />
                             </th>
                         </tr>
