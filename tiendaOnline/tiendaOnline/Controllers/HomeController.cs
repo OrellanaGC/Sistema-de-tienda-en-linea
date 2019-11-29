@@ -41,7 +41,7 @@ namespace tiendaOnline.Controllers
                     result = await roleManager.CreateAsync(new IdentityRole(roleName));
                 }
             }
-            if (_signInManager.IsSignedIn(User))
+            if (_signInManager.IsSignedIn(User)==true)
             {
                 var user = await _userManager.GetUserAsync(User);
                 if (await _userManager.IsInRoleAsync(user, "Seller"))

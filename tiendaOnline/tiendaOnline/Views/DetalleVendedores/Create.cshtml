@@ -1,14 +1,31 @@
 ﻿@model tiendaOnline.Models.DetalleVendedor
+@using Microsoft.AspNetCore.Identity
+@using tiendaOnline.Areas.Identity.Data
+@inject UserManager<tiendaOnlineUser> UserManager
+
 
 @{
     ViewData["Title"] = "Convertirse en vendedor";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+@if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Seller"))
+{
+    <br />
+    <br />
+    <h3>Ya te has registrado en nuestra familia de vendedores! :D </h3>
+}
+
+else
+{
 <h2>Vendedor</h2>
 
-<h4>Qué esperas para formar de la gran familia iBuy y comenzar a vender tus productos!<br />
-    Regístrate como vendedor ahora.</h4>
+<h4>
+    Qué esperas para formar de la gran familia iBuy y comenzar a vender tus productos!<br />
+    Regístrate como vendedor ahora.
+</h4>
+<h4>Al finalizar tu registro como vendedor se cerrara tu sesión actual, pero tranquilo, es para recargar tu informacion en nuestra base datos y puedas disfrutar todos nuestros servicios!</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -28,7 +45,7 @@
                 <label asp-for="tipoVendedor" class="control-label"></label>
                 <select asp-for="tipoVendedor" class="form-control" asp-items="Html.GetEnumSelectList<TipoVendedor>()"></select>
                 <span asp-validation-for="tipoVendedor" class="text-danger"></span>
-            </div>            
+            </div>
             <div class="form-group">
                 <input type="submit" value="Convertirme en vendedor" class="btn btn-default" />
             </div>
@@ -39,7 +56,7 @@
 <div>
     <a class="btn btn-primary" asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i> Regresar</a>
 </div>
-
+}
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

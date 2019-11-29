@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using tiendaOnline.Areas.Identity.Data;
+using tiendaOnline.Areas.Identity.Pages.Account;
 using tiendaOnline.Data;
 using tiendaOnline.Models;
 
@@ -17,12 +19,18 @@ namespace tiendaOnline.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<tiendaOnlineUser> _userManager;
+        private readonly SignInManager<tiendaOnlineUser> _signInManager;
+        private readonly ILogger<LogoutModel> _logger;
 
         public DetalleVendedoresController(ApplicationDbContext context,
-            UserManager<tiendaOnlineUser> userManager)
+            UserManager<tiendaOnlineUser> userManager,
+            SignInManager<tiendaOnlineUser> signInManager,
+            ILogger<LogoutModel> logger)
         {
             _context = context;
             _userManager = userManager;
+            _signInManager = signInManager;
+            _logger = logger;
         }
 
         // GET: DetalleVendedores
@@ -79,7 +87,9 @@ namespace tiendaOnline.Controllers
                 _context.Add(detalleVendedor);
                 await _context.SaveChangesAsync();                
                 await _userManager.AddToRoleAsync(user, "Seller");
-                return RedirectToAction("Index","Home");
+                await _signInManager.SignOutAsync();
+                _logger.LogInformation("User logged out.");
+                return RedirectToAction("Index", "Home");
             }
             ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Email", detalleVendedor.tiendaOnlineUserID);
             return View(detalleVendedor);
