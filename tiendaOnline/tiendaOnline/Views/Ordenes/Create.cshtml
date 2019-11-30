@@ -44,12 +44,7 @@
     </div>
     <h4>Ya te falta poco!</h4>
     <hr /> 
-
-
-
-
-
-
+       
     <div class="row">
         <div class="col-md-4">
             <form asp-action="Create">
@@ -64,10 +59,9 @@
                                                 Html.RenderPartialAsync("ListaProd");
                         }
                     </div>
-                </div>
+            
                 <!--Preguntarle si quiere envío o ir a recogerla a la sucursal-->
-                <br />
-                <br />
+               
                 <div class="container">
                     <div class="col-md-pull-7">
                         <div class="panel panel-default panel-srcbox">
@@ -79,28 +73,16 @@
                                             <div class="btn-group" data-toggle="buttons">
                                                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 
-                                                @*<input type="radio" class="retirar"    checked="checked"       id="sucursal" name="envio" checked="checked" value="sucursal" data-toggle="modal" data-target="#cuadritoWapeton3" /> Recoger en la sucursal*@
+                                                @*<input type="radio" class="retirar"  checked="checked"id="sucursal" name="envio" checked="checked" value="sucursal" data-toggle="modal" data-target="#cuadritoWapeton3" /> Recoger en la sucursal*@
                                                 <label>
                                                     <p class="auto-style3"><input name="envio" type="radio" style="width: 17px; height: 17px" data-toggle="modal" data-target="#cuadritoWapeton3" />Recoger en sucursal</p>
                                                 </label>
                                                 <br />
-
-
-
-
                                                 <!--aqui se le debe mostrar la direccion de la sucursal seleccionada cuando le de guardar al popup-->
-                                                <div class="col-md-pull-12" id="div1">
-
-                                                    <div class="panel-heading">
-                                                        <p id="sucursalElegida"></p>
-                                                        <!--capturo el id de la sucursal en el siguiente input para mandarlo guardado-->
-                                                        <input style="visibility:hidden" id="sucursalid" class="form-control" type="text" />
-
-                                                    </div>
-
-                                                </div>
-
-                                                <br />
+                                                <div class="col-lg-pull-0" id="div1">                                                    
+                                                        <i id="sucursalElegida"></i>                                                  
+                                                </div>                                           
+                                             
 
                                                 <!--Popup para seleccion de sucursal-->
                                                 <div class="modal fade " id="cuadritoWapeton3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -118,8 +100,7 @@
                                                                 <!--para mostrarle la sucursal-->
                                                                 <div class="col-md-pull-12">
                                                                     <br /><br />
-                                                                    @{ var suc = " ";
-                                                                        var sucid = 0;}
+                                                                    @{ var suc = " "; var sucid = 0;}
 
                                                                     @foreach (var linea in _context.Sucursal)
                                                                     {
@@ -195,8 +176,7 @@
                                                                                 <br />
                                                                                 <b>
                                                                                     <p id="direccionElegida"></p>
-                                                                                    <!--capturo el id de la direccion en el siguiente input para mandarlo guardado-->
-                                                                                    <input id="direccionid" style="visibility:hidden" class="form-control" />
+                                                                                  
                                                                                 </b>
 
                                                                             </div>
@@ -207,9 +187,7 @@
                                                                             <!--aqui se le debe mostrar el metodo de envio seleccionada cuando le de guardar al popup-->
                                                                             <div class="form-group" id="metuser">
                                                                                 <p id="metodoElegido"></p>
-                                                                                <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
-                                                                                <input id="metodoEid" asp-for="metodoEnvioID" style="visibility:hidden" class="form-control" />
-
+                                                                               
 
                                                                             </div>
 
@@ -491,9 +469,7 @@
                                                 <div class="panel panel-default panel-srcbox">
                                                     <div class="panel-heading">
                                                         <p id="tarjetaElegida"></p>
-                                                        <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
-                                                        <input id="tarjetaid" style="visibility:hidden" class="form-control" />
-
+                                                       
                                                     </div>
                                                 </div>
                                             </div>
@@ -737,6 +713,27 @@
             </form>
         </div>
     </div>
+
+    <div style="visibility:hidden">
+        <!--capturo el id de la direccion en el siguiente input para mandarlo guardado-->
+        <input id="direccionid" style="visibility:hidden" class="form-control" />
+        <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
+        <input id="tarjetaid" style="visibility:hidden" class="form-control" />
+        <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
+        <input id="metodoEid" asp-for="metodoEnvioID" style="visibility:hidden" class="form-control" />
+        <!--capturo el id de la sucursal en el siguiente input para mandarlo guardado-->
+        <input style="visibility:hidden" id="sucursalid" class="form-control" type="text" />
+
+    </div>
+
+
+
+
+
+
+
+
+
 </div>
 
 @section Scripts {

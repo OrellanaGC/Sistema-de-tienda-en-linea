@@ -146,9 +146,6 @@ namespace tiendaOnline.Controllers
                 producto.Codigo = randomStr;
 
                 
-
-
-
                 //Asignando el producto al vendedor que ha iniciado sesion
                 var user = await _userManager.GetUserAsync(User);
                 var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
