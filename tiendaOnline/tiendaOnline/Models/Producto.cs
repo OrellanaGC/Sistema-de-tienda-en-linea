@@ -31,6 +31,9 @@ namespace tiendaOnline.Models
         //Relacion con DetalleProducto
         public DetalleProducto DetalleProducto { get; set; }
         //Relacion con TipoDeDescuento
+
+        public int existenciaSinActivacion { get; set; }
+        public Boolean estadoProducto { get; set; }
        
         [Required(ErrorMessage ="Debe seleccionar una subcategoria para su producto")]
         public int SubcategoriaID { get; set; }

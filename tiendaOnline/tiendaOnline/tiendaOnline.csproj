@@ -5,6 +5,11 @@
     <UserSecretsId>aspnet-tiendaOnline-90118BBB-801D-4AAD-A304-4CEA5B13D00A</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>embedded</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Views\ProdCarritos\**" />
     <Content Remove="Views\ProdCarritos\**" />

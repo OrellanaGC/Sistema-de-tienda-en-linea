@@ -44,7 +44,7 @@ namespace tiendaOnline
             //Servicio para conectar el ApplicacionDbContext con sqlserver
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    "Server=(localdb)\\mssqllocaldb;Database=tiendaonlineDB;Trusted_Connection=True;MultipleActiveResultSets=true"));
             //Servicio para usar nuestra clase de usuario y configurarlo
             services.AddIdentity<tiendaOnlineUser, IdentityRole>(config =>
             {
