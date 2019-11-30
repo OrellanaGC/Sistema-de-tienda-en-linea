@@ -104,11 +104,13 @@ namespace tiendaOnline.Controllers
                 _carrito.GetprodCarrito();
                 _carrito.VaciarCarrito();
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //   return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             ViewData["cuponID"] = new SelectList(_context.Cupon, "CuponID", "CuponID", orden.cuponID);
             ViewData["metodoEnvioID"] = new SelectList(_context.MetodoEnvio, "MetodoEnvioID", "nombreMetodoEnvio", orden.metodoEnvioID);
             ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", orden.tiendaOnlineUserID);
+           
             return View(orden);
         }
 

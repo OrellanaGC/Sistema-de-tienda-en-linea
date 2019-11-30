@@ -1,195 +1,159 @@
-﻿<div>
-    @model tiendaOnline.Models.Orden
-    @using tiendaOnline.Data
-    @using Microsoft.AspNetCore.Identity
-    @using tiendaOnline.Areas.Identity.Data
+﻿@model tiendaOnline.Models.Orden
+@using tiendaOnline.Data
+@using Microsoft.AspNetCore.Identity
+@using tiendaOnline.Areas.Identity.Data
 
-    <!--Inyeccion para obtener el id del usuario que ha iniciado sesion y hacer filtros en sus direcciones y tarjetas-->
-    @inject UserManager<tiendaOnlineUser> UserManager
+<!--Inyeccion para obtener el id del usuario que ha iniciado sesion y hacer filtros en sus direcciones y tarjetas-->
+@inject UserManager<tiendaOnlineUser> UserManager
     <!--Haciendo una inyeccion del context para traer cualquier modelo-->
-    @inject ApplicationDbContext _context
+@inject ApplicationDbContext _context
 
 
-    @{
-        ViewData["Title"] = "Detalles de tu compra";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-    <h2>Detalles de tu compra</h2>
-    <!--Muestra la fecha y hora actual-->
-    <div style="float:right;">
-        <script type="text/javascript">
-            //<![CDATA[
-            var today = new Date();
-            var m = today.getMonth() + 1;
-            var mes = (m < 10) ? '0' + m : m;
-            document.write('Fecha: ' + today.getDate(), '/' + mes, '/' + today.getFullYear());
-            //]]>
-        </script>
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Detalles de tu compra</h2>
+<!--Muestra la fecha y hora actual-->
+<div style="float:right;">
+    <script type="text/javascript">
+        //<![CDATA[
+        var today = new Date();
+        var m = today.getMonth() + 1;
+        var mes = (m < 10) ? '0' + m : m;
+        document.write('Fecha: ' + today.getDate(), '/' + mes, '/' + today.getFullYear());
+        //]]>
+    </script>
 
-        <script type="text/javascript">
-            function startTime() {
-                today = new Date();
-                h = today.getHours();
-                m = today.getMinutes();
-                s = today.getSeconds();
-                m = checkTime(m);
-                s = checkTime(s);
-                document.getElementById('reloj').innerHTML = h + ":" + m + ":" + s;
-                t = setTimeout('startTime()', 500);
-            }
-            function checkTime(i) { if (i < 10) { i = "0" + i; } return i; }
-            window.onload = function () { startTime(); }
-        </script>
-        <div id="reloj" style="font-size:20px;"></div>
-    </div>
-    <h4>Ya te falta poco!</h4>
-    <hr /> 
-       
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Create">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <script type="text/javascript">
+        function startTime() {
+            today = new Date();
+            h = today.getHours();
+            m = today.getMinutes();
+            s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('reloj').innerHTML = h + ":" + m + ":" + s;
+            t = setTimeout('startTime()', 500);
+        }
+        function checkTime(i) { if (i < 10) { i = "0" + i; } return i; }
+        window.onload = function () { startTime(); }
+    </script>
+    <div id="reloj" style="font-size:20px;"></div>
+</div>
+<h4>Ya te falta poco!</h4>
+<hr />
 
-                <!--Muestra acá los productos del usuario, foto, nombre, cantidad, precio unitario, subtotal de c/u-->
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                <br />
-                <div class="container">
-                    <div class="col-md-pull-7">
-                        @{await
-                                                Html.RenderPartialAsync("ListaProd");
-                        }
-                    </div>
-            
+            <div class="container">
+                <!--Muestra todos los productos seleccionados-->
+                <div class="col-md-pull-7">
+                    @{await Html.RenderPartialAsync("ListaProd");}
+                </div>
+
                 <!--Preguntarle si quiere envío o ir a recogerla a la sucursal-->
-               
-                <div class="container">
-                    <div class="col-md-pull-7">
-                        <div class="panel panel-default panel-srcbox">
-                            <div class="panel-heading">
-                                <fieldset>
-                                    <legend><b>¿Desea recoger el producto o que se le envíe?</b></legend>
-                                    <div class="row">
-                                        <div class="col-sm-9">
-                                            <div class="btn-group" data-toggle="buttons">
-                                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+                <div class="col-md-pull-7">
+                    <div class="panel panel-default panel-srcbox">
+                        <div class="panel-heading">
+                            <fieldset>
+                                <legend><b>¿Desea recoger el producto o que se le envíe?</b></legend>
+                                <div class="row">
+                                    <div class="col-lg-pull-0">
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+                                            <!--recoger en sucursal-->
+                                            <label><p class="auto-style3"><input name="envio" class="envio" value="sucursal" type="radio" style="width: 17px; height: 17px" data-toggle="modal" data-target="#cuadritoWapeton3" />Recoger en sucursal</p></label>
+                                            <br />
 
-                                                @*<input type="radio" class="retirar"  checked="checked"id="sucursal" name="envio" checked="checked" value="sucursal" data-toggle="modal" data-target="#cuadritoWapeton3" /> Recoger en la sucursal*@
-                                                <label>
-                                                    <p class="auto-style3"><input name="envio" type="radio" style="width: 17px; height: 17px" data-toggle="modal" data-target="#cuadritoWapeton3" />Recoger en sucursal</p>
-                                                </label>
-                                                <br />
-                                                <!--aqui se le debe mostrar la direccion de la sucursal seleccionada cuando le de guardar al popup-->
-                                                <div class="col-lg-pull-0" id="div1">                                                    
-                                                        <i id="sucursalElegida"></i>                                                  
-                                                </div>                                           
-                                             
+                                            <!--Popup para seleccion de sucursal-->
+                                            <div class="modal fade " id="cuadritoWapeton3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <!--Header del popup-->
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close"
+                                                                    data-dismiss="modal">
+                                                                <span aria-hidden="true">&times;</span>
+                                                                <span class="sr-only">Close</span>
+                                                            </button>
+                                                            <h3 class="modal-title" id="myModalLabel"></h3>
+                                                            <h4><b>Eliga la sucursal a la que irá a recoger su compra</b></h4>
+                                                            <!--body del popup-->
+                                                            <!--para mostrarle la sucursal-->
+                                                            <div class="col-md-pull-12">
+                                                                <br /><br />
+                                                                @{ var suc = " "; var sucid = 0;}
 
-                                                <!--Popup para seleccion de sucursal-->
-                                                <div class="modal fade " id="cuadritoWapeton3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                                                        <div class="modal-content">
-                                                            <!--Header del popup-->
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close"
-                                                                        data-dismiss="modal">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                    <span class="sr-only">Close</span>
-                                                                </button>
-                                                                <h3 class="modal-title" id="myModalLabel"></h3>
-                                                                <!--body del popup-->
-                                                                <!--para mostrarle la sucursal-->
-                                                                <div class="col-md-pull-12">
-                                                                    <br /><br />
-                                                                    @{ var suc = " "; var sucid = 0;}
+                                                                @foreach (var linea in _context.Sucursal)
+                                                                {
+                                                                    sucid = linea.SucursalID;
 
-                                                                    @foreach (var linea in _context.Sucursal)
+                                                                    @foreach (var linea2 in _context.Direccion)
                                                                     {
-                                                                        sucid = linea.SucursalID;
-
-                                                                        @foreach (var linea2 in _context.Direccion)
+                                                                        @if (linea.SucursalID == linea2.sucursalID)
                                                                         {
-                                                                            @if (linea.SucursalID == linea2.sucursalID)
+                                                                            @foreach (var linea3 in _context.Municipio)
                                                                             {
-                                                                                @foreach (var linea3 in _context.Municipio)
+                                                                                @if (linea3.MunicipioID == linea2.MunicipioID)
                                                                                 {
-                                                                                    @if (linea3.MunicipioID == linea2.MunicipioID)
+                                                                                    @foreach (var linea4 in _context.Departamento)
                                                                                     {
-                                                                                        @foreach (var linea4 in _context.Departamento)
+                                                                                        @if (linea3.DepartamentoID == linea4.DepartamentoID)
                                                                                         {
-                                                                                            @if (linea3.DepartamentoID == linea4.DepartamentoID)
-                                                                                            {
-                                                                                                suc = linea.nombreSucursal + ". " + linea.horarioDeAtencion + " " + linea4.nombreDepartamento + ",  " + linea3.nombreMunicipio + ", " + linea2.direccionDetallada + ". Codigo postal: " + linea2.codigoPostal;
-                                                                                                <button onclick="seleccionarSucursal('@suc','@sucid')" class="btn btn-default btn-block dir" name="dir" data-dismiss="modal">
-                                                                                                    <label>&nbsp; @Html.DisplayFor(subcategorias => linea.nombreSucursal)</label>                                                                                                <br />
-                                                                                                    <label> &nbsp; @Html.DisplayFor(subcategorias => linea4.nombreDepartamento), </label>
-                                                                                                    <label> @Html.DisplayFor(subcategorias => linea3.nombreMunicipio), </label>
-                                                                                                    <label> @Html.DisplayFor(subcategorias => linea2.direccionDetallada), Código postal: </label>
-                                                                                                    <label> @Html.DisplayFor(subcategorias => linea2.codigoPostal)</label><br />
-                                                                                                    <label>@Html.DisplayFor(subcategorias => linea.horarioDeAtencion)</label>
-                                                                                                </button>}
+                                                                                            suc = linea.nombreSucursal + ". " + linea.horarioDeAtencion + " " + linea4.nombreDepartamento + ",  " + linea3.nombreMunicipio + ", " + linea2.direccionDetallada + ". Codigo postal: " + linea2.codigoPostal;
+                                                                                            <button onclick="seleccionarSucursal('@suc','@sucid')" class="btn btn-default btn-block envio" name="envio" value="sucursal" data-dismiss="modal">
+                                                                                                @Html.DisplayFor(subcategorias => linea.nombreSucursal)                                                                                       <br />
+                                                                                                @Html.DisplayFor(subcategorias => linea4.nombreDepartamento),
+                                                                                                @Html.DisplayFor(subcategorias => linea3.nombreMunicipio),
+                                                                                                @Html.DisplayFor(subcategorias => linea2.direccionDetallada), Código postal:
+                                                                                                @Html.DisplayFor(subcategorias => linea2.codigoPostal)<br />
+                                                                                                @Html.DisplayFor(subcategorias => linea.horarioDeAtencion)
+                                                                                            </button>
                                                                                         }
                                                                                     }
                                                                                 }
                                                                             }
                                                                         }
                                                                     }
-
-
-
-                                                                </div>
-
-
-                                                                <!--Fin del body del popup-->
-                                                                <!-- Modal Footer -->
-                                                                <div class="modal-footer">
-
-                                                                    <button data-dismiss="modal">Continuar</button>
-
-                                                                </div>
+                                                                }
+                                                            </div>
+                                                            <!--Fin del body del popup-->
+                                                            <!-- Modal Footer -->
+                                                            <div class="modal-footer">
+                                                                <button data-dismiss="modal">Cancelar</button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
 
 
-                                                @*<label>
-                                                        <input type="radio" id="enviado" name="envio" value="enviado" data-toggle="modal" /> Método de envío
-                                                    </label>*@
-                                                <label>
-                                                    <p class="auto-style3"><input class="envio" name="envio" type="radio" style="width: 17px; height: 17px" value="enviar" />&nbsp;<span class="auto-style4">Metodo de envio</span></p>
-                                                </label>
-                                                <!--preguntarle q direccion elegira de enviar-->
-                                                <br />
-                                                <div class="col-md-10" id="div2" style="display:none">
+                                            <!--aqui se le debe mostrar la direccion de la sucursal seleccionada cuando le de guardar al popup-->
+                                            <div class="col-lg-pull-0" id="div2" style="display:none">
+                                                <div class="container">
+                                                    <div class="col-lg-8">
+                                                        <i id="sucursalElegida"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--cuando elige Metodo de envio-->
+                                            <label> <p class="auto-style3"><input class="envio" name="envio" type="radio" style="width: 17px; height: 17px" value="enviar" />&nbsp;<span class="auto-style4">Metodo de envio</span></p> </label>
+
+                                            <!--preguntarle q direccion elegira de enviar-->
+                                            <div class="container">
+                                                <div class="col-md-11" id="div1" style="display:none">
                                                     <div class="panel panel-default panel-srcbox">
                                                         <div class="panel-heading">
                                                             <fieldset>
-                                                                <legend><h5>¿A qué dirección desea que se le envíe?</h5></legend>
                                                                 <div class="row">
                                                                     <div class="col-lg-pull-0">
                                                                         <div class="btn-group" data-toggle="buttons">
+                                                                            <label> <p class="auto-style3"><input name="direccion" type="checkbox" data-toggle="modal" data-target="#cuadritoWapeton6" style="width: 17px; height: 17px" value="Elegir dirección" />&nbsp;<span class="auto-style4">Elegir dirección de entrega</span></p> </label>
 
-                                                                            <input type="button" id="direcciondeusuario" name="direccion" data-toggle="modal" data-target="#cuadritoWapeton6" value="Elegir dirección" />
-
-                                                                            <!--aqui se le debe mostrar la direccion del usuario seleccionada cuando le de guardar al popup-->
-                                                                            <div class="form-group" id="diruser">
-                                                                                <br />
-                                                                                <b>
-                                                                                    <p id="direccionElegida"></p>
-                                                                                  
-                                                                                </b>
-
-                                                                            </div>
-                                                                            <br /><br />
-                                                                            <input type="button" id="metododeenvioseleccionado" name="metododeenvio" data-toggle="modal" data-target="#cuadritoWapeton4" value="Elegir método de envío" />
-
-                                                                            <br />
-                                                                            <!--aqui se le debe mostrar el metodo de envio seleccionada cuando le de guardar al popup-->
-                                                                            <div class="form-group" id="metuser">
-                                                                                <p id="metodoElegido"></p>
-                                                                               
-
-                                                                            </div>
 
                                                                             <!--inicio popup de direcciones-->
                                                                             <div class="modal fade" id="cuadritoWapeton6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -197,25 +161,16 @@
                                                                                     <div class="modal-content">
                                                                                         <!--Header del popup-->
                                                                                         <div class="modal-header">
-                                                                                            <button type="button" class="close"
-                                                                                                    data-dismiss="modal">
-                                                                                                <span aria-hidden="true">&times;</span>
-                                                                                                <span class="sr-only">Close</span>
-                                                                                            </button>
+                                                                                            <button type="button" class="close" data-dismiss="modal"> <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span> </button>
                                                                                             <h3 class="modal-title" id="myModalLabel"></h3>
+                                                                                            <h4><b>Elija la dirección en la que desea recibir su compra</b></h4>
                                                                                             <!--body del popup-->
                                                                                             <div class="modal-body">
-
                                                                                                 <!--Aqui mandan a llamar a las direcciones-->
                                                                                                 <div class="col-md-pull-0">
-
                                                                                                     <fieldset>
                                                                                                         <table>
                                                                                                             <tbody>
-                                                                                                                <tr></tr>
-                                                                                                                <tr>
-                                                                                                                    <td>&nbsp;</td>
-                                                                                                                </tr>
                                                                                                                 @{ var dir = " "; var dirid = 0;}
 
                                                                                                                 @foreach (var linea in _context.Direccion.Where(d => d.tiendaOnlineUserID == UserManager.GetUserId(User)))
@@ -233,39 +188,115 @@
                                                                                                                                     dir = linea3.nombreDepartamento + ", " + linea2.nombreMunicipio + ", " + linea.direccionDetallada + ". Código postal: " + linea.codigoPostal;
                                                                                                                                     <tr>
                                                                                                                                         <td style="text-align:center;">
-
                                                                                                                                             <button type="submit" onclick="seleccionarDireccion('@dir','@dirid')" style="border:none" class="btn btn-default btn-block dir" name="dir" value="direcciondelusuario" data-dismiss="modal">
-                                                                                                                                                <label>El Salvador, @Html.DisplayFor(modelItem => linea3.nombreDepartamento), </label>
-                                                                                                                                                <label>@Html.DisplayFor(modelItem => linea2.nombreMunicipio), </label>
-                                                                                                                                                <label>@Html.DisplayFor(modelItem => linea.direccionDetallada).</label><br />
-                                                                                                                                                <label> Código postal: @Html.DisplayFor(modelItem => linea.codigoPostal)</label>
+                                                                                                                                                El Salvador, @Html.DisplayFor(modelItem => linea3.nombreDepartamento),
+                                                                                                                                                @Html.DisplayFor(modelItem => linea2.nombreMunicipio),
+                                                                                                                                                @Html.DisplayFor(modelItem => linea.direccionDetallada). <br />
+                                                                                                                                                Código postal: @Html.DisplayFor(modelItem => linea.codigoPostal).
                                                                                                                                             </button>
                                                                                                                                         </td>
-
                                                                                                                                     </tr>
                                                                                                                                     <tr>
                                                                                                                                         <td>&nbsp;</td>
-
                                                                                                                                     </tr>
                                                                                                                                 }
                                                                                                                             }
                                                                                                                         }
                                                                                                                     }
-
                                                                                                                 }
                                                                                                             </tbody>
                                                                                                         </table>
                                                                                                     </fieldset>
-
                                                                                                 </div>
-
                                                                                             </div>
                                                                                             <!--Fin del body del popup-->
                                                                                             <!-- Modal Footer -->
                                                                                             <div class="modal-footer">
-                                                                                                <button type="button" class="btn btn-default"
-                                                                                                <li>   <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Registrar una nueva dirección</a></li>
+                                                                                                <h6><i>Si no posee la dirección que desea, debe añadirla.</i></h6>
+                                                                                                <a asp-action="Create" asp-controller="Direcciones" type="button" class="btn btn-primary">Registrar una dirección</a>
+                                                                                                <button type="button" class="btn btn-default" data-dismiss="modal"> Cerrar  </button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+
+
+
+
+                                                                            <!--aqui se le debe mostrar la direccion del usuario seleccionada cuando le de guardar al popup-->
+                                                                            <div class="form-group" id="diruser">
+
+                                                                                <div class="col-md-12">
+                                                                                    <p id="direccionElegida"></p>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <label> <p class="auto-style3"><input id="metododeenvioseleccionado" name="metododeenvio" type="checkbox" data-toggle="modal" data-target="#cuadritoWapeton4" style="width: 17px; height: 17px" />&nbsp;<span class="auto-style4">Elegir método de envío</span></p> </label>
+
+
+                                                                            <!--Popup para seleccion del metodo de envio-->
+                                                                            <div class="modal fade" id="cuadritoWapeton4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog">
+                                                                                    <div class="modal-content">
+                                                                                        <!--Header del popup-->
+                                                                                        <div class="modal-header">
+                                                                                            <button type="button" class="close"
+                                                                                                    data-dismiss="modal">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                                <span class="sr-only">Close</span>
                                                                                             </button>
+                                                                                            <h4 class="modal-title" id="myModalLabel">
+                                                                                                Elegir método de envío que desea
+                                                                                            </h4>
+                                                                                            <!--body del popup-->
+                                                                                            <div class="modal-body">
+                                                                                                <form role="form">
+                                                                                                    <!--Aqui mandan a llamar a los metodos de envio-->
+                                                                                                    <table style="text-align:center;">
+                                                                                                        <tbody>
+                                                                                                            <tr>
+                                                                                                                <th class="col-md-3" style="text-align:center;"><b>Monto extra</b></th>
+                                                                                                                <th class="col-md-2" style="text-align:center;"><b>Días de envío</b></th>
+                                                                                                                <th class="col-md-4" style="text-align:center;"><b>Nombre del intermediario</b></th>
+                                                                                                            </tr>
+                                                                                                            @{ var metodo = " "; var monto = " "; var metid = 0;}
+                                                                                                            @foreach (var linea in _context.MetodoEnvio)
+                                                                                                            {
+                                                                                                                metodo = ". Intermediario: " + linea.nombreMetodoEnvio + ". Promedio de días de entrega: (" + linea.minDiasEnvio + " - " + linea.maxDiasEnvio + "). Monto extra: $" + linea.montoEnvio;
+                                                                                                                metid = linea.MetodoEnvioID;
+                                                                                                                monto = "$" + linea.montoEnvio;
+                                                                                                                <tr>
+                                                                                                                    <td class="col-md-3">
+                                                                                                                        <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" onclick="seleccionarMetodo('@metodo','@metid','@monto')" value="metusuario" data-dismiss="modal">
+                                                                                                                            $@Html.DisplayFor(modelItem => linea.montoEnvio)
+                                                                                                                        </button>
+                                                                                                                    </td>
+                                                                                                                    <td class="col-md-2">
+                                                                                                                        <button type="submit" style="border:none" onclick="seleccionarMetodo('@metodo','@metid','@monto')" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                                                            (@Html.DisplayFor(modelItem => linea.minDiasEnvio) -  @Html.DisplayFor(modelItem => linea.maxDiasEnvio))
+                                                                                                                        </button>
+                                                                                                                    </td>
+                                                                                                                    <td class="col-md-4">
+                                                                                                                        <button type="submit" onclick="seleccionarMetodo('@metodo','@metid','@monto')" style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                                                            @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)
+                                                                                                                        </button>
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                                <tr>
+                                                                                                                    <td>&nbsp;</td>
+                                                                                                                    <td>&nbsp;</td>
+                                                                                                                    <td>&nbsp;</td>
+                                                                                                                </tr>
+                                                                                                            }
+                                                                                                        </tbody>
+                                                                                                    </table>
+                                                                                                </form>
+                                                                                            </div>
+                                                                                            <!--Fin del body del popup-->
+                                                                                            <!-- Modal Footer -->
+                                                                                            <div class="modal-footer">
                                                                                                 <button type="button" class="btn btn-default"
                                                                                                         data-dismiss="modal">
                                                                                                     Cerrar
@@ -275,372 +306,17 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+
+
+
+                                                                            <!--aqui se le debe mostrar el metodo de envio seleccionada cuando le de guardar al popup-->
+                                                                            <div class="form-group" id="metuser">
+                                                                                <p id="metodoElegido"></p>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </fieldset>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <!--Popup para seleccion del metodo de envio-->
-                                                <div class="modal fade" id="cuadritoWapeton4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <!--Header del popup-->
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close"
-                                                                        data-dismiss="modal">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                    <span class="sr-only">Close</span>
-                                                                </button>
-                                                                <h4 class="modal-title" id="myModalLabel">
-                                                                    Elegir método de envío
-                                                                </h4>
-                                                                <!--body del popup-->
-                                                                <div class="modal-body">
-                                                                    <form role="form">
-                                                                        <!--Aqui mandan a llamar a los metodos de envio-->
-                                                                        <br />
-
-
-
-                                                                        <br />
-                                                                        <table style="text-align:center;">
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <th class="col-md-3"><b><center>Monto extra</center></b></th>
-                                                                                    <th class="col-md-2"><b><center>Días de envío</center></b></th>
-                                                                                    <th class="col-md-4"><b><center>Nombre del intermediario</center></b></th>
-                                                                                </tr>
-
-                                                                                @{ var metodo = " ";
-                                                                                    var monto = " ";
-                                                                                    var metid = 0;}
-
-                                                                                @foreach (var linea in _context.MetodoEnvio)
-                                                                                {
-                                                                                    metodo = ". Intermediario: " + linea.nombreMetodoEnvio + ". días: (" + linea.minDiasEnvio + " - " + linea.maxDiasEnvio + ") monto extra:" + linea.montoEnvio;
-                                                                                    metid = linea.MetodoEnvioID;
-                                                                                    monto = "$"+linea.montoEnvio;
-                                                                                    <tr>
-                                                                                        <td class="col-md-3">
-                                                                                            <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" onclick="seleccionarMetodo('@metodo','@metid','@monto')" value="metusuario" data-dismiss="modal">
-                                                                                                <label> $@Html.DisplayFor(modelItem => linea.montoEnvio)</label>
-                                                                                            </button>
-                                                                                        </td>
-                                                                                        <td class="col-md-2">
-                                                                                            <button  type="submit" style="border:none" onclick="seleccionarMetodo('@metodo','@metid','@monto')" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
-                                                                                                <label>(@Html.DisplayFor(modelItem => linea.minDiasEnvio)</label> - <label> @Html.DisplayFor(modelItem => linea.maxDiasEnvio) )</label>
-                                                                                            </button>
-                                                                                        </td>
-                                                                                        <td class="col-md-4">
-                                                                                            <button  type="submit" onclick="seleccionarMetodo('@metodo','@metid','@monto')" style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
-                                                                                                <label> @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)</label>
-                                                                                            </button>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>&nbsp;</td>
-                                                                                        <td>&nbsp;</td>
-                                                                                        <td>&nbsp;</td>
-                                                                                    </tr>
-                                                                                }
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </form>
-                                                                </div>
-                                                                <!--Fin del body del popup-->
-                                                                <!-- Modal Footer -->
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-default"
-                                                                            data-dismiss="modal">
-                                                                        Cerrar
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!--Pregunta si posee cupón el usuario-->
-                    <div class="container">
-                        <div class="col-md-5">
-                            <div class="panel panel-default panel-srcbox">
-                                <div class="panel-heading">
-                                    <fieldset>
-                                        <legend><b>¿Posee algún cupón?</b></legend>
-
-                                        <div class="col-lg-pull-0">
-                                            <div class="btn-group" data-toggle="buttons">
-                                                <label>
-                                                    <p class="auto-style3"><input name="cupon" type="radio" style="width: 17px; height: 17px" value="si" data-toggle="modal" data-target="#cuadritoWapeton5" /><span class="auto-style4"> Si</span></p>
-                                                    @*<input type="radio" id="concupon" name="cupon" checked="checked" value="concupon" data-toggle="modal" data-target="#cuadritoWapeton5" /> Si*@
-                                                </label>
-
-
-                                                <!--inicio popup del cupon-->
-                                                <div class="modal fade" id="cuadritoWapeton5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <!--Header del popup-->
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close"
-                                                                        data-dismiss="modal">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                    <span class="sr-only">Close</span>
-                                                                </button>
-                                                                <h4 class="modal-title" id="myModalLabel">
-                                                                    Ingrese su cupón
-                                                                </h4>
-                                                                <!--body del popup-->
-                                                                <div class="modal-body">
-
-                                                                    <!--aqui va el formulario para cupon-->
-
-                                                                    <label asp-for="cupon.codigoCupon" class="control-label">Introduzca el codigo de su cupon</label>
-                                                                    <input asp-for="cupon.codigoCupon" class="form-control" asp-items="ViewBag.cuponID" type="text" required pattern="[A-Za-z0-9]{9,15}">
-                                                                    <span asp-validation-for="cupon.codigoCupon" class="text-danger"></span>
-
-                                                                </div>
-                                                            </div>
-                                                            <!--Fin del body del popup-->
-                                                            <!-- Modal Footer -->
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default"
-                                                                        data-dismiss="modal">
-                                                                    Cerrar
-                                                                </button>
-                                                                <button type="submit" style="border:none" class="btn btn-success cupon" name="cupon" value="si" data-dismiss="modal">
-                                                                    Validar
-                                                                </button>
-                                                                <br />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                </!--div>
-                                                <br />
-                                                <label>
-                                                    <p class="auto-style3"><input class="cupon" name="cupon" type="radio" style="width: 17px; height: 17px" value="no" /><span class="auto-style4"> No</span></p>
-
-                                                    @*<input type="radio" id="sincupon" name="cupon" value="no" /> No*@
-                                                </label>
-                                            </div>
-
-
-                                    </fieldset>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-                    <!--Preguntarle si quiere pagar con tarjeta o paypal-->
-                    <div class="panel panel-default panel-srcbox">
-                        <div class="panel-heading">
-                            <fieldset>
-                                <legend><b>¿Desea realizar pago con tarjeta o paypal?</b></legend>
-                                <div class="row">
-                                    <div class="col-sm-9">
-                                        <div class="btn-group" data-toggle="buttons">
-                                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-                                            <label>
-                                                <p class="auto-style3"><input name="pago" type="radio" style="width: 17px; height: 17px" value="si" data-toggle="modal" data-target="#cuadritoWapeton1" /><span class="auto-style4"> Realizar con tarjeta</span></p>
-
-                                                @*<input type="radio" id="tarjeta" name="pago" checked="checked" value="tarjeta" data-toggle="modal" data-target="#cuadritoWapeton1" /> Realizar pago con tarjeta de crédito*@
-
-                                            </label><br />
-
-                                            <!--aqui se le debe mostrar la tarjeta usará, hay que validar q solo le aparezcan las tarjetas de ese usuario y q la fecha solo muestre mes y año cuando le de guardar al popup-->
-                                            <div class="col-md-10" id="divtar" style="display:none">
-                                                <div class="panel panel-default panel-srcbox">
-                                                    <div class="panel-heading">
-                                                        <p id="tarjetaElegida"></p>
-                                                       
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <!--aqui comienza lo que saldria del primer popup-->
-                                            <div class="modal fade" id="cuadritoWapeton1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <!--Header del popup-->
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close"
-                                                                    data-dismiss="modal">
-                                                                <span aria-hidden="true">&times;</span>
-                                                                <span class="sr-only">Close</span>
-                                                            </button>
-                                                            <h4 class="modal-title" id="myModalLabel">
-                                                                Elegir tarjeta para realizar el pago
-                                                            </h4>
-                                                            <!--body del popup-->
-                                                            <div class="modal-body">
-
-                                                                <!--Aqui mandan a llamar a las tarjetas-->
-                                                                <div class="col-md-pull-0">
-
-                                                                    <fieldset>
-                                                                        <table>
-                                                                            <tbody style="text-align:center;">
-
-                                                                                <tr>
-                                                                                    <td style="padding-left:15px;"><b>Tipo de tarjeta</b></td>
-                                                                                    <td style="padding-left:15px;"><b>Titular</b></td>
-                                                                                    <td style="padding-left:15px;"><b>Fecha de vencimiento</b></td>
-                                                                                </tr>
-                                                                                <tr>
-
-                                                                                    <td>&nbsp;</td>
-                                                                                    <td>&nbsp;</td>
-                                                                                    <td>&nbsp;</td>
-                                                                                </tr>
-
-                                                                                @{ var tarjeta = " "; var tarjetaid = 0;}
-                                                                                @foreach (var linea in _context.Tarjeta.Where(d => d.tiendaOnlineUserID == UserManager.GetUserId(User)))
-                                                                                {
-                                                                                    tarjeta = "Tipo de tarjeta: " + linea.tipoTarjeta + ". Titular: " + linea.titularTarjeta + ". Fecha de vencimiento: " + linea.fechaVencimiento.Month + "/" + linea.fechaVencimiento.Year;
-                                                                                    tarjetaid = linea.TarjetaID;
-                                                                                    <tr>
-                                                                                        <td style="padding-left:15px;">
-                                                                                            <button onclick="seleccionarTarjeta('@tarjeta','@tarjetaid')" type="submit" style="border:none" class="btn btn-default btn-block pago" name="pago" value="si" data-dismiss="modal">
-
-                                                                                                <label> @Html.DisplayFor(modelItem => linea.tipoTarjeta)</label>
-                                                                                            </button>
-                                                                                        </td>
-                                                                                        <td style="padding-left:20px;">
-                                                                                            <button onclick="seleccionarTarjeta('@tarjeta','@tarjetaid')" type="submit" style="border:none" class="btn btn-default btn-block pago" name="pago" value="si" data-dismiss="modal">
-
-                                                                                                <label> @Html.DisplayFor(modelItem => linea.titularTarjeta)</label>
-                                                                                            </button>
-                                                                                        </td>
-                                                                                        <td style="padding-left:20px;">
-                                                                                            <button onclick="seleccionarTarjeta('@tarjeta','@tarjetaid')" type="submit" style="border:none" class="btn btn-default btn-block pago" name="pago" value="si" data-dismiss="modal">
-                                                                                                <label> @Html.DisplayFor(modelItem => linea.fechaVencimiento.Month) / @Html.DisplayFor(modelItem => linea.fechaVencimiento.Year)</label>
-                                                                                            </button>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                }
-
-
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </fieldset>
-                                                                </div>
-                                                            </div>
-                                                            <!--Fin del body del popup-->
-                                                            <!-- Modal Footer -->
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default"
-                                                                        data-dismiss="modal">
-                                                                    Cerrar
-                                                                </button>
-                                                                <button type="button" class="btn btn-primary">
-                                                                    Guardar
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <label>
-                                                <p class="auto-style3"><input name="pago" type="radio" style="width: 17px; height: 17px" value="no" data-toggle="modal" data-target="#cuadritoWapeton2" /><span class="auto-style4"> Realizar con Paypal</span></p>
-
-                                                @*<input type="radio" id="paypal" name="pago" value="paypal" data-toggle="modal" data-target="#cuadritoWapeton2" />  Realizar pago con Paypal*@
-
-                                            </label>
-                                            <!--aqui se le debe mostrar la  cuenta de paypal que usará cuando le de cotinuar al popup-->
-                                            <div class="col-md-10">
-                                                <div class="panel panel-default panel-srcbox" id="divnone" style="display:none">
-                                                    <div class="panel-heading">
-                                                        <center> <b> <p> Compra permitida </p></b></center>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <!--inicio popup paypal-->
-                                            <div class="modal fade" id="cuadritoWapeton2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <!--Header del popup-->
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close"
-                                                                    data-dismiss="modal">
-                                                                <span aria-hidden="true">&times;</span>
-                                                                <span class="sr-only">Close</span>
-                                                            </button>
-                                                            <h4 class="modal-title" id="myModalLabel">
-                                                                Pago con Paypal
-                                                            </h4>
-                                                            <!--body del popup-->
-                                                            <div class="modal-body">
-                                                                <!--aqui va el formulario para paypal-->
-                                                                <div class="col-md-pull-0">
-                                                                    <div class="panel panel-default panel-srcbox">
-                                                                        <div class="panel-heading">
-                                                                            <fieldset>
-                                                                                <label class="control-label">Introduzca el correo de su cuenta de Paypal</label>
-                                                                                <input id="pay" class="form-control" asp-items="ViewBag.paypalID"> <br /><br />
-                                                                                <label class="control-label">Introduzca la contraseña de su cuenta de Paypal</label>
-                                                                                <input type="password" class="form-control" asp-items="ViewBag.paypalID">
-
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--Fin del body del popup-->
-                                                        <!-- Modal Footer -->
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default"
-                                                                    data-dismiss="modal">
-                                                                Cerrar
-                                                            </button>
-                                                            <input type="button" class="btn btn-default" data-toggle="modal" data-target="#cuadritoWapeton7" value="Validar" />
-                                                            <div class="modal fade" id="cuadritoWapeton7" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
-                                                                        <!--Header del popup-->
-                                                                        <div class="modal-header">
-                                                                            <button type="button" class="close"
-                                                                                    data-dismiss="modal">
-                                                                                <span aria-hidden="true">&times;</span>
-                                                                                <span class="sr-only">Close</span>
-                                                                            </button>
-                                                                            <!--body del popup-->
-                                                                            <div class="modal-body">
-                                                                                <!--aqui va el formulario para paypal-->
-                                                                                <p><i><b>Su pago es aceptado!</b></i></p>
-                                                                            </div>
-                                                                            <!--Fin del body del popup-->
-                                                                            <!-- Modal Footer -->
-                                                                            <div class="modal-footer">
-                                                                                <button type="submit" style="border:none" class="btn btn-success pago" name="pago" value="no" data-dismiss="modal">
-                                                                                    Finalizar compra
-                                                                                </button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <br />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -651,90 +327,398 @@
                             </fieldset>
                         </div>
                     </div>
-
                 </div>
 
+                <!--Pregunta si utilizará cupón el usuario-->
+                <div class="container">
+                    <aside class="col-md-6">
+                        <div class="col-lg-pull-0">
+                            <div class="panel panel-default panel-srcbox">
+                                <div class="panel-heading">
+                                    <fieldset>
+                                        <legend><b>¿Utilizará algún cupón en esta compra?</b></legend>
+                                        <div class="col-lg-pull-0">
+                                            <label> <p class="auto-style3"><input name="cupon" type="radio" style="width: 17px; height: 17px" value="si" data-toggle="modal" data-target="#cuadritoWapeton5" /><span class="auto-style4"> Si</span></p> </label>
 
-                <table class="table table-bordered table-hover">
-                    <thead style="background-color: gainsboro">
-                        <tr>
-                            <th colspan="2" class="col-md-3 text-center">Detalle de tu compra</th>
-                        </tr>
-                    </thead>
-                    <tbody>
 
-                        <tr>
-                            <th class="col-sm-2 text-center"><b>SubTotal</b></th>
-                            <th class="col-sm-1 text-center">
-                                @*Costo de los productos sin descuento*@
-                                @{ var subtotal = _context.ProdCarrito.Where(d => d.CarritoID == _context.Carrito.SingleOrDefault(c => c.tiendaOnlineUserID == UserManager.GetUserId(User)).CarritoID && d.IsSelected == true)
-                                                  .Select(c => Math.Round(c.producto.PrecioUnitario, 2) * c.cantidadProducto).Sum(); }
-                                $@String.Format("{0:0.00}", subtotal)
-                            </th>
-                        </tr>
-                        <tr>
-                            <th class="col-sm-2 text-center"><b>Descuentos</b></th>
-                            <th class="col-sm-1 text-center">
-                                @*total es el costo ya con descuento, es mas facil de sacar que solo el descuento*@
-                                @{ var total = _context.Carrito.SingleOrDefault(c => c.tiendaOnlineUserID == UserManager.GetUserId(User)).GetcarritoTotal();}
-                                $@String.Format("{0:0.00}", subtotal-total)
+                                            <!--inicio popup del cupon-->
+                                            <div class="modal fade" id="cuadritoWapeton5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <!--Header del popup-->
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close"
+                                                                    data-dismiss="modal">
+                                                                <span aria-hidden="true">&times;</span>
+                                                                <span class="sr-only">Close</span>
+                                                            </button>
+                                                            <h4 class="modal-title" id="myModalLabel">
+                                                                Seleccione su cupón
+                                                            </h4>
+                                                            <div class="modal-body">
 
-                            </th>
-                        </tr>
-                        <tr>
-                            <th class="col-sm-2 text-center">Costo de envio</th>
-                            <th class="col-sm-1 text-center">
-                                <center>
-                                    <b style="border:none" id="montoElegido" class="form-control" ></b>
-                                </center>
-                            </th>
-                        </tr>.
-                        <tr>
-                            <th class="col-sm-2 text-center">Descuento de cupón</th>
-                            <th class="col-sm-1 text-center">
+                                                                <!--aqui va el formulario para cupon-->
+                                                                <table style="text-align:center;">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td class="col-md-3" style="text-align:center;"><b>Cupón</b></td>
+                                                                            <td class="col-md-4" style="text-align:center;"><b>Periodo de vigencia</b></td>
+                                                                            <td class="col-md-4" style="text-align:center;"><b>Monto de descuento</b></td>
+                                                                        </tr>
+                                                                        @{ var cupon = " "; var montoc = 0.01; var cuponid = 0;}
+                                                                        @foreach (var linea in _context.Cupon)
+                                                                        {
+                                                                            cupon = linea.descripcionCupon + ". Periodo de vigencia: (" + linea.fechaCreacion.ToShortDateString() + " - " + linea.fechaVencimiento.ToShortDateString() + "). Monto de descuento: $" + linea.montoCupon;
+                                                                            cuponid = linea.CuponID;
+                                                                            montoc = linea.montoCupon;
+                                                                            <tr>
+                                                                                <td class="col-md-3">
+                                                                                    <button type="submit" style="border:none" class="btn btn-default btn-block cupon" name="cupon" onclick="seleccionarCupon('@cupon','@cuponid','@montoc')" value="si" data-dismiss="modal">
+                                                                                        @Html.DisplayFor(modelItem => linea.descripcionCupon)
+                                                                                    </button>
+                                                                                </td>
+                                                                                <td class="col-md-2">
+                                                                                    <button type="submit" style="border:none" onclick="seleccionarCupon('@cupon','@cuponid','@montoc')" class="btn btn-default btn-block cupon" name="cupon" value="si" data-dismiss="modal">
+                                                                                        (@Html.DisplayFor(modelItem => linea.fechaCreacion.Day)/@Html.DisplayFor(modelItem => linea.fechaCreacion.Month)/@Html.DisplayFor(modelItem => linea.fechaCreacion.Year) -  @Html.DisplayFor(modelItem => linea.fechaVencimiento.Day)/@Html.DisplayFor(modelItem => linea.fechaVencimiento.Month)/@Html.DisplayFor(modelItem => linea.fechaVencimiento.Year))
+                                                                                    </button>
+                                                                                </td>
+                                                                                <td class="col-md-4">
+                                                                                    <button type="submit" onclick="seleccionarCupon('@cupon','@cuponid','@montoc')" style="border:none" class="btn btn-default btn-block cupon" name="cupon" value="si" data-dismiss="modal">
+                                                                                        $@Html.DisplayFor(modelItem => linea.montoCupon).00
+                                                                                    </button>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>&nbsp;</td>
+                                                                                <td>&nbsp;</td>
+                                                                                <td>&nbsp;</td>
+                                                                            </tr>
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <!--Fin del body del popup-->
+                                                        <!-- Modal Footer -->
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">
+                                                                Cerrar
+                                                            </button>
+                                                            <button type="submit" style="border:none" class="btn btn-success cupon" name="cupon" value="si" data-dismiss="modal">
+                                                                Validar
+                                                            </button>
+                                                            <br />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                $0.00
-                            </th>
-                        </tr>
-                        <tr>
-                            <th class="col-sm-2 text-center"><h4><b><button onclick="total('@subtotal')">Total</button></b></h4></th>
-                            <th class="col-sm-1 text-center">
-                                <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
-                                <label id="tot" asp-for="total"  class="form-control" />
 
-                              
-                            </th>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="form-group">
-                    <input type="submit" value="Finalizar compra" class="btn btn-success" />     <a class="btn btn-danger" asp-action="Index"><i class="fas fa-remove"></i> Cancelar</a>
+                                            <div class="container">
+                                                <div class="col-md-5" id="divsi" style="display:none">
+                                                    <!--aqui se le debe mostrar el cupon del usuario seleccionada cuando le de guardar al popup-->
+                                                    <div class="form-group" id="diruser">
+                                                        <p id="cuponElegido"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <label> <p class="auto-style3"><input class="cupon" name="cupon" type="radio" onclick="seleccionarCupon(' ','null','0')"  style="width: 17px; height: 17px" value="no" /><span class="auto-style4"> No</span></p>    </label>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+
+
+                    <!--Preguntarle si quiere pagar con tarjeta o paypal-->
+
+                    <aside class="col-md-6">
+                        <div class="col-md-pull-7">
+                            <div class="panel panel-default panel-srcbox">
+                                <div class="panel-heading">
+                                    <fieldset>
+                                        <legend><b>¿Desea realizar pago con tarjeta o paypal?</b></legend>
+                                        <div class="row">
+                                            <div class="col-lg-pull-0">
+                                                <div class="btn-group" data-toggle="buttons">
+                                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+                                                    <label> <p class="auto-style3"><input class="pago" name="pago" type="radio" style="width: 17px; height: 17px" value="tarjeta" data-toggle="modal" data-target="#cuadritoWapeton1" /><span class="auto-style4"> Seleccionar tarjeta</span></p>   </label>
+                                                    <br />
+
+
+
+                                                    <!--aqui comienza lo que saldria del primer popup-->
+                                                    <div class="modal fade" id="cuadritoWapeton1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <!--Header del popup-->
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close"
+                                                                            data-dismiss="modal">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                        <span class="sr-only">Close</span>
+                                                                    </button>
+                                                                    <h4 class="modal-title" id="myModalLabel">
+                                                                        Elegir tarjeta para realizar el pago
+                                                                    </h4>
+                                                                    <!--body del popup-->
+                                                                    <div class="modal-body">
+
+                                                                        <!--Aqui mandan a llamar a las tarjetas-->
+                                                                        <div class="col-md-pull-0">
+
+                                                                            <fieldset>
+                                                                                <table>
+                                                                                    <tbody style="text-align:center;">
+
+                                                                                        <tr>
+                                                                                            <td style="padding-left:15px;"><b>Tipo de tarjeta</b></td>
+                                                                                            <td style="padding-left:15px;"><b>Titular</b></td>
+                                                                                            <td style="padding-left:15px;"><b>Fecha de vencimiento</b></td>
+                                                                                        </tr>
+                                                                                        <tr>
+
+                                                                                            <td>&nbsp;</td>
+                                                                                            <td>&nbsp;</td>
+                                                                                            <td>&nbsp;</td>
+                                                                                        </tr>
+
+                                                                                        @{ var tarjeta = " "; var tarjetaid = 0;}
+                                                                                        @foreach (var linea in _context.Tarjeta.Where(d => d.tiendaOnlineUserID == UserManager.GetUserId(User)))
+                                                                                        {
+                                                                                            tarjeta = "Tipo de tarjeta: " + linea.tipoTarjeta + ". Titular: " + linea.titularTarjeta + ". Fecha de vencimiento: " + linea.fechaVencimiento.Month + "/" + linea.fechaVencimiento.Year;
+                                                                                            tarjetaid = linea.TarjetaID;
+                                                                                            <tr>
+                                                                                                <td style="padding-left:15px;">
+                                                                                                    <button onclick="seleccionarTarjeta('@tarjeta','@tarjetaid')" type="submit" style="border:none" class="btn btn-default btn-block pag" name="pag" value="tarj" data-dismiss="modal">
+                                                                                                        @Html.DisplayFor(modelItem => linea.tipoTarjeta)
+                                                                                                    </button>
+                                                                                                </td>
+                                                                                                <td style="padding-left:20px;">
+                                                                                                    <button onclick="seleccionarTarjeta('@tarjeta','@tarjetaid')" type="submit" style="border:none" class="btn btn-default btn-block pag" name="pag" value="tarj" data-dismiss="modal">
+                                                                                                        @Html.DisplayFor(modelItem => linea.titularTarjeta)
+                                                                                                    </button>
+                                                                                                </td>
+                                                                                                <td style="padding-left:20px;">
+                                                                                                    <button onclick="seleccionarTarjeta('@tarjeta','@tarjetaid')" type="submit" style="border:none" class="btn btn-default btn-block pag" name="pag" value="tarj" data-dismiss="modal">
+                                                                                                        @Html.DisplayFor(modelItem => linea.fechaVencimiento.Month) / @Html.DisplayFor(modelItem => linea.fechaVencimiento.Year)
+                                                                                                    </button>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        }
+
+
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </fieldset>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--Fin del body del popup-->
+                                                                    <!-- Modal Footer -->
+                                                                    <div class="modal-footer">
+                                                                        <h6><i>Si no le aparece la tarjeta que desea, debe añadirla.</i></h6>
+                                                                        <a asp-action="Create" asp-controller="Tarjetas" type="button" class="btn btn-primary">Registrar una tarjeta</a>
+
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">  Cerrar </button>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--aqui se le debe mostrar la tarjeta usará, hay que validar q solo le aparezcan las tarjetas de ese usuario y q la fecha solo muestre mes y año cuando le de guardar al popup-->
+
+                                                    <div class="container">
+                                                        <div class="col-md-5" id="divtar" style="display:none">
+                                                            <div class="form-group" id="tarjetauser">
+                                                                <div class="col-md-9">
+                                                                    <p id="tarjetaElegida"></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <label>  <p class="auto-style3"><input class="pago" name="pago" value="paypal" type="radio" style="width: 17px; height: 17px" data-toggle="modal" data-target="#cuadritoWapeton2" /><span class="auto-style4"> Realizar con Paypal</span></p>  </label>
+
+
+
+                                                    <!--inicio popup paypal-->
+                                                    <div class="modal fade" id="cuadritoWapeton2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <!--Header del popup-->
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close"
+                                                                            data-dismiss="modal">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                        <span class="sr-only">Close</span>
+                                                                    </button>
+                                                                    <h4 class="modal-title" id="myModalLabel">
+                                                                        Pago con Paypal
+                                                                    </h4>
+                                                                    <!--body del popup-->
+                                                                    <div class="modal-body">
+                                                                        <!--aqui va el formulario para paypal-->
+                                                                        <div class="col-md-pull-0">
+                                                                            <div class="panel panel-default panel-srcbox">
+                                                                                <div class="panel-heading">
+                                                                                    <fieldset>
+                                                                                        <label class="control-label">Introduzca el correo de su cuenta de Paypal</label>
+                                                                                        <input id="pay" class="form-control" asp-items="ViewBag.paypalID"> <br /><br />
+                                                                                        <label class="control-label">Introduzca la contraseña de su cuenta de Paypal</label>
+                                                                                        <input type="password" class="form-control" asp-items="ViewBag.paypalID">
+
+                                                                                    </fieldset>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--Fin del body del popup-->
+                                                                <!-- Modal Footer -->
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-default"
+                                                                            data-dismiss="modal">
+                                                                        Cerrar
+                                                                    </button>
+                                                                    <input type="button" class="btn btn-default" data-toggle="modal" data-target="#cuadritoWapeton7" value="Validar" />
+                                                                    <div class="modal fade" id="cuadritoWapeton7" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                                <!--Header del popup-->
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close"
+                                                                                            data-dismiss="modal">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                        <span class="sr-only">Close</span>
+                                                                                    </button>
+                                                                                    <!--body del popup-->
+                                                                                    <div class="modal-body">
+                                                                                        <!--aqui va el formulario para paypal-->
+                                                                                        <p><i><b>Su pago es aceptado!</b></i></p>
+                                                                                    </div>
+                                                                                    <!--Fin del body del popup-->
+                                                                                    <!-- Modal Footer -->
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="submit" style="border:none" class="btn btn-success paypal" name="paypal" value="paypal" data-dismiss="modal">
+                                                                                            Finalizar compra
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <br />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--depues de ingresar la  cuenta de paypal que usará cuando le de cotinuar al popup-->
+
+                                                    <div class="col-lg-pull-0" id="divnone" style="display:none">
+                                                        <div class="container">
+                                                            <div class="form-group" id="paypaluser" style="display:none">
+                                                                <div class="col-lg-8">
+                                                                    <p> Compra permitida </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
                 </div>
-            </form>
-        </div>
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead style="background-color: gainsboro">
+                    <tr>
+                        <th colspan="2" class="col-md-3 text-center">Detalle de tu compra</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <th class="col-sm-2 text-center"><b>SubTotal</b></th>
+                        <th class="col-sm-1 text-center">
+                            @*Costo de los productos sin descuento*@
+                            @{ var subtotal = _context.ProdCarrito.Where(d => d.CarritoID == _context.Carrito.SingleOrDefault(c => c.tiendaOnlineUserID == UserManager.GetUserId(User)).CarritoID && d.IsSelected == true)
+                                                               .Select(c => Math.Round(c.producto.PrecioUnitario, 2) * c.cantidadProducto).Sum(); }
+                            $@String.Format("{0:0.00}", subtotal)
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-2 text-center">Costo de envio</th>
+                        <th class="col-sm-1 text-center">
+                        
+                                <p id="montoElegido"></p>
+                           
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-2 text-center"><b>Descuentos</b></th>
+                        <th class="col-sm-1 text-center">
+                            @*total es el costo ya con descuento, es mas facil de sacar que solo el descuento*@
+                            @{ var total = _context.Carrito.SingleOrDefault(c => c.tiendaOnlineUserID == UserManager.GetUserId(User)).GetcarritoTotal();}
+                            -$@String.Format("{0:0.00}", subtotal - total)
+
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <th class="col-sm-2 text-center">Descuento de cupón</th>
+                        <th class="col-sm-1 text-center">
+                            <p id="montoCuponElegido"></p>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-2 text-center"><h4><b><button onclick="total('@subtotal',0)">Total</button></b></h4></th>
+                        <th class="col-sm-1 text-center">
+                            <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
+
+                            <p id="tot"></p>
+
+
+
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-success" />     <a class="btn btn-danger" asp-action="Index"><i class="fas fa-remove"></i> Cancelar</a>
+            </div>
+
+
+            <div style="visibility:hidden">
+                <!--capturo el id de la direccion en el siguiente input para mandarlo guardado-->
+                <input id="direccionid" style="visibility:hidden" class="form-control" />
+                <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
+                <input id="tarjetaid" style="visibility:hidden" class="form-control" />
+                <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
+                <input id="metodoEid" asp-for="metodoEnvioID" style="visibility:hidden" class="form-control" />
+                <!--capturo el id de la sucursal en el siguiente input para mandarlo guardado-->
+                <input style="visibility:hidden" id="sucursalid" class="form-control" type="text" />
+                <!--capturo el total de la orden en el siguiente input para mandarlo guardado-->
+                <input id="total" asp-for="total" style="visibility:hidden" class="form-control" />
+            </div>
+        </form>
     </div>
-
-    <div style="visibility:hidden">
-        <!--capturo el id de la direccion en el siguiente input para mandarlo guardado-->
-        <input id="direccionid" style="visibility:hidden" class="form-control" />
-        <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
-        <input id="tarjetaid" style="visibility:hidden" class="form-control" />
-        <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
-        <input id="metodoEid" asp-for="metodoEnvioID" style="visibility:hidden" class="form-control" />
-        <!--capturo el id de la sucursal en el siguiente input para mandarlo guardado-->
-        <input style="visibility:hidden" id="sucursalid" class="form-control" type="text" />
-
-    </div>
-
-
-
-
-
-
-
-
-
 </div>
+
+
+
+
+
 
 @section Scripts {
 
@@ -749,7 +733,7 @@
 
                 var valor = $(this).val();
 
-                if (valor == 'envio') {
+                if (valor == 'enviar') {
                     $("#div1").css("display", "block");
                     $("#div2").css("display", "none");
                 } else {
@@ -765,7 +749,7 @@
 
                 var valor = $(this).val();
 
-                if (valor == 'si') {
+                if (valor == 'tarjeta') {
                     $("#divtar").css("display", "block");
                     $("#divnone").css("display", "none");
                 } else {
@@ -775,17 +759,17 @@
             });
         });
 
+
+
         $(document).ready(function () {
             $(".cupon").click(function (evento) {
 
                 var valor = $(this).val();
 
                 if (valor == 'si') {
-                    $("#divsi").css("display", "block");
-                    $("#divno").css("display", "none");
+                    $("#divsi").css("display", "block");                  
                 } else {
-                    $("#divsi").css("display", "none");
-                    $("#divno").css("display", "block");
+                    $("#divsi").css("display", "none");                 
                 }
             });
         });
@@ -801,17 +785,49 @@
             });
         });
 
-        function seleccionarMetodo(met, id,mont) {
+        $(document).ready(function () {
+            $(".pag").click(function (evento) {
+                var valor = $(this).val();
+                if (valor == 'tarj') {
+                    $("#tarjetauser").css("display", "block");
+                } else {
+                    $("#tarjetauser").css("display", "none");
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $(".paypal").click(function (evento) {
+                var valor = $(this).val();
+                if (valor == 'paypal') {
+                    $("#paypaluser").css("display", "block");
+                } else {
+                    $("#paypaluser").css("display", "none");
+                }
+            });
+        });
+     
+        function seleccionarMetodo(met, id, mont) {
             $("#metodoElegido").text(met);
             $("#metodoEid").val(id);
             $("#montoElegido").text(mont);
         }
 
-        function seleccionarSucursal(met,id) {
+        function seleccionarCupon(met, id, mont) {
+            $("#cuponElegido").text(met);            
+            var mon = "-$"+mont+".00";
+            $("#montoCuponElegido").text(mon);
+            $("#cuponid").val(id);
+            total(mont, 1);
+        }
+
+        function seleccionarSucursal(met, id) {
+            seleccionarMetodo(' ',null, '$0.00');
             $("#sucursalElegida").text(met);
             $("#sucursalid").val(id);
-            }
-            
+
+        }
+
         function seleccionarDireccion(met, id) {
             $("#direccionElegida").text(met);
             $("#direccionid").val(id);
@@ -823,11 +839,18 @@
         }
 
 
-        function total(id) {
-            
+        function total(id, s) {
+            if (s == 0) {
+                var tot = tot + id;
+            }
+            if (s == 1) {
+                var tot = tot - id;
+            }
+
             $("#tot").text(id);
+            $("#total").val(id);
         }
-       
+
 
     </script>
 }
