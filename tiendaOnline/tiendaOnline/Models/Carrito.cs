@@ -146,6 +146,24 @@ namespace tiendaOnline.Models
             var prodCarrito = _ApplicationDbContext
                 .ProdCarrito
                 .Where(carrito => carrito.CarritoID == CarritoID && carrito.IsSelected==true);
+            //aqui revisa si hay stock disponible
+            foreach(var producto in prodCarrito)
+            {
+                //el stock disponible
+                var existencia = _ApplicationDbContext.Producto.SingleOrDefault(c => c.ProductoID == producto.productoID).Existencia;
+                //si cantidad seleccionada <= stock disponible
+                if (producto.cantidadProducto <= existencia)
+                {
+                    //disminuir stock
+                    _ApplicationDbContext.Producto.SingleOrDefault(c => c.ProductoID == producto.productoID).Existencia = existencia-producto.cantidadProducto;
+                }
+                else
+                {
+                    //interrumpir orden, aviso que no hay existencia suficiente 
+
+                    throw new Exception("Parece que no tenemos disponible uno o varios de tus productos seleccionados :( ");
+                }
+            }
 
             _ApplicationDbContext.ProdCarrito.RemoveRange(prodCarrito);
 

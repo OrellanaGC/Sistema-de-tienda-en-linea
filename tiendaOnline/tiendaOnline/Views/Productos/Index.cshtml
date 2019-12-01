@@ -21,6 +21,24 @@
 </p>
 
 <div class="row">
+    <div class="col-md-2 panel panel-default">
+        <div class="panel-heading"><p><b>Búsqueda refinada</b></p></div>
+        <div class="panel-body">
+            <!--Busquedas refinadas customizadas por el usuario-->
+            <form>
+                <input class="form-control" name="searchString" type="hidden" value="@ViewData["CurrentFilter"]" />
+                <label class="control-label">Precio mínimo:</label>
+                <input class="form-control" name="precioMin" type="number" value="@ViewData["PrecioMinFilter"]" />
+                <label class="control-label">Precio máximo:</label>
+                <input class="form-control" name="precioMax" type="number" value="@ViewData["PrecioMaxFilter"]" />
+                <label class="control-label">Vendedor:</label>
+                <input class="form-control" name="vendedor" type="text" value="@ViewData["SellerFilter"]" />
+                <label class="control-label">Marca:</label>
+                <input class="form-control" name="marca" type="text" value="@ViewData["BrandFilter"]" />
+                <button class="btn btn-default" type="submit"><i class="fab fa-searchengin"></i> Buscar</button>
+            </form>
+        </div>
+    </div>
     <div>
         @foreach (var producto in Model)
         {

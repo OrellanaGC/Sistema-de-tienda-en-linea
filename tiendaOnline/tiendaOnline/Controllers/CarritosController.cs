@@ -56,6 +56,20 @@ namespace tiendaOnline.Controllers
         }
 
         [Authorize(Roles = "User")]
+        public async Task<RedirectToActionResult> AgregarCarrito2(int idProducto)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            var prodSeleccionado = _producto.Productos.FirstOrDefault(p => p.ProductoID == idProducto);
+
+            if (prodSeleccionado != null)
+            {
+                _carrito.AgregarCarrito(prodSeleccionado, 1);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "User")]
         public async Task<RedirectToActionResult> EliminarDeCarrito(int idProducto)
         {
             var user = await _userManager.GetUserAsync(User);

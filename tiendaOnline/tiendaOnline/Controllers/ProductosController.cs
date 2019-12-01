@@ -31,12 +31,16 @@ namespace tiendaOnline.Controllers
         }
 
         // GET: Productos       
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, double precioMin, double precioMax, string vendedor, string marca)
         {
             var applicationDbContext = _context.Producto.Include(p => p.Subcategoria).Include(p => p.detalleVendedor);
             //Cuadro de busqueda
 
             ViewData["CurrentFilter"] = searchString;
+            ViewData["PrecioMinFilter"] = precioMin;
+            ViewData["PrecioMaxFilter"] = precioMax;
+            ViewData["SellerFilter"] = vendedor;
+            ViewData["BrandFilter"] = marca;
             var productos = from p in _context.Producto select p; //recorre todos los items en producto
 
             if (!String.IsNullOrEmpty(searchString))
@@ -44,10 +48,90 @@ namespace tiendaOnline.Controllers
                 //agregar metadata si se modifican los atributos
                 productos = productos.Where(p => p.NombreProducto.Contains(searchString) ||
                 p.Subcategoria.nombreSubcategoria.Contains(searchString) ||
-                p.Subcategoria.Categoria.nombre_categoria.Contains(searchString)
-                );//realiza busqueda por nombre
-            }     
-            
+                p.Subcategoria.Categoria.nombre_categoria.Contains(searchString) ||
+                p.DetalleProducto.Marca.Contains(searchString)
+                );
+
+            }
+            if (!String.IsNullOrEmpty(searchString)&& precioMax.Equals(0))
+            {
+                //agregar metadata si se modifican los atributos
+                productos = productos.Where(p => p.NombreProducto.Contains(searchString) ||
+                p.Subcategoria.nombreSubcategoria.Contains(searchString) ||
+                p.Subcategoria.Categoria.nombre_categoria.Contains(searchString) ||
+                p.DetalleProducto.Marca.Contains(searchString)
+                );
+                               
+            }
+            if (!String.IsNullOrEmpty(searchString) && precioMax.Equals(0) && !String.IsNullOrEmpty(vendedor))
+            {
+                //agregar metadata si se modifican los atributos
+                productos = productos.Where(p => p.detalleVendedor.nombreComercial.Contains(vendedor) && 
+                (p.NombreProducto.Contains(searchString) ||
+                p.Subcategoria.nombreSubcategoria.Contains(searchString) ||
+                p.Subcategoria.Categoria.nombre_categoria.Contains(searchString) ||
+                p.DetalleProducto.Marca.Contains(searchString))
+                );
+
+            }
+            if (!String.IsNullOrEmpty(marca) && !String.IsNullOrEmpty(searchString) && precioMax.Equals(0) && !String.IsNullOrEmpty(vendedor))
+            {
+                //agregar metadata si se modifican los atributos
+                productos = productos.Where(p => p.DetalleProducto.Marca.Contains(marca) &&
+                p.detalleVendedor.nombreComercial.Contains(vendedor) &&
+                (p.NombreProducto.Contains(searchString) ||
+                p.Subcategoria.nombreSubcategoria.Contains(searchString) ||
+                p.Subcategoria.Categoria.nombre_categoria.Contains(searchString) ||
+                p.DetalleProducto.Marca.Contains(searchString))
+                );
+
+            }
+            if (!String.IsNullOrEmpty(marca) && !String.IsNullOrEmpty(searchString) && precioMax.Equals(0))
+            {
+                //agregar metadata si se modifican los atributos
+                productos = productos.Where(p => p.DetalleProducto.Marca.Contains(marca) &&
+                (p.NombreProducto.Contains(searchString) ||
+                p.Subcategoria.nombreSubcategoria.Contains(searchString) ||
+                p.Subcategoria.Categoria.nombre_categoria.Contains(searchString) ||
+                p.DetalleProducto.Marca.Contains(searchString))
+                );
+
+            }
+
+            //esperando en diosito que el filtrado sirva 
+            if (!String.IsNullOrEmpty(precioMin.ToString()) && !precioMax.Equals(0) && !String.IsNullOrEmpty(searchString))
+            {
+                productos = productos.Where(p => (p.PrecioUnitario <= precioMax) && (p.PrecioUnitario >= precioMin) &&
+                (
+                p.NombreProducto.Contains(searchString) ||
+                p.Subcategoria.nombreSubcategoria.Contains(searchString) ||
+                p.Subcategoria.Categoria.nombre_categoria.Contains(searchString) ||
+                p.DetalleProducto.Marca.Contains(searchString)
+                )
+                );
+            }
+            if (!String.IsNullOrEmpty(vendedor) && !String.IsNullOrEmpty(precioMin.ToString()) && !String.IsNullOrEmpty(precioMax.ToString()) && !String.IsNullOrEmpty(searchString))
+            {
+                productos = productos.Where(p => (p.PrecioUnitario <= precioMax) && (p.PrecioUnitario >= precioMin) &&
+                p.detalleVendedor.nombreComercial.Contains(vendedor) && (
+                p.NombreProducto.Contains(searchString) ||
+                p.Subcategoria.nombreSubcategoria.Contains(searchString) ||
+                p.Subcategoria.Categoria.nombre_categoria.Contains(searchString) ||
+                p.DetalleProducto.Marca.Contains(searchString))
+                );
+            }
+            if (!String.IsNullOrEmpty(marca) && !String.IsNullOrEmpty(vendedor) && !String.IsNullOrEmpty(precioMin.ToString()) && !String.IsNullOrEmpty(precioMax.ToString()) && !String.IsNullOrEmpty(searchString))
+            {
+                productos = productos.Where(p => (p.PrecioUnitario <= precioMax) && (p.PrecioUnitario >= precioMin) &&
+                p.DetalleProducto.Marca.Contains(marca) &&
+                p.detalleVendedor.nombreComercial.Contains(vendedor)&& (
+                p.NombreProducto.Contains(searchString) ||
+                p.Subcategoria.nombreSubcategoria.Contains(searchString) ||
+                p.Subcategoria.Categoria.nombre_categoria.Contains(searchString) ||
+                p.DetalleProducto.Marca.Contains(searchString))
+                );
+            }
+
             return View(await productos.AsNoTracking().ToListAsync());
             //return View(await applicationDbContext.ToListAsync());
         }
