@@ -86,6 +86,17 @@ namespace tiendaOnline.Controllers
                 );
 
             }
+            if (!String.IsNullOrEmpty(marca) && !String.IsNullOrEmpty(searchString) && precioMax.Equals(0))
+            {
+                //agregar metadata si se modifican los atributos
+                productos = productos.Where(p => p.DetalleProducto.Marca.Contains(marca) &&
+                (p.NombreProducto.Contains(searchString) ||
+                p.Subcategoria.nombreSubcategoria.Contains(searchString) ||
+                p.Subcategoria.Categoria.nombre_categoria.Contains(searchString) ||
+                p.DetalleProducto.Marca.Contains(searchString))
+                );
+
+            }
 
             //esperando en diosito que el filtrado sirva 
             if (!String.IsNullOrEmpty(precioMin.ToString()) && !precioMax.Equals(0) && !String.IsNullOrEmpty(searchString))
