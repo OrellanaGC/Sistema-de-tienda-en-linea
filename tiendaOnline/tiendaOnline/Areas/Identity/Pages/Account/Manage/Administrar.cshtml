@@ -6,16 +6,20 @@
 }
 
 @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin"))
-{
-    <a class="btn btn-primary" asp-controller="Productos" asp-action="IndexAdministrador"><i class="fas fa-map-marker-alt"></i> Productos</a><br />
-    <a class="btn btn-success" asp-controller="Ordenes" asp-action="OrdenesTrue"><i class="fas fa-credit-card"></i> Ordenes en proceso</a><br />
-    <a class="btn btn-danger" asp-controller="Ordenes" asp-action="OrdenesFalse"><i class="fas fa-user-tie"></i> Ordenes finalizadas</a><br />
-    <a class="btn btn-info" asp-controller="Ordenes" asp-action="OrdenesFalse"><i class="fas fa-user-tie"></i> Categoria</a><br />
-    <a class="btn btn-warning" asp-controller="Ordenes" asp-action="OrdenesFalse"><i class="fas fa-user-tie"></i> Subcategorias</a><br />
-    <a class="btn btn-success" asp-controller="Ordenes" asp-action="OrdenesFalse"><i class="fas fa-users"></i> Usuarios</a><br />
-    <a class="btn btn-danger" asp-controller="Ordenes" asp-action="OrdenesFalse"><i class="fas fa-user-tie"></i> Vendedores</a><br />
-    <a class="btn btn-info" asp-controller="Ordenes" asp-action="OrdenesFalse"><i class="fas fa-box"></i> Metodos de envio</a><br />
-    <a class="btn btn-primary" asp-controller="Ordenes" asp-action="OrdenesFalse"><i class="fas fa-user-tie"></i> Cupones</a><br />
+{<aside class="col-md-3">
+        <a class="btn btn-block btn-primary" asp-controller="Productos" asp-action="IndexAdministrador"> Productos</a><br />
+        <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="OrdenesTrue"> Ordenes en proceso</a><br />
+        <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="OrdenesFalse"> Ordenes finalizadas</a><br />
+    </aside>
+    <aside class="col-md-3">
+        <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="OrdenesFalse"> Categoria</a><br />
+        <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="OrdenesFalse"> Subcategorias</a><br />
+        <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="OrdenesFalse"> Usuarios</a><br />
+    </aside>
+    <aside class="col-md-3">
+        <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="OrdenesFalse"> Vendedores</a><br />
+        <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="OrdenesFalse"> Metodos de envio</a><br />
+        <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="OrdenesFalse"> Cupones</a><br />
+    </aside>
 }
 
-                                                                                                                             
