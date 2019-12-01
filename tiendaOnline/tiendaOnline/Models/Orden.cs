@@ -43,6 +43,10 @@ namespace tiendaOnline.Models
         public Tarjeta tarjeta { get; set; }
         public int? tarjetaID { get; set; }
 
+        //Relacion con sucursal
+        public Sucursal sucursal { get; set; }
+        public int? sucursalID { get; set; }
+
         public Orden()
         {
             estadoDeOrden = true;

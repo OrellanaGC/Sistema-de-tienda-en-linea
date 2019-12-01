@@ -155,7 +155,7 @@ namespace tiendaOnline.Controllers
         public async Task<IActionResult> indexAdministrador(string searchString)
         {
             var productos = _context.Producto;
-            return View("IndexVendedor", await productos.ToListAsync());
+            return View("listarProductos", await productos.ToListAsync());
         }
 
         // GET: Productos/Details/5

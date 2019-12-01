@@ -1,0 +1,81 @@
+﻿@model IEnumerable<tiendaOnline.Models.Producto>
+
+@{
+    ViewData["Title"] = "listarProductos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>listarProductos</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreProducto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioUnitario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Existencia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Imagen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.existenciaSinActivacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.estadoProducto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subcategoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.detalleVendedor)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreProducto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecioUnitario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Existencia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Imagen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.existenciaSinActivacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estadoProducto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subcategoria.nombreSubcategoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.detalleVendedor.correoComercial)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProductoID">Activar</a> |
+              
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
