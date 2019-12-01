@@ -152,7 +152,7 @@
                                                                 <div class="row">
                                                                     <div class="col-lg-pull-0">
                                                                         <div class="btn-group" data-toggle="buttons">
-                                                                            <label> <p class="auto-style3"><input name="direccion" type="checkbox" data-toggle="modal" data-target="#cuadritoWapeton6" style="width: 17px; height: 17px" value="Elegir dirección" />&nbsp;<span class="auto-style4">Elegir dirección de entrega</span></p> </label>
+                                                                            <label> <p class="auto-style3"><input name="direccion" type="radio" data-toggle="modal" data-target="#cuadritoWapeton6" style="width: 17px; height: 17px" value="Elegir dirección" />&nbsp;<span class="auto-style4">Elegir dirección de entrega</span></p> </label>
 
 
                                                                             <!--inicio popup de direcciones-->
@@ -233,7 +233,7 @@
                                                                                 </div>
                                                                             </div>
 
-                                                                            <label> <p class="auto-style3"><input id="metododeenvioseleccionado" name="metododeenvio" type="checkbox" data-toggle="modal" data-target="#cuadritoWapeton4" style="width: 17px; height: 17px" />&nbsp;<span class="auto-style4">Elegir método de envío</span></p> </label>
+                                                                            <label> <p class="auto-style3"><input id="metododeenvioseleccionado" name="metododeenvio" type="radio" data-toggle="modal" data-target="#cuadritoWapeton4" style="width: 17px; height: 17px" />&nbsp;<span class="auto-style4">Elegir método de envío</span></p> </label>
 
 
                                                                             <!--Popup para seleccion del metodo de envio-->
@@ -261,25 +261,26 @@
                                                                                                                 <th class="col-md-2" style="text-align:center;"><b>Días de envío</b></th>
                                                                                                                 <th class="col-md-4" style="text-align:center;"><b>Nombre del intermediario</b></th>
                                                                                                             </tr>
-                                                                                                            @{ var metodo = " "; var monto = " "; var metid = 0;}
+                                                                                                            @{ var metodo = " "; var monto = " "; var metid = 0; var valormonto = 0.00;}
                                                                                                             @foreach (var linea in _context.MetodoEnvio)
                                                                                                             {
                                                                                                                 metodo = ". Intermediario: " + linea.nombreMetodoEnvio + ". Promedio de días de entrega: (" + linea.minDiasEnvio + " - " + linea.maxDiasEnvio + "). Monto extra: $" + linea.montoEnvio;
                                                                                                                 metid = linea.MetodoEnvioID;
                                                                                                                 monto = "$" + linea.montoEnvio;
+                                                                                                                valormonto = linea.montoEnvio;
                                                                                                                 <tr>
                                                                                                                     <td class="col-md-3">
-                                                                                                                        <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" onclick="seleccionarMetodo('@metodo','@metid','@monto')" value="metusuario" data-dismiss="modal">
+                                                                                                                        <button type="submit" style="border:none" class="btn btn-default btn-block met" name="met" onclick="seleccionarMetodo('@metodo','@metid','@monto','@valormonto')" value="metusuario" data-dismiss="modal">
                                                                                                                             $@Html.DisplayFor(modelItem => linea.montoEnvio)
                                                                                                                         </button>
                                                                                                                     </td>
                                                                                                                     <td class="col-md-2">
-                                                                                                                        <button type="submit" style="border:none" onclick="seleccionarMetodo('@metodo','@metid','@monto')" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                                                        <button type="submit" style="border:none" onclick="seleccionarMetodo('@metodo','@metid','@monto','@valormonto')" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
                                                                                                                             (@Html.DisplayFor(modelItem => linea.minDiasEnvio) -  @Html.DisplayFor(modelItem => linea.maxDiasEnvio))
                                                                                                                         </button>
                                                                                                                     </td>
                                                                                                                     <td class="col-md-4">
-                                                                                                                        <button type="submit" onclick="seleccionarMetodo('@metodo','@metid','@monto')" style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
+                                                                                                                        <button type="submit" onclick="seleccionarMetodo('@metodo','@metid','@monto','@valormonto')" style="border:none" class="btn btn-default btn-block met" name="met" value="metusuario" data-dismiss="modal">
                                                                                                                             @Html.DisplayFor(modelItem => linea.nombreMetodoEnvio)
                                                                                                                         </button>
                                                                                                                     </td>
@@ -423,7 +424,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <label> <p class="auto-style3"><input class="cupon" name="cupon" type="radio" onclick="seleccionarCupon(' ','null','0')"  style="width: 17px; height: 17px" value="no" /><span class="auto-style4"> No</span></p>    </label>
+
+
+                                            <label> <p class="auto-style3"><input class="cupon" name="cupon" type="radio" style="width: 17px; height: 17px" value="no" /><span class="auto-style4"> No</span></p>    </label>
                                         </div>
                                     </fieldset>
                                 </div>
@@ -637,7 +640,10 @@
                         </div>
                     </aside>
                 </div>
+
             </div>
+
+
             <table class="table table-bordered table-hover">
                 <thead style="background-color: gainsboro">
                     <tr>
@@ -651,16 +657,16 @@
                         <th class="col-sm-1 text-center">
                             @*Costo de los productos sin descuento*@
                             @{ var subtotal = _context.ProdCarrito.Where(d => d.CarritoID == _context.Carrito.SingleOrDefault(c => c.tiendaOnlineUserID == UserManager.GetUserId(User)).CarritoID && d.IsSelected == true)
-                                                               .Select(c => Math.Round(c.producto.PrecioUnitario, 2) * c.cantidadProducto).Sum(); }
+                                                 .Select(c => Math.Round(c.producto.PrecioUnitario, 2) * c.cantidadProducto).Sum(); }
                             $@String.Format("{0:0.00}", subtotal)
                         </th>
                     </tr>
                     <tr>
                         <th class="col-sm-2 text-center">Costo de envio</th>
                         <th class="col-sm-1 text-center">
-                        
-                                <p id="montoElegido"></p>
-                           
+
+                            <p id="montoElegido"></p>
+
                         </th>
                     </tr>
                     <tr>
@@ -668,6 +674,7 @@
                         <th class="col-sm-1 text-center">
                             @*total es el costo ya con descuento, es mas facil de sacar que solo el descuento*@
                             @{ var total = _context.Carrito.SingleOrDefault(c => c.tiendaOnlineUserID == UserManager.GetUserId(User)).GetcarritoTotal();}
+                            @{ var desc = subtotal - total;}
                             -$@String.Format("{0:0.00}", subtotal - total)
 
                         </th>
@@ -680,11 +687,11 @@
                         </th>
                     </tr>
                     <tr>
-                        <th class="col-sm-2 text-center"><h4><b><button onclick="total('@subtotal',0)">Total</button></b></h4></th>
+                        <th class="col-sm-2 text-center"><h4><b>Total</b></h4></th>
                         <th class="col-sm-1 text-center">
                             <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
 
-                            <p id="tot"></p>
+                            <p id="totalstring"></p>
 
 
 
@@ -693,30 +700,81 @@
                 </tbody>
             </table>
 
+            <!--parte importante-->
+            <div style="display:none">
+                <div class="form-group">
+                    <!--capturo el id de la direccion en el siguiente input para mandarlo guardado-->
+                    <input id="direccionid" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <!--capturo el id del cupon en el siguiente input para mandarlo guardado
+            <input id="cuponid" asp-for="cuponID" class="form-control" />-->
+                    <select id="cuponid" class="form-control" asp-items="ViewBag.cuponID"></select>
+                </div>
+                <div class="form-group">
+                    <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
+                    <input id="tarjetaid" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado
+            <input id="metodoEid" asp-for="metodoEnvioID" class="form-control" />-->
+                    <select id="metodoEid" class="form-control" asp-items="ViewBag.metodoEnvioID"></select>
+
+                </div>
+                <div class="form-group">
+                    <!--capturo el id de la sucursal en el siguiente input para mandarlo guardado-->
+                    <input id="sucursalid" class="form-control" type="text" />
+                </div>
+                <div class="form-group">
+                    <!--capturo el total de la orden en el siguiente input para mandarlo guardado-->
+                    <input id="finalfactura" asp-for="total" class="form-control" />
+
+                </div>
+
+                <!--Utilizados para las operaciones-->
+                <input id="subtot" value="@subtotal" class="form-control" />
+                <input id="montoElegido2" class="form-control" />
+                <input id="descuento" value="@desc" class="form-control" />
+                <input id="montoCuponElegido2" class="form-control" />
+                <input id="totalfinal" class="form-control" />
+                <input id="finalfactura" class="form-control" />
+
+            </div>
+
+                @*
+            <!--muestra el total-->
+            <div class="form-group">
+                <label asp-for="total" class="control-label"></label>
+                <input asp-for="total" class="form-control" />
+                <span asp-validation-for="total" class="text-danger"></span>
+            </div>
+
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-success" />     <a class="btn btn-danger" asp-action="Index"><i class="fas fa-remove"></i> Cancelar</a>
+                <label asp-for="metodoEnvioID" class="control-label"></label>
+                <select asp-for="metodoEnvioID" class="form-control" asp-items="ViewBag.metodoEnvioID"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="cuponID" class="control-label"></label>
+                <select asp-for="cuponID" class="form-control" asp-items="ViewBag.cuponID"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
 
 
-            <div style="visibility:hidden">
-                <!--capturo el id de la direccion en el siguiente input para mandarlo guardado-->
-                <input id="direccionid" style="visibility:hidden" class="form-control" />
-                <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
-                <input id="tarjetaid" style="visibility:hidden" class="form-control" />
-                <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
-                <input id="metodoEid" asp-for="metodoEnvioID" style="visibility:hidden" class="form-control" />
-                <!--capturo el id de la sucursal en el siguiente input para mandarlo guardado-->
-                <input style="visibility:hidden" id="sucursalid" class="form-control" type="text" />
-                <!--capturo el total de la orden en el siguiente input para mandarlo guardado-->
-                <input id="total" asp-for="total" style="visibility:hidden" class="form-control" />
+                *@
+            <div class="form-group">
+                <input type="submit" value="Realizar compra" class="btn btn-primary" />     <a class="btn btn-default" asp-action="Index" asp-controller="Carritos"><i class="fas fa-remove"></i> Cancelar</a>
             </div>
+
+
         </form>
     </div>
 </div>
 
-
-
+   
 
 
 
@@ -727,6 +785,18 @@
 
 
     <script type="text/javascript">
+
+        var totalfinal = 0;
+        var final = 0;
+        totalfinal += parseFloat($("#subtot").val()) - parseFloat($("#descuento").val());
+        final = "$" + parseFloat(totalfinal).toFixed(2);
+        $("#totalstring").text(final);
+        $("#totalfinal").val(totalfinal);
+        var t = "$0.00";
+        $("#montoElegido").text(t);
+        $("#montoCuponElegido").text(t);
+        var finalfac = totalfinal;
+        $("#finalfactura").val(finalfac);
 
         $(document).ready(function () {
             $(".envio").click(function (evento) {
@@ -739,6 +809,7 @@
                 } else {
                     $("#div1").css("display", "none");
                     $("#div2").css("display", "block");
+
                 }
             });
         });
@@ -767,9 +838,22 @@
                 var valor = $(this).val();
 
                 if (valor == 'si') {
-                    $("#divsi").css("display", "block");                  
-                } else {
-                    $("#divsi").css("display", "none");                 
+                    $("#divsi").css("display", "block");
+
+
+                }
+                if (valor == 'no') {
+                    $("#divsi").css("display", "none");
+                    if (parseFloat($("#montoCuponElegido2").val()) > 0) {
+                        totalfinal += parseFloat($("#montoCuponElegido2").val());
+                        $("#totalfinal").val(totalfinal);
+                        final = "$" + parseFloat(totalfinal).toFixed(2);
+                        $("#totalstring").text(final);
+                        finalfac = parseFloat(parseFloat(totalfinal).toFixed(2))
+                        $("#finalfactura").val(finalfac);
+                    }
+                    seleccionarCupon(' ', null, 0);
+
                 }
             });
         });
@@ -806,26 +890,53 @@
                 }
             });
         });
-     
-        function seleccionarMetodo(met, id, mont) {
+        // totalfinal += parseFloat(valor); numero
+
+        // final = parseFloat(totalfinal).toFixed(2);texto
+
+        // final = parseFloat(final); numero 2 decimales
+
+        function seleccionarMetodo(met, id, mont, valor) {
             $("#metodoElegido").text(met);
             $("#metodoEid").val(id);
             $("#montoElegido").text(mont);
+            $("#montoElegido2").val(valor);
+            totalfinal += parseFloat(valor);
+            $("#totalfinal").val(totalfinal);
+            final = "$" + parseFloat(totalfinal).toFixed(2);
+            $("#totalstring").text(final);
+            finalfac = parseFloat(parseFloat(totalfinal).toFixed(2))
+            $("#finalfactura").val(finalfac);
         }
 
+
         function seleccionarCupon(met, id, mont) {
-            $("#cuponElegido").text(met);            
-            var mon = "-$"+mont+".00";
+            $("#cuponElegido").text(met);
+            var mon = "-$" + parseFloat(mont).toFixed(2);
             $("#montoCuponElegido").text(mon);
+            $("#montoCuponElegido2").val(mont);
             $("#cuponid").val(id);
-            total(mont, 1);
+            totalfinal -= mont;
+            $("#totalfinal").val(totalfinal);
+            final = "$" + parseFloat(totalfinal).toFixed(2);
+            $("#totalstring").text(final);
+            finalfac = parseFloat(parseFloat(totalfinal).toFixed(2))
+            $("#finalfactura").val(finalfac);
         }
 
         function seleccionarSucursal(met, id) {
-            seleccionarMetodo(' ',null, '$0.00');
+            if (parseFloat($("#montoElegido2").val()) > 0) {
+                totalfinal -= parseFloat($("#montoElegido2").val());
+                $("#totalfinal").val(totalfinal);
+                final = "$" + parseFloat(totalfinal).toFixed(2);
+                $("#totalstring").text(final);
+                finalfac = parseFloat(parseFloat(totalfinal).toFixed(2))
+                $("#finalfactura").val(finalfac);
+            }
+            seleccionarDireccion(' ', null);
+            seleccionarMetodo(' ', null, '$0.00', 0);
             $("#sucursalElegida").text(met);
             $("#sucursalid").val(id);
-
         }
 
         function seleccionarDireccion(met, id) {
@@ -839,17 +950,6 @@
         }
 
 
-        function total(id, s) {
-            if (s == 0) {
-                var tot = tot + id;
-            }
-            if (s == 1) {
-                var tot = tot - id;
-            }
-
-            $("#tot").text(id);
-            $("#total").val(id);
-        }
 
 
     </script>
