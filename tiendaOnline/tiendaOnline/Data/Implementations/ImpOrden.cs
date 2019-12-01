@@ -20,6 +20,12 @@ namespace tiendaOnline.Data.Implementations
 
         public void CrearOrden(Orden orden)
         {
+            if(orden.cuponID!=null)
+            {
+                var cuponUsado = _applicationDbContext.Cupon.SingleOrDefault(c => c.CuponID == orden.cuponID);
+                cuponUsado.estadoCupon = false;
+                
+            }
             orden.fechaOrden = DateTime.Now;
             _applicationDbContext.Orden.Add(orden);
 
