@@ -8,11 +8,18 @@
 
 <h4>@ViewData["Title"]</h4>
 
-
-@if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Seller"))
+@if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin") && (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Seller")))
+{
+    <br/>
+    <div class="col-md-6">
+        <a class="btn btn-block btn-warning" asp-controller="DetalleVendedores" asp-action="Index"><i class="fas fa-user-tie"></i> Mis Detalles</a><br /><br />
+        
+    </div>
+}
+@if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Seller") && (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "User")))
 {
     <br />
-    <div class="col-md-6" >
+    <div class="col-md-6">
         <a class="btn btn-block btn-warning" asp-controller="DetalleVendedores" asp-action="Index"><i class="fas fa-user-tie"></i> Mis Detalles</a><br /><br />
         <a class="btn btn-block btn-success" asp-controller="Tarjetas" asp-action="IndexVendedor"><i class="fas fa-credit-card"></i> Mis Tarjetas de Vendedor</a><br /><br />
         <a class="btn btn-block btn-danger" asp-controller="Direcciones" asp-action="IndexVendedor"><i class="fas fa-map-marker-alt"></i> Mis Direcciones de Vendedor</a><br /><br />
@@ -20,7 +27,7 @@
 
 }
 
-else
+@if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "User") && !(await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Seller")))
 {
     <li><a asp-controller="DetalleVendedores" asp-action="Create">Conviertete en Vendedor</a></li>
 }
