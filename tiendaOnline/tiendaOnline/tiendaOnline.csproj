@@ -56,6 +56,9 @@
     <Content Update="Views\Direcciones\IndexVendedor.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Ordenes\Thanks.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Productos\IndexVendedor.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

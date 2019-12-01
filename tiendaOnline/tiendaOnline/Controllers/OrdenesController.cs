@@ -108,8 +108,8 @@ namespace tiendaOnline.Controllers
                 _carrito.GetprodCarrito();
                 _carrito.VaciarCarrito();
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-              
+                return RedirectToPage("./Thanks");
+
             }
             ViewData["direccionID"] = new SelectList(_context.Direccion, "DireccionID", "DireccionID", orden.direccionID);
             ViewData["tarjetaID"] = new SelectList(_context.Tarjeta, "TarjetaID", "TarjetaID", orden.tarjetaID);
