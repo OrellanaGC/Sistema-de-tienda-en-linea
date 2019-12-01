@@ -106,10 +106,10 @@ namespace tiendaOnline.Controllers
             };
             if (ModelState.IsValid)
             {
-               // _context.Add(orden);
+                // _context.Add(orden);
+                _carrito.VaciarCarrito();
                 _orden.CrearOrden(orden);
                 _carrito.GetprodCarrito();
-                _carrito.VaciarCarrito();
                 await _context.SaveChangesAsync();
                 return Redirect("Thanks");
 
