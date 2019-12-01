@@ -85,7 +85,10 @@ namespace tiendaOnline.Controllers
             ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
-
+        public IActionResult Thanks()
+        {
+            return View();
+        }
         // POST: Ordenes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -108,7 +111,7 @@ namespace tiendaOnline.Controllers
                 _carrito.GetprodCarrito();
                 _carrito.VaciarCarrito();
                 await _context.SaveChangesAsync();
-                return RedirectToPage("./Thanks");
+                return Redirect("Thanks");
 
             }
             ViewData["direccionID"] = new SelectList(_context.Direccion, "DireccionID", "DireccionID", orden.direccionID);
@@ -119,6 +122,8 @@ namespace tiendaOnline.Controllers
            
             return View(orden);
         }
+
+
 
         // GET: Ordenes/Edit/5
         [Authorize(Roles = "Admin")]
