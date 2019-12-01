@@ -35,6 +35,14 @@ namespace tiendaOnline.Models
         public Cupon cupon { get; set; }
         public int? cuponID { get; set; }
 
+        //Relacion con Direccion
+        public Direccion direccion { get; set; }
+        public int? direccionID { get; set; }
+
+        //Relacion con Tarjeta
+        public Tarjeta tarjeta { get; set; }
+        public int? tarjetaID { get; set; }
+
         public Orden()
         {
             estadoDeOrden = true;

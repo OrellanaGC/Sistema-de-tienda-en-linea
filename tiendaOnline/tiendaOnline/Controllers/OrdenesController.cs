@@ -61,6 +61,8 @@ namespace tiendaOnline.Controllers
                 .Include(o => o.cupon)
                 .Include(o => o.metodoEnvio)
                 .Include(o => o.tiendaOnlineUser)
+                .Include(o=> o.direccion)
+                .Include(o=>o.tarjeta)
                 .FirstOrDefaultAsync(m => m.OrdenID == id);
             if (orden == null)
             {
@@ -74,6 +76,8 @@ namespace tiendaOnline.Controllers
         [Authorize(Roles = "User, admin")]
         public IActionResult Create()
         {
+            ViewData["direccionID"] = new SelectList(_context.Direccion, "DireccionID", "DireccionID");
+            ViewData["tarjetaID"] = new SelectList(_context.Tarjeta, "TarjetaID", "TarjetaID");
             ViewData["paypalID"] = new SelectList(_context.Paypal, "paypalID", "paypalID");
             ViewData["SucursalID"] = new SelectList(_context.Sucursal, "SucursalID", "SucursalID");
             ViewData["cuponID"] = new SelectList(_context.Cupon, "CuponID", "CuponID");
@@ -88,7 +92,7 @@ namespace tiendaOnline.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "User, Admin")]
-        public async Task<IActionResult> Create([Bind("OrdenID,fechaOrden,total,estadoDeOrden,tiendaOnlineUserID,metodoEnvioID,cuponID")] Orden orden)
+        public async Task<IActionResult> Create([Bind("OrdenID,fechaOrden,total,estadoDeOrden,tiendaOnlineUserID,metodoEnvioID,cuponID,tarjetaID, direccionID")] Orden orden)
         {
             var items = _carrito.GetprodCarrito();
             _carrito.prodCarrito = items;
@@ -107,6 +111,8 @@ namespace tiendaOnline.Controllers
                 return RedirectToAction(nameof(Index));
               
             }
+            ViewData["direccionID"] = new SelectList(_context.Direccion, "DireccionID", "DireccionID", orden.direccionID);
+            ViewData["tarjetaID"] = new SelectList(_context.Tarjeta, "TarjetaID", "TarjetaID", orden.tarjetaID);
             ViewData["cuponID"] = new SelectList(_context.Cupon, "CuponID", "CuponID", orden.cuponID);
             ViewData["metodoEnvioID"] = new SelectList(_context.MetodoEnvio, "MetodoEnvioID", "nombreMetodoEnvio", orden.metodoEnvioID);
             ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", orden.tiendaOnlineUserID);
@@ -140,7 +146,7 @@ namespace tiendaOnline.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("OrdenID,fechaOrden,total,estadoDeOrden,tiendaOnlineUserID,metodoEnvioID,cuponID")] Orden orden)
+        public async Task<IActionResult> Edit(int id, [Bind("OrdenID,fechaOrden,total,estadoDeOrden,tiendaOnlineUserID,metodoEnvioID,cuponID,tarjetaID,direccionID")] Orden orden)
         {
             if (id != orden.OrdenID)
             {

@@ -331,7 +331,7 @@
                 </div>
 
                 <!--Pregunta si utilizará cupón el usuario-->
-                <div class="container">
+              
                     <aside class="col-md-6">
                         <div class="col-lg-pull-0">
                             <div class="panel panel-default panel-srcbox">
@@ -433,7 +433,6 @@
                             </div>
                         </div>
                     </aside>
-
 
                     <!--Preguntarle si quiere pagar con tarjeta o paypal-->
 
@@ -639,91 +638,90 @@
                             </div>
                         </div>
                     </aside>
-                </div>
+             
+    
 
-            </div>
+                <table class="table table-bordered table-hover">
+                    <thead style="background-color: gainsboro">
+                        <tr>
+                            <th colspan="2" class="col-md-3 text-center">Detalle de tu compra</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
+                        <tr>
+                            <th class="col-sm-2 text-center"><b>SubTotal</b></th>
+                            <th class="col-sm-1 text-center">
+                                @*Costo de los productos sin descuento*@
+                                @{ var subtotal = _context.ProdCarrito.Where(d => d.CarritoID == _context.Carrito.SingleOrDefault(c => c.tiendaOnlineUserID == UserManager.GetUserId(User)).CarritoID && d.IsSelected == true)
+                                                        .Select(c => Math.Round(c.producto.PrecioUnitario, 2) * c.cantidadProducto).Sum(); }
+                                $@String.Format("{0:0.00}", subtotal)
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class="col-sm-2 text-center">Costo de envio</th>
+                            <th class="col-sm-1 text-center">
 
-            <table class="table table-bordered table-hover">
-                <thead style="background-color: gainsboro">
-                    <tr>
-                        <th colspan="2" class="col-md-3 text-center">Detalle de tu compra</th>
-                    </tr>
-                </thead>
-                <tbody>
+                                <p id="montoElegido"></p>
 
-                    <tr>
-                        <th class="col-sm-2 text-center"><b>SubTotal</b></th>
-                        <th class="col-sm-1 text-center">
-                            @*Costo de los productos sin descuento*@
-                            @{ var subtotal = _context.ProdCarrito.Where(d => d.CarritoID == _context.Carrito.SingleOrDefault(c => c.tiendaOnlineUserID == UserManager.GetUserId(User)).CarritoID && d.IsSelected == true)
-                                                 .Select(c => Math.Round(c.producto.PrecioUnitario, 2) * c.cantidadProducto).Sum(); }
-                            $@String.Format("{0:0.00}", subtotal)
-                        </th>
-                    </tr>
-                    <tr>
-                        <th class="col-sm-2 text-center">Costo de envio</th>
-                        <th class="col-sm-1 text-center">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class="col-sm-2 text-center"><b>Descuentos</b></th>
+                            <th class="col-sm-1 text-center">
+                                @*total es el costo ya con descuento, es mas facil de sacar que solo el descuento*@
+                                @{ var total = _context.Carrito.SingleOrDefault(c => c.tiendaOnlineUserID == UserManager.GetUserId(User)).GetcarritoTotal();}
+                                @{ var desc = subtotal - total;}
+                                -$@String.Format("{0:0.00}", subtotal - total)
 
-                            <p id="montoElegido"></p>
+                            </th>
+                        </tr>
 
-                        </th>
-                    </tr>
-                    <tr>
-                        <th class="col-sm-2 text-center"><b>Descuentos</b></th>
-                        <th class="col-sm-1 text-center">
-                            @*total es el costo ya con descuento, es mas facil de sacar que solo el descuento*@
-                            @{ var total = _context.Carrito.SingleOrDefault(c => c.tiendaOnlineUserID == UserManager.GetUserId(User)).GetcarritoTotal();}
-                            @{ var desc = subtotal - total;}
-                            -$@String.Format("{0:0.00}", subtotal - total)
+                        <tr>
+                            <th class="col-sm-2 text-center">Descuento de cupón</th>
+                            <th class="col-sm-1 text-center">
+                                <p id="montoCuponElegido"></p>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class="col-sm-2 text-center"><h4><b>Total</b></h4></th>
+                            <th class="col-sm-1 text-center">
+                                <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
 
-                        </th>
-                    </tr>
-
-                    <tr>
-                        <th class="col-sm-2 text-center">Descuento de cupón</th>
-                        <th class="col-sm-1 text-center">
-                            <p id="montoCuponElegido"></p>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th class="col-sm-2 text-center"><h4><b>Total</b></h4></th>
-                        <th class="col-sm-1 text-center">
-                            <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
-
-                            <p id="totalstring"></p>
+                                <p id="totalstring"></p>
 
 
 
-                        </th>
-                    </tr>
-                </tbody>
-            </table>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <!--parte importante-->
-            <div style="display:none">
+                <!--parte importante-->
+
+                <br />
                 <div class="form-group">
                     <!--capturo el id de la direccion en el siguiente input para mandarlo guardado-->
-                    <input id="direccionid" class="form-control" />
+                    <select asp-for="direccionID" id="direccionid" asp-items="ViewBag.direccionID" class="form-control"></select> <!--<option>0</option>-->
                 </div>
                 <div class="form-group">
                     <!--capturo el id del cupon en el siguiente input para mandarlo guardado
-            <input id="cuponid" asp-for="cuponID" class="form-control" />-->
-                    <select id="cuponid" class="form-control" asp-items="ViewBag.cuponID"></select>
+        <input id="cuponid" asp-for="cuponID" class="form-control" />-->
+                    <select id="cuponid" class="form-control" asp-for="cuponID" asp-items="ViewBag.cuponID"></select>
                 </div>
                 <div class="form-group">
                     <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
-                    <input id="tarjetaid" class="form-control" />
+                    <select asp-for="tarjetaID" id="tarjetid" asp-items="ViewBag.tarjetaID" class="form-control"></select>
                 </div>
                 <div class="form-group">
                     <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado
-            <input id="metodoEid" asp-for="metodoEnvioID" class="form-control" />-->
-                    <select id="metodoEid" class="form-control" asp-items="ViewBag.metodoEnvioID"></select>
+        <input id="metodoEid" asp-for="metodoEnvioID" class="form-control" />-->
+                    <select id="metodoEid" class="form-control" asp-for="metodoEnvioID" asp-items="ViewBag.metodoEnvioID"></select>
 
                 </div>
                 <div class="form-group">
                     <!--capturo el id de la sucursal en el siguiente input para mandarlo guardado-->
-                    <input id="sucursalid" class="form-control" type="text" />
+                    <select id="sucursalid" class="form-control" type="text" />
                 </div>
                 <div class="form-group">
                     <!--capturo el total de la orden en el siguiente input para mandarlo guardado-->
@@ -739,38 +737,38 @@
                 <input id="totalfinal" class="form-control" />
                 <input id="finalfactura" class="form-control" />
 
-            </div>
+
 
                 @*
-            <!--muestra el total-->
-            <div class="form-group">
-                <label asp-for="total" class="control-label"></label>
-                <input asp-for="total" class="form-control" />
-                <span asp-validation-for="total" class="text-danger"></span>
-            </div>
+        <!--muestra el total-->
+        <div class="form-group">
+            <label asp-for="total" class="control-label"></label>
+            <input asp-for="total" class="form-control" />
+            <span asp-validation-for="total" class="text-danger"></span>
+        </div>
 
 
-            <div class="form-group">
-                <label asp-for="metodoEnvioID" class="control-label"></label>
-                <select asp-for="metodoEnvioID" class="form-control" asp-items="ViewBag.metodoEnvioID"></select>
-            </div>
+        <div class="form-group">
+            <label asp-for="metodoEnvioID" class="control-label"></label>
+            <select asp-for="metodoEnvioID" class="form-control" asp-items="ViewBag.metodoEnvioID"></select>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="cuponID" class="control-label"></label>
-                <select asp-for="cuponID" class="form-control" asp-items="ViewBag.cuponID"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+        <div class="form-group">
+            <label asp-for="cuponID" class="control-label"></label>
+            <select asp-for="cuponID" class="form-control" asp-items="ViewBag.cuponID"></select>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
 
 
                 *@
-            <div class="form-group">
-                <input type="submit" value="Realizar compra" class="btn btn-primary" />     <a class="btn btn-default" asp-action="Index" asp-controller="Carritos"><i class="fas fa-remove"></i> Cancelar</a>
-            </div>
+                <div class="form-group">
+                    <input type="submit" value="Realizar compra" class="btn btn-primary" />     <a class="btn btn-default" asp-action="Index" asp-controller="Carritos"><i class="fas fa-remove"></i> Cancelar</a>
+                </div>
 
 
-        </form>
+</form>
     </div>
 </div>
 
@@ -797,6 +795,8 @@
         $("#montoCuponElegido").text(t);
         var finalfac = totalfinal;
         $("#finalfactura").val(finalfac);
+        $("#tarjetaid").val(null);
+        $("#direccionid").val(null);
 
         $(document).ready(function () {
             $(".envio").click(function (evento) {
@@ -946,7 +946,7 @@
 
         function seleccionarTarjeta(met, id) {
             $("#tarjetaElegida").text(met);
-            $("#tarjetaid").val(id);
+            $("#tarjetid").val(id);
         }
 
 
