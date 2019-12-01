@@ -331,315 +331,315 @@
                 </div>
 
                 <!--Pregunta si utilizará cupón el usuario-->
-              
-                    <aside class="col-md-6">
-                        <div class="col-lg-pull-0">
-                            <div class="panel panel-default panel-srcbox">
-                                <div class="panel-heading">
-                                    <fieldset>
-                                        <legend><b>¿Utilizará algún cupón en esta compra?</b></legend>
-                                        <div class="col-lg-pull-0">
-                                            <label> <p class="auto-style3"><input name="cupon" type="radio" style="width: 17px; height: 17px" value="si" data-toggle="modal" data-target="#cuadritoWapeton5" /><span class="auto-style4"> Si</span></p> </label>
+
+                <aside class="col-md-6">
+                    <div class="col-lg-pull-0">
+                        <div class="panel panel-default panel-srcbox">
+                            <div class="panel-heading">
+                                <fieldset>
+                                    <legend><b>¿Utilizará algún cupón en esta compra?</b></legend>
+                                    <div class="col-lg-pull-0">
+                                        <label> <p class="auto-style3"><input name="cupon" type="radio" style="width: 17px; height: 17px" value="si" data-toggle="modal" data-target="#cuadritoWapeton5" /><span class="auto-style4"> Si</span></p> </label>
 
 
-                                            <!--inicio popup del cupon-->
-                                            <div class="modal fade" id="cuadritoWapeton5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <!--Header del popup-->
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close"
-                                                                    data-dismiss="modal">
-                                                                <span aria-hidden="true">&times;</span>
-                                                                <span class="sr-only">Close</span>
-                                                            </button>
-                                                            <h4 class="modal-title" id="myModalLabel">
-                                                                Seleccione su cupón
-                                                            </h4>
-                                                            <div class="modal-body">
+                                        <!--inicio popup del cupon-->
+                                        <div class="modal fade" id="cuadritoWapeton5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <!--Header del popup-->
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close"
+                                                                data-dismiss="modal">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            <span class="sr-only">Close</span>
+                                                        </button>
+                                                        <h4 class="modal-title" id="myModalLabel">
+                                                            Seleccione su cupón
+                                                        </h4>
+                                                        <div class="modal-body">
 
-                                                                <!--aqui va el formulario para cupon-->
-                                                                <table style="text-align:center;">
-                                                                    <tbody>
+                                                            <!--aqui va el formulario para cupon-->
+                                                            <table style="text-align:center;">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="col-md-3" style="text-align:center;"><b>Cupón</b></td>
+                                                                        <td class="col-md-4" style="text-align:center;"><b>Periodo de vigencia</b></td>
+                                                                        <td class="col-md-4" style="text-align:center;"><b>Monto de descuento</b></td>
+                                                                    </tr>
+                                                                    @{ var cupon = " "; var montoc = 0.01; var cuponid = 0;}
+                                                                    @foreach (var linea in _context.Cupon)
+                                                                    {
+                                                                        cupon = linea.descripcionCupon + ". Periodo de vigencia: (" + linea.fechaCreacion.ToShortDateString() + " - " + linea.fechaVencimiento.ToShortDateString() + "). Monto de descuento: $" + linea.montoCupon;
+                                                                        cuponid = linea.CuponID;
+                                                                        montoc = linea.montoCupon;
                                                                         <tr>
-                                                                            <td class="col-md-3" style="text-align:center;"><b>Cupón</b></td>
-                                                                            <td class="col-md-4" style="text-align:center;"><b>Periodo de vigencia</b></td>
-                                                                            <td class="col-md-4" style="text-align:center;"><b>Monto de descuento</b></td>
+                                                                            <td class="col-md-3">
+                                                                                <button type="submit" style="border:none" class="btn btn-default btn-block cupon" name="cupon" onclick="seleccionarCupon('@cupon','@cuponid','@montoc')" value="si" data-dismiss="modal">
+                                                                                    @Html.DisplayFor(modelItem => linea.descripcionCupon)
+                                                                                </button>
+                                                                            </td>
+                                                                            <td class="col-md-2">
+                                                                                <button type="submit" style="border:none" onclick="seleccionarCupon('@cupon','@cuponid','@montoc')" class="btn btn-default btn-block cupon" name="cupon" value="si" data-dismiss="modal">
+                                                                                    (@Html.DisplayFor(modelItem => linea.fechaCreacion.Day)/@Html.DisplayFor(modelItem => linea.fechaCreacion.Month)/@Html.DisplayFor(modelItem => linea.fechaCreacion.Year) -  @Html.DisplayFor(modelItem => linea.fechaVencimiento.Day)/@Html.DisplayFor(modelItem => linea.fechaVencimiento.Month)/@Html.DisplayFor(modelItem => linea.fechaVencimiento.Year))
+                                                                                </button>
+                                                                            </td>
+                                                                            <td class="col-md-4">
+                                                                                <button type="submit" onclick="seleccionarCupon('@cupon','@cuponid','@montoc')" style="border:none" class="btn btn-default btn-block cupon" name="cupon" value="si" data-dismiss="modal">
+                                                                                    $@Html.DisplayFor(modelItem => linea.montoCupon).00
+                                                                                </button>
+                                                                            </td>
                                                                         </tr>
-                                                                        @{ var cupon = " "; var montoc = 0.01; var cuponid = 0;}
-                                                                        @foreach (var linea in _context.Cupon)
-                                                                        {
-                                                                            cupon = linea.descripcionCupon + ". Periodo de vigencia: (" + linea.fechaCreacion.ToShortDateString() + " - " + linea.fechaVencimiento.ToShortDateString() + "). Monto de descuento: $" + linea.montoCupon;
-                                                                            cuponid = linea.CuponID;
-                                                                            montoc = linea.montoCupon;
-                                                                            <tr>
-                                                                                <td class="col-md-3">
-                                                                                    <button type="submit" style="border:none" class="btn btn-default btn-block cupon" name="cupon" onclick="seleccionarCupon('@cupon','@cuponid','@montoc')" value="si" data-dismiss="modal">
-                                                                                        @Html.DisplayFor(modelItem => linea.descripcionCupon)
-                                                                                    </button>
-                                                                                </td>
-                                                                                <td class="col-md-2">
-                                                                                    <button type="submit" style="border:none" onclick="seleccionarCupon('@cupon','@cuponid','@montoc')" class="btn btn-default btn-block cupon" name="cupon" value="si" data-dismiss="modal">
-                                                                                        (@Html.DisplayFor(modelItem => linea.fechaCreacion.Day)/@Html.DisplayFor(modelItem => linea.fechaCreacion.Month)/@Html.DisplayFor(modelItem => linea.fechaCreacion.Year) -  @Html.DisplayFor(modelItem => linea.fechaVencimiento.Day)/@Html.DisplayFor(modelItem => linea.fechaVencimiento.Month)/@Html.DisplayFor(modelItem => linea.fechaVencimiento.Year))
-                                                                                    </button>
-                                                                                </td>
-                                                                                <td class="col-md-4">
-                                                                                    <button type="submit" onclick="seleccionarCupon('@cupon','@cuponid','@montoc')" style="border:none" class="btn btn-default btn-block cupon" name="cupon" value="si" data-dismiss="modal">
-                                                                                        $@Html.DisplayFor(modelItem => linea.montoCupon).00
-                                                                                    </button>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>&nbsp;</td>
-                                                                                <td>&nbsp;</td>
-                                                                                <td>&nbsp;</td>
-                                                                            </tr>
-                                                                        }
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
+                                                                        <tr>
+                                                                            <td>&nbsp;</td>
+                                                                            <td>&nbsp;</td>
+                                                                            <td>&nbsp;</td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
                                                         </div>
-                                                        <!--Fin del body del popup-->
-                                                        <!-- Modal Footer -->
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default"
-                                                                    data-dismiss="modal">
-                                                                Cerrar
-                                                            </button>
-                                                            <button type="submit" style="border:none" class="btn btn-success cupon" name="cupon" value="si" data-dismiss="modal">
-                                                                Validar
-                                                            </button>
-                                                            <br />
-                                                        </div>
+                                                    </div>
+                                                    <!--Fin del body del popup-->
+                                                    <!-- Modal Footer -->
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default"
+                                                                data-dismiss="modal">
+                                                            Cerrar
+                                                        </button>
+                                                        <button type="submit" style="border:none" class="btn btn-success cupon" name="cupon" value="si" data-dismiss="modal">
+                                                            Validar
+                                                        </button>
+                                                        <br />
                                                     </div>
                                                 </div>
                                             </div>
-
-
-                                            <div class="container">
-                                                <div class="col-md-5" id="divsi" style="display:none">
-                                                    <!--aqui se le debe mostrar el cupon del usuario seleccionada cuando le de guardar al popup-->
-                                                    <div class="form-group" id="diruser">
-                                                        <p id="cuponElegido"></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <label> <p class="auto-style3"><input class="cupon" name="cupon" type="radio" style="width: 17px; height: 17px" value="no" /><span class="auto-style4"> No</span></p>    </label>
                                         </div>
-                                    </fieldset>
-                                </div>
+
+
+                                        <div class="container">
+                                            <div class="col-md-5" id="divsi" style="display:none">
+                                                <!--aqui se le debe mostrar el cupon del usuario seleccionada cuando le de guardar al popup-->
+                                                <div class="form-group" id="diruser">
+                                                    <p id="cuponElegido"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <label> <p class="auto-style3"><input class="cupon" name="cupon" type="radio" style="width: 17px; height: 17px" value="no" /><span class="auto-style4"> No</span></p>    </label>
+                                    </div>
+                                </fieldset>
                             </div>
                         </div>
-                    </aside>
+                    </div>
+                </aside>
 
-                    <!--Preguntarle si quiere pagar con tarjeta o paypal-->
+                <!--Preguntarle si quiere pagar con tarjeta o paypal-->
 
-                    <aside class="col-md-6">
-                        <div class="col-md-pull-7">
-                            <div class="panel panel-default panel-srcbox">
-                                <div class="panel-heading">
-                                    <fieldset>
-                                        <legend><b>¿Desea realizar pago con tarjeta o paypal?</b></legend>
-                                        <div class="row">
-                                            <div class="col-lg-pull-0">
-                                                <div class="btn-group" data-toggle="buttons">
-                                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-                                                    <label> <p class="auto-style3"><input class="pago" name="pago" type="radio" style="width: 17px; height: 17px" value="tarjeta" data-toggle="modal" data-target="#cuadritoWapeton1" /><span class="auto-style4"> Seleccionar tarjeta</span></p>   </label>
-                                                    <br />
+                <aside class="col-md-6">
+                    <div class="col-md-pull-7">
+                        <div class="panel panel-default panel-srcbox">
+                            <div class="panel-heading">
+                                <fieldset>
+                                    <legend><b>¿Desea realizar pago con tarjeta o paypal?</b></legend>
+                                    <div class="row">
+                                        <div class="col-lg-pull-0">
+                                            <div class="btn-group" data-toggle="buttons">
+                                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+                                                <label> <p class="auto-style3"><input class="pago" name="pago" type="radio" style="width: 17px; height: 17px" value="tarjeta" data-toggle="modal" data-target="#cuadritoWapeton1" /><span class="auto-style4"> Seleccionar tarjeta</span></p>   </label>
+                                                <br />
 
 
 
-                                                    <!--aqui comienza lo que saldria del primer popup-->
-                                                    <div class="modal fade" id="cuadritoWapeton1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <!--Header del popup-->
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close"
-                                                                            data-dismiss="modal">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                        <span class="sr-only">Close</span>
-                                                                    </button>
-                                                                    <h4 class="modal-title" id="myModalLabel">
-                                                                        Elegir tarjeta para realizar el pago
-                                                                    </h4>
-                                                                    <!--body del popup-->
-                                                                    <div class="modal-body">
+                                                <!--aqui comienza lo que saldria del primer popup-->
+                                                <div class="modal fade" id="cuadritoWapeton1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <!--Header del popup-->
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close"
+                                                                        data-dismiss="modal">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                    <span class="sr-only">Close</span>
+                                                                </button>
+                                                                <h4 class="modal-title" id="myModalLabel">
+                                                                    Elegir tarjeta para realizar el pago
+                                                                </h4>
+                                                                <!--body del popup-->
+                                                                <div class="modal-body">
 
-                                                                        <!--Aqui mandan a llamar a las tarjetas-->
-                                                                        <div class="col-md-pull-0">
+                                                                    <!--Aqui mandan a llamar a las tarjetas-->
+                                                                    <div class="col-md-pull-0">
 
-                                                                            <fieldset>
-                                                                                <table>
-                                                                                    <tbody style="text-align:center;">
+                                                                        <fieldset>
+                                                                            <table>
+                                                                                <tbody style="text-align:center;">
 
+                                                                                    <tr>
+                                                                                        <td style="padding-left:15px;"><b>Tipo de tarjeta</b></td>
+                                                                                        <td style="padding-left:15px;"><b>Titular</b></td>
+                                                                                        <td style="padding-left:15px;"><b>Fecha de vencimiento</b></td>
+                                                                                    </tr>
+                                                                                    <tr>
+
+                                                                                        <td>&nbsp;</td>
+                                                                                        <td>&nbsp;</td>
+                                                                                        <td>&nbsp;</td>
+                                                                                    </tr>
+
+                                                                                    @{ var tarjeta = " "; var tarjetaid = 0;}
+                                                                                    @foreach (var linea in _context.Tarjeta.Where(d => d.tiendaOnlineUserID == UserManager.GetUserId(User)))
+                                                                                    {
+                                                                                        tarjeta = "Tipo de tarjeta: " + linea.tipoTarjeta + ". Titular: " + linea.titularTarjeta + ". Fecha de vencimiento: " + linea.fechaVencimiento.Month + "/" + linea.fechaVencimiento.Year;
+                                                                                        tarjetaid = linea.TarjetaID;
                                                                                         <tr>
-                                                                                            <td style="padding-left:15px;"><b>Tipo de tarjeta</b></td>
-                                                                                            <td style="padding-left:15px;"><b>Titular</b></td>
-                                                                                            <td style="padding-left:15px;"><b>Fecha de vencimiento</b></td>
+                                                                                            <td style="padding-left:15px;">
+                                                                                                <button onclick="seleccionarTarjeta('@tarjeta','@tarjetaid')" type="submit" style="border:none" class="btn btn-default btn-block pag" name="pag" value="tarj" data-dismiss="modal">
+                                                                                                    @Html.DisplayFor(modelItem => linea.tipoTarjeta)
+                                                                                                </button>
+                                                                                            </td>
+                                                                                            <td style="padding-left:20px;">
+                                                                                                <button onclick="seleccionarTarjeta('@tarjeta','@tarjetaid')" type="submit" style="border:none" class="btn btn-default btn-block pag" name="pag" value="tarj" data-dismiss="modal">
+                                                                                                    @Html.DisplayFor(modelItem => linea.titularTarjeta)
+                                                                                                </button>
+                                                                                            </td>
+                                                                                            <td style="padding-left:20px;">
+                                                                                                <button onclick="seleccionarTarjeta('@tarjeta','@tarjetaid')" type="submit" style="border:none" class="btn btn-default btn-block pag" name="pag" value="tarj" data-dismiss="modal">
+                                                                                                    @Html.DisplayFor(modelItem => linea.fechaVencimiento.Month) / @Html.DisplayFor(modelItem => linea.fechaVencimiento.Year)
+                                                                                                </button>
+                                                                                            </td>
                                                                                         </tr>
-                                                                                        <tr>
-
-                                                                                            <td>&nbsp;</td>
-                                                                                            <td>&nbsp;</td>
-                                                                                            <td>&nbsp;</td>
-                                                                                        </tr>
-
-                                                                                        @{ var tarjeta = " "; var tarjetaid = 0;}
-                                                                                        @foreach (var linea in _context.Tarjeta.Where(d => d.tiendaOnlineUserID == UserManager.GetUserId(User)))
-                                                                                        {
-                                                                                            tarjeta = "Tipo de tarjeta: " + linea.tipoTarjeta + ". Titular: " + linea.titularTarjeta + ". Fecha de vencimiento: " + linea.fechaVencimiento.Month + "/" + linea.fechaVencimiento.Year;
-                                                                                            tarjetaid = linea.TarjetaID;
-                                                                                            <tr>
-                                                                                                <td style="padding-left:15px;">
-                                                                                                    <button onclick="seleccionarTarjeta('@tarjeta','@tarjetaid')" type="submit" style="border:none" class="btn btn-default btn-block pag" name="pag" value="tarj" data-dismiss="modal">
-                                                                                                        @Html.DisplayFor(modelItem => linea.tipoTarjeta)
-                                                                                                    </button>
-                                                                                                </td>
-                                                                                                <td style="padding-left:20px;">
-                                                                                                    <button onclick="seleccionarTarjeta('@tarjeta','@tarjetaid')" type="submit" style="border:none" class="btn btn-default btn-block pag" name="pag" value="tarj" data-dismiss="modal">
-                                                                                                        @Html.DisplayFor(modelItem => linea.titularTarjeta)
-                                                                                                    </button>
-                                                                                                </td>
-                                                                                                <td style="padding-left:20px;">
-                                                                                                    <button onclick="seleccionarTarjeta('@tarjeta','@tarjetaid')" type="submit" style="border:none" class="btn btn-default btn-block pag" name="pag" value="tarj" data-dismiss="modal">
-                                                                                                        @Html.DisplayFor(modelItem => linea.fechaVencimiento.Month) / @Html.DisplayFor(modelItem => linea.fechaVencimiento.Year)
-                                                                                                    </button>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        }
+                                                                                    }
 
 
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!--Fin del body del popup-->
-                                                                    <!-- Modal Footer -->
-                                                                    <div class="modal-footer">
-                                                                        <h6><i>Si no le aparece la tarjeta que desea, debe añadirla.</i></h6>
-                                                                        <a asp-action="Create" asp-controller="Tarjetas" type="button" class="btn btn-primary">Registrar una tarjeta</a>
-
-                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">  Cerrar </button>
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <!--aqui se le debe mostrar la tarjeta usará, hay que validar q solo le aparezcan las tarjetas de ese usuario y q la fecha solo muestre mes y año cuando le de guardar al popup-->
-
-                                                    <div class="container">
-                                                        <div class="col-md-5" id="divtar" style="display:none">
-                                                            <div class="form-group" id="tarjetauser">
-                                                                <div class="col-md-9">
-                                                                    <p id="tarjetaElegida"></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <label>  <p class="auto-style3"><input class="pago" name="pago" value="paypal" type="radio" style="width: 17px; height: 17px" data-toggle="modal" data-target="#cuadritoWapeton2" /><span class="auto-style4"> Realizar con Paypal</span></p>  </label>
-
-
-
-                                                    <!--inicio popup paypal-->
-                                                    <div class="modal fade" id="cuadritoWapeton2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <!--Header del popup-->
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close"
-                                                                            data-dismiss="modal">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                        <span class="sr-only">Close</span>
-                                                                    </button>
-                                                                    <h4 class="modal-title" id="myModalLabel">
-                                                                        Pago con Paypal
-                                                                    </h4>
-                                                                    <!--body del popup-->
-                                                                    <div class="modal-body">
-                                                                        <!--aqui va el formulario para paypal-->
-                                                                        <div class="col-md-pull-0">
-                                                                            <div class="panel panel-default panel-srcbox">
-                                                                                <div class="panel-heading">
-                                                                                    <fieldset>
-                                                                                        <label class="control-label">Introduzca el correo de su cuenta de Paypal</label>
-                                                                                        <input id="pay" class="form-control" asp-items="ViewBag.paypalID"> <br /><br />
-                                                                                        <label class="control-label">Introduzca la contraseña de su cuenta de Paypal</label>
-                                                                                        <input type="password" class="form-control" asp-items="ViewBag.paypalID">
-
-                                                                                    </fieldset>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </fieldset>
                                                                     </div>
                                                                 </div>
                                                                 <!--Fin del body del popup-->
                                                                 <!-- Modal Footer -->
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-default"
-                                                                            data-dismiss="modal">
-                                                                        Cerrar
-                                                                    </button>
-                                                                    <input type="button" class="btn btn-default" data-toggle="modal" data-target="#cuadritoWapeton7" value="Validar" />
-                                                                    <div class="modal fade" id="cuadritoWapeton7" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                                        <div class="modal-dialog">
-                                                                            <div class="modal-content">
-                                                                                <!--Header del popup-->
-                                                                                <div class="modal-header">
-                                                                                    <button type="button" class="close"
-                                                                                            data-dismiss="modal">
-                                                                                        <span aria-hidden="true">&times;</span>
-                                                                                        <span class="sr-only">Close</span>
-                                                                                    </button>
-                                                                                    <!--body del popup-->
-                                                                                    <div class="modal-body">
-                                                                                        <!--aqui va el formulario para paypal-->
-                                                                                        <p><i><b>Su pago es aceptado!</b></i></p>
-                                                                                    </div>
-                                                                                    <!--Fin del body del popup-->
-                                                                                    <!-- Modal Footer -->
-                                                                                    <div class="modal-footer">
-                                                                                        <button type="submit" style="border:none" class="btn btn-success paypal" name="paypal" value="paypal" data-dismiss="modal">
-                                                                                            Finalizar compra
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <br />
+                                                                    <h6><i>Si no le aparece la tarjeta que desea, debe añadirla.</i></h6>
+                                                                    <a asp-action="Create" asp-controller="Tarjetas" type="button" class="btn btn-primary">Registrar una tarjeta</a>
+
+                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">  Cerrar </button>
+
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
 
-                                                    <!--depues de ingresar la  cuenta de paypal que usará cuando le de cotinuar al popup-->
+                                                <!--aqui se le debe mostrar la tarjeta usará, hay que validar q solo le aparezcan las tarjetas de ese usuario y q la fecha solo muestre mes y año cuando le de guardar al popup-->
 
-                                                    <div class="col-lg-pull-0" id="divnone" style="display:none">
-                                                        <div class="container">
-                                                            <div class="form-group" id="paypaluser" style="display:none">
-                                                                <div class="col-lg-8">
-                                                                    <p> Compra permitida </p>
+                                                <div class="container">
+                                                    <div class="col-md-5" id="divtar" style="display:none">
+                                                        <div class="form-group" id="tarjetauser">
+                                                            <div class="col-md-9">
+                                                                <p id="tarjetaElegida"></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <label>  <p class="auto-style3"><input class="pago" name="pago" value="paypal" type="radio" style="width: 17px; height: 17px" data-toggle="modal" data-target="#cuadritoWapeton2" /><span class="auto-style4"> Realizar con Paypal</span></p>  </label>
+
+
+
+                                                <!--inicio popup paypal-->
+                                                <div class="modal fade" id="cuadritoWapeton2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <!--Header del popup-->
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close"
+                                                                        data-dismiss="modal">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                    <span class="sr-only">Close</span>
+                                                                </button>
+                                                                <h4 class="modal-title" id="myModalLabel">
+                                                                    Pago con Paypal
+                                                                </h4>
+                                                                <!--body del popup-->
+                                                                <div class="modal-body">
+                                                                    <!--aqui va el formulario para paypal-->
+                                                                    <div class="col-md-pull-0">
+                                                                        <div class="panel panel-default panel-srcbox">
+                                                                            <div class="panel-heading">
+                                                                                <fieldset>
+                                                                                    <label class="control-label">Introduzca el correo de su cuenta de Paypal</label>
+                                                                                    <input id="pay" class="form-control" asp-items="ViewBag.paypalID"> <br /><br />
+                                                                                    <label class="control-label">Introduzca la contraseña de su cuenta de Paypal</label>
+                                                                                    <input type="password" class="form-control" asp-items="ViewBag.paypalID">
+
+                                                                                </fieldset>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
+                                                            </div>
+                                                            <!--Fin del body del popup-->
+                                                            <!-- Modal Footer -->
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default"
+                                                                        data-dismiss="modal">
+                                                                    Cerrar
+                                                                </button>
+                                                                <input type="button" class="btn btn-default" data-toggle="modal" data-target="#cuadritoWapeton7" value="Validar" />
+                                                                <div class="modal fade" id="cuadritoWapeton7" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <!--Header del popup-->
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close"
+                                                                                        data-dismiss="modal">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                    <span class="sr-only">Close</span>
+                                                                                </button>
+                                                                                <!--body del popup-->
+                                                                                <div class="modal-body">
+                                                                                    <!--aqui va el formulario para paypal-->
+                                                                                    <p><i><b>Su pago es aceptado!</b></i></p>
+                                                                                </div>
+                                                                                <!--Fin del body del popup-->
+                                                                                <!-- Modal Footer -->
+                                                                                <div class="modal-footer">
+                                                                                    <button type="submit" style="border:none" class="btn btn-success paypal" name="paypal" value="paypal" data-dismiss="modal">
+                                                                                        Finalizar compra
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <br />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--depues de ingresar la  cuenta de paypal que usará cuando le de cotinuar al popup-->
+
+                                                <div class="col-lg-pull-0" id="divnone" style="display:none">
+                                                    <div class="container">
+                                                        <div class="form-group" id="paypaluser" style="display:none">
+                                                            <div class="col-lg-8">
+                                                                <p> Compra permitida </p>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </fieldset>
-                                </div>
+                                    </div>
+                                </fieldset>
                             </div>
                         </div>
-                    </aside>
-             
-    
+                    </div>
+                </aside>
+
+
 
                 <table class="table table-bordered table-hover">
                     <thead style="background-color: gainsboro">
@@ -654,7 +654,7 @@
                             <th class="col-sm-1 text-center">
                                 @*Costo de los productos sin descuento*@
                                 @{ var subtotal = _context.ProdCarrito.Where(d => d.CarritoID == _context.Carrito.SingleOrDefault(c => c.tiendaOnlineUserID == UserManager.GetUserId(User)).CarritoID && d.IsSelected == true)
-                                                        .Select(c => Math.Round(c.producto.PrecioUnitario, 2) * c.cantidadProducto).Sum(); }
+                                                         .Select(c => Math.Round(c.producto.PrecioUnitario, 2) * c.cantidadProducto).Sum(); }
                                 $@String.Format("{0:0.00}", subtotal)
                             </th>
                         </tr>
@@ -698,46 +698,46 @@
                 </table>
 
                 <!--parte importante-->
+                <div  style="display:none">
+                    <br />
+                    <div class="form-group">
+                        <!--capturo el id de la direccion en el siguiente input para mandarlo guardado-->
+                        <select asp-for="direccionID" id="direccionid" asp-items="ViewBag.direccionID" class="form-control"></select> <!--<option>0</option>-->
+                    </div>
+                    <div class="form-group">
+                        <!--capturo el id del cupon en el siguiente input para mandarlo guardado
+            <input id="cuponid" asp-for="cuponID" class="form-control" />-->
+                        <select id="cuponid" class="form-control" asp-for="cuponID" asp-items="ViewBag.cuponID"></select>
+                    </div>
+                    <div class="form-group">
+                        <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
+                        <select asp-for="tarjetaID" id="tarjetid" asp-items="ViewBag.tarjetaID" class="form-control"></select>
+                    </div>
+                    <div class="form-group">
+                        <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado
+            <input id="metodoEid" asp-for="metodoEnvioID" class="form-control" />-->
+                        <select id="metodoEid" class="form-control" asp-for="metodoEnvioID" asp-items="ViewBag.metodoEnvioID"></select>
 
-                <br />
-                <div class="form-group">
-                    <!--capturo el id de la direccion en el siguiente input para mandarlo guardado-->
-                    <select asp-for="direccionID" id="direccionid" asp-items="ViewBag.direccionID" class="form-control"></select> <!--<option>0</option>-->
-                </div>
-                <div class="form-group">
-                    <!--capturo el id del cupon en el siguiente input para mandarlo guardado
-        <input id="cuponid" asp-for="cuponID" class="form-control" />-->
-                    <select id="cuponid" class="form-control" asp-for="cuponID" asp-items="ViewBag.cuponID"></select>
-                </div>
-                <div class="form-group">
-                    <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
-                    <select asp-for="tarjetaID" id="tarjetid" asp-items="ViewBag.tarjetaID" class="form-control"></select>
-                </div>
-                <div class="form-group">
-                    <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado
-        <input id="metodoEid" asp-for="metodoEnvioID" class="form-control" />-->
-                    <select id="metodoEid" class="form-control" asp-for="metodoEnvioID" asp-items="ViewBag.metodoEnvioID"></select>
+                    </div>
+                    <div class="form-group">
+                        <!--capturo el id de la sucursal en el siguiente input para mandarlo guardado-->
+                        <select id="sucursalid" class="form-control" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <!--capturo el total de la orden en el siguiente input para mandarlo guardado-->
+                        <input id="finalfactura" asp-for="total" class="form-control" />
+
+                    </div>
+
+                    <!--Utilizados para las operaciones-->
+                    <input id="subtot" value="@subtotal" class="form-control" />
+                    <input id="montoElegido2" class="form-control" />
+                    <input id="descuento" value="@desc" class="form-control" />
+                    <input id="montoCuponElegido2" class="form-control" />
+                    <input id="totalfinal" class="form-control" />
+                    <input id="finalfactura" class="form-control" />
 
                 </div>
-                <div class="form-group">
-                    <!--capturo el id de la sucursal en el siguiente input para mandarlo guardado-->
-                    <select id="sucursalid" class="form-control" type="text" />
-                </div>
-                <div class="form-group">
-                    <!--capturo el total de la orden en el siguiente input para mandarlo guardado-->
-                    <input id="finalfactura" asp-for="total" class="form-control" />
-
-                </div>
-
-                <!--Utilizados para las operaciones-->
-                <input id="subtot" value="@subtotal" class="form-control" />
-                <input id="montoElegido2" class="form-control" />
-                <input id="descuento" value="@desc" class="form-control" />
-                <input id="montoCuponElegido2" class="form-control" />
-                <input id="totalfinal" class="form-control" />
-                <input id="finalfactura" class="form-control" />
-
-
 
                 @*
         <!--muestra el total-->
@@ -760,9 +760,10 @@
         <div class="form-group">
             <input type="submit" value="Create" class="btn btn-default" />
         </div>
-
-
                 *@
+
+
+
                 <div class="form-group">
                     <input type="submit" value="Realizar compra" class="btn btn-primary" />     <a class="btn btn-default" asp-action="Index" asp-controller="Carritos"><i class="fas fa-remove"></i> Cancelar</a>
                 </div>
