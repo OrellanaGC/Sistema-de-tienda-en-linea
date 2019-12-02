@@ -155,7 +155,8 @@ namespace tiendaOnline.Controllers
         public async Task<IActionResult> indexAdministrador(string code)
         {
             //var productos = _context.Producto;
-            var productos = from p in _context.Producto select p;
+           
+            var productos = from p in _context.Producto.Include(p => p.Subcategoria).Include(p => p.detalleVendedor) select p;
             ViewData["CodeFilter"] = code;
             if (!String.IsNullOrEmpty(code))
             {
