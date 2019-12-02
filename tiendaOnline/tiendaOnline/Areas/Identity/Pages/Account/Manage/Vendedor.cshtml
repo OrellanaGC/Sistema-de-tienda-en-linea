@@ -13,7 +13,7 @@
     <br />
     <div class="col-md-6">
         <a class="btn btn-block btn-warning" asp-controller="DetalleVendedores" asp-action="Index"><i class="fas fa-user-tie"></i> Mis Detalles</a><br /><br />
-        <a class="btn btn-block btn-succes" asp-controller="DetalleVendedores" asp-action="Index"><i class="fas fa-user-tie"></i> Mis Detalles</a><br /><br />
+        <a class="btn btn-block btn-succes" asp-controller="Ordenes" asp-action="DetailsVendedor"><i class="fas fa-user-tie"></i> Ventas</a><br /><br />
     </div>
 }
 @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Seller") && (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "User")))
@@ -23,7 +23,7 @@
         <a class="btn btn-block btn-primary text-left" asp-controller="DetalleVendedores" asp-action="Index"><i class="fas fa-user-tie"></i> Mis Detalles</a><br /><br />
         <a class="btn btn-block btn-primary text-left" asp-controller="Tarjetas" asp-action="IndexVendedor"><i class="fas fa-credit-card"></i> Mis Tarjetas de Vendedor</a><br /><br />
         <a class="btn btn-block btn-primary text-left" asp-controller="Direcciones" asp-action="IndexVendedor"><i class="fas fa-map-marker-alt"></i> Mis Direcciones de Vendedor</a><br /><br />
-        <a class="btn btn-block btn-primary" asp-controller="DetalleVendedores" asp-action="Index"><i class="fas fa-user-tie"></i> Mis Detalles</a><br /><br />
+        <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="DetailsVendedor"><i class="fas fa-user-tie"></i> Ventas</a><br /><br />
     </div>
 
 }

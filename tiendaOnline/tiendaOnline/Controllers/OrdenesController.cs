@@ -89,7 +89,7 @@ namespace tiendaOnline.Controllers
         {
             string userId = _userManager.GetUserId(User);
             var vendedor = _context.DetalleVendedor.Single(v => v.tiendaOnlineUserID == userId);
-            var lineasOrden = _context.LineaDeOrden.Include(l => l.orden).Include(l => l.Producto).Include(l => l.Producto.detalleVendedor).Where(l =>l.Producto.detalleVendedorID== vendedor.DetalleVendedorID);
+            var lineasOrden = _context.LineaDeOrden.Include(l => l.orden).Include(l=>l.orden.tiendaOnlineUser).Include(l => l.Producto).Include(l => l.Producto.detalleVendedor).Where(l =>l.Producto.detalleVendedorID== vendedor.DetalleVendedorID);
             return View(await lineasOrden.ToListAsync());
         }
 

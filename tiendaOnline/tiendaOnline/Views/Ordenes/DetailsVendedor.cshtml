@@ -1,0 +1,64 @@
+﻿<!--model tiendaOnline.Models.LineaDeOrden-->
+@model IEnumerable<tiendaOnline.Models.LineaDeOrden>
+
+@{
+    ViewData["Title"] = "Detalles de la orden";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalles de Ventas</h2>
+
+<div>
+    <table class="table-bordered table-hover col-md-12">
+        <thead class="text-center">
+            <tr>
+                <th>Fecha de la orden</th>
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Precio Unitario</th>
+                <th>Cantidad</th>
+                <th>Comprador</th>
+                <th>Estado de Orden</th>
+                <th>Subtotal</th>
+                
+            </tr>
+        </thead>
+        <tbody class="text-center">          
+            @foreach (var linea in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => linea.orden.fechaOrden)</td>
+                    <td class="col-md-1"><img height=100px width=100px src="~/images/productos/@Html.DisplayFor(model => linea.Producto.Imagen)" /></td>
+                    <td>@Html.DisplayFor(modelItem => linea.Producto.NombreProducto)</td>
+                    <td>$ @Html.DisplayFor(modelItem => linea.Producto.PrecioUnitario)</td>
+                    <td>@Html.DisplayFor(modelItem => linea.Cantidad)</td>
+                    <td>@Html.DisplayFor(modelItenm => linea.orden.tiendaOnlineUser.Email)</td>
+                    <td>@if (linea.orden.estadoDeOrden== true)
+                                        {
+                                            <p class="button">
+                                                <a class="btn btn-success" id="Finalizar"                                                   >
+                                                    En proceso
+                                                </a>
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                            <div class="button disabled">
+                                                <a class="btn btn-danger disabled" id="Finalizar">
+                                                    Finalizada
+                                                </a>
+                                            </div>
+
+                                        }
+
+                                    </td>
+                    <td>$ @Html.DisplayFor(modelItem => linea.subtotal)</td>
+                    
+                </tr>
+
+            }
+
+        </tbody>
+    </table>      
+</div>
+
