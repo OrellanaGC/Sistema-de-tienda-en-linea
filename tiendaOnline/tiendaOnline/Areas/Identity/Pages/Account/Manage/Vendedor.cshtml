@@ -11,9 +11,9 @@
 @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin") && (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Seller")))
 {
     <br />
-    <div class="col-md-6">
-        <a class="btn btn-block btn-warning" asp-controller="DetalleVendedores" asp-action="Index"><i class="fas fa-user-tie"></i> Mis Detalles</a><br /><br />
-        <a class="btn btn-block btn-succes" asp-controller="Ordenes" asp-action="DetailsVendedor"><i class="fas fa-user-tie"></i> Ventas</a><br /><br />
+    <div class="col-md-4">
+        <a class="btn btn-block btn-primary" asp-controller="DetalleVendedores" asp-action="Index"><i class="fas fa-user-tie"></i> Mis Detalles</a><br /><br />
+        <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="DetailsVendedor"><i class="fas fa-cash-register"></i> Ventas</a><br /><br />
     </div>
 }
 @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Seller") && (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "User")))
