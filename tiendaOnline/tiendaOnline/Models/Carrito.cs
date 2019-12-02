@@ -155,7 +155,10 @@ namespace tiendaOnline.Models
                 if (producto.cantidadProducto <= existencia)
                 {
                     //disminuir stock
-                    _ApplicationDbContext.Producto.SingleOrDefault(c => c.ProductoID == producto.productoID).Existencia = existencia-producto.cantidadProducto;
+                    var productoComprado = _ApplicationDbContext.Producto.SingleOrDefault(c => c.ProductoID == producto.productoID);
+                    productoComprado.Existencia = existencia-producto.cantidadProducto;                    
+                    productoComprado.existenciaSinActivacion -= producto.cantidadProducto;
+                    
                 }
                 else
                 {
