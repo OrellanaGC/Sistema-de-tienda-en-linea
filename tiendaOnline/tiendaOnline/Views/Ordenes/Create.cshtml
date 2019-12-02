@@ -367,7 +367,7 @@
                                                                         <td class="col-md-4" style="text-align:center;"><b>Monto de descuento</b></td>
                                                                     </tr>
                                                                     @{ var cupon = " "; var montoc = 0.01; var cuponid = 0;}
-                                                                    @foreach (var linea in _context.Cupon)
+                                                                    @foreach (var linea in _context.Cupon.Where(d => d.tiendaOnlineUserID == UserManager.GetUserId(User) && d.estadoCupon==true))
                                                                     {
                                                                         cupon = linea.descripcionCupon + ". Periodo de vigencia: (" + linea.fechaCreacion.ToShortDateString() + " - " + linea.fechaVencimiento.ToShortDateString() + "). Monto de descuento: $" + linea.montoCupon;
                                                                         cuponid = linea.CuponID;
@@ -569,7 +569,7 @@
                                                                             <div class="panel-heading">
                                                                                 <fieldset>
                                                                                     <label class="control-label">Introduzca el correo de su cuenta de Paypal</label>
-                                                                                    <input id="pay" class="form-control" asp-items="ViewBag.paypalID"> <br /><br />
+                                                                                    <input id="pay" class="form-control"> <br /><br />
                                                                                     <label class="control-label">Introduzca la contraseña de su cuenta de Paypal</label>
                                                                                     <input type="password" class="form-control" asp-items="ViewBag.paypalID">
 
@@ -698,25 +698,25 @@
                 </table>
 
                 <!--parte importante-->
-                <div  style="display:none">
+                <div style="display:none">  
                     <br />
                     <div class="form-group">
                         <!--capturo el id de la direccion en el siguiente input para mandarlo guardado-->
-                        <select asp-for="direccionID" id="direccionid" asp-items="ViewBag.direccionID" class="form-control"></select> <!--<option>0</option>-->
+                        <select asp-for="direccionID" id="direccionid" asp-items="ViewBag.direccionID" class="form-control"><option>0</option></select> <!--<option>0</option>-->
                     </div>
                     <div class="form-group">
                         <!--capturo el id del cupon en el siguiente input para mandarlo guardado
             <input id="cuponid" asp-for="cuponID" class="form-control" />-->
-                        <select id="cuponid" class="form-control" asp-for="cuponID" asp-items="ViewBag.cuponID"></select>
+                        <select id="cuponid" class="form-control" asp-for="cuponID" asp-items="ViewBag.cuponID"><option>0</option></select>
                     </div>
                     <div class="form-group">
                         <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado-->
-                        <select asp-for="tarjetaID" id="tarjetid" asp-items="ViewBag.tarjetaID" class="form-control"></select>
+                        <select asp-for="tarjetaID" id="tarjetid" asp-items="ViewBag.tarjetaID" class="form-control"><option>0</option></select>
                     </div>
                     <div class="form-group">
                         <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado
             <input id="metodoEid" asp-for="metodoEnvioID" class="form-control" />-->
-                        <select id="metodoEid" class="form-control" asp-for="metodoEnvioID" asp-items="ViewBag.metodoEnvioID"></select>
+                        <select id="metodoEid" class="form-control" asp-for="metodoEnvioID" asp-items="ViewBag.metodoEnvioID"><option>0</option></select>
 
                     </div>
                     <div class="form-group">
@@ -739,29 +739,7 @@
 
                 </div>
 
-                @*
-        <!--muestra el total-->
-        <div class="form-group">
-            <label asp-for="total" class="control-label"></label>
-            <input asp-for="total" class="form-control" />
-            <span asp-validation-for="total" class="text-danger"></span>
-        </div>
-
-
-        <div class="form-group">
-            <label asp-for="metodoEnvioID" class="control-label"></label>
-            <select asp-for="metodoEnvioID" class="form-control" asp-items="ViewBag.metodoEnvioID"></select>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="cuponID" class="control-label"></label>
-            <select asp-for="cuponID" class="form-control" asp-items="ViewBag.cuponID"></select>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-                *@
-
+              
 
 
                 <div class="form-group">

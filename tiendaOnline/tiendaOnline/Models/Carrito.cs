@@ -13,17 +13,21 @@ namespace tiendaOnline.Models
 {
     public class Carrito
     {
+        //Injeccion
         private readonly ApplicationDbContext _ApplicationDbContext;
 
         public Carrito(ApplicationDbContext ApplicationDbContext)
         {
             _ApplicationDbContext = ApplicationDbContext;
         }
+
+        //constructor 
         public Carrito(string userid)
         {
             tiendaOnlineUserID = userid;
         }
 
+        //Atributos
         public int CarritoID { get; set; }
 
         //Relacion con ProdCarrito
@@ -32,6 +36,8 @@ namespace tiendaOnline.Models
         //Relacion con usuario
         public String tiendaOnlineUserID { get; set; }
         public tiendaOnlineUser tiendaOnlineUser { get; set; }
+
+        //Metodos
 
         public static Carrito GetCarrito(IServiceProvider services)
         {

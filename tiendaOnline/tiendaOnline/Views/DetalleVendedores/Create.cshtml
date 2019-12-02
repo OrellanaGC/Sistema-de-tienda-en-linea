@@ -19,17 +19,20 @@
 
 else
 {
-<h2>Vendedor</h2>
+    <div class="col-md-11 text-center" style="border:double; color:indigo">
+        
+            <h2><b>Vendedor</b></h2>
 
-<h4>
-    Qué esperas para formar de la gran familia iBuy y comenzar a vender tus productos!<br />
-    Regístrate como vendedor ahora.
-</h4>
-<h4>Al finalizar tu registro como vendedor se cerrara tu sesión actual, pero tranquilo, es para recargar tu informacion en nuestra base datos y puedas disfrutar todos nuestros servicios!</h4>
+            <h4>  <b>  Qué esperas para formar de la gran familia iBuy y comenzar a vender tus productos!    Regístrate como vendedor ahora.</b></h4>
+            <h4><b>Al finalizar tu registro como vendedor se cerrara tu sesión actual, pero tranquilo, es para recargar tu informacion en nuestra base datos y puedas disfrutar todos nuestros servicios!</b></h4>
+       
+</div>
 <hr />
+   
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
+            <br /><br />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="nombreComercial" class="control-label"></label>
@@ -47,15 +50,12 @@ else
                 <span asp-validation-for="tipoVendedor" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Convertirme en vendedor" class="btn btn-default" />
+                <input type="submit" value="Convertirme en vendedor" class="btn btn-primary" /> <a class="btn btn-default" asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i> Regresar</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a class="btn btn-primary" asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i> Regresar</a>
-</div>
 }
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
