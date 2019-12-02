@@ -20,9 +20,7 @@
     <thead>
         <tr>
 
-            <th style="text-align:center">
-                Estado de la orden
-            </th>
+
             <th style="text-align:center">
                 @Html.DisplayNameFor(model => model.fechaOrden)
             </th>
@@ -47,30 +45,6 @@
         {
             <tr>
 
-                <td>
-                    @* aqui el boton de finalizar orden *@
-                    @if (item.estadoDeOrden == true)
-                    {
-                        <p class="button">
-                            <a class="btn btn-success" id="Finalizar"
-                               asp-controller="Ordenes"
-                               asp-action="FinalizarOrden"
-                               asp-route-id="@item.OrdenID">
-                                En proceso
-                            </a>
-                        </p>
-                    }
-                    else
-                    {
-                        <div class="button disabled">
-                            <a class="btn btn-danger disabled" id="Finalizar"
-                               asp-route-id="@item.OrdenID">
-                                Finalizada
-                            </a>
-                        </div>
-
-                    }
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.fechaOrden)
                 </td>

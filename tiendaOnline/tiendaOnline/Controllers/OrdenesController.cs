@@ -36,20 +36,28 @@ namespace tiendaOnline.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Orden.Include(o => o.cupon).Include(o => o.metodoEnvio).Include(o => o.tiendaOnlineUser);
-            return View(await applicationDbContext.ToListAsync());
+            return View("Index", await applicationDbContext.ToListAsync());
+        }
+
+        // GET: Ordenes
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> IndexAdministrador()
+        {
+            var applicationDbContext = _context.Orden.Include(o => o.cupon).Include(o => o.metodoEnvio).Include(o => o.tiendaOnlineUser);
+            return View("IndexAdministrador", await applicationDbContext.ToListAsync());
         }
 
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> OrdenesTrue()
         {
             var applicationDbContext = _context.Orden.Include(o => o.cupon).Include(o => o.metodoEnvio).Include(o => o.tiendaOnlineUser).Where(o=> o.estadoDeOrden==true);
-            return View("Index", await applicationDbContext.ToListAsync());
+            return View("IndexAdministrador", await applicationDbContext.ToListAsync());
         }
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> OrdenesFalse()
         {
             var applicationDbContext = _context.Orden.Include(o => o.cupon).Include(o => o.metodoEnvio).Include(o => o.tiendaOnlineUser).Where(o => o.estadoDeOrden == false);
-            return View("Index", await applicationDbContext.ToListAsync());
+            return View("IndexAdministrador", await applicationDbContext.ToListAsync());
         }
 
         // GET: Ordenes/Details/5
@@ -232,6 +240,8 @@ namespace tiendaOnline.Controllers
 
             return View(orden);
         }
+
+      
 
         // POST: Ordenes/Delete/5
         [HttpPost, ActionName("Delete")]
