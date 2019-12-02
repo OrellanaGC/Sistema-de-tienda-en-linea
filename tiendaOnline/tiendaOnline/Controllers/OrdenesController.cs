@@ -75,17 +75,22 @@ namespace tiendaOnline.Controllers
                 .Include(o => o.tiendaOnlineUser)
                 .Include(o=> o.direccion)
                 .Include(o=>o.tarjeta)
-                .FirstOrDefaultAsync(m => m.OrdenID == id);
-                if (orden == null)
-            {
-                return NotFound();
-            }
+                .FirstOrDefaultAsync(m => m.OrdenID == id);             
 
             return View(orden);*/
-            var lineas = from l in _context.LineaDeOrden.Include(l => l.orden).Include(l=> l.Producto).Where(l => l.OrdenID == id) select l;
+            var lineas = from l in _context.LineaDeOrden.Include(l => l.orden).Include(l=>l.Producto).Include(l=> l.Producto.detalleVendedor).Where(l => l.OrdenID == id) select l;
 
             return View(await lineas.AsNoTracking().ToListAsync());
             
+        }
+
+        [Authorize(Roles ="Seller")]
+        public async Task<IActionResult> DetailsVendedor()
+        {
+            string userId = _userManager.GetUserId(User);
+            var vendedor = _context.DetalleVendedor.Single(v => v.tiendaOnlineUserID == userId);
+            var lineasOrden = _context.LineaDeOrden.Include(l => l.orden).Include(l => l.Producto).Include(l => l.Producto.detalleVendedor).Where(l =>l.Producto.detalleVendedorID== vendedor.DetalleVendedorID);
+            return View(await lineasOrden.ToListAsync());
         }
 
         // GET: Ordenes/Create

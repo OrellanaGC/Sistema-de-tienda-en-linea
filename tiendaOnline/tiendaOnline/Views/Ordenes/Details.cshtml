@@ -59,6 +59,7 @@
                 <th>Nombre</th>
                 <th>Precio Unitario</th>
                 <th>Cantidad</th>
+                <th>Vendedor</th>
                 <th>Subtotal</th>
             </tr>
         </thead>
@@ -72,6 +73,7 @@
                     <td>@Html.DisplayFor(modelItem => linea.Producto.NombreProducto)</td>
                     <td>$ @Html.DisplayFor(modelItem => linea.Producto.PrecioUnitario)</td>
                     <td>@Html.DisplayFor(modelItem => linea.Cantidad)</td>
+                    <td>@Html.DisplayFor(modelItenm => linea.Producto.detalleVendedor.nombreComercial)</td>
                     <td>$ @Html.DisplayFor(modelItem => linea.subtotal)</td>
                     @{ tot += linea.subtotal;}
                 </tr>
