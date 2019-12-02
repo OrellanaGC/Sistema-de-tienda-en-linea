@@ -20,7 +20,8 @@ namespace tiendaOnline.Models
         [Display(Name = "Total de Orden")]
         public double total { get; set; }
 
-       
+
+        [Display(Name ="Estado")]
         public Boolean estadoDeOrden { get; set; }
 
         //Relacion con usuario
