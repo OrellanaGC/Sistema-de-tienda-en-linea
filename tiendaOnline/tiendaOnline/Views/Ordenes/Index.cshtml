@@ -1,18 +1,27 @@
 ﻿@model IEnumerable<tiendaOnline.Models.Orden>
 
+@using tiendaOnline.Data
+
 @{
     ViewData["Title"] = "Órdenes de compra";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!--Haciendo una inyeccion del context para traer cualquier modelo-->
+@inject ApplicationDbContext _context
+
 <h2>Órdenes de compra</h2>
 
-<p>
-    <a class="btn btn-info" asp-action="Create"><i class="fas fa-plus"></i> Agregar </a>
-</p>
+@*<p>
+        <a class="btn btn-info" asp-action="Create"><i class="fas fa-plus"></i> Agregar </a>
+    </p>*@
 <table class="table">
     <thead>
         <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.estadoDeOrden)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.fechaOrden)
             </th>
@@ -20,10 +29,8 @@
                 @Html.DisplayNameFor(model => model.total)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.estadoDeOrden)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.tiendaOnlineUser)
+                Email de usuario
+                @*@Html.DisplayNameFor(model => model.tiendaOnlineUser)*@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.metodoEnvio)
@@ -35,32 +42,62 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.fechaOrden)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.total)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.estadoDeOrden)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tiendaOnlineUser.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.metodoEnvio.nombreMetodoEnvio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.cupon.CuponID)
-            </td>
-            <td>
-                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.OrdenID"><i class="fa fa-pen"></i></a>
-                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.OrdenID"><i class="fa fa-info"></i></a>
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.OrdenID"><i class="fa fa-trash-alt"></i></a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Reverse())
+        {
+            <tr>
+
+                <td>
+                    @* aqui el boton de finalizar orden *@
+                    @if (item.estadoDeOrden == true)
+                    {
+                        <p class="button">
+                            <a class="btn btn-danger" id="Finalizar"
+                               asp-controller="Ordenes"
+                               asp-action="FinalizarOrden"
+                               asp-route-id="@item.OrdenID">
+                                En proceso
+                            </a>
+                        </p>
+                    }
+                    else
+                    {
+                        <div class="button disabled">
+                            <a class="btn btn-success disabled" id="Finalizar"
+                               asp-route-id="@item.OrdenID">
+                                Finalizada
+                            </a>
+                        </div>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fechaOrden)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.total)
+                </td>
+                <td>
+
+                    @* @_context.Users.FirstOrDefault(c => c.Id == item.tiendaOnlineUserID).Email*@
+                    @try{
+                        @_context.Users.FirstOrDefault(c => c.Id == item.tiendaOnlineUserID).Email
+                    }
+                    catch {
+                        <h5>-</h5>
+                    }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.metodoEnvio.nombreMetodoEnvio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cupon.CuponID)
+                </td>
+                <td>
+                    <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.OrdenID"><i class="fa fa-pen"></i></a>
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.OrdenID"><i class="fa fa-info"></i></a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.OrdenID"><i class="fa fa-trash-alt"></i></a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -20,21 +20,26 @@
     <div>
         @foreach (var producto in Model)
         {
-        <div class="col-md-2">
-            <br />
+           
+        <div class="col-md-2" >
+            @* avisito de stock bajo *@
+            @if (producto.Existencia <=
+        @* stock maximo, que ahora es el minimo :v *@
+        _context.Categoria.SingleOrDefault(cat => cat.CategoriaID == _context.Subcategoria.SingleOrDefault(c => c.SubcategoriaID == producto.SubcategoriaID).CategoriaID).stockMax)
+         {
+            <b style="color:red"><center>🛈 Stock bajo.<br /> Solo @producto.Existencia disponibles.</center></b>
+            }
+            else
+            {
+            <p><h4>&nbsp;</h4></p>
+            }
             <center><a style="color:teal;" asp-controller="DetalleProductos" asp-action="Details" asp-route-id="@producto.ProductoID">@Html.DisplayFor(modelItem => producto.NombreProducto)</a></center>
             <a asp-controller="DetalleProductos" asp-action="DetailsVendedor" asp-route-id="@producto.ProductoID">
                 <img class="zoom" height=180px width=180px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
             </a>
 
-            @* avisito de stock bajo *@
-            @if (producto.Existencia <=
-                @* stock maximo, que ahora es el minimo :v *@
-                _context.Categoria.SingleOrDefault(cat => cat.CategoriaID == _context.Subcategoria.SingleOrDefault(c => c.SubcategoriaID == producto.SubcategoriaID).CategoriaID).stockMax)
-             {
-                 <b style="color:red">🛈 Stock bajo. Cantidad en existencia: @producto.Existencia</b>
-             }
-                @*variables para el descuento*@
+
+            @*variables para el descuento*@
             @{ var desc = false; var precios = 0.0; }
 
             @*aplicando el descuento*@

@@ -152,9 +152,17 @@ namespace tiendaOnline.Controllers
         }
         //Visualizar todos los productos para gestion del administrador
         [Authorize(Roles ="Admin")]
-        public async Task<IActionResult> indexAdministrador(string searchString)
+        public async Task<IActionResult> indexAdministrador(string code)
         {
-            var productos = _context.Producto.Include(p=>p.detalleVendedor);
+            //var productos = _context.Producto;
+
+            var productos = from p in _context.Producto.Include(p => p.Subcategoria).Include(p => p.detalleVendedor) select p;
+            ViewData["CodeFilter"] = code;
+            if (!String.IsNullOrEmpty(code))
+            {
+                productos = productos.Where(p => p.Codigo.Contains(code));
+
+            }            
             return View("listarProductos", await productos.ToListAsync());
         }
 

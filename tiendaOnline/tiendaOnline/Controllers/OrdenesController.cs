@@ -245,6 +245,17 @@ namespace tiendaOnline.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //Para Marcar la orden como finalizada
+        public async Task<RedirectToActionResult> FinalizarOrden(int id)
+        {
+            var ordenSeleccionada = _context.Orden.FirstOrDefault(d => d.OrdenID == id);
+
+            ordenSeleccionada.estadoDeOrden = false;
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+
         private bool OrdenExists(int id)
         {
             return _context.Orden.Any(e => e.OrdenID == id);

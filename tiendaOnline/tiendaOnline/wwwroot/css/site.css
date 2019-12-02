@@ -200,3 +200,18 @@ a.linkFooter{
     margin-left: 15px;
 }
 
+/*Quitar las flechas culeras del input number*/
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number]::-o-outer-spin-button,
+input[type=number]::-o-inner-spin-button{
+    -o-appearance: textfield;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}

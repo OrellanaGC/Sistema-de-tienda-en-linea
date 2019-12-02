@@ -15,22 +15,22 @@
             {
                 <li>
                     <!--Boton para ver los productos del carrito-->
-                    <a class="btn btn-block" asp-action="Index" asp-controller="Carritos"><i class="fas fa-cart-plus"></i> Carrito</a>
+                    <a class="btn btn-block" asp-action="Index" asp-controller="Carritos"><i class="fas fa-cart-plus"></i></a>
                 </li>
                 <li>
                     <!--Boton para ver los productos del mismo vendedor-->
-                    <a class="btn btn-inf" asp-action="IndexVendedor" asp-controller="Productos"><i class="fas fa-home"></i> Mis productos</a>
+                    <a class="btn btn-inf" asp-action="IndexVendedor" asp-controller="Productos"><i class="fas fa-briefcase"></i></a>
                 </li>
             }
             @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "User") && !(await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Seller")))
             {
                 <li>
                     <!--Boton para ver los productos del comprador-->
-                    <a class="btn btn-block" asp-action="Index" asp-controller="Carritos"><i class="fas fa-cart-plus"></i> Carrito</a>
+                    <a class="btn btn-block" asp-action="Index" asp-controller="Carritos"><i class="fas fa-cart-plus"></i> </a>
                 </li>
                 <li>
                     <!--Boton para ser vendedor-->
-                    <a class="btn btn-block" asp-action="Create" asp-controller="DetalleVendedores" title="Se parte de esta gran familia!"><i class="fas fa-briefcase"></i> Ser Vendedor!</a>
+                    <a class="btn btn-block" asp-action="Create" asp-controller="DetalleVendedores" title="Se parte de esta gran familia!"><i class="fas fa-briefcase"></i></a>
                 </li>
             }
 
@@ -44,7 +44,7 @@
             @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin"))
             {
                 <li>
-                    <a class="btn btn-inf" asp-action="IndexVendedor" asp-controller="Productos"><i class="fas fa-home"></i> Mis productos</a>
+                    <a class="btn btn-inf" asp-action="IndexVendedor" asp-controller="Productos"><i class="fas fa-briefcase"></i> </a>
                 </li>
                 <li>
                     <a asp-area="Identity" asp-page="/Account/Manage/Administrar" title="Manage">Hola @UserManager.GetUserName(User)!</a>

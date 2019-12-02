@@ -27,6 +27,14 @@
                 <input asp-for="NombreProducto" class="form-control" />
                 <span asp-validation-for="NombreProducto" class="text-danger"></span>
             </div>
+            <div class="col-md-4">
+                <img height=300px width=300px src="~/images/productos/@Html.DisplayFor(model => model.Imagen)" />  <br /><br /><br />
+            </div>
+            <div class="form-group" style="display:none">
+                <label asp-for="Imagen" class="control-label"></label>
+                <input asp-for="Imagen" class="form-control" />
+                <span asp-validation-for="Imagen" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="PrecioUnitario" class="control-label">Precio unitario</label>
                 <input asp-for="PrecioUnitario" class="form-control" />
@@ -35,13 +43,18 @@
             @if (Model.estadoProducto == true)
             {
                 <div class="form-group">
-                    <label asp-for="existenciaSinActivacion" class="control-label">Stock</label>
+                    <label asp-for="existenciaSinActivacion" class="control-label">Cantidad Disponible</label>
                     <input asp-for="existenciaSinActivacion" class="form-control" />
                     <span asp-validation-for="existenciaSinActivacion" class="text-danger"></span>
                 </div>
             }
             @if (Model.estadoProducto == false)
             {
+                <div class="form-group">
+                    <label asp-for="Existencia" class="control-label">Cantidad Disponible </label>
+                    <input asp-for="Existencia"readonly="readonly" class="form-control" />
+                    <span asp-validation-for="Existencia" class="text-danger"></span>
+                </div>
                 <div class="form-group">
                     <label asp-for="existenciaSinActivacion" class="control-label">Stock por activar </label>
                     <input asp-for="existenciaSinActivacion" class="form-control" />
@@ -54,15 +67,7 @@
                 <label asp-for="Codigo" class="control-label">Código</label>
                 <input asp-for="Codigo" readonly="readonly" class="form-control" />
                 <span asp-validation-for="Codigo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="form-group">
-                    <label asp-for="Imagen" class="control-label"></label>
-                    <input type="file" name="Imagen" accept="images/*" /><br />
-                    <span asp-validation-for="Imagen" class="text-danger"></span>
-                </div>
-
-            </div>
+            </div>           
             <div class="form-group">
                 <label class="control-label">Categorias <br /> <h5>Seleccione una para poder continuar</h5></label>
                 <select class="form-control" id="selecategoria" asp-items="ViewBag.CategoriaID"> <option>-----------------------</option></select>

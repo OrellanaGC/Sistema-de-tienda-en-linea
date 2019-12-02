@@ -1,12 +1,19 @@
 ﻿@model IEnumerable<tiendaOnline.Models.Producto>
 
 @{
-    ViewData["Title"] = "listarProductos";
+    ViewData["Title"] = "Productos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>listarProductos</h2>
-
+<div class="col-md-4"><h2>Productos</h2></div>
+<div class="col-md-offset-3 col-md-5">
+    <br />
+    <form class="form-inline">
+        <label class="control-label">Buscar por código: </label>
+        <input type="text" name="code" class="form-control" value="@ViewData["CodeFilter"]"/>
+        <input type="submit" class="btn btn-default"/>
+    </form>
+</div>
 
 <table class="table">
     <thead>
