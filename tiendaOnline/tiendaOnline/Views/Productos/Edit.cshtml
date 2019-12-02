@@ -20,15 +20,13 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProductoID" />
             <input type="hidden" asp-for="detalleVendedorID" />
-
-
-
+            <input type="hidden" asp-for="Existencia" />
+            <input type="hidden" asp-for="estadoProducto" />
             <div class="form-group">
                 <label asp-for="NombreProducto" class="control-label">Nombre</label>
                 <input asp-for="NombreProducto" class="form-control" />
                 <span asp-validation-for="NombreProducto" class="text-danger"></span>
             </div>
-
             <div class="col-md-4">
                 <img height=300px width=300px src="~/images/productos/@Html.DisplayFor(model => model.Imagen)" />  <br /><br /><br />
             </div>
@@ -42,18 +40,34 @@
                 <input asp-for="PrecioUnitario" class="form-control" />
                 <span asp-validation-for="PrecioUnitario" class="text-danger"></span>
             </div>
+            @if (Model.estadoProducto == true)
+            {
+                <div class="form-group">
+                    <label asp-for="existenciaSinActivacion" class="control-label">Cantidad Disponible</label>
+                    <input asp-for="existenciaSinActivacion" class="form-control" />
+                    <span asp-validation-for="existenciaSinActivacion" class="text-danger"></span>
+                </div>
+            }
+            @if (Model.estadoProducto == false)
+            {
+                <div class="form-group">
+                    <label asp-for="Existencia" class="control-label">Cantidad Disponible </label>
+                    <input asp-for="Existencia"readonly="readonly" class="form-control" />
+                    <span asp-validation-for="Existencia" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="existenciaSinActivacion" class="control-label">Stock por activar </label>
+                    <input asp-for="existenciaSinActivacion" class="form-control" />
+                    <span asp-validation-for="existenciaSinActivacion" class="text-danger"></span>
+                </div>
+            }
 
-            <div class="form-group">
-                <label asp-for="Existencia" class="control-label">Cantidad disponible</label>
-                <input asp-for="Existencia" class="form-control" />
-                <span asp-validation-for="Existencia" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="Codigo" class="control-label">Código</label>
                 <input asp-for="Codigo" readonly="readonly" class="form-control" />
                 <span asp-validation-for="Codigo" class="text-danger"></span>
-            </div>
-
+            </div>           
             <div class="form-group">
                 <label class="control-label">Categorias <br /> <h5>Seleccione una para poder continuar</h5></label>
                 <select class="form-control" id="selecategoria" asp-items="ViewBag.CategoriaID"> <option>-----------------------</option></select>
@@ -65,22 +79,25 @@
                 <select asp-for="SubcategoriaID" class="form-control"></select>
                 <br />
 
-                <div class="form-group">
-                    <input type="submit" value="Guardar cambios" class="btn btn-primary" />   <a class="btn btn-info" asp-controller="Descuentos" asp-action="Edit" asp-route-id=" @{ @Model.ProductoID; }"><i class="fas fa-pen"></i> Descuento</a> <a class="btn btn-info" asp-controller="DetalleProductos" asp-action="Edit" asp-route-id="@{@Model.ProductoID; }"><i class="fas fa-pen"></i> Detalles</a>
-                </div>
+            </div>
+            <div class="form-group">
+
+                <input type="submit" value="Guardar cambios" class="btn btn-success" />  <a class="btn btn-primary" asp-controller="DetalleProductos" asp-action="Edit" asp-route-id="@{@Model.ProductoID; }"><i class="fas fa-pen"></i> Editar más detalles</a>
 
             </div>
-
         </form>
     </div>
-
+    <div class="col-md-offset-1 col-md-4">
+        <img src="~/images/edit.png" height="450px"/>
+    </div>
 </div>
 
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-    <script>
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+        <script>
         var select = document.querySelector("#selecategoria");
         select.addEventListener("change", (e) => {
             var idcat = e.target.value;
@@ -108,5 +125,5 @@
             xhttp.setRequestHeader("RequestVerificationToken", token);
             xhttp.send("idcat=" + idcat);
         });
-    </script>
-}
+        </script>
+    }

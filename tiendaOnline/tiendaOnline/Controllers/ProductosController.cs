@@ -155,16 +155,17 @@ namespace tiendaOnline.Controllers
         public async Task<IActionResult> indexAdministrador(string code)
         {
             //var productos = _context.Producto;
-           
+
             var productos = from p in _context.Producto.Include(p => p.Subcategoria).Include(p => p.detalleVendedor) select p;
             ViewData["CodeFilter"] = code;
             if (!String.IsNullOrEmpty(code))
             {
                 productos = productos.Where(p => p.Codigo.Contains(code));
 
-            }
+            }            
             return View("listarProductos", await productos.ToListAsync());
         }
+
         // GET: Productos/Details/5
         [Authorize(Roles = "User")]
         public async Task<IActionResult> Details(int? id)
@@ -220,7 +221,7 @@ namespace tiendaOnline.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Seller")]
-        public async Task<IActionResult> Create([Bind("ProductoID,NombreProducto,PrecioUnitario,Existencia,Codigo,Imagen,SubcategoriaID,detalleVendedorID")] Producto producto, IFormFile Imagen)
+        public async Task<IActionResult> Create([Bind("ProductoID,NombreProducto,PrecioUnitario,Existencia,Codigo,Imagen,SubcategoriaID,detalleVendedorID, estadoProducto,existenciaSinActivacion")] Producto producto, IFormFile Imagen)
         {
             if (ModelState.IsValid)
             {
@@ -241,6 +242,9 @@ namespace tiendaOnline.Controllers
                 var user = await _userManager.GetUserAsync(User);
                 var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
                 producto.detalleVendedorID = vendedor.DetalleVendedorID;
+                producto.existenciaSinActivacion = producto.Existencia;
+                producto.Existencia = 0;
+                producto.estadoProducto = false;                    
                 _context.Add(producto);
                 //crea un descuento para cada producto
                 var descuento = new Descuento()
@@ -291,23 +295,28 @@ namespace tiendaOnline.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Seller")]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductoID,NombreProducto,PrecioUnitario,Existencia,Codigo,Imagen,SubcategoriaID,detalleVendedorID")] Producto producto)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductoID,NombreProducto,PrecioUnitario,Existencia,Codigo,Imagen,SubcategoriaID,detalleVendedorID,existenciaSinActivacion,estadoProducto")] Producto producto)
         {
             if (id != producto.ProductoID)
             {
                 return NotFound();
-            }
-
-           
-
-            if (ModelState.IsValid)
+            }            
+            if (ModelState.IsValid && producto.Existencia<= producto.existenciaSinActivacion)
             {
                 try
                 {
-                  
+                    
+                    if (producto.estadoProducto==true)
+                    {
+                        if(producto.Existencia!= producto.existenciaSinActivacion)
+                        {
+                            producto.estadoProducto = false;
+                        }
+                    }                    
+
                     _context.Update(producto);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("IndexVendedor", "Productos");
+                    
                    
                 }
                 catch (DbUpdateConcurrencyException)
@@ -319,19 +328,12 @@ namespace tiendaOnline.Controllers
                     else
                     {
                         throw;
-                    }
+                    }                    
                 }
 
+                return RedirectToAction("IndexVendedor", "Productos");
             }
             ViewData["SubcategoriaID"] = new SelectList(_context.Subcategoria, "SubcategoriaID", "nombreSubcategoria", producto.SubcategoriaID);
-            
-
-            //Asignando el producto al vendedor que ha iniciado sesion
-            var user = await _userManager.GetUserAsync(User);
-            var vendedor = _context.DetalleVendedor.Single(d => d.tiendaOnlineUser == user);
-            producto.detalleVendedorID = vendedor.DetalleVendedorID;
-            _context.Add(producto);
-            await _context.SaveChangesAsync();
             return View(producto);
         }
 
@@ -355,6 +357,31 @@ namespace tiendaOnline.Controllers
 
             return View(producto);
         }
+
+
+        //Activar el producto Admin
+        [Authorize(Roles = "Admin")]
+        public async Task<RedirectToActionResult> ActivarProducto(int id)
+        {
+            var productoSeleccionado = _context.Producto.SingleOrDefault(p => p.ProductoID == id);
+            productoSeleccionado.estadoProducto = true;
+            productoSeleccionado.Existencia = productoSeleccionado.existenciaSinActivacion;            
+            _context.SaveChanges();
+            return RedirectToAction("IndexAdministrador");
+        }
+
+        //Desactivar el producto Admin
+        [Authorize(Roles = "Admin")]
+        public async Task<RedirectToActionResult> DesactivarProducto(int id)
+        {
+            var productoSeleccionado = _context.Producto.SingleOrDefault(p => p.ProductoID == id);
+            productoSeleccionado.estadoProducto = false;
+            productoSeleccionado.existenciaSinActivacion = productoSeleccionado.Existencia;
+            productoSeleccionado.Existencia = 0;  
+            _context.SaveChanges();
+            return RedirectToAction("IndexAdministrador");
+        }
+
 
         // POST: Productos/Delete/5
         [HttpPost, ActionName("Delete")]

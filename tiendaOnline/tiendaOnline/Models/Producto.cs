@@ -39,6 +39,7 @@ namespace tiendaOnline.Models
         public int SubcategoriaID { get; set; }
         public Subcategoria Subcategoria { get; set; }
         //Relacion con Vendedor
+        [Display(Name = "Vendedor")]
         public int? detalleVendedorID { get; set; }
         public DetalleVendedor detalleVendedor { get; set; }
 
