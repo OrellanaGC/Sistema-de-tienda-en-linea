@@ -35,10 +35,10 @@ namespace tiendaOnline.Controllers
         [Authorize(Roles = "User")]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Orden.Include(o => o.cupon).Include(o => o.metodoEnvio).Include(o => o.tiendaOnlineUser);
+            string userId = _userManager.GetUserId(User);
+            var applicationDbContext = _context.Orden.Include(o => o.cupon).Include(o => o.metodoEnvio).Include(o => o.tiendaOnlineUser).Where(o=> o.tiendaOnlineUserID==userId);
             return View("Index", await applicationDbContext.ToListAsync());
         }
-
         // GET: Ordenes
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> IndexAdministrador()
