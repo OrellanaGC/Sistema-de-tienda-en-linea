@@ -7,19 +7,16 @@
 
 @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin"))
 {<aside class="col-md-3">
-        <a class="btn btn-block btn-primary" asp-controller="Productos" asp-action="IndexAdministrador"> Productos</a><br />
-        <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="OrdenesTrue"> Ordenes en proceso</a><br />
-        <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="OrdenesFalse"> Ordenes finalizadas</a><br />
-    </aside>
-    <aside class="col-md-3">
-        <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="OrdenesFalse"> Categoria</a><br />
-        <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="OrdenesFalse"> Subcategorias</a><br />
-        <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="OrdenesFalse"> Usuarios</a><br />
-    </aside>
-    <aside class="col-md-3">
-        <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="OrdenesFalse"> Vendedores</a><br />
-        <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="OrdenesFalse"> Metodos de envio</a><br />
-        <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="OrdenesFalse"> Cupones</a><br />
-    </aside>
+    <a class="btn btn-block btn-primary" asp-controller="Productos" asp-action="IndexAdministrador"> Productos</a><br />
+    <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="OrdenesTrue"> Ordenes en proceso</a><br />
+    <a class="btn btn-block btn-primary" asp-controller="Ordenes" asp-action="OrdenesFalse"> Ordenes finalizadas</a><br />
+    <a class="btn btn-block btn-primary" asp-controller="Cupones" asp-action="Index"> Cupones</a><br />
+</aside>
+ <aside class="col-md-3">
+     <a class="btn btn-block btn-primary" asp-controller="Categorias" asp-action="Index"> Categoria</a><br />
+     <a class="btn btn-block btn-primary" asp-controller="Subcategorias" asp-action="Index"> Subcategorias</a><br />
+     <a class="btn btn-block btn-primary" asp-controller="MetodoEnvios" asp-action="Index"> Metodos de envio</a><br />
+ </aside>
+   
 }
 

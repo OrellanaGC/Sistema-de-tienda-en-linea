@@ -6,6 +6,9 @@
     ViewData["Title"] = "Orden";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.min.css">
 
 <!--Haciendo una inyeccion del context para traer cualquier modelo-->
 @inject ApplicationDbContext _context
@@ -45,6 +48,21 @@
     <tbody style="text-align:center">
         @foreach (var item in Model.Reverse())
         {
+            <script>
+                function alerta() {
+                    Swal.fire({
+                        title: 'Orden finalizada exitosamente',
+                        width: 600,
+                        padding: '3em',
+                        background: '#fff url(https://sweetalert2.github.io/#downloadimages/trees.png)',
+                        backdrop: `
+                                rgba(0,0,123,0.4)
+                                url("https://sweetalert2.github.io/#downloadimages/nyan-cat.gif")
+                                left top
+                                no-repeat`
+                    })
+                }
+            </script>
             <tr>
 
                 <td>
@@ -55,7 +73,7 @@
                             <a class="btn btn-success" id="Finalizar"
                                asp-controller="Ordenes"
                                asp-action="FinalizarOrden"
-                               asp-route-id="@item.OrdenID">
+                               asp-route-id="@item.OrdenID" onclick="alerta()">
                                 En proceso
                             </a>
                         </p>

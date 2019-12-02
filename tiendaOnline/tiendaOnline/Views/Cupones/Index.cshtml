@@ -14,26 +14,24 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.codigoCupon)
+                Código
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.montoCupon)
+                Monto
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.estadoCupon)
+                Estado de cupón
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.fechaCreacion)
+                Fecha de creación
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.fechaVencimiento)
+                Fecha de vencimiento
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.descripcionCupon)
+                Título
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.tiendaOnlineUser)
-            </th>
+           
             <th></th>
         </tr>
     </thead>
@@ -58,13 +56,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.descripcionCupon)
             </td>
+          
             <td>
-                @Html.DisplayFor(modelItem => item.tiendaOnlineUser.Id)
-            </td>
-            <td>
-                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.CuponID"><i class="fas fa-pen"></i></a>
+              
                 <a class="btn btn-info" asp-action="Details" asp-route-id="@item.CuponID"><i class="fas fa-info"></i></a>
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.CuponID"><i class="fas fa-trash-alt"></i></a>
+               
             </td>
         </tr>
 }
