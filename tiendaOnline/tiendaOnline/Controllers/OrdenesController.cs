@@ -262,7 +262,7 @@ namespace tiendaOnline.Controllers
 
             ordenSeleccionada.estadoDeOrden = false;
             _context.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("OrdenesTrue");
 
         }
 
