@@ -53,8 +53,8 @@
 <div>
     <table class="table-bordered table-hover col-md-12">
         <thead class="text-center">
-            <tr >
-                <th>Código</th>
+            <tr>
+                <th>Fecha de la orden</th>
                 <th>Imagen</th>
                 <th>Nombre</th>
                 <th>Precio Unitario</th>
@@ -63,21 +63,28 @@
             </tr>
         </thead>
         <tbody class="text-center">
+            @{ var tot = 0.00;}
             @foreach (var linea in Model)
             {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => linea.Producto.Codigo)</td>
-                <td class="col-md-1"><img height=180px width=180px src="~/images/productos/@Html.DisplayFor(model => linea.Producto.Imagen)" /></td>
-                <td>@Html.DisplayFor(modelItem => linea.Producto.NombreProducto)</td>
-                <td>$ @Html.DisplayFor(modelItem => linea.Producto.PrecioUnitario)</td>
-                <td>@Html.DisplayFor(modelItem => linea.Cantidad)</td>
-                <td>$ @Html.DisplayFor(modelItem => linea.subtotal)</td>
-                
-            </tr>
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => linea.orden.fechaOrden)</td>
+                    <td class="col-md-1"><img height=100px width=100px src="~/images/productos/@Html.DisplayFor(model => linea.Producto.Imagen)" /></td>
+                    <td>@Html.DisplayFor(modelItem => linea.Producto.NombreProducto)</td>
+                    <td>$ @Html.DisplayFor(modelItem => linea.Producto.PrecioUnitario)</td>
+                    <td>@Html.DisplayFor(modelItem => linea.Cantidad)</td>
+                    <td>$ @Html.DisplayFor(modelItem => linea.subtotal)</td>
+                    @{ tot += linea.subtotal;}
+                </tr>
+
             }
 
         </tbody>
     </table>
+    <h1>&nbsp;</h1>
+    <div style="text-align:right">
+        <h3> <i><b>Total de la compra: $@String.Format("{0:0.00}", tot)</b></i></h3>
+        <h1>&nbsp;</h1>
+    </div>
 </div>
 <div>
     <!--a asp-action="Edit" asp-route-id="Model.OrdenID">Edit</a-->

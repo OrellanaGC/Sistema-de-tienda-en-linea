@@ -15,6 +15,10 @@
             {
                 <li>
                     <!--Boton para ver los productos del carrito-->
+                    <a class="btn btn-block" asp-action="Index" asp-controller="Ordenes"><i class="fas fa-cash-register"></i></a>
+                </li>
+                <li>
+                    <!--Boton para ver los productos del carrito-->
                     <a class="btn btn-block" asp-action="Index" asp-controller="Carritos"><i class="fas fa-cart-plus"></i></a>
                 </li>
                 <li>
@@ -24,6 +28,10 @@
             }
             @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "User") && !(await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Seller")))
             {
+                <li>
+                    <!--Boton para ver los productos del carrito-->
+                    <a class="btn btn-block" asp-action="Index" asp-controller="Ordenes"><i class="fas fa-cash-register"></i></a>
+                </li>
                 <li>
                     <!--Boton para ver los productos del comprador-->
                     <a class="btn btn-block" asp-action="Index" asp-controller="Carritos"><i class="fas fa-cart-plus"></i> </a>
