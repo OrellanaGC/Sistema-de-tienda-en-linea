@@ -7,10 +7,10 @@
 
 
 @{ var desc = false; var precios = 0.00; }
-<table class="table table-bordered table-hover table-wrapper-scroll-y my-custom-scrollbar">
+<table style="background-color: ghostwhite">
 
     <thead style="background-color: gainsboro" class="row">
-        <tr>
+        <tr >
             <th class="col-md-1 text-center">Producto</th>
             <th class="col-md-2 text-center">Nombre del producto</th>
             <th class="col-md-1 text-center">Cantidad <br />seleccionada</th>
@@ -36,8 +36,8 @@
                                 <td class="col-md-1 text-center">
                                     <img class="zoom" height=90px width=100px src="~/images/productos/@Html.DisplayFor(modelItem => producto.Imagen)" />
                                 </td>
-                                <td class="col-md-2 text-center"><br /><b>@Html.DisplayFor(modelItem => producto.NombreProducto)</b></td>
-                                <td class="col-md-1 text-center"><br />@Html.DisplayFor(modelItem => prod.cantidadProducto)</td>
+                                <td class="col-md-2 text-center"><b>@Html.DisplayFor(modelItem => producto.NombreProducto)</b></td>
+                                <td class="col-md-1 text-center">@Html.DisplayFor(modelItem => prod.cantidadProducto)</td>
                                  @*aplicando el descuento*@
                                     @{var descuentos = _context.Descuento.SingleOrDefault(d => d.ProductoID == producto.ProductoID);}
                                         @if (descuentos.EstaActivo == true)
@@ -60,7 +60,7 @@
                                     <i>  $@String.Format("{0:0.00}", precios)</i>
                                     </td>
                                     <td class="col-md-1 text-center">
-                                    <br />
+                                  
 
                                     @((prod.cantidadProducto * precios).ToString("c"))
                                     </td>
