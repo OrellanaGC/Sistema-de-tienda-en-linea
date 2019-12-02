@@ -69,19 +69,23 @@ namespace tiendaOnline.Controllers
                 return NotFound();
             }
 
-            var orden = await _context.Orden
+            /*var orden = await _context.Orden
                 .Include(o => o.cupon)
                 .Include(o => o.metodoEnvio)
                 .Include(o => o.tiendaOnlineUser)
                 .Include(o=> o.direccion)
                 .Include(o=>o.tarjeta)
                 .FirstOrDefaultAsync(m => m.OrdenID == id);
-            if (orden == null)
+                if (orden == null)
             {
                 return NotFound();
             }
 
-            return View(orden);
+            return View(orden);*/
+            var lineas = from l in _context.LineaDeOrden.Include(l => l.orden).Include(l=> l.Producto).Where(l => l.OrdenID == id) select l;
+
+            return View(await lineas.AsNoTracking().ToListAsync());
+            
         }
 
         // GET: Ordenes/Create

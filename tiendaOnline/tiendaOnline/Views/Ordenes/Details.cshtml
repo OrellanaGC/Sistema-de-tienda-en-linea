@@ -1,4 +1,5 @@
-﻿@model tiendaOnline.Models.Orden
+﻿<!--model tiendaOnline.Models.LineaDeOrden-->
+@model IEnumerable<tiendaOnline.Models.LineaDeOrden>
 
 @{
     ViewData["Title"] = "Detalles de la orden";
@@ -10,46 +11,75 @@
 <div>
     <h4>Orden</h4>
     <hr />
-    <dl class="dl-horizontal">
+    <!--dl class="dl-horizontal form-inline">
         <dt>
-            @Html.DisplayNameFor(model => model.fechaOrden)
+            Html.DisplayNameFor(model => model.orden.fechaOrden)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.fechaOrden)
+            Html.DisplayFor(model => model.orden.fechaOrden)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.total)
+            Html.DisplayNameFor(model => model.orden.total)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.total)
+            Html.DisplayFor(model => model.orden.total)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.estadoDeOrden)
+            Html.DisplayNameFor(model => model.orden.estadoDeOrden)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.estadoDeOrden)
+            Html.DisplayFor(model => model.orden.estadoDeOrden)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.tiendaOnlineUser)
+            Html.DisplayNameFor(model => model.orden.tiendaOnlineUser)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.tiendaOnlineUser.Id)
+            Html.DisplayFor(model => model.orden.tiendaOnlineUser.Id)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.metodoEnvio)
+            Html.DisplayNameFor(model => model.orden.metodoEnvio)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.metodoEnvio.nombreMetodoEnvio)
+            Html.DisplayFor(model => model.orden.metodoEnvio.nombreMetodoEnvio)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.cupon)
+            Html.DisplayNameFor(model => model.orden.cupon)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.cupon.CuponID)
+            Html.DisplayFor(model => model.orden.cupon.CuponID)
         </dd>
-    </dl>
+    </dl-->
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.OrdenID">Edit</a> |
+    <table class="table-bordered table-hover col-md-12">
+        <thead class="text-center">
+            <tr >
+                <th>Código</th>
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Precio Unitario</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            @foreach (var linea in Model)
+            {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => linea.Producto.Codigo)</td>
+                <td class="col-md-1"><img height=180px width=180px src="~/images/productos/@Html.DisplayFor(model => linea.Producto.Imagen)" /></td>
+                <td>@Html.DisplayFor(modelItem => linea.Producto.NombreProducto)</td>
+                <td>$ @Html.DisplayFor(modelItem => linea.Producto.PrecioUnitario)</td>
+                <td>@Html.DisplayFor(modelItem => linea.Cantidad)</td>
+                <td>$ @Html.DisplayFor(modelItem => linea.subtotal)</td>
+                
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+<div>
+    <!--a asp-action="Edit" asp-route-id="Model.OrdenID">Edit</a-->
     <a class="btn btn-primary" asp-action="Index"><i class="fa fa-home"></i> Órdenes</a>
 </div>
