@@ -19,7 +19,7 @@ namespace tiendaOnline.Models
         public double PrecioUnitario { get; set; }
 
         [Display(Name = "Cantidad de Productos")]
-        [Required(ErrorMessage ="Ingresar Existencia"), Range(1,100,ErrorMessage ="Debe ingresar menos de 100 productos a la venta")]
+        [Required(ErrorMessage ="Ingresar Existencia"), Range(0,100,ErrorMessage ="Debe ingresar menos de 100 productos a la venta")]
         public int Existencia { get; set; }
 
         public string Codigo { get; set; }
