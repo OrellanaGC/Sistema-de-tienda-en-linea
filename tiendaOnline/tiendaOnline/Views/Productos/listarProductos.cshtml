@@ -11,8 +11,11 @@
 <table class="table">
     <thead>
         <tr>
+            <th style="text-align:center">
+                Estado
+            </th>
             <th>
-                @Html.DisplayNameFor(model => model.NombreProducto)
+                @Html.DisplayNameFor(model => model.Codigo)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PrecioUnitario)
@@ -21,19 +24,7 @@
                 @Html.DisplayNameFor(model => model.Existencia)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Codigo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Imagen)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.existenciaSinActivacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.estadoProducto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Subcategoria)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.detalleVendedor)
@@ -45,7 +36,34 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.NombreProducto)
+                <label class="list-inline">
+                    <!--Activa/Desactiva los descuentos-->
+                    @if (item.estadoProducto == true)
+                    {
+                        <p class="button">
+                            <a class="btn btn-danger" id="Desactivar"
+                               asp-controller="Productos"
+                               asp-action="DesactivarProducto"
+                               asp-route-id="@item.ProductoID">
+                                Desactivar
+                            </a>
+                        </p>
+                    }
+                    else
+                    {
+                        <div class="button">
+                            <a class="btn btn-success" id="Activar"
+                               asp-controller="Productos"
+                               asp-action="ActivarProducto" asp-route-id="@item.ProductoID">
+                                Activar
+                            </a>
+                        </div>
+                    }
+                </label>
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PrecioUnitario)
@@ -53,28 +71,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Existencia)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Imagen)
-            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.existenciaSinActivacion)
-            </td>
+            </td>                      
             <td>
-                @Html.DisplayFor(modelItem => item.estadoProducto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subcategoria.nombreSubcategoria)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.detalleVendedor.correoComercial)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductoID">Activar</a> |
-              
-            </td>
+                @Html.DisplayFor(modelItem => item.detalleVendedor.nombreComercial)
+            </td>           
         </tr>
 }
     </tbody>

@@ -20,6 +20,8 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProductoID" />
             <input type="hidden" asp-for="detalleVendedorID" />
+            <input type="hidden" asp-for="Existencia" />
+            <input type="hidden" asp-for="estadoProducto" />
             <div class="form-group">
                 <label asp-for="NombreProducto" class="control-label">Nombre</label>
                 <input asp-for="NombreProducto" class="form-control" />
@@ -30,12 +32,24 @@
                 <input asp-for="PrecioUnitario" class="form-control" />
                 <span asp-validation-for="PrecioUnitario" class="text-danger"></span>
             </div>
+            @if (Model.estadoProducto == true)
+            {
+                <div class="form-group">
+                    <label asp-for="existenciaSinActivacion" class="control-label">Stock</label>
+                    <input asp-for="existenciaSinActivacion" class="form-control" />
+                    <span asp-validation-for="existenciaSinActivacion" class="text-danger"></span>
+                </div>
+            }
+            @if (Model.estadoProducto == false)
+            {
+                <div class="form-group">
+                    <label asp-for="existenciaSinActivacion" class="control-label">Stock por activar </label>
+                    <input asp-for="existenciaSinActivacion" class="form-control" />
+                    <span asp-validation-for="existenciaSinActivacion" class="text-danger"></span>
+                </div>
+            }
 
-            <div class="form-group">
-                <label asp-for="Existencia" class="control-label">Cantidad disponible</label>
-                <input asp-for="Existencia" class="form-control" />
-                <span asp-validation-for="Existencia" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="Codigo" class="control-label">Código</label>
                 <input asp-for="Codigo" readonly="readonly" class="form-control" />
