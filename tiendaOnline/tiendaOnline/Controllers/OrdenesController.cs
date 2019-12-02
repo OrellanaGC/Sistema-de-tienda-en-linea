@@ -119,15 +119,41 @@ namespace tiendaOnline.Controllers
         public async Task<IActionResult> Create([Bind("OrdenID,fechaOrden,total,estadoDeOrden,tiendaOnlineUserID,metodoEnvioID,cuponID,tarjetaID, direccionID, sucursalID")] Orden orden)
         {
             var items = _carrito.GetprodCarrito();
-            _carrito.prodCarrito = items; 
-            if ((orden.sucursalID == null && (orden.direccionID == 0 || orden.metodoEnvioID == 0)))
+            _carrito.prodCarrito = items;
+
+            // validar existencia
+
+            var userId = _userManager.GetUserId(User);
+            var carritoid = _context.Carrito.SingleOrDefault(c => c.tiendaOnlineUserID == userId);
+            var prodCarrito = _context.ProdCarrito
+            .Where(carrito => carrito.CarritoID== carritoid.CarritoID && carrito.IsSelected == true);
+            var existenciaValida = true;
+
+            //aqui revisa si hay stock disponible
+            foreach (var producto in prodCarrito)
             {
+                //el stock disponible
+                var existencia = _context.Producto.SingleOrDefault(c => c.ProductoID == producto.productoID).Existencia;
+                //si cantidad seleccionada <= stock disponible
+                if (producto.cantidadProducto > existencia)
+                {
+                    existenciaValida = false;
+                    return RedirectToAction("Index", "Home");
+
+                }
+               
+
+            }
+
+            if ((orden.sucursalID == null && (orden.direccionID == 0 || orden.metodoEnvioID == 0)) )
+            {
+
                 ViewData["direccionID"] = new SelectList(_context.Direccion, "DireccionID", "DireccionID", orden.direccionID);
                 ViewData["tarjetaID"] = new SelectList(_context.Tarjeta, "TarjetaID", "TarjetaID", orden.tarjetaID);
                 ViewData["cuponID"] = new SelectList(_context.Cupon, "CuponID", "CuponID", orden.cuponID);
                 ViewData["metodoEnvioID"] = new SelectList(_context.MetodoEnvio, "MetodoEnvioID", "nombreMetodoEnvio", orden.metodoEnvioID);
                 ViewData["tiendaOnlineUserID"] = new SelectList(_context.Users, "Id", "Id", orden.tiendaOnlineUserID);
-
+                
                 return View(orden);
             }
             if (ModelState.IsValid )

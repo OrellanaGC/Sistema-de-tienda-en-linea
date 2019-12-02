@@ -164,7 +164,7 @@ namespace tiendaOnline.Models
                 {
                     //interrumpir orden, aviso que no hay existencia suficiente 
 
-                    throw new Exception("Parece que no tenemos disponible uno o varios de tus productos seleccionados :( ");
+                    
                 }
             }
 

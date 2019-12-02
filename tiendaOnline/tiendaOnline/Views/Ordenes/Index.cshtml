@@ -28,10 +28,6 @@
                 @Html.DisplayNameFor(model => model.total)
             </th>
             <th style="text-align:center">
-                Email de usuario
-                @*@Html.DisplayNameFor(model => model.tiendaOnlineUser)*@
-            </th>
-            <th style="text-align:center">
                 Método de obtención
             </th>
             <th style="text-align:center">
@@ -53,20 +49,7 @@
                         $@String.Format("{0:0.00}", item.total)
                     </center>
                 </td>
-                <td>
-
-                    @* @_context.Users.FirstOrDefault(c => c.Id == item.tiendaOnlineUserID).Email*@
-
-                    @try
-                    {
-                        @_context.Users.FirstOrDefault(c => c.Id == item.tiendaOnlineUserID).Email
-                    }
-                    catch
-                    {
-                        <h5>-</h5>
-                    }
-
-                </td>
+                
                 <td>
                     @if (item.metodoEnvioID == null)
                     {

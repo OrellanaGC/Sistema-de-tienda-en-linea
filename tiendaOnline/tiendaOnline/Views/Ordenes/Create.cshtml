@@ -3,6 +3,11 @@
 @using Microsoft.AspNetCore.Identity
 @using tiendaOnline.Areas.Identity.Data
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.min.css">
+
+
 <!--Inyeccion para obtener el id del usuario que ha iniciado sesion y hacer filtros en sus direcciones y tarjetas-->
 @inject UserManager<tiendaOnlineUser> UserManager
     <!--Haciendo una inyeccion del context para traer cualquier modelo-->
@@ -654,7 +659,7 @@
                             <th class="col-sm-1 text-center">
                                 @*Costo de los productos sin descuento*@
                                 @{ var subtotal = _context.ProdCarrito.Where(d => d.CarritoID == _context.Carrito.SingleOrDefault(c => c.tiendaOnlineUserID == UserManager.GetUserId(User)).CarritoID && d.IsSelected == true)
-                                                              .Select(c => Math.Round(c.producto.PrecioUnitario, 2) * c.cantidadProducto).Sum(); }
+                                                                .Select(c => Math.Round(c.producto.PrecioUnitario, 2) * c.cantidadProducto).Sum(); }
                                 $@String.Format("{0:0.00}", subtotal)
                             </th>
                         </tr>
@@ -706,7 +711,7 @@
                     </div>
                     <div class="form-group">
                         <!--capturo el id del cupon en el siguiente input para mandarlo guardado
-            <input id="cuponid" asp-for="cuponID" class="form-control" />-->
+                        <input id="cuponid" asp-for="cuponID" class="form-control" />-->
                         <select id="cuponid" class="form-control" asp-for="cuponID" asp-items="ViewBag.cuponID"><option>0</option></select>
                     </div>
                     <div class="form-group">
@@ -715,7 +720,7 @@
                     </div>
                     <div class="form-group">
                         <!--capturo el id del metodo de envio en el siguiente input para mandarlo guardado
-            <input id="metodoEid" asp-for="metodoEnvioID" class="form-control" />-->
+                        <input id="metodoEid" asp-for="metodoEnvioID" class="form-control" />-->
                         <select id="metodoEid" class="form-control" asp-for="metodoEnvioID" asp-items="ViewBag.metodoEnvioID"><option>0</option></select>
 
                     </div>
@@ -738,18 +743,18 @@
                     <input id="finalfactura" class="form-control" />
 
                 </div>
+                
 
-                     
-            <div class="form-group">
-                    <input type="submit" value="Realizar compra" class="btn btn-primary" />     <a class="btn btn-default" asp-action="Index" asp-controller="Carritos"><i class="fas fa-remove"></i> Cancelar</a>
+                <div class="form-group">
+                    <input type="submit" value="Realizar compra" class="btn btn-primary"  />     <a class="btn btn-default" asp-action="Index" asp-controller="Carritos"><i class="fas fa-remove"></i> Cancelar</a>
                 </div>
 
 
-</form>
+        </form>
     </div>
 </div>
 
-   
+
 
 
 

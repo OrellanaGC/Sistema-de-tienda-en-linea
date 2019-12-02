@@ -20,12 +20,14 @@ namespace tiendaOnline.Controllers
         private readonly UserManager<tiendaOnlineUser> _userManager;
         private readonly IProducto _producto;
         private readonly Carrito _carrito;
+        private readonly ApplicationDbContext _context;
 
-        public CarritosController(IProducto producto, Carrito carrito, UserManager<tiendaOnlineUser> userManager)
+        public CarritosController(IProducto producto, Carrito carrito, UserManager<tiendaOnlineUser> userManager, ApplicationDbContext context)
         {
             _carrito = carrito;
             _producto = producto;
             _userManager = userManager;
+            _context = context;
         }
         [Authorize(Roles ="User")]
         public ViewResult Index()
@@ -58,11 +60,10 @@ namespace tiendaOnline.Controllers
         [Authorize(Roles = "User")]
         public async Task<RedirectToActionResult> AgregarCarrito2(int idProducto)
         {
-            var user = await _userManager.GetUserAsync(User);
-
+            var productoCarrito = _context.ProdCarrito.SingleOrDefault(pc => pc.productoID == idProducto);
             var prodSeleccionado = _producto.Productos.FirstOrDefault(p => p.ProductoID == idProducto);
-
-            if (prodSeleccionado != null)
+            
+            if (prodSeleccionado != null && (productoCarrito.cantidadProducto<prodSeleccionado.Existencia))
             {
                 _carrito.AgregarCarrito(prodSeleccionado, 1);
             }
