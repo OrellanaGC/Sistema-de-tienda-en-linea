@@ -1,2 +1,2 @@
-# Sistema_TOO
-Sistema de tienda en linea
+# Sistema de tienda en linea
+Desarrollado en ASP.NET 2017
